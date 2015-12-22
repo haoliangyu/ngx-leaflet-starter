@@ -1,2 +1,2 @@
-# angular2-grunt-starter
-An Angular2 and Grunt minimal project starter
+# angular2-leaflet-starter
+Angular2 + Leaflet minimal project starter
