@@ -1,0 +1,43 @@
+{
+  "name": "angular2-grunt-starter",
+  "version": "0.1.0",
+  "description": "An Angular2 and Grunt minimal project starter",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "lite": "lite-server",
+    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haoliangyu/angular2-grunt-starter.git"
+  },
+  "keywords": [
+    "angular2",
+    "grunt"
+  ],
+  "author": "Haoliang Yu <haholiang.yu@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haoliangyu/angular2-grunt-starter/issues"
+  },
+  "homepage": "https://github.com/haoliangyu/angular2-grunt-starter#readme",
+  "dependencies": {
+    "angular2": "^2.0.0-beta.0",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.3",
+    "reflect-metadata": "^0.1.2",
+    "rxjs": "^5.0.0-beta.0",
+    "zone.js": "^0.5.10"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-less": "^1.1.0",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-ts": "^5.2.0",
+    "time-grunt": "^1.2.2"
+  }
+}
