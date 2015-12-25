@@ -17,7 +17,8 @@ module.exports = function(grunt) {
                     cwd: 'public_src/',
                     src: '**/*.less',
                     dest: 'public/',
-                    ext: '.css'
+                    ext: '.css',
+                    extDot: 'last'
                 }]
             }
         },
@@ -38,11 +39,7 @@ module.exports = function(grunt) {
                 options: {
                     additionalFlags: '--module system --experimentalDecorators --moduleResolution node'
                 },
-                expand: true,
-                cwd: 'public_src/',
-                src: '**/*.ts',
-                dest: 'public/',
-                ext: '.js'
+                src: 'public_src/**/*.ts'
             }
         },
         uglify: {
@@ -55,7 +52,8 @@ module.exports = function(grunt) {
                     cwd: 'public_src/',
                     src: '**/*.js',
                     dest: 'public/',
-                    ext: '.js'
+                    ext: '.js',
+                    extDot: 'last'
                 }]
             }
         },
@@ -72,7 +70,7 @@ module.exports = function(grunt) {
                 src: ['public', '!public/README.md']
             },
             compile: {
-                src: ['public_src/**/*.js', 'public_src/**/*.js.map', '!public_src/system.config/js']
+                src: ['public_src/**/*.js', 'public_src/**/*.js.map', '!public_src/system.config.js']
             }
         },
         watch: {
@@ -107,5 +105,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ts');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['clean:public', 'concat', 'ts', 'clean:compile', 'uglify:scripts', 'less', 'htmlmin']);
+    grunt.registerTask('build', ['clean:public', 'concat', 'ts', 'uglify:scripts', 'clean:compile', 'less', 'htmlmin']);
 };

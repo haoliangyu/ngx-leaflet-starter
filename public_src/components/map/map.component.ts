@@ -1,11 +1,9 @@
 /// <reference path="../../../typings/leaflet/leaflet.d.ts"/>
 
-import {Component, View} from 'angular2/core';
+import {Component} from 'angular2/core';
 
 @Component({
-    selector: 'map'
-})
-@View({
+    selector: 'map',
     templateUrl: 'map.component.html',
     styleUrls: ['map.component.css']
 })

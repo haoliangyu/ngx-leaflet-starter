@@ -6,9 +6,24 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <script src="./libs/scripts.js"></script>
-        <script src="./bootstrap.js"></script>
-        <link rel="stylesheet" type="text/css" href="./libs/styles.css">
+        <script src="libs/scripts.js"></script>
+        <!-- <script src="./bootstrap.js"></script> -->
+        <!-- <script src="./scripts/app.js"></script> -->
+
+        <script>
+            System.config({
+                // defaultJSExtensions: true
+                packages: {
+                  app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                  }
+                }
+            });
+            System.import('app/bootstrap').then(null, console.error.bind(console));
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="libs/styles.css">
     </head>
 
     <body>
