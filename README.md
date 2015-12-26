@@ -6,10 +6,14 @@ An Angular2 + Leaflet project starter.
 
 ## How to start
 
+This project requires [npm](https://www.npmjs.com/) and [tsd](http://definitelytyped.org/tsd/).
+
 1. Run ```npm install``` to install all dependencies.
 
-2. Run ```grunt build``` to build the project.
+2. Run ```tsd install``` to install type definition.
 
-3. Run ```npm start``` to set up the server.
+3. Run ```grunt build``` to build the project.
 
-4. See the app at ```http://localhost:3000```
+4. Run ```npm start``` to set up the server.
+
+5. See the app at ```http://localhost:3000```
