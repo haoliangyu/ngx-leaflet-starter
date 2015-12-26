@@ -2,7 +2,7 @@
 
 An Angular2 + Leaflet project starter.
 
-Check the [project demo](http://haoliangyu.github.io/angular2-leaflet-starter/)
+Check the [app demo](http://haoliangyu.github.io/angular2-leaflet-starter/).
 
 **This project is still under construction and may be buggy.**
 
