@@ -62,7 +62,9 @@ module.exports = function(grunt) {
                 expand: true,
                 cwd: 'public_src/',
                 src: '**/*.html',
-                dest: 'public/'
+                dest: 'public/',
+                ext: '.html',
+                extDot: 'last'
             }
         },
         clean: {

@@ -9,7 +9,7 @@ import {NavigatorComponent} from '../components/navigator/navigator.component'
 @View({
     templateUrl: './app/app.component.html',
     styleUrls: ['./app/app.component.css'],
-    directives: [NavigatorComponent]
+    // directives: [NavigatorComponent]
 })
 export class AppComponent {
     constructor() {
