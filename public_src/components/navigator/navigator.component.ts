@@ -1,4 +1,6 @@
 import {Component, View} from 'angular2/core';
+// import {GeocodingService} from '../../services/geocoding.service';
+// import {Location} from '../../core/location.class';
 
 @Component({
     selector: 'navigator'
@@ -11,5 +13,5 @@ import {Component, View} from 'angular2/core';
     ]
 })
 export class NavigatorComponent {
-
+    // constructor(private _geocoder: GeocodingService) {}
 }

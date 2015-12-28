@@ -23,11 +23,11 @@ module.exports = function(grunt) {
             }
         },
         concat: {
-            styles: {
-                src: externalStyleFiles,
-                dest: 'public/libs/styles.css',
-                nonull: true
-            },
+            // styles: {
+            //     src: externalStyleFiles,
+            //     dest: 'public/libs/styles.css',
+            //     nonull: true
+            // },
             scripts: {
                 src: externalScriptFiles,
                 dest: 'public/libs/scripts.js',
@@ -43,9 +43,11 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
-            libs: {
-                'public/libs/scripts.js': ['public/libs/scripts.js']
-            },
+            // libs: {
+            //     src: 'public/libs/scripts.js',
+            //     dest : externalScriptFiles,
+            //     nonull: true
+            // },
             scripts: {
                 files: [{
                     expand: true,
@@ -55,6 +57,13 @@ module.exports = function(grunt) {
                     ext: '.js',
                     extDot: 'last'
                 }]
+            }
+        },
+        cssmin: {
+            libs: {
+                src : externalStyleFiles,
+                dest: 'public/libs/styles.css',
+                nonull: true
             }
         },
         htmlmin: {
@@ -73,6 +82,15 @@ module.exports = function(grunt) {
             },
             compile: {
                 src: ['public_src/**/*.js', 'public_src/**/*.js.map', '!public_src/system.config.js']
+            }
+        },
+        copy: {
+            font: {
+                expand: true,
+                cwd: 'node_modules/font-awesome/',
+                src: 'fonts/*',
+                dest: 'public',
+                nonull: true
             }
         },
         watch: {
@@ -104,8 +122,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-ts');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['clean:public', 'concat', 'ts', 'uglify:scripts', 'clean:compile', 'less', 'htmlmin']);
+    grunt.registerTask('build', ['clean:public', 'cssmin', 'concat', 'ts', 'uglify', 'clean:compile', 'less', 'htmlmin', 'copy']);
 };
