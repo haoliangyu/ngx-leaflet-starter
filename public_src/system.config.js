@@ -6,6 +6,12 @@ System.config({
         },
         'components/navigator': {
             format: 'register'
+        },
+        'core': {
+            format: 'register'
+        },
+        'services': {
+            format: 'register'
         }
     }
 });
