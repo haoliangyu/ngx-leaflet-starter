@@ -12,14 +12,12 @@ module.exports = function(grunt) {
                 options: {
                     compress: true
                 },
-                files: [{
-                    expand: true,
-                    cwd: 'public_src/',
-                    src: '**/*.less',
-                    dest: 'public/',
-                    ext: '.css',
-                    extDot: 'last'
-                }]
+                expand: true,
+                cwd: 'public_src/',
+                src: '**/*.less',
+                dest: 'public/',
+                ext: '.css',
+                extDot: 'last'
             }
         },
         concat: {
@@ -45,14 +43,16 @@ module.exports = function(grunt) {
                 nonull: true
             },
             scripts: {
-                files: [{
-                    expand: true,
-                    cwd: 'public_src/',
-                    src: '**/*.js',
-                    dest: 'public/',
-                    ext: '.js',
-                    extDot: 'last'
-                }]
+                expand: true,
+                cwd: 'public_src/',
+                src: '**/*.js',
+                dest: 'public/',
+                ext: '.js',
+                extDot: 'last'
+            },
+            config: {
+                src: 'public_src/system.config.js',
+                dest: 'public/system.config.js'
             }
         },
         cssmin: {
@@ -96,6 +96,10 @@ module.exports = function(grunt) {
             libs: {
                 files: ['externalScriptFiles.json', 'externalStyleFiles.json'],
                 tasks: ['concat', 'ulgify:libs', 'cssmin']
+            },
+            config: {
+                files: ['public_src/system.config.js'],
+                tasks: ['uglify:config']
             },
             scripts: {
                 files: ['public_src/**/*.ts'],
