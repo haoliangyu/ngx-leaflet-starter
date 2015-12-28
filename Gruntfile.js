@@ -23,11 +23,7 @@ module.exports = function(grunt) {
             }
         },
         concat: {
-            // styles: {
-            //     src: externalStyleFiles,
-            //     dest: 'public/libs/styles.css',
-            //     nonull: true
-            // },
+            // Scripts need to be concated first, otherwise there will be error.
             scripts: {
                 src: externalScriptFiles,
                 dest: 'public/libs/scripts.js',
@@ -43,11 +39,11 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
-            // libs: {
-            //     src: 'public/libs/scripts.js',
-            //     dest : externalScriptFiles,
-            //     nonull: true
-            // },
+            libs: {
+                dest: 'public/libs/scripts.js',
+                src : 'public/libs/scripts.js',
+                nonull: true
+            },
             scripts: {
                 files: [{
                     expand: true,
@@ -99,7 +95,7 @@ module.exports = function(grunt) {
             },
             libs: {
                 files: ['externalScriptFiles.json', 'externalStyleFiles.json'],
-                tasks: ['concat']
+                tasks: ['concat', 'ulgify:libs', 'cssmin']
             },
             scripts: {
                 files: ['public_src/**/*.ts'],
