@@ -62,16 +62,6 @@ module.exports = function(grunt) {
                 nonull: true
             }
         },
-        htmlmin: {
-            app: {
-                expand: true,
-                cwd: 'public_src/',
-                src: '**/*.html',
-                dest: 'public/',
-                ext: '.html',
-                extDot: 'last'
-            }
-        },
         clean: {
             public: {
                 src: ['public', '!public/README.md']
@@ -87,6 +77,14 @@ module.exports = function(grunt) {
                 src: 'fonts/*',
                 dest: 'public',
                 nonull: true
+            },
+            html: {
+                expand: true,
+                cwd: 'public_src/',
+                src: '**/*.html',
+                dest: 'public/',
+                ext: '.html',
+                extDot: 'last'
             }
         },
         watch: {
@@ -111,12 +109,11 @@ module.exports = function(grunt) {
             },
             html: {
                 files: ['public_src/**/*.html'],
-                tasks: ['htmlmin']
+                tasks: ['copy:html']
             }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -127,5 +124,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ts');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['clean:public', 'cssmin', 'concat', 'ts', 'uglify', 'clean:compile', 'less', 'htmlmin', 'copy']);
+    grunt.registerTask('build', ['clean:public', 'cssmin', 'concat', 'ts', 'uglify', 'clean:compile', 'less', 'copy']);
 };
