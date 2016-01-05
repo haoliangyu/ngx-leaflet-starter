@@ -7,8 +7,8 @@ import {NavigatorComponent} from '../navigator/navigator.component';
     selector: 'app'
 })
 @View({
-    templateUrl: require('./app.component.html'),
-    styleUrls: [
+    template: require('./app.component.html'),
+    styles: [
         require('./app.component.less')
     ],
     directives: [NavigatorComponent]

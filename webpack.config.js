@@ -26,22 +26,22 @@ module.exports = {
     module: {
         loaders: [
             { test: /(\.component|\.service|)\.ts$/, loader: 'ts-loader'},
-            { test: /\.component\.html$/, loader: 'file?name=components/[name].[ext]' },
-            { test: /(\.component|)\.less$/, loader: 'file?name=styles/[name].css!css!less' },
+            { test: /\.component\.html$/, loader: 'raw' },
+            { test: /(\.component|)\.less$/, loader: 'to-string!css!less' },
             { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
             { test: /\.(png|gif|jpg)$/, loader: "file?name=images/[name].[ext]" },
             // For font-awesome, created by Turbo87:
             // https://gist.github.com/Turbo87/e8e941e68308d3b40ef6
-            { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=styles/fonts/[name].[ext]" },
-            { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=styles/fonts/[name].[ext]" },
-            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=styles/fonts/[name].[ext]" },
-            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=styles/fonts/[name].[ext]" },
-            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=styles/fonts/[name].[ext]" }
+            { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=fonts/[name].[ext]" },
+            { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=fonts/[name].[ext]" },
+            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=fonts/[name].[ext]" },
+            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=fonts/[name].[ext]" },
+            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=fonts/[name].[ext]" }
         ],
         noParse: [ path.join(__dirname, 'node_modules', 'angular2', 'bundles') ]
     },
     plugins: [
-        new ExtractTextPlugin("styles/libs.css"),
+        new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             template: path.resolve(srcDir, 'index.html'),
             inject: true

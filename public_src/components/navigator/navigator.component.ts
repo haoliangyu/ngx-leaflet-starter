@@ -7,8 +7,8 @@ import {Location} from '../../core/location.class';
     providers: [GeocodingService]
 })
 @View({
-    templateUrl: require('./navigator.component.html'),
-    styleUrls: [
+    template: require('./navigator.component.html'),
+    styles: [
         require('./navigator.component.less'),
         require('../../styles/main.less')
     ]
