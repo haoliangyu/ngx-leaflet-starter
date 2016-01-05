@@ -6,6 +6,13 @@ Check the [app demo](http://haoliangyu.github.io/angular2-leaflet-starter/).
 
 **This project is still under construction and may be buggy.**
 
+## Things to do
+
+- [x] display map
+- [x] geocoding service
+- [ ] pan to geocoded location
+- [ ] add/remove marker with mouse click
+
 ## How to start
 
 This project requires [npm](https://www.npmjs.com/) and [tsd](http://definitelytyped.org/tsd/).
