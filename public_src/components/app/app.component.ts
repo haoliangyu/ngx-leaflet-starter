@@ -1,14 +1,16 @@
-/// <reference path="../../typings/leaflet/leaflet.d.ts"/>
+/// <reference path="../../../typings/leaflet/leaflet.d.ts"/>
 
 import {Component, View} from 'angular2/core';
-import {NavigatorComponent} from '../components/navigator/navigator.component';
+import {NavigatorComponent} from '../navigator/navigator.component';
 
 @Component({
     selector: 'app'
 })
 @View({
-    templateUrl: './app/app.component.html',
-    styleUrls: ['./app/app.component.css'],
+    templateUrl: require('./app.component.html'),
+    styleUrls: [
+        require('./app.component.less')
+    ],
     directives: [NavigatorComponent]
 })
 export class AppComponent {

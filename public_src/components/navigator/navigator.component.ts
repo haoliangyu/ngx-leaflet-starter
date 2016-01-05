@@ -3,15 +3,16 @@ import {GeocodingService} from '../../services/geocoding.service';
 import {Location} from '../../core/location.class';
 
 @Component({
-    selector: 'navigator'
+    selector: 'navigator',
+    providers: [GeocodingService]
 })
 @View({
-    templateUrl: './components/navigator/navigator.component.html',
+    templateUrl: require('./navigator.component.html'),
     styleUrls: [
-        './components/navigator/navigator.component.css',
-        './styles/main.css'
+        require('./navigator.component.less'),
+        require('../../styles/main.less')
     ]
 })
 export class NavigatorComponent {
-    // constructor(private _geocoder: GeocodingService) {}
+    constructor(private geocoder: GeocodingService) {}
 }

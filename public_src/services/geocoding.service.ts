@@ -1,6 +1,8 @@
 import {Http, Headers} from 'angular2/http';
 import {Location} from '../core/location.class';
+import {Injectable} from 'angular2/core';
 
+@Injectable()
 export class GeocodingService {
 
     constructor(public http: Http) { }
