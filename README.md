@@ -21,8 +21,6 @@ This project requires [npm](https://www.npmjs.com/) and [tsd](http://definitelyt
 
 2. Run ```tsd install``` to install type definition.
 
-3. Run ```grunt build``` to build the project.
+3. Run ```webpack-dev-server``` to build the project.
 
-4. Run ```npm start``` to set up the server.
-
-5. See the app at ```http://localhost:3000```
+5. See the app at ```http://localhost:8080```

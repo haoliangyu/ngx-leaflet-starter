@@ -2,6 +2,7 @@
 
 import {Component, View} from 'angular2/core';
 import {NavigatorComponent} from '../navigator/navigator.component';
+import {MapService} from '../../services/map.service';
 
 @Component({
     selector: 'app'
@@ -14,7 +15,7 @@ import {NavigatorComponent} from '../navigator/navigator.component';
     directives: [NavigatorComponent]
 })
 export class AppComponent {
-    constructor() {
+    constructor(mapService: MapService) {
         var map = new L.Map('map', {
             zoomControl: false,
             center: new L.LatLng(40.731253, -73.996139),
@@ -28,6 +29,8 @@ export class AppComponent {
         var zoomControl = L.control.zoom({
             position: 'topright'
         }).addTo(map);
+        
+        mapService.map = map;
     }
 
 }

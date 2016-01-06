@@ -11,8 +11,8 @@ module.exports = {
     devtool: "source-map",
     debug: true,
     entry: {
-        app: path.resolve(srcDir, 'bootstrap.ts'),
-        libs: path.resolve(srcDir, 'libs.ts')
+        libs: path.resolve(srcDir, 'libs.ts'),
+        app: path.resolve(srcDir, 'bootstrap.ts')
     },
     output: {
         path: outputDir,
