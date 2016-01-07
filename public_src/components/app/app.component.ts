@@ -29,7 +29,7 @@ export class AppComponent {
         var zoomControl = L.control.zoom({
             position: 'topright'
         }).addTo(map);
-        
+
         mapService.map = map;
     }
 

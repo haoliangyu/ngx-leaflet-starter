@@ -24,18 +24,19 @@ export class NavigatorComponent {
         this.address = '';
         this.geocoder = geocoder;
         this.mapService = mapService;
-        console.log(mapService);
     }
 
     goto() {
         if (!this.address) { return;}
 
+        let map = this.mapService;
+        let showErrorMessage = this.showErrorMessage;
+
         this.geocoder.geocode(this.address)
         .subscribe(function(location) {
-            console.log(this.mapService);
-            this.mapService.panTo(location);
+            map.panTo(location);
         }, function(err) {
-            // this.showErrorMessage();
+            showErrorMessage();
             console.error(err);
         });
     }
