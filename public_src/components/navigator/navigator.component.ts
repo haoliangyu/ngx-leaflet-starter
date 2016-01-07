@@ -29,15 +29,12 @@ export class NavigatorComponent {
     goto() {
         if (!this.address) { return;}
 
-        let map = this.mapService;
-        let showErrorMessage = this.showErrorMessage;
-
         this.geocoder.geocode(this.address)
-        .subscribe(function(location) {
-            map.panTo(location);
-        }, function(err) {
-            showErrorMessage();
-            console.error(err);
+        .subscribe(location => {
+            this.mapService.panTo(location);
+        }, error => {
+            this.showErrorMessage();
+            console.error(error);
         });
     }
 
