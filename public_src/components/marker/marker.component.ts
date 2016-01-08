@@ -30,11 +30,15 @@ export class MarkerComponent {
         this.removing = false;
         this.markers = [];
 
-        L.Icon.Default.imagePath = '../../../node_modules/leaflet/dist/images';
-
         this.map.on('click', (e: LeafletMouseEvent) => {
             if (this.editing) {
-                let marker = L.marker(e.latlng, { draggable: true }).addTo(this.map);
+                let marker = L.marker(e.latlng, {
+                    icon: L.icon({
+                        iconUrl: require('../../../node_modules/leaflet/dist/images/marker-icon.png'),
+                        shadowUrl: require('../../../node_modules/leaflet/dist/images/marker-shadow.png')
+                    }),
+                    draggable: true
+                }).addTo(this.map);
                 this.markers.push(marker);
             }
 
