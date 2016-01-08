@@ -1,14 +1,6 @@
 <input class="on-map" type="text" placeholder="Enter a place to go..."
  [(ngModel)]="address" (keyup.enter)="goto()">
 
- <a id="goto" class="btn btn-default on-map" href="#" title="Goto Place" (click)="goto()">
-     <i class="fa fa-arrow-right fa-lg">
- </i></a>
-
-<a id="add-marker" class="btn btn-default on-map" href="#" title="Add Marker">
-    <i class="fa fa-map-marker fa-lg">
-</i></a>
-
-<a id="remove-marker" class="btn btn-default on-map" href="#" title="Remove Marker">
-    <i class="fa fa-trash fa-lg">
-</i></a>
+ <button id="goto" class="btn btn-primary on-map" href="#" title="Goto Place" (click)="goto()">
+     <i class="fa fa-arrow-right fa">
+ </i></button>

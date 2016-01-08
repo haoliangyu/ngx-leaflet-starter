@@ -4,6 +4,7 @@ import {Component, View} from 'angular2/core';
 import {GeocodingService} from '../../services/geocoding.service';
 import {MapService} from '../../services/map.service';
 import {Location} from '../../core/location.class';
+import {Map} from 'leaflet';
 
 @Component({
     selector: 'navigator'
@@ -18,12 +19,12 @@ import {Location} from '../../core/location.class';
 export class NavigatorComponent {
     address: string;
     geocoder: GeocodingService;
-    mapService: MapService;
+    map: Map;
 
     constructor(geocoder: GeocodingService, mapService: MapService) {
         this.address = '';
         this.geocoder = geocoder;
-        this.mapService = mapService;
+        this.map = mapService.map;
     }
 
     goto() {
@@ -31,14 +32,10 @@ export class NavigatorComponent {
 
         this.geocoder.geocode(this.address)
         .subscribe(location => {
-            this.mapService.panTo(location);
+            this.map.panTo([location.latitude, location.longitude]);
+            this.address = location.address;
         }, error => {
-            this.showErrorMessage();
             console.error(error);
         });
-    }
-
-    showErrorMessage() {
-
     }
 }

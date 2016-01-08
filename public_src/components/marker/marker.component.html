@@ -1,0 +1,9 @@
+<button id="add-marker" class="btn btn-default on-map" [ngClass]="{'btn-default': !editing, 'btn-primary': editing}"
+        title="Add Marker" (click)="toggleEditing()" btnCheckbox>
+    <i class="fa fa-map-marker fa">
+</i></button>
+
+<button id="remove-marker" class="btn on-map" [ngClass]="{'btn-default': !removing, 'btn-primary': removing}"
+        title="Remove Marker" (click)="toggleRemoving()" btnCheckbox>
+    <i class="fa fa-trash fa">
+</i></button>

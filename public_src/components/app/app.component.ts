@@ -2,6 +2,7 @@
 
 import {Component, View} from 'angular2/core';
 import {NavigatorComponent} from '../navigator/navigator.component';
+import {MarkerComponent} from '../marker/marker.component';
 import {MapService} from '../../services/map.service';
 
 @Component({
@@ -12,7 +13,7 @@ import {MapService} from '../../services/map.service';
     styles: [
         require('./app.component.less')
     ],
-    directives: [NavigatorComponent]
+    directives: [NavigatorComponent, MarkerComponent]
 })
 export class AppComponent {
     constructor(mapService: MapService) {

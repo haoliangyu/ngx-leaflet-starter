@@ -7,10 +7,4 @@ import {Map} from 'leaflet';
 @Injectable()
 export class MapService {
     map: Map;
-
-    panTo(location: Location) {
-        if (!this.map) { return; }
-
-        this.map.panTo([location.latitude, location.longitude]);
-    }
 }
