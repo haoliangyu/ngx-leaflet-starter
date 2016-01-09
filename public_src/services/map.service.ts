@@ -7,4 +7,11 @@ import {Map} from 'leaflet';
 @Injectable()
 export class MapService {
     map: Map;
+
+    disableMouseEvent(tag: string) {
+        var html = L.DomUtil.get(tag);
+
+        L.DomEvent.disableClickPropagation(html);
+        L.DomEvent.on(html, 'mousewheel', L.DomEvent.stopPropagation);
+    };
 }

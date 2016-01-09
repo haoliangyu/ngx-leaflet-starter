@@ -25,6 +25,9 @@ export class NavigatorComponent {
         this.address = '';
         this.geocoder = geocoder;
         this.map = mapService.map;
+
+        mapService.disableMouseEvent('goto');
+        mapService.disableMouseEvent('place-input');
     }
 
     goto() {

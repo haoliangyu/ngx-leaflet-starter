@@ -30,6 +30,9 @@ export class MarkerComponent {
         this.removing = false;
         this.markers = [];
 
+        mapService.disableMouseEvent('add-marker');
+        mapService.disableMouseEvent('remove-marker');
+
         this.map.on('click', (e: LeafletMouseEvent) => {
             if (this.editing) {
                 let marker = L.marker(e.latlng, {
