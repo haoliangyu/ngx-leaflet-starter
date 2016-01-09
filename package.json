@@ -23,7 +23,6 @@
   "homepage": "https://github.com/haoliangyu/angular2-grunt-starter#readme",
   "dependencies": {
     "angular2": "^2.0.0-beta.0",
-    "angular2-modal": "0.0.1",
     "bootstrap": "^3.3.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",

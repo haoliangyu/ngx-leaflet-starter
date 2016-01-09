@@ -22,14 +22,13 @@ export class AppComponent {
             center: new L.LatLng(40.731253, -73.996139),
             zoom: 12,
             minZoom: 4,
-            maxZoom: 19
+            maxZoom: 19,
+            layers: [mapService.baseMaps.OpenStreetMap]
         });
-        var baseMap = new L.TileLayer("http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
-        	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
-        }).addTo(map);
-        var zoomControl = L.control.zoom({
-            position: 'topright'
-        }).addTo(map);
+
+        L.control.zoom({ position: 'topright' }).addTo(map);
+        L.control.layers(mapService.baseMaps).addTo(map);
+        L.control.scale().addTo(map);
 
         mapService.map = map;
     }

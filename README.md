@@ -1,21 +1,18 @@
 # Angular2-Leaflet-Starter
 
-An Angular2 + Leaflet project starter.
+A web mapping application starter based on Angular 2 and Leaflet. This project demo includes basic mapping functions:
 
-Check the [app demo](http://haoliangyu.github.io/angular2-leaflet-starter/).
+- [x] Display base maps from different sources
 
-**This project is still under construction and may be buggy.**
+- [x] Geocode address and move to result location
 
-## Things to do
+- [x] Add/remove markers on the map
 
-- [x] display map
-- [x] geocoding service
-- [x] pan to geocoded location
-- [ ] add/remove marker with mouse click
+See how it works at [demo page](http://haoliangyu.github.io/angular2-leaflet-starter/).
 
-## How to start
+## How to develop
 
-This project requires [npm](https://www.npmjs.com/) and [tsd](http://definitelytyped.org/tsd/).
+This project requires [npm](https://www.npmjs.com/), [tsd](http://definitelytyped.org/tsd/), and [webpack-dev-server](https://webpack.github.io/).
 
 1. Run ```npm install``` to install all dependencies.
 
