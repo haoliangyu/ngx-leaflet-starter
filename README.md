@@ -1,5 +1,7 @@
 # Angular2-Leaflet-Starter
 
+**Currently this app will break when using [Angular 2 beta.1](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-beta1-catamorphic-involution-2016-01-08). Please use beta.0 to build the project.**
+
 A web mapping application starter based on Angular 2 and Leaflet. This project demo includes basic mapping functions:
 
 - [x] Display base maps from different sources
