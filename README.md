@@ -4,6 +4,8 @@ A web mapping application starter based on Angular 2 and Leaflet. This project d
 
 - [x] Display base maps from different sources
 
+- [x] Initialize map with client's location
+
 - [x] Geocode address and move to result location
 
 - [x] Add/remove markers on the map
