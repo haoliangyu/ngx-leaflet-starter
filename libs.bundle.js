@@ -1,4 +1,9238 @@
-!function(t){function e(n){if(i[n])return i[n].exports;var o=i[n]={exports:{},id:n,loaded:!1};return t[n].call(o.exports,o,o.exports,e),o.loaded=!0,o.exports}var i={};return e.m=t,e.c=i,e.p="",e(0)}({0:function(t,e,i){i(243),i(183),i(238),i(239),i(240)},183:function(t,e){/**
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	/// <reference path="../typings/leaflet/leaflet.d.ts"/>
+	__webpack_require__(283);
+	__webpack_require__(284);
+	__webpack_require__(285);
+	__webpack_require__(294);
+	__webpack_require__(302);
+
+
+/***/ },
+
+/***/ 283:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+	 Leaflet, a JavaScript library for mobile-friendly interactive maps. http://leafletjs.com
+	 (c) 2010-2013, Vladimir Agafonkin
+	 (c) 2010-2011, CloudMade
+	*/
+	(function (window, document, undefined) {
+	var oldL = window.L,
+	    L = {};
+	
+	L.version = '0.7.7';
+	
+	// define Leaflet for Node module pattern loaders, including Browserify
+	if (typeof module === 'object' && typeof module.exports === 'object') {
+		module.exports = L;
+	
+	// define Leaflet as an AMD module
+	} else if (true) {
+		!(__WEBPACK_AMD_DEFINE_FACTORY__ = (L), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	}
+	
+	// define Leaflet as a global L variable, saving the original L to restore later if needed
+	
+	L.noConflict = function () {
+		window.L = oldL;
+		return this;
+	};
+	
+	window.L = L;
+	
+	
+	/*
+	 * L.Util contains various utility functions used throughout Leaflet code.
+	 */
+	
+	L.Util = {
+		extend: function (dest) { // (Object[, Object, ...]) ->
+			var sources = Array.prototype.slice.call(arguments, 1),
+			    i, j, len, src;
+	
+			for (j = 0, len = sources.length; j < len; j++) {
+				src = sources[j] || {};
+				for (i in src) {
+					if (src.hasOwnProperty(i)) {
+						dest[i] = src[i];
+					}
+				}
+			}
+			return dest;
+		},
+	
+		bind: function (fn, obj) { // (Function, Object) -> Function
+			var args = arguments.length > 2 ? Array.prototype.slice.call(arguments, 2) : null;
+			return function () {
+				return fn.apply(obj, args || arguments);
+			};
+		},
+	
+		stamp: (function () {
+			var lastId = 0,
+			    key = '_leaflet_id';
+			return function (obj) {
+				obj[key] = obj[key] || ++lastId;
+				return obj[key];
+			};
+		}()),
+	
+		invokeEach: function (obj, method, context) {
+			var i, args;
+	
+			if (typeof obj === 'object') {
+				args = Array.prototype.slice.call(arguments, 3);
+	
+				for (i in obj) {
+					method.apply(context, [i, obj[i]].concat(args));
+				}
+				return true;
+			}
+	
+			return false;
+		},
+	
+		limitExecByInterval: function (fn, time, context) {
+			var lock, execOnUnlock;
+	
+			return function wrapperFn() {
+				var args = arguments;
+	
+				if (lock) {
+					execOnUnlock = true;
+					return;
+				}
+	
+				lock = true;
+	
+				setTimeout(function () {
+					lock = false;
+	
+					if (execOnUnlock) {
+						wrapperFn.apply(context, args);
+						execOnUnlock = false;
+					}
+				}, time);
+	
+				fn.apply(context, args);
+			};
+		},
+	
+		falseFn: function () {
+			return false;
+		},
+	
+		formatNum: function (num, digits) {
+			var pow = Math.pow(10, digits || 5);
+			return Math.round(num * pow) / pow;
+		},
+	
+		trim: function (str) {
+			return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, '');
+		},
+	
+		splitWords: function (str) {
+			return L.Util.trim(str).split(/\s+/);
+		},
+	
+		setOptions: function (obj, options) {
+			obj.options = L.extend({}, obj.options, options);
+			return obj.options;
+		},
+	
+		getParamString: function (obj, existingUrl, uppercase) {
+			var params = [];
+			for (var i in obj) {
+				params.push(encodeURIComponent(uppercase ? i.toUpperCase() : i) + '=' + encodeURIComponent(obj[i]));
+			}
+			return ((!existingUrl || existingUrl.indexOf('?') === -1) ? '?' : '&') + params.join('&');
+		},
+		template: function (str, data) {
+			return str.replace(/\{ *([\w_]+) *\}/g, function (str, key) {
+				var value = data[key];
+				if (value === undefined) {
+					throw new Error('No value provided for variable ' + str);
+				} else if (typeof value === 'function') {
+					value = value(data);
+				}
+				return value;
+			});
+		},
+	
+		isArray: Array.isArray || function (obj) {
+			return (Object.prototype.toString.call(obj) === '[object Array]');
+		},
+	
+		emptyImageUrl: 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
+	};
+	
+	(function () {
+	
+		// inspired by http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+	
+		function getPrefixed(name) {
+			var i, fn,
+			    prefixes = ['webkit', 'moz', 'o', 'ms'];
+	
+			for (i = 0; i < prefixes.length && !fn; i++) {
+				fn = window[prefixes[i] + name];
+			}
+	
+			return fn;
+		}
+	
+		var lastTime = 0;
+	
+		function timeoutDefer(fn) {
+			var time = +new Date(),
+			    timeToCall = Math.max(0, 16 - (time - lastTime));
+	
+			lastTime = time + timeToCall;
+			return window.setTimeout(fn, timeToCall);
+		}
+	
+		var requestFn = window.requestAnimationFrame ||
+		        getPrefixed('RequestAnimationFrame') || timeoutDefer;
+	
+		var cancelFn = window.cancelAnimationFrame ||
+		        getPrefixed('CancelAnimationFrame') ||
+		        getPrefixed('CancelRequestAnimationFrame') ||
+		        function (id) { window.clearTimeout(id); };
+	
+	
+		L.Util.requestAnimFrame = function (fn, context, immediate, element) {
+			fn = L.bind(fn, context);
+	
+			if (immediate && requestFn === timeoutDefer) {
+				fn();
+			} else {
+				return requestFn.call(window, fn, element);
+			}
+		};
+	
+		L.Util.cancelAnimFrame = function (id) {
+			if (id) {
+				cancelFn.call(window, id);
+			}
+		};
+	
+	}());
+	
+	// shortcuts for most used utility functions
+	L.extend = L.Util.extend;
+	L.bind = L.Util.bind;
+	L.stamp = L.Util.stamp;
+	L.setOptions = L.Util.setOptions;
+	
+	
+	/*
+	 * L.Class powers the OOP facilities of the library.
+	 * Thanks to John Resig and Dean Edwards for inspiration!
+	 */
+	
+	L.Class = function () {};
+	
+	L.Class.extend = function (props) {
+	
+		// extended class with the new prototype
+		var NewClass = function () {
+	
+			// call the constructor
+			if (this.initialize) {
+				this.initialize.apply(this, arguments);
+			}
+	
+			// call all constructor hooks
+			if (this._initHooks) {
+				this.callInitHooks();
+			}
+		};
+	
+		// instantiate class without calling constructor
+		var F = function () {};
+		F.prototype = this.prototype;
+	
+		var proto = new F();
+		proto.constructor = NewClass;
+	
+		NewClass.prototype = proto;
+	
+		//inherit parent's statics
+		for (var i in this) {
+			if (this.hasOwnProperty(i) && i !== 'prototype') {
+				NewClass[i] = this[i];
+			}
+		}
+	
+		// mix static properties into the class
+		if (props.statics) {
+			L.extend(NewClass, props.statics);
+			delete props.statics;
+		}
+	
+		// mix includes into the prototype
+		if (props.includes) {
+			L.Util.extend.apply(null, [proto].concat(props.includes));
+			delete props.includes;
+		}
+	
+		// merge options
+		if (props.options && proto.options) {
+			props.options = L.extend({}, proto.options, props.options);
+		}
+	
+		// mix given properties into the prototype
+		L.extend(proto, props);
+	
+		proto._initHooks = [];
+	
+		var parent = this;
+		// jshint camelcase: false
+		NewClass.__super__ = parent.prototype;
+	
+		// add method for calling all hooks
+		proto.callInitHooks = function () {
+	
+			if (this._initHooksCalled) { return; }
+	
+			if (parent.prototype.callInitHooks) {
+				parent.prototype.callInitHooks.call(this);
+			}
+	
+			this._initHooksCalled = true;
+	
+			for (var i = 0, len = proto._initHooks.length; i < len; i++) {
+				proto._initHooks[i].call(this);
+			}
+		};
+	
+		return NewClass;
+	};
+	
+	
+	// method for adding properties to prototype
+	L.Class.include = function (props) {
+		L.extend(this.prototype, props);
+	};
+	
+	// merge new default options to the Class
+	L.Class.mergeOptions = function (options) {
+		L.extend(this.prototype.options, options);
+	};
+	
+	// add a constructor hook
+	L.Class.addInitHook = function (fn) { // (Function) || (String, args...)
+		var args = Array.prototype.slice.call(arguments, 1);
+	
+		var init = typeof fn === 'function' ? fn : function () {
+			this[fn].apply(this, args);
+		};
+	
+		this.prototype._initHooks = this.prototype._initHooks || [];
+		this.prototype._initHooks.push(init);
+	};
+	
+	
+	/*
+	 * L.Mixin.Events is used to add custom events functionality to Leaflet classes.
+	 */
+	
+	var eventsKey = '_leaflet_events';
+	
+	L.Mixin = {};
+	
+	L.Mixin.Events = {
+	
+		addEventListener: function (types, fn, context) { // (String, Function[, Object]) or (Object[, Object])
+	
+			// types can be a map of types/handlers
+			if (L.Util.invokeEach(types, this.addEventListener, this, fn, context)) { return this; }
+	
+			var events = this[eventsKey] = this[eventsKey] || {},
+			    contextId = context && context !== this && L.stamp(context),
+			    i, len, event, type, indexKey, indexLenKey, typeIndex;
+	
+			// types can be a string of space-separated words
+			types = L.Util.splitWords(types);
+	
+			for (i = 0, len = types.length; i < len; i++) {
+				event = {
+					action: fn,
+					context: context || this
+				};
+				type = types[i];
+	
+				if (contextId) {
+					// store listeners of a particular context in a separate hash (if it has an id)
+					// gives a major performance boost when removing thousands of map layers
+	
+					indexKey = type + '_idx';
+					indexLenKey = indexKey + '_len';
+	
+					typeIndex = events[indexKey] = events[indexKey] || {};
+	
+					if (!typeIndex[contextId]) {
+						typeIndex[contextId] = [];
+	
+						// keep track of the number of keys in the index to quickly check if it's empty
+						events[indexLenKey] = (events[indexLenKey] || 0) + 1;
+					}
+	
+					typeIndex[contextId].push(event);
+	
+	
+				} else {
+					events[type] = events[type] || [];
+					events[type].push(event);
+				}
+			}
+	
+			return this;
+		},
+	
+		hasEventListeners: function (type) { // (String) -> Boolean
+			var events = this[eventsKey];
+			return !!events && ((type in events && events[type].length > 0) ||
+			                    (type + '_idx' in events && events[type + '_idx_len'] > 0));
+		},
+	
+		removeEventListener: function (types, fn, context) { // ([String, Function, Object]) or (Object[, Object])
+	
+			if (!this[eventsKey]) {
+				return this;
+			}
+	
+			if (!types) {
+				return this.clearAllEventListeners();
+			}
+	
+			if (L.Util.invokeEach(types, this.removeEventListener, this, fn, context)) { return this; }
+	
+			var events = this[eventsKey],
+			    contextId = context && context !== this && L.stamp(context),
+			    i, len, type, listeners, j, indexKey, indexLenKey, typeIndex, removed;
+	
+			types = L.Util.splitWords(types);
+	
+			for (i = 0, len = types.length; i < len; i++) {
+				type = types[i];
+				indexKey = type + '_idx';
+				indexLenKey = indexKey + '_len';
+	
+				typeIndex = events[indexKey];
+	
+				if (!fn) {
+					// clear all listeners for a type if function isn't specified
+					delete events[type];
+					delete events[indexKey];
+					delete events[indexLenKey];
+	
+				} else {
+					listeners = contextId && typeIndex ? typeIndex[contextId] : events[type];
+	
+					if (listeners) {
+						for (j = listeners.length - 1; j >= 0; j--) {
+							if ((listeners[j].action === fn) && (!context || (listeners[j].context === context))) {
+								removed = listeners.splice(j, 1);
+								// set the old action to a no-op, because it is possible
+								// that the listener is being iterated over as part of a dispatch
+								removed[0].action = L.Util.falseFn;
+							}
+						}
+	
+						if (context && typeIndex && (listeners.length === 0)) {
+							delete typeIndex[contextId];
+							events[indexLenKey]--;
+						}
+					}
+				}
+			}
+	
+			return this;
+		},
+	
+		clearAllEventListeners: function () {
+			delete this[eventsKey];
+			return this;
+		},
+	
+		fireEvent: function (type, data) { // (String[, Object])
+			if (!this.hasEventListeners(type)) {
+				return this;
+			}
+	
+			var event = L.Util.extend({}, data, { type: type, target: this });
+	
+			var events = this[eventsKey],
+			    listeners, i, len, typeIndex, contextId;
+	
+			if (events[type]) {
+				// make sure adding/removing listeners inside other listeners won't cause infinite loop
+				listeners = events[type].slice();
+	
+				for (i = 0, len = listeners.length; i < len; i++) {
+					listeners[i].action.call(listeners[i].context, event);
+				}
+			}
+	
+			// fire event for the context-indexed listeners as well
+			typeIndex = events[type + '_idx'];
+	
+			for (contextId in typeIndex) {
+				listeners = typeIndex[contextId].slice();
+	
+				if (listeners) {
+					for (i = 0, len = listeners.length; i < len; i++) {
+						listeners[i].action.call(listeners[i].context, event);
+					}
+				}
+			}
+	
+			return this;
+		},
+	
+		addOneTimeEventListener: function (types, fn, context) {
+	
+			if (L.Util.invokeEach(types, this.addOneTimeEventListener, this, fn, context)) { return this; }
+	
+			var handler = L.bind(function () {
+				this
+				    .removeEventListener(types, fn, context)
+				    .removeEventListener(types, handler, context);
+			}, this);
+	
+			return this
+			    .addEventListener(types, fn, context)
+			    .addEventListener(types, handler, context);
+		}
+	};
+	
+	L.Mixin.Events.on = L.Mixin.Events.addEventListener;
+	L.Mixin.Events.off = L.Mixin.Events.removeEventListener;
+	L.Mixin.Events.once = L.Mixin.Events.addOneTimeEventListener;
+	L.Mixin.Events.fire = L.Mixin.Events.fireEvent;
+	
+	
+	/*
+	 * L.Browser handles different browser and feature detections for internal Leaflet use.
+	 */
+	
+	(function () {
+	
+		var ie = 'ActiveXObject' in window,
+			ielt9 = ie && !document.addEventListener,
+	
+		    // terrible browser detection to work around Safari / iOS / Android browser bugs
+		    ua = navigator.userAgent.toLowerCase(),
+		    webkit = ua.indexOf('webkit') !== -1,
+		    chrome = ua.indexOf('chrome') !== -1,
+		    phantomjs = ua.indexOf('phantom') !== -1,
+		    android = ua.indexOf('android') !== -1,
+		    android23 = ua.search('android [23]') !== -1,
+			gecko = ua.indexOf('gecko') !== -1,
+	
+		    mobile = typeof orientation !== undefined + '',
+		    msPointer = !window.PointerEvent && window.MSPointerEvent,
+			pointer = (window.PointerEvent && window.navigator.pointerEnabled) ||
+					  msPointer,
+		    retina = ('devicePixelRatio' in window && window.devicePixelRatio > 1) ||
+		             ('matchMedia' in window && window.matchMedia('(min-resolution:144dpi)') &&
+		              window.matchMedia('(min-resolution:144dpi)').matches),
+	
+		    doc = document.documentElement,
+		    ie3d = ie && ('transition' in doc.style),
+		    webkit3d = ('WebKitCSSMatrix' in window) && ('m11' in new window.WebKitCSSMatrix()) && !android23,
+		    gecko3d = 'MozPerspective' in doc.style,
+		    opera3d = 'OTransition' in doc.style,
+		    any3d = !window.L_DISABLE_3D && (ie3d || webkit3d || gecko3d || opera3d) && !phantomjs;
+	
+		var touch = !window.L_NO_TOUCH && !phantomjs && (pointer || 'ontouchstart' in window ||
+			(window.DocumentTouch && document instanceof window.DocumentTouch));
+	
+		L.Browser = {
+			ie: ie,
+			ielt9: ielt9,
+			webkit: webkit,
+			gecko: gecko && !webkit && !window.opera && !ie,
+	
+			android: android,
+			android23: android23,
+	
+			chrome: chrome,
+	
+			ie3d: ie3d,
+			webkit3d: webkit3d,
+			gecko3d: gecko3d,
+			opera3d: opera3d,
+			any3d: any3d,
+	
+			mobile: mobile,
+			mobileWebkit: mobile && webkit,
+			mobileWebkit3d: mobile && webkit3d,
+			mobileOpera: mobile && window.opera,
+	
+			touch: touch,
+			msPointer: msPointer,
+			pointer: pointer,
+	
+			retina: retina
+		};
+	
+	}());
+	
+	
+	/*
+	 * L.Point represents a point with x and y coordinates.
+	 */
+	
+	L.Point = function (/*Number*/ x, /*Number*/ y, /*Boolean*/ round) {
+		this.x = (round ? Math.round(x) : x);
+		this.y = (round ? Math.round(y) : y);
+	};
+	
+	L.Point.prototype = {
+	
+		clone: function () {
+			return new L.Point(this.x, this.y);
+		},
+	
+		// non-destructive, returns a new point
+		add: function (point) {
+			return this.clone()._add(L.point(point));
+		},
+	
+		// destructive, used directly for performance in situations where it's safe to modify existing point
+		_add: function (point) {
+			this.x += point.x;
+			this.y += point.y;
+			return this;
+		},
+	
+		subtract: function (point) {
+			return this.clone()._subtract(L.point(point));
+		},
+	
+		_subtract: function (point) {
+			this.x -= point.x;
+			this.y -= point.y;
+			return this;
+		},
+	
+		divideBy: function (num) {
+			return this.clone()._divideBy(num);
+		},
+	
+		_divideBy: function (num) {
+			this.x /= num;
+			this.y /= num;
+			return this;
+		},
+	
+		multiplyBy: function (num) {
+			return this.clone()._multiplyBy(num);
+		},
+	
+		_multiplyBy: function (num) {
+			this.x *= num;
+			this.y *= num;
+			return this;
+		},
+	
+		round: function () {
+			return this.clone()._round();
+		},
+	
+		_round: function () {
+			this.x = Math.round(this.x);
+			this.y = Math.round(this.y);
+			return this;
+		},
+	
+		floor: function () {
+			return this.clone()._floor();
+		},
+	
+		_floor: function () {
+			this.x = Math.floor(this.x);
+			this.y = Math.floor(this.y);
+			return this;
+		},
+	
+		distanceTo: function (point) {
+			point = L.point(point);
+	
+			var x = point.x - this.x,
+			    y = point.y - this.y;
+	
+			return Math.sqrt(x * x + y * y);
+		},
+	
+		equals: function (point) {
+			point = L.point(point);
+	
+			return point.x === this.x &&
+			       point.y === this.y;
+		},
+	
+		contains: function (point) {
+			point = L.point(point);
+	
+			return Math.abs(point.x) <= Math.abs(this.x) &&
+			       Math.abs(point.y) <= Math.abs(this.y);
+		},
+	
+		toString: function () {
+			return 'Point(' +
+			        L.Util.formatNum(this.x) + ', ' +
+			        L.Util.formatNum(this.y) + ')';
+		}
+	};
+	
+	L.point = function (x, y, round) {
+		if (x instanceof L.Point) {
+			return x;
+		}
+		if (L.Util.isArray(x)) {
+			return new L.Point(x[0], x[1]);
+		}
+		if (x === undefined || x === null) {
+			return x;
+		}
+		return new L.Point(x, y, round);
+	};
+	
+	
+	/*
+	 * L.Bounds represents a rectangular area on the screen in pixel coordinates.
+	 */
+	
+	L.Bounds = function (a, b) { //(Point, Point) or Point[]
+		if (!a) { return; }
+	
+		var points = b ? [a, b] : a;
+	
+		for (var i = 0, len = points.length; i < len; i++) {
+			this.extend(points[i]);
+		}
+	};
+	
+	L.Bounds.prototype = {
+		// extend the bounds to contain the given point
+		extend: function (point) { // (Point)
+			point = L.point(point);
+	
+			if (!this.min && !this.max) {
+				this.min = point.clone();
+				this.max = point.clone();
+			} else {
+				this.min.x = Math.min(point.x, this.min.x);
+				this.max.x = Math.max(point.x, this.max.x);
+				this.min.y = Math.min(point.y, this.min.y);
+				this.max.y = Math.max(point.y, this.max.y);
+			}
+			return this;
+		},
+	
+		getCenter: function (round) { // (Boolean) -> Point
+			return new L.Point(
+			        (this.min.x + this.max.x) / 2,
+			        (this.min.y + this.max.y) / 2, round);
+		},
+	
+		getBottomLeft: function () { // -> Point
+			return new L.Point(this.min.x, this.max.y);
+		},
+	
+		getTopRight: function () { // -> Point
+			return new L.Point(this.max.x, this.min.y);
+		},
+	
+		getSize: function () {
+			return this.max.subtract(this.min);
+		},
+	
+		contains: function (obj) { // (Bounds) or (Point) -> Boolean
+			var min, max;
+	
+			if (typeof obj[0] === 'number' || obj instanceof L.Point) {
+				obj = L.point(obj);
+			} else {
+				obj = L.bounds(obj);
+			}
+	
+			if (obj instanceof L.Bounds) {
+				min = obj.min;
+				max = obj.max;
+			} else {
+				min = max = obj;
+			}
+	
+			return (min.x >= this.min.x) &&
+			       (max.x <= this.max.x) &&
+			       (min.y >= this.min.y) &&
+			       (max.y <= this.max.y);
+		},
+	
+		intersects: function (bounds) { // (Bounds) -> Boolean
+			bounds = L.bounds(bounds);
+	
+			var min = this.min,
+			    max = this.max,
+			    min2 = bounds.min,
+			    max2 = bounds.max,
+			    xIntersects = (max2.x >= min.x) && (min2.x <= max.x),
+			    yIntersects = (max2.y >= min.y) && (min2.y <= max.y);
+	
+			return xIntersects && yIntersects;
+		},
+	
+		isValid: function () {
+			return !!(this.min && this.max);
+		}
+	};
+	
+	L.bounds = function (a, b) { // (Bounds) or (Point, Point) or (Point[])
+		if (!a || a instanceof L.Bounds) {
+			return a;
+		}
+		return new L.Bounds(a, b);
+	};
+	
+	
+	/*
+	 * L.Transformation is an utility class to perform simple point transformations through a 2d-matrix.
+	 */
+	
+	L.Transformation = function (a, b, c, d) {
+		this._a = a;
+		this._b = b;
+		this._c = c;
+		this._d = d;
+	};
+	
+	L.Transformation.prototype = {
+		transform: function (point, scale) { // (Point, Number) -> Point
+			return this._transform(point.clone(), scale);
+		},
+	
+		// destructive transform (faster)
+		_transform: function (point, scale) {
+			scale = scale || 1;
+			point.x = scale * (this._a * point.x + this._b);
+			point.y = scale * (this._c * point.y + this._d);
+			return point;
+		},
+	
+		untransform: function (point, scale) {
+			scale = scale || 1;
+			return new L.Point(
+			        (point.x / scale - this._b) / this._a,
+			        (point.y / scale - this._d) / this._c);
+		}
+	};
+	
+	
+	/*
+	 * L.DomUtil contains various utility functions for working with DOM.
+	 */
+	
+	L.DomUtil = {
+		get: function (id) {
+			return (typeof id === 'string' ? document.getElementById(id) : id);
+		},
+	
+		getStyle: function (el, style) {
+	
+			var value = el.style[style];
+	
+			if (!value && el.currentStyle) {
+				value = el.currentStyle[style];
+			}
+	
+			if ((!value || value === 'auto') && document.defaultView) {
+				var css = document.defaultView.getComputedStyle(el, null);
+				value = css ? css[style] : null;
+			}
+	
+			return value === 'auto' ? null : value;
+		},
+	
+		getViewportOffset: function (element) {
+	
+			var top = 0,
+			    left = 0,
+			    el = element,
+			    docBody = document.body,
+			    docEl = document.documentElement,
+			    pos;
+	
+			do {
+				top  += el.offsetTop  || 0;
+				left += el.offsetLeft || 0;
+	
+				//add borders
+				top += parseInt(L.DomUtil.getStyle(el, 'borderTopWidth'), 10) || 0;
+				left += parseInt(L.DomUtil.getStyle(el, 'borderLeftWidth'), 10) || 0;
+	
+				pos = L.DomUtil.getStyle(el, 'position');
+	
+				if (el.offsetParent === docBody && pos === 'absolute') { break; }
+	
+				if (pos === 'fixed') {
+					top  += docBody.scrollTop  || docEl.scrollTop  || 0;
+					left += docBody.scrollLeft || docEl.scrollLeft || 0;
+					break;
+				}
+	
+				if (pos === 'relative' && !el.offsetLeft) {
+					var width = L.DomUtil.getStyle(el, 'width'),
+					    maxWidth = L.DomUtil.getStyle(el, 'max-width'),
+					    r = el.getBoundingClientRect();
+	
+					if (width !== 'none' || maxWidth !== 'none') {
+						left += r.left + el.clientLeft;
+					}
+	
+					//calculate full y offset since we're breaking out of the loop
+					top += r.top + (docBody.scrollTop  || docEl.scrollTop  || 0);
+	
+					break;
+				}
+	
+				el = el.offsetParent;
+	
+			} while (el);
+	
+			el = element;
+	
+			do {
+				if (el === docBody) { break; }
+	
+				top  -= el.scrollTop  || 0;
+				left -= el.scrollLeft || 0;
+	
+				el = el.parentNode;
+			} while (el);
+	
+			return new L.Point(left, top);
+		},
+	
+		documentIsLtr: function () {
+			if (!L.DomUtil._docIsLtrCached) {
+				L.DomUtil._docIsLtrCached = true;
+				L.DomUtil._docIsLtr = L.DomUtil.getStyle(document.body, 'direction') === 'ltr';
+			}
+			return L.DomUtil._docIsLtr;
+		},
+	
+		create: function (tagName, className, container) {
+	
+			var el = document.createElement(tagName);
+			el.className = className;
+	
+			if (container) {
+				container.appendChild(el);
+			}
+	
+			return el;
+		},
+	
+		hasClass: function (el, name) {
+			if (el.classList !== undefined) {
+				return el.classList.contains(name);
+			}
+			var className = L.DomUtil._getClass(el);
+			return className.length > 0 && new RegExp('(^|\\s)' + name + '(\\s|$)').test(className);
+		},
+	
+		addClass: function (el, name) {
+			if (el.classList !== undefined) {
+				var classes = L.Util.splitWords(name);
+				for (var i = 0, len = classes.length; i < len; i++) {
+					el.classList.add(classes[i]);
+				}
+			} else if (!L.DomUtil.hasClass(el, name)) {
+				var className = L.DomUtil._getClass(el);
+				L.DomUtil._setClass(el, (className ? className + ' ' : '') + name);
+			}
+		},
+	
+		removeClass: function (el, name) {
+			if (el.classList !== undefined) {
+				el.classList.remove(name);
+			} else {
+				L.DomUtil._setClass(el, L.Util.trim((' ' + L.DomUtil._getClass(el) + ' ').replace(' ' + name + ' ', ' ')));
+			}
+		},
+	
+		_setClass: function (el, name) {
+			if (el.className.baseVal === undefined) {
+				el.className = name;
+			} else {
+				// in case of SVG element
+				el.className.baseVal = name;
+			}
+		},
+	
+		_getClass: function (el) {
+			return el.className.baseVal === undefined ? el.className : el.className.baseVal;
+		},
+	
+		setOpacity: function (el, value) {
+	
+			if ('opacity' in el.style) {
+				el.style.opacity = value;
+	
+			} else if ('filter' in el.style) {
+	
+				var filter = false,
+				    filterName = 'DXImageTransform.Microsoft.Alpha';
+	
+				// filters collection throws an error if we try to retrieve a filter that doesn't exist
+				try {
+					filter = el.filters.item(filterName);
+				} catch (e) {
+					// don't set opacity to 1 if we haven't already set an opacity,
+					// it isn't needed and breaks transparent pngs.
+					if (value === 1) { return; }
+				}
+	
+				value = Math.round(value * 100);
+	
+				if (filter) {
+					filter.Enabled = (value !== 100);
+					filter.Opacity = value;
+				} else {
+					el.style.filter += ' progid:' + filterName + '(opacity=' + value + ')';
+				}
+			}
+		},
+	
+		testProp: function (props) {
+	
+			var style = document.documentElement.style;
+	
+			for (var i = 0; i < props.length; i++) {
+				if (props[i] in style) {
+					return props[i];
+				}
+			}
+			return false;
+		},
+	
+		getTranslateString: function (point) {
+			// on WebKit browsers (Chrome/Safari/iOS Safari/Android) using translate3d instead of translate
+			// makes animation smoother as it ensures HW accel is used. Firefox 13 doesn't care
+			// (same speed either way), Opera 12 doesn't support translate3d
+	
+			var is3d = L.Browser.webkit3d,
+			    open = 'translate' + (is3d ? '3d' : '') + '(',
+			    close = (is3d ? ',0' : '') + ')';
+	
+			return open + point.x + 'px,' + point.y + 'px' + close;
+		},
+	
+		getScaleString: function (scale, origin) {
+	
+			var preTranslateStr = L.DomUtil.getTranslateString(origin.add(origin.multiplyBy(-1 * scale))),
+			    scaleStr = ' scale(' + scale + ') ';
+	
+			return preTranslateStr + scaleStr;
+		},
+	
+		setPosition: function (el, point, disable3D) { // (HTMLElement, Point[, Boolean])
+	
+			// jshint camelcase: false
+			el._leaflet_pos = point;
+	
+			if (!disable3D && L.Browser.any3d) {
+				el.style[L.DomUtil.TRANSFORM] =  L.DomUtil.getTranslateString(point);
+			} else {
+				el.style.left = point.x + 'px';
+				el.style.top = point.y + 'px';
+			}
+		},
+	
+		getPosition: function (el) {
+			// this method is only used for elements previously positioned using setPosition,
+			// so it's safe to cache the position for performance
+	
+			// jshint camelcase: false
+			return el._leaflet_pos;
+		}
+	};
+	
+	
+	// prefix style property names
+	
+	L.DomUtil.TRANSFORM = L.DomUtil.testProp(
+	        ['transform', 'WebkitTransform', 'OTransform', 'MozTransform', 'msTransform']);
+	
+	// webkitTransition comes first because some browser versions that drop vendor prefix don't do
+	// the same for the transitionend event, in particular the Android 4.1 stock browser
+	
+	L.DomUtil.TRANSITION = L.DomUtil.testProp(
+	        ['webkitTransition', 'transition', 'OTransition', 'MozTransition', 'msTransition']);
+	
+	L.DomUtil.TRANSITION_END =
+	        L.DomUtil.TRANSITION === 'webkitTransition' || L.DomUtil.TRANSITION === 'OTransition' ?
+	        L.DomUtil.TRANSITION + 'End' : 'transitionend';
+	
+	(function () {
+	    if ('onselectstart' in document) {
+	        L.extend(L.DomUtil, {
+	            disableTextSelection: function () {
+	                L.DomEvent.on(window, 'selectstart', L.DomEvent.preventDefault);
+	            },
+	
+	            enableTextSelection: function () {
+	                L.DomEvent.off(window, 'selectstart', L.DomEvent.preventDefault);
+	            }
+	        });
+	    } else {
+	        var userSelectProperty = L.DomUtil.testProp(
+	            ['userSelect', 'WebkitUserSelect', 'OUserSelect', 'MozUserSelect', 'msUserSelect']);
+	
+	        L.extend(L.DomUtil, {
+	            disableTextSelection: function () {
+	                if (userSelectProperty) {
+	                    var style = document.documentElement.style;
+	                    this._userSelect = style[userSelectProperty];
+	                    style[userSelectProperty] = 'none';
+	                }
+	            },
+	
+	            enableTextSelection: function () {
+	                if (userSelectProperty) {
+	                    document.documentElement.style[userSelectProperty] = this._userSelect;
+	                    delete this._userSelect;
+	                }
+	            }
+	        });
+	    }
+	
+		L.extend(L.DomUtil, {
+			disableImageDrag: function () {
+				L.DomEvent.on(window, 'dragstart', L.DomEvent.preventDefault);
+			},
+	
+			enableImageDrag: function () {
+				L.DomEvent.off(window, 'dragstart', L.DomEvent.preventDefault);
+			}
+		});
+	})();
+	
+	
+	/*
+	 * L.LatLng represents a geographical point with latitude and longitude coordinates.
+	 */
+	
+	L.LatLng = function (lat, lng, alt) { // (Number, Number, Number)
+		lat = parseFloat(lat);
+		lng = parseFloat(lng);
+	
+		if (isNaN(lat) || isNaN(lng)) {
+			throw new Error('Invalid LatLng object: (' + lat + ', ' + lng + ')');
+		}
+	
+		this.lat = lat;
+		this.lng = lng;
+	
+		if (alt !== undefined) {
+			this.alt = parseFloat(alt);
+		}
+	};
+	
+	L.extend(L.LatLng, {
+		DEG_TO_RAD: Math.PI / 180,
+		RAD_TO_DEG: 180 / Math.PI,
+		MAX_MARGIN: 1.0E-9 // max margin of error for the "equals" check
+	});
+	
+	L.LatLng.prototype = {
+		equals: function (obj) { // (LatLng) -> Boolean
+			if (!obj) { return false; }
+	
+			obj = L.latLng(obj);
+	
+			var margin = Math.max(
+			        Math.abs(this.lat - obj.lat),
+			        Math.abs(this.lng - obj.lng));
+	
+			return margin <= L.LatLng.MAX_MARGIN;
+		},
+	
+		toString: function (precision) { // (Number) -> String
+			return 'LatLng(' +
+			        L.Util.formatNum(this.lat, precision) + ', ' +
+			        L.Util.formatNum(this.lng, precision) + ')';
+		},
+	
+		// Haversine distance formula, see http://en.wikipedia.org/wiki/Haversine_formula
+		// TODO move to projection code, LatLng shouldn't know about Earth
+		distanceTo: function (other) { // (LatLng) -> Number
+			other = L.latLng(other);
+	
+			var R = 6378137, // earth radius in meters
+			    d2r = L.LatLng.DEG_TO_RAD,
+			    dLat = (other.lat - this.lat) * d2r,
+			    dLon = (other.lng - this.lng) * d2r,
+			    lat1 = this.lat * d2r,
+			    lat2 = other.lat * d2r,
+			    sin1 = Math.sin(dLat / 2),
+			    sin2 = Math.sin(dLon / 2);
+	
+			var a = sin1 * sin1 + sin2 * sin2 * Math.cos(lat1) * Math.cos(lat2);
+	
+			return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		},
+	
+		wrap: function (a, b) { // (Number, Number) -> LatLng
+			var lng = this.lng;
+	
+			a = a || -180;
+			b = b ||  180;
+	
+			lng = (lng + b) % (b - a) + (lng < a || lng === b ? b : a);
+	
+			return new L.LatLng(this.lat, lng);
+		}
+	};
+	
+	L.latLng = function (a, b) { // (LatLng) or ([Number, Number]) or (Number, Number)
+		if (a instanceof L.LatLng) {
+			return a;
+		}
+		if (L.Util.isArray(a)) {
+			if (typeof a[0] === 'number' || typeof a[0] === 'string') {
+				return new L.LatLng(a[0], a[1], a[2]);
+			} else {
+				return null;
+			}
+		}
+		if (a === undefined || a === null) {
+			return a;
+		}
+		if (typeof a === 'object' && 'lat' in a) {
+			return new L.LatLng(a.lat, 'lng' in a ? a.lng : a.lon);
+		}
+		if (b === undefined) {
+			return null;
+		}
+		return new L.LatLng(a, b);
+	};
+	
+	
+	
+	/*
+	 * L.LatLngBounds represents a rectangular area on the map in geographical coordinates.
+	 */
+	
+	L.LatLngBounds = function (southWest, northEast) { // (LatLng, LatLng) or (LatLng[])
+		if (!southWest) { return; }
+	
+		var latlngs = northEast ? [southWest, northEast] : southWest;
+	
+		for (var i = 0, len = latlngs.length; i < len; i++) {
+			this.extend(latlngs[i]);
+		}
+	};
+	
+	L.LatLngBounds.prototype = {
+		// extend the bounds to contain the given point or bounds
+		extend: function (obj) { // (LatLng) or (LatLngBounds)
+			if (!obj) { return this; }
+	
+			var latLng = L.latLng(obj);
+			if (latLng !== null) {
+				obj = latLng;
+			} else {
+				obj = L.latLngBounds(obj);
+			}
+	
+			if (obj instanceof L.LatLng) {
+				if (!this._southWest && !this._northEast) {
+					this._southWest = new L.LatLng(obj.lat, obj.lng);
+					this._northEast = new L.LatLng(obj.lat, obj.lng);
+				} else {
+					this._southWest.lat = Math.min(obj.lat, this._southWest.lat);
+					this._southWest.lng = Math.min(obj.lng, this._southWest.lng);
+	
+					this._northEast.lat = Math.max(obj.lat, this._northEast.lat);
+					this._northEast.lng = Math.max(obj.lng, this._northEast.lng);
+				}
+			} else if (obj instanceof L.LatLngBounds) {
+				this.extend(obj._southWest);
+				this.extend(obj._northEast);
+			}
+			return this;
+		},
+	
+		// extend the bounds by a percentage
+		pad: function (bufferRatio) { // (Number) -> LatLngBounds
+			var sw = this._southWest,
+			    ne = this._northEast,
+			    heightBuffer = Math.abs(sw.lat - ne.lat) * bufferRatio,
+			    widthBuffer = Math.abs(sw.lng - ne.lng) * bufferRatio;
+	
+			return new L.LatLngBounds(
+			        new L.LatLng(sw.lat - heightBuffer, sw.lng - widthBuffer),
+			        new L.LatLng(ne.lat + heightBuffer, ne.lng + widthBuffer));
+		},
+	
+		getCenter: function () { // -> LatLng
+			return new L.LatLng(
+			        (this._southWest.lat + this._northEast.lat) / 2,
+			        (this._southWest.lng + this._northEast.lng) / 2);
+		},
+	
+		getSouthWest: function () {
+			return this._southWest;
+		},
+	
+		getNorthEast: function () {
+			return this._northEast;
+		},
+	
+		getNorthWest: function () {
+			return new L.LatLng(this.getNorth(), this.getWest());
+		},
+	
+		getSouthEast: function () {
+			return new L.LatLng(this.getSouth(), this.getEast());
+		},
+	
+		getWest: function () {
+			return this._southWest.lng;
+		},
+	
+		getSouth: function () {
+			return this._southWest.lat;
+		},
+	
+		getEast: function () {
+			return this._northEast.lng;
+		},
+	
+		getNorth: function () {
+			return this._northEast.lat;
+		},
+	
+		contains: function (obj) { // (LatLngBounds) or (LatLng) -> Boolean
+			if (typeof obj[0] === 'number' || obj instanceof L.LatLng) {
+				obj = L.latLng(obj);
+			} else {
+				obj = L.latLngBounds(obj);
+			}
+	
+			var sw = this._southWest,
+			    ne = this._northEast,
+			    sw2, ne2;
+	
+			if (obj instanceof L.LatLngBounds) {
+				sw2 = obj.getSouthWest();
+				ne2 = obj.getNorthEast();
+			} else {
+				sw2 = ne2 = obj;
+			}
+	
+			return (sw2.lat >= sw.lat) && (ne2.lat <= ne.lat) &&
+			       (sw2.lng >= sw.lng) && (ne2.lng <= ne.lng);
+		},
+	
+		intersects: function (bounds) { // (LatLngBounds)
+			bounds = L.latLngBounds(bounds);
+	
+			var sw = this._southWest,
+			    ne = this._northEast,
+			    sw2 = bounds.getSouthWest(),
+			    ne2 = bounds.getNorthEast(),
+	
+			    latIntersects = (ne2.lat >= sw.lat) && (sw2.lat <= ne.lat),
+			    lngIntersects = (ne2.lng >= sw.lng) && (sw2.lng <= ne.lng);
+	
+			return latIntersects && lngIntersects;
+		},
+	
+		toBBoxString: function () {
+			return [this.getWest(), this.getSouth(), this.getEast(), this.getNorth()].join(',');
+		},
+	
+		equals: function (bounds) { // (LatLngBounds)
+			if (!bounds) { return false; }
+	
+			bounds = L.latLngBounds(bounds);
+	
+			return this._southWest.equals(bounds.getSouthWest()) &&
+			       this._northEast.equals(bounds.getNorthEast());
+		},
+	
+		isValid: function () {
+			return !!(this._southWest && this._northEast);
+		}
+	};
+	
+	//TODO International date line?
+	
+	L.latLngBounds = function (a, b) { // (LatLngBounds) or (LatLng, LatLng)
+		if (!a || a instanceof L.LatLngBounds) {
+			return a;
+		}
+		return new L.LatLngBounds(a, b);
+	};
+	
+	
+	/*
+	 * L.Projection contains various geographical projections used by CRS classes.
+	 */
+	
+	L.Projection = {};
+	
+	
+	/*
+	 * Spherical Mercator is the most popular map projection, used by EPSG:3857 CRS used by default.
+	 */
+	
+	L.Projection.SphericalMercator = {
+		MAX_LATITUDE: 85.0511287798,
+	
+		project: function (latlng) { // (LatLng) -> Point
+			var d = L.LatLng.DEG_TO_RAD,
+			    max = this.MAX_LATITUDE,
+			    lat = Math.max(Math.min(max, latlng.lat), -max),
+			    x = latlng.lng * d,
+			    y = lat * d;
+	
+			y = Math.log(Math.tan((Math.PI / 4) + (y / 2)));
+	
+			return new L.Point(x, y);
+		},
+	
+		unproject: function (point) { // (Point, Boolean) -> LatLng
+			var d = L.LatLng.RAD_TO_DEG,
+			    lng = point.x * d,
+			    lat = (2 * Math.atan(Math.exp(point.y)) - (Math.PI / 2)) * d;
+	
+			return new L.LatLng(lat, lng);
+		}
+	};
+	
+	
+	/*
+	 * Simple equirectangular (Plate Carree) projection, used by CRS like EPSG:4326 and Simple.
+	 */
+	
+	L.Projection.LonLat = {
+		project: function (latlng) {
+			return new L.Point(latlng.lng, latlng.lat);
+		},
+	
+		unproject: function (point) {
+			return new L.LatLng(point.y, point.x);
+		}
+	};
+	
+	
+	/*
+	 * L.CRS is a base object for all defined CRS (Coordinate Reference Systems) in Leaflet.
+	 */
+	
+	L.CRS = {
+		latLngToPoint: function (latlng, zoom) { // (LatLng, Number) -> Point
+			var projectedPoint = this.projection.project(latlng),
+			    scale = this.scale(zoom);
+	
+			return this.transformation._transform(projectedPoint, scale);
+		},
+	
+		pointToLatLng: function (point, zoom) { // (Point, Number[, Boolean]) -> LatLng
+			var scale = this.scale(zoom),
+			    untransformedPoint = this.transformation.untransform(point, scale);
+	
+			return this.projection.unproject(untransformedPoint);
+		},
+	
+		project: function (latlng) {
+			return this.projection.project(latlng);
+		},
+	
+		scale: function (zoom) {
+			return 256 * Math.pow(2, zoom);
+		},
+	
+		getSize: function (zoom) {
+			var s = this.scale(zoom);
+			return L.point(s, s);
+		}
+	};
+	
+	
+	/*
+	 * A simple CRS that can be used for flat non-Earth maps like panoramas or game maps.
+	 */
+	
+	L.CRS.Simple = L.extend({}, L.CRS, {
+		projection: L.Projection.LonLat,
+		transformation: new L.Transformation(1, 0, -1, 0),
+	
+		scale: function (zoom) {
+			return Math.pow(2, zoom);
+		}
+	});
+	
+	
+	/*
+	 * L.CRS.EPSG3857 (Spherical Mercator) is the most common CRS for web mapping
+	 * and is used by Leaflet by default.
+	 */
+	
+	L.CRS.EPSG3857 = L.extend({}, L.CRS, {
+		code: 'EPSG:3857',
+	
+		projection: L.Projection.SphericalMercator,
+		transformation: new L.Transformation(0.5 / Math.PI, 0.5, -0.5 / Math.PI, 0.5),
+	
+		project: function (latlng) { // (LatLng) -> Point
+			var projectedPoint = this.projection.project(latlng),
+			    earthRadius = 6378137;
+			return projectedPoint.multiplyBy(earthRadius);
+		}
+	});
+	
+	L.CRS.EPSG900913 = L.extend({}, L.CRS.EPSG3857, {
+		code: 'EPSG:900913'
+	});
+	
+	
+	/*
+	 * L.CRS.EPSG4326 is a CRS popular among advanced GIS specialists.
+	 */
+	
+	L.CRS.EPSG4326 = L.extend({}, L.CRS, {
+		code: 'EPSG:4326',
+	
+		projection: L.Projection.LonLat,
+		transformation: new L.Transformation(1 / 360, 0.5, -1 / 360, 0.5)
+	});
+	
+	
+	/*
+	 * L.Map is the central class of the API - it is used to create a map.
+	 */
+	
+	L.Map = L.Class.extend({
+	
+		includes: L.Mixin.Events,
+	
+		options: {
+			crs: L.CRS.EPSG3857,
+	
+			/*
+			center: LatLng,
+			zoom: Number,
+			layers: Array,
+			*/
+	
+			fadeAnimation: L.DomUtil.TRANSITION && !L.Browser.android23,
+			trackResize: true,
+			markerZoomAnimation: L.DomUtil.TRANSITION && L.Browser.any3d
+		},
+	
+		initialize: function (id, options) { // (HTMLElement or String, Object)
+			options = L.setOptions(this, options);
+	
+	
+			this._initContainer(id);
+			this._initLayout();
+	
+			// hack for https://github.com/Leaflet/Leaflet/issues/1980
+			this._onResize = L.bind(this._onResize, this);
+	
+			this._initEvents();
+	
+			if (options.maxBounds) {
+				this.setMaxBounds(options.maxBounds);
+			}
+	
+			if (options.center && options.zoom !== undefined) {
+				this.setView(L.latLng(options.center), options.zoom, {reset: true});
+			}
+	
+			this._handlers = [];
+	
+			this._layers = {};
+			this._zoomBoundLayers = {};
+			this._tileLayersNum = 0;
+	
+			this.callInitHooks();
+	
+			this._addLayers(options.layers);
+		},
+	
+	
+		// public methods that modify map state
+	
+		// replaced by animation-powered implementation in Map.PanAnimation.js
+		setView: function (center, zoom) {
+			zoom = zoom === undefined ? this.getZoom() : zoom;
+			this._resetView(L.latLng(center), this._limitZoom(zoom));
+			return this;
+		},
+	
+		setZoom: function (zoom, options) {
+			if (!this._loaded) {
+				this._zoom = this._limitZoom(zoom);
+				return this;
+			}
+			return this.setView(this.getCenter(), zoom, {zoom: options});
+		},
+	
+		zoomIn: function (delta, options) {
+			return this.setZoom(this._zoom + (delta || 1), options);
+		},
+	
+		zoomOut: function (delta, options) {
+			return this.setZoom(this._zoom - (delta || 1), options);
+		},
+	
+		setZoomAround: function (latlng, zoom, options) {
+			var scale = this.getZoomScale(zoom),
+			    viewHalf = this.getSize().divideBy(2),
+			    containerPoint = latlng instanceof L.Point ? latlng : this.latLngToContainerPoint(latlng),
+	
+			    centerOffset = containerPoint.subtract(viewHalf).multiplyBy(1 - 1 / scale),
+			    newCenter = this.containerPointToLatLng(viewHalf.add(centerOffset));
+	
+			return this.setView(newCenter, zoom, {zoom: options});
+		},
+	
+		fitBounds: function (bounds, options) {
+	
+			options = options || {};
+			bounds = bounds.getBounds ? bounds.getBounds() : L.latLngBounds(bounds);
+	
+			var paddingTL = L.point(options.paddingTopLeft || options.padding || [0, 0]),
+			    paddingBR = L.point(options.paddingBottomRight || options.padding || [0, 0]),
+	
+			    zoom = this.getBoundsZoom(bounds, false, paddingTL.add(paddingBR));
+	
+			zoom = (options.maxZoom) ? Math.min(options.maxZoom, zoom) : zoom;
+	
+			var paddingOffset = paddingBR.subtract(paddingTL).divideBy(2),
+	
+			    swPoint = this.project(bounds.getSouthWest(), zoom),
+			    nePoint = this.project(bounds.getNorthEast(), zoom),
+			    center = this.unproject(swPoint.add(nePoint).divideBy(2).add(paddingOffset), zoom);
+	
+			return this.setView(center, zoom, options);
+		},
+	
+		fitWorld: function (options) {
+			return this.fitBounds([[-90, -180], [90, 180]], options);
+		},
+	
+		panTo: function (center, options) { // (LatLng)
+			return this.setView(center, this._zoom, {pan: options});
+		},
+	
+		panBy: function (offset) { // (Point)
+			// replaced with animated panBy in Map.PanAnimation.js
+			this.fire('movestart');
+	
+			this._rawPanBy(L.point(offset));
+	
+			this.fire('move');
+			return this.fire('moveend');
+		},
+	
+		setMaxBounds: function (bounds) {
+			bounds = L.latLngBounds(bounds);
+	
+			this.options.maxBounds = bounds;
+	
+			if (!bounds) {
+				return this.off('moveend', this._panInsideMaxBounds, this);
+			}
+	
+			if (this._loaded) {
+				this._panInsideMaxBounds();
+			}
+	
+			return this.on('moveend', this._panInsideMaxBounds, this);
+		},
+	
+		panInsideBounds: function (bounds, options) {
+			var center = this.getCenter(),
+				newCenter = this._limitCenter(center, this._zoom, bounds);
+	
+			if (center.equals(newCenter)) { return this; }
+	
+			return this.panTo(newCenter, options);
+		},
+	
+		addLayer: function (layer) {
+			// TODO method is too big, refactor
+	
+			var id = L.stamp(layer);
+	
+			if (this._layers[id]) { return this; }
+	
+			this._layers[id] = layer;
+	
+			// TODO getMaxZoom, getMinZoom in ILayer (instead of options)
+			if (layer.options && (!isNaN(layer.options.maxZoom) || !isNaN(layer.options.minZoom))) {
+				this._zoomBoundLayers[id] = layer;
+				this._updateZoomLevels();
+			}
+	
+			// TODO looks ugly, refactor!!!
+			if (this.options.zoomAnimation && L.TileLayer && (layer instanceof L.TileLayer)) {
+				this._tileLayersNum++;
+				this._tileLayersToLoad++;
+				layer.on('load', this._onTileLayerLoad, this);
+			}
+	
+			if (this._loaded) {
+				this._layerAdd(layer);
+			}
+	
+			return this;
+		},
+	
+		removeLayer: function (layer) {
+			var id = L.stamp(layer);
+	
+			if (!this._layers[id]) { return this; }
+	
+			if (this._loaded) {
+				layer.onRemove(this);
+			}
+	
+			delete this._layers[id];
+	
+			if (this._loaded) {
+				this.fire('layerremove', {layer: layer});
+			}
+	
+			if (this._zoomBoundLayers[id]) {
+				delete this._zoomBoundLayers[id];
+				this._updateZoomLevels();
+			}
+	
+			// TODO looks ugly, refactor
+			if (this.options.zoomAnimation && L.TileLayer && (layer instanceof L.TileLayer)) {
+				this._tileLayersNum--;
+				this._tileLayersToLoad--;
+				layer.off('load', this._onTileLayerLoad, this);
+			}
+	
+			return this;
+		},
+	
+		hasLayer: function (layer) {
+			if (!layer) { return false; }
+	
+			return (L.stamp(layer) in this._layers);
+		},
+	
+		eachLayer: function (method, context) {
+			for (var i in this._layers) {
+				method.call(context, this._layers[i]);
+			}
+			return this;
+		},
+	
+		invalidateSize: function (options) {
+			if (!this._loaded) { return this; }
+	
+			options = L.extend({
+				animate: false,
+				pan: true
+			}, options === true ? {animate: true} : options);
+	
+			var oldSize = this.getSize();
+			this._sizeChanged = true;
+			this._initialCenter = null;
+	
+			var newSize = this.getSize(),
+			    oldCenter = oldSize.divideBy(2).round(),
+			    newCenter = newSize.divideBy(2).round(),
+			    offset = oldCenter.subtract(newCenter);
+	
+			if (!offset.x && !offset.y) { return this; }
+	
+			if (options.animate && options.pan) {
+				this.panBy(offset);
+	
+			} else {
+				if (options.pan) {
+					this._rawPanBy(offset);
+				}
+	
+				this.fire('move');
+	
+				if (options.debounceMoveend) {
+					clearTimeout(this._sizeTimer);
+					this._sizeTimer = setTimeout(L.bind(this.fire, this, 'moveend'), 200);
+				} else {
+					this.fire('moveend');
+				}
+			}
+	
+			return this.fire('resize', {
+				oldSize: oldSize,
+				newSize: newSize
+			});
+		},
+	
+		// TODO handler.addTo
+		addHandler: function (name, HandlerClass) {
+			if (!HandlerClass) { return this; }
+	
+			var handler = this[name] = new HandlerClass(this);
+	
+			this._handlers.push(handler);
+	
+			if (this.options[name]) {
+				handler.enable();
+			}
+	
+			return this;
+		},
+	
+		remove: function () {
+			if (this._loaded) {
+				this.fire('unload');
+			}
+	
+			this._initEvents('off');
+	
+			try {
+				// throws error in IE6-8
+				delete this._container._leaflet;
+			} catch (e) {
+				this._container._leaflet = undefined;
+			}
+	
+			this._clearPanes();
+			if (this._clearControlPos) {
+				this._clearControlPos();
+			}
+	
+			this._clearHandlers();
+	
+			return this;
+		},
+	
+	
+		// public methods for getting map state
+	
+		getCenter: function () { // (Boolean) -> LatLng
+			this._checkIfLoaded();
+	
+			if (this._initialCenter && !this._moved()) {
+				return this._initialCenter;
+			}
+			return this.layerPointToLatLng(this._getCenterLayerPoint());
+		},
+	
+		getZoom: function () {
+			return this._zoom;
+		},
+	
+		getBounds: function () {
+			var bounds = this.getPixelBounds(),
+			    sw = this.unproject(bounds.getBottomLeft()),
+			    ne = this.unproject(bounds.getTopRight());
+	
+			return new L.LatLngBounds(sw, ne);
+		},
+	
+		getMinZoom: function () {
+			return this.options.minZoom === undefined ?
+				(this._layersMinZoom === undefined ? 0 : this._layersMinZoom) :
+				this.options.minZoom;
+		},
+	
+		getMaxZoom: function () {
+			return this.options.maxZoom === undefined ?
+				(this._layersMaxZoom === undefined ? Infinity : this._layersMaxZoom) :
+				this.options.maxZoom;
+		},
+	
+		getBoundsZoom: function (bounds, inside, padding) { // (LatLngBounds[, Boolean, Point]) -> Number
+			bounds = L.latLngBounds(bounds);
+	
+			var zoom = this.getMinZoom() - (inside ? 1 : 0),
+			    maxZoom = this.getMaxZoom(),
+			    size = this.getSize(),
+	
+			    nw = bounds.getNorthWest(),
+			    se = bounds.getSouthEast(),
+	
+			    zoomNotFound = true,
+			    boundsSize;
+	
+			padding = L.point(padding || [0, 0]);
+	
+			do {
+				zoom++;
+				boundsSize = this.project(se, zoom).subtract(this.project(nw, zoom)).add(padding);
+				zoomNotFound = !inside ? size.contains(boundsSize) : boundsSize.x < size.x || boundsSize.y < size.y;
+	
+			} while (zoomNotFound && zoom <= maxZoom);
+	
+			if (zoomNotFound && inside) {
+				return null;
+			}
+	
+			return inside ? zoom : zoom - 1;
+		},
+	
+		getSize: function () {
+			if (!this._size || this._sizeChanged) {
+				this._size = new L.Point(
+					this._container.clientWidth,
+					this._container.clientHeight);
+	
+				this._sizeChanged = false;
+			}
+			return this._size.clone();
+		},
+	
+		getPixelBounds: function () {
+			var topLeftPoint = this._getTopLeftPoint();
+			return new L.Bounds(topLeftPoint, topLeftPoint.add(this.getSize()));
+		},
+	
+		getPixelOrigin: function () {
+			this._checkIfLoaded();
+			return this._initialTopLeftPoint;
+		},
+	
+		getPanes: function () {
+			return this._panes;
+		},
+	
+		getContainer: function () {
+			return this._container;
+		},
+	
+	
+		// TODO replace with universal implementation after refactoring projections
+	
+		getZoomScale: function (toZoom) {
+			var crs = this.options.crs;
+			return crs.scale(toZoom) / crs.scale(this._zoom);
+		},
+	
+		getScaleZoom: function (scale) {
+			return this._zoom + (Math.log(scale) / Math.LN2);
+		},
+	
+	
+		// conversion methods
+	
+		project: function (latlng, zoom) { // (LatLng[, Number]) -> Point
+			zoom = zoom === undefined ? this._zoom : zoom;
+			return this.options.crs.latLngToPoint(L.latLng(latlng), zoom);
+		},
+	
+		unproject: function (point, zoom) { // (Point[, Number]) -> LatLng
+			zoom = zoom === undefined ? this._zoom : zoom;
+			return this.options.crs.pointToLatLng(L.point(point), zoom);
+		},
+	
+		layerPointToLatLng: function (point) { // (Point)
+			var projectedPoint = L.point(point).add(this.getPixelOrigin());
+			return this.unproject(projectedPoint);
+		},
+	
+		latLngToLayerPoint: function (latlng) { // (LatLng)
+			var projectedPoint = this.project(L.latLng(latlng))._round();
+			return projectedPoint._subtract(this.getPixelOrigin());
+		},
+	
+		containerPointToLayerPoint: function (point) { // (Point)
+			return L.point(point).subtract(this._getMapPanePos());
+		},
+	
+		layerPointToContainerPoint: function (point) { // (Point)
+			return L.point(point).add(this._getMapPanePos());
+		},
+	
+		containerPointToLatLng: function (point) {
+			var layerPoint = this.containerPointToLayerPoint(L.point(point));
+			return this.layerPointToLatLng(layerPoint);
+		},
+	
+		latLngToContainerPoint: function (latlng) {
+			return this.layerPointToContainerPoint(this.latLngToLayerPoint(L.latLng(latlng)));
+		},
+	
+		mouseEventToContainerPoint: function (e) { // (MouseEvent)
+			return L.DomEvent.getMousePosition(e, this._container);
+		},
+	
+		mouseEventToLayerPoint: function (e) { // (MouseEvent)
+			return this.containerPointToLayerPoint(this.mouseEventToContainerPoint(e));
+		},
+	
+		mouseEventToLatLng: function (e) { // (MouseEvent)
+			return this.layerPointToLatLng(this.mouseEventToLayerPoint(e));
+		},
+	
+	
+		// map initialization methods
+	
+		_initContainer: function (id) {
+			var container = this._container = L.DomUtil.get(id);
+	
+			if (!container) {
+				throw new Error('Map container not found.');
+			} else if (container._leaflet) {
+				throw new Error('Map container is already initialized.');
+			}
+	
+			container._leaflet = true;
+		},
+	
+		_initLayout: function () {
+			var container = this._container;
+	
+			L.DomUtil.addClass(container, 'leaflet-container' +
+				(L.Browser.touch ? ' leaflet-touch' : '') +
+				(L.Browser.retina ? ' leaflet-retina' : '') +
+				(L.Browser.ielt9 ? ' leaflet-oldie' : '') +
+				(this.options.fadeAnimation ? ' leaflet-fade-anim' : ''));
+	
+			var position = L.DomUtil.getStyle(container, 'position');
+	
+			if (position !== 'absolute' && position !== 'relative' && position !== 'fixed') {
+				container.style.position = 'relative';
+			}
+	
+			this._initPanes();
+	
+			if (this._initControlPos) {
+				this._initControlPos();
+			}
+		},
+	
+		_initPanes: function () {
+			var panes = this._panes = {};
+	
+			this._mapPane = panes.mapPane = this._createPane('leaflet-map-pane', this._container);
+	
+			this._tilePane = panes.tilePane = this._createPane('leaflet-tile-pane', this._mapPane);
+			panes.objectsPane = this._createPane('leaflet-objects-pane', this._mapPane);
+			panes.shadowPane = this._createPane('leaflet-shadow-pane');
+			panes.overlayPane = this._createPane('leaflet-overlay-pane');
+			panes.markerPane = this._createPane('leaflet-marker-pane');
+			panes.popupPane = this._createPane('leaflet-popup-pane');
+	
+			var zoomHide = ' leaflet-zoom-hide';
+	
+			if (!this.options.markerZoomAnimation) {
+				L.DomUtil.addClass(panes.markerPane, zoomHide);
+				L.DomUtil.addClass(panes.shadowPane, zoomHide);
+				L.DomUtil.addClass(panes.popupPane, zoomHide);
+			}
+		},
+	
+		_createPane: function (className, container) {
+			return L.DomUtil.create('div', className, container || this._panes.objectsPane);
+		},
+	
+		_clearPanes: function () {
+			this._container.removeChild(this._mapPane);
+		},
+	
+		_addLayers: function (layers) {
+			layers = layers ? (L.Util.isArray(layers) ? layers : [layers]) : [];
+	
+			for (var i = 0, len = layers.length; i < len; i++) {
+				this.addLayer(layers[i]);
+			}
+		},
+	
+	
+		// private methods that modify map state
+	
+		_resetView: function (center, zoom, preserveMapOffset, afterZoomAnim) {
+	
+			var zoomChanged = (this._zoom !== zoom);
+	
+			if (!afterZoomAnim) {
+				this.fire('movestart');
+	
+				if (zoomChanged) {
+					this.fire('zoomstart');
+				}
+			}
+	
+			this._zoom = zoom;
+			this._initialCenter = center;
+	
+			this._initialTopLeftPoint = this._getNewTopLeftPoint(center);
+	
+			if (!preserveMapOffset) {
+				L.DomUtil.setPosition(this._mapPane, new L.Point(0, 0));
+			} else {
+				this._initialTopLeftPoint._add(this._getMapPanePos());
+			}
+	
+			this._tileLayersToLoad = this._tileLayersNum;
+	
+			var loading = !this._loaded;
+			this._loaded = true;
+	
+			this.fire('viewreset', {hard: !preserveMapOffset});
+	
+			if (loading) {
+				this.fire('load');
+				this.eachLayer(this._layerAdd, this);
+			}
+	
+			this.fire('move');
+	
+			if (zoomChanged || afterZoomAnim) {
+				this.fire('zoomend');
+			}
+	
+			this.fire('moveend', {hard: !preserveMapOffset});
+		},
+	
+		_rawPanBy: function (offset) {
+			L.DomUtil.setPosition(this._mapPane, this._getMapPanePos().subtract(offset));
+		},
+	
+		_getZoomSpan: function () {
+			return this.getMaxZoom() - this.getMinZoom();
+		},
+	
+		_updateZoomLevels: function () {
+			var i,
+				minZoom = Infinity,
+				maxZoom = -Infinity,
+				oldZoomSpan = this._getZoomSpan();
+	
+			for (i in this._zoomBoundLayers) {
+				var layer = this._zoomBoundLayers[i];
+				if (!isNaN(layer.options.minZoom)) {
+					minZoom = Math.min(minZoom, layer.options.minZoom);
+				}
+				if (!isNaN(layer.options.maxZoom)) {
+					maxZoom = Math.max(maxZoom, layer.options.maxZoom);
+				}
+			}
+	
+			if (i === undefined) { // we have no tilelayers
+				this._layersMaxZoom = this._layersMinZoom = undefined;
+			} else {
+				this._layersMaxZoom = maxZoom;
+				this._layersMinZoom = minZoom;
+			}
+	
+			if (oldZoomSpan !== this._getZoomSpan()) {
+				this.fire('zoomlevelschange');
+			}
+		},
+	
+		_panInsideMaxBounds: function () {
+			this.panInsideBounds(this.options.maxBounds);
+		},
+	
+		_checkIfLoaded: function () {
+			if (!this._loaded) {
+				throw new Error('Set map center and zoom first.');
+			}
+		},
+	
+		// map events
+	
+		_initEvents: function (onOff) {
+			if (!L.DomEvent) { return; }
+	
+			onOff = onOff || 'on';
+	
+			L.DomEvent[onOff](this._container, 'click', this._onMouseClick, this);
+	
+			var events = ['dblclick', 'mousedown', 'mouseup', 'mouseenter',
+			              'mouseleave', 'mousemove', 'contextmenu'],
+			    i, len;
+	
+			for (i = 0, len = events.length; i < len; i++) {
+				L.DomEvent[onOff](this._container, events[i], this._fireMouseEvent, this);
+			}
+	
+			if (this.options.trackResize) {
+				L.DomEvent[onOff](window, 'resize', this._onResize, this);
+			}
+		},
+	
+		_onResize: function () {
+			L.Util.cancelAnimFrame(this._resizeRequest);
+			this._resizeRequest = L.Util.requestAnimFrame(
+			        function () { this.invalidateSize({debounceMoveend: true}); }, this, false, this._container);
+		},
+	
+		_onMouseClick: function (e) {
+			if (!this._loaded || (!e._simulated &&
+			        ((this.dragging && this.dragging.moved()) ||
+			         (this.boxZoom  && this.boxZoom.moved()))) ||
+			            L.DomEvent._skipped(e)) { return; }
+	
+			this.fire('preclick');
+			this._fireMouseEvent(e);
+		},
+	
+		_fireMouseEvent: function (e) {
+			if (!this._loaded || L.DomEvent._skipped(e)) { return; }
+	
+			var type = e.type;
+	
+			type = (type === 'mouseenter' ? 'mouseover' : (type === 'mouseleave' ? 'mouseout' : type));
+	
+			if (!this.hasEventListeners(type)) { return; }
+	
+			if (type === 'contextmenu') {
+				L.DomEvent.preventDefault(e);
+			}
+	
+			var containerPoint = this.mouseEventToContainerPoint(e),
+			    layerPoint = this.containerPointToLayerPoint(containerPoint),
+			    latlng = this.layerPointToLatLng(layerPoint);
+	
+			this.fire(type, {
+				latlng: latlng,
+				layerPoint: layerPoint,
+				containerPoint: containerPoint,
+				originalEvent: e
+			});
+		},
+	
+		_onTileLayerLoad: function () {
+			this._tileLayersToLoad--;
+			if (this._tileLayersNum && !this._tileLayersToLoad) {
+				this.fire('tilelayersload');
+			}
+		},
+	
+		_clearHandlers: function () {
+			for (var i = 0, len = this._handlers.length; i < len; i++) {
+				this._handlers[i].disable();
+			}
+		},
+	
+		whenReady: function (callback, context) {
+			if (this._loaded) {
+				callback.call(context || this, this);
+			} else {
+				this.on('load', callback, context);
+			}
+			return this;
+		},
+	
+		_layerAdd: function (layer) {
+			layer.onAdd(this);
+			this.fire('layeradd', {layer: layer});
+		},
+	
+	
+		// private methods for getting map state
+	
+		_getMapPanePos: function () {
+			return L.DomUtil.getPosition(this._mapPane);
+		},
+	
+		_moved: function () {
+			var pos = this._getMapPanePos();
+			return pos && !pos.equals([0, 0]);
+		},
+	
+		_getTopLeftPoint: function () {
+			return this.getPixelOrigin().subtract(this._getMapPanePos());
+		},
+	
+		_getNewTopLeftPoint: function (center, zoom) {
+			var viewHalf = this.getSize()._divideBy(2);
+			// TODO round on display, not calculation to increase precision?
+			return this.project(center, zoom)._subtract(viewHalf)._round();
+		},
+	
+		_latLngToNewLayerPoint: function (latlng, newZoom, newCenter) {
+			var topLeft = this._getNewTopLeftPoint(newCenter, newZoom).add(this._getMapPanePos());
+			return this.project(latlng, newZoom)._subtract(topLeft);
+		},
+	
+		// layer point of the current center
+		_getCenterLayerPoint: function () {
+			return this.containerPointToLayerPoint(this.getSize()._divideBy(2));
+		},
+	
+		// offset of the specified place to the current center in pixels
+		_getCenterOffset: function (latlng) {
+			return this.latLngToLayerPoint(latlng).subtract(this._getCenterLayerPoint());
+		},
+	
+		// adjust center for view to get inside bounds
+		_limitCenter: function (center, zoom, bounds) {
+	
+			if (!bounds) { return center; }
+	
+			var centerPoint = this.project(center, zoom),
+			    viewHalf = this.getSize().divideBy(2),
+			    viewBounds = new L.Bounds(centerPoint.subtract(viewHalf), centerPoint.add(viewHalf)),
+			    offset = this._getBoundsOffset(viewBounds, bounds, zoom);
+	
+			return this.unproject(centerPoint.add(offset), zoom);
+		},
+	
+		// adjust offset for view to get inside bounds
+		_limitOffset: function (offset, bounds) {
+			if (!bounds) { return offset; }
+	
+			var viewBounds = this.getPixelBounds(),
+			    newBounds = new L.Bounds(viewBounds.min.add(offset), viewBounds.max.add(offset));
+	
+			return offset.add(this._getBoundsOffset(newBounds, bounds));
+		},
+	
+		// returns offset needed for pxBounds to get inside maxBounds at a specified zoom
+		_getBoundsOffset: function (pxBounds, maxBounds, zoom) {
+			var nwOffset = this.project(maxBounds.getNorthWest(), zoom).subtract(pxBounds.min),
+			    seOffset = this.project(maxBounds.getSouthEast(), zoom).subtract(pxBounds.max),
+	
+			    dx = this._rebound(nwOffset.x, -seOffset.x),
+			    dy = this._rebound(nwOffset.y, -seOffset.y);
+	
+			return new L.Point(dx, dy);
+		},
+	
+		_rebound: function (left, right) {
+			return left + right > 0 ?
+				Math.round(left - right) / 2 :
+				Math.max(0, Math.ceil(left)) - Math.max(0, Math.floor(right));
+		},
+	
+		_limitZoom: function (zoom) {
+			var min = this.getMinZoom(),
+			    max = this.getMaxZoom();
+	
+			return Math.max(min, Math.min(max, zoom));
+		}
+	});
+	
+	L.map = function (id, options) {
+		return new L.Map(id, options);
+	};
+	
+	
+	/*
+	 * Mercator projection that takes into account that the Earth is not a perfect sphere.
+	 * Less popular than spherical mercator; used by projections like EPSG:3395.
+	 */
+	
+	L.Projection.Mercator = {
+		MAX_LATITUDE: 85.0840591556,
+	
+		R_MINOR: 6356752.314245179,
+		R_MAJOR: 6378137,
+	
+		project: function (latlng) { // (LatLng) -> Point
+			var d = L.LatLng.DEG_TO_RAD,
+			    max = this.MAX_LATITUDE,
+			    lat = Math.max(Math.min(max, latlng.lat), -max),
+			    r = this.R_MAJOR,
+			    r2 = this.R_MINOR,
+			    x = latlng.lng * d * r,
+			    y = lat * d,
+			    tmp = r2 / r,
+			    eccent = Math.sqrt(1.0 - tmp * tmp),
+			    con = eccent * Math.sin(y);
+	
+			con = Math.pow((1 - con) / (1 + con), eccent * 0.5);
+	
+			var ts = Math.tan(0.5 * ((Math.PI * 0.5) - y)) / con;
+			y = -r * Math.log(ts);
+	
+			return new L.Point(x, y);
+		},
+	
+		unproject: function (point) { // (Point, Boolean) -> LatLng
+			var d = L.LatLng.RAD_TO_DEG,
+			    r = this.R_MAJOR,
+			    r2 = this.R_MINOR,
+			    lng = point.x * d / r,
+			    tmp = r2 / r,
+			    eccent = Math.sqrt(1 - (tmp * tmp)),
+			    ts = Math.exp(- point.y / r),
+			    phi = (Math.PI / 2) - 2 * Math.atan(ts),
+			    numIter = 15,
+			    tol = 1e-7,
+			    i = numIter,
+			    dphi = 0.1,
+			    con;
+	
+			while ((Math.abs(dphi) > tol) && (--i > 0)) {
+				con = eccent * Math.sin(phi);
+				dphi = (Math.PI / 2) - 2 * Math.atan(ts *
+				            Math.pow((1.0 - con) / (1.0 + con), 0.5 * eccent)) - phi;
+				phi += dphi;
+			}
+	
+			return new L.LatLng(phi * d, lng);
+		}
+	};
+	
+	
+	
+	L.CRS.EPSG3395 = L.extend({}, L.CRS, {
+		code: 'EPSG:3395',
+	
+		projection: L.Projection.Mercator,
+	
+		transformation: (function () {
+			var m = L.Projection.Mercator,
+			    r = m.R_MAJOR,
+			    scale = 0.5 / (Math.PI * r);
+	
+			return new L.Transformation(scale, 0.5, -scale, 0.5);
+		}())
+	});
+	
+	
+	/*
+	 * L.TileLayer is used for standard xyz-numbered tile layers.
+	 */
+	
+	L.TileLayer = L.Class.extend({
+		includes: L.Mixin.Events,
+	
+		options: {
+			minZoom: 0,
+			maxZoom: 18,
+			tileSize: 256,
+			subdomains: 'abc',
+			errorTileUrl: '',
+			attribution: '',
+			zoomOffset: 0,
+			opacity: 1,
+			/*
+			maxNativeZoom: null,
+			zIndex: null,
+			tms: false,
+			continuousWorld: false,
+			noWrap: false,
+			zoomReverse: false,
+			detectRetina: false,
+			reuseTiles: false,
+			bounds: false,
+			*/
+			unloadInvisibleTiles: L.Browser.mobile,
+			updateWhenIdle: L.Browser.mobile
+		},
+	
+		initialize: function (url, options) {
+			options = L.setOptions(this, options);
+	
+			// detecting retina displays, adjusting tileSize and zoom levels
+			if (options.detectRetina && L.Browser.retina && options.maxZoom > 0) {
+	
+				options.tileSize = Math.floor(options.tileSize / 2);
+				options.zoomOffset++;
+	
+				if (options.minZoom > 0) {
+					options.minZoom--;
+				}
+				this.options.maxZoom--;
+			}
+	
+			if (options.bounds) {
+				options.bounds = L.latLngBounds(options.bounds);
+			}
+	
+			this._url = url;
+	
+			var subdomains = this.options.subdomains;
+	
+			if (typeof subdomains === 'string') {
+				this.options.subdomains = subdomains.split('');
+			}
+		},
+	
+		onAdd: function (map) {
+			this._map = map;
+			this._animated = map._zoomAnimated;
+	
+			// create a container div for tiles
+			this._initContainer();
+	
+			// set up events
+			map.on({
+				'viewreset': this._reset,
+				'moveend': this._update
+			}, this);
+	
+			if (this._animated) {
+				map.on({
+					'zoomanim': this._animateZoom,
+					'zoomend': this._endZoomAnim
+				}, this);
+			}
+	
+			if (!this.options.updateWhenIdle) {
+				this._limitedUpdate = L.Util.limitExecByInterval(this._update, 150, this);
+				map.on('move', this._limitedUpdate, this);
+			}
+	
+			this._reset();
+			this._update();
+		},
+	
+		addTo: function (map) {
+			map.addLayer(this);
+			return this;
+		},
+	
+		onRemove: function (map) {
+			this._container.parentNode.removeChild(this._container);
+	
+			map.off({
+				'viewreset': this._reset,
+				'moveend': this._update
+			}, this);
+	
+			if (this._animated) {
+				map.off({
+					'zoomanim': this._animateZoom,
+					'zoomend': this._endZoomAnim
+				}, this);
+			}
+	
+			if (!this.options.updateWhenIdle) {
+				map.off('move', this._limitedUpdate, this);
+			}
+	
+			this._container = null;
+			this._map = null;
+		},
+	
+		bringToFront: function () {
+			var pane = this._map._panes.tilePane;
+	
+			if (this._container) {
+				pane.appendChild(this._container);
+				this._setAutoZIndex(pane, Math.max);
+			}
+	
+			return this;
+		},
+	
+		bringToBack: function () {
+			var pane = this._map._panes.tilePane;
+	
+			if (this._container) {
+				pane.insertBefore(this._container, pane.firstChild);
+				this._setAutoZIndex(pane, Math.min);
+			}
+	
+			return this;
+		},
+	
+		getAttribution: function () {
+			return this.options.attribution;
+		},
+	
+		getContainer: function () {
+			return this._container;
+		},
+	
+		setOpacity: function (opacity) {
+			this.options.opacity = opacity;
+	
+			if (this._map) {
+				this._updateOpacity();
+			}
+	
+			return this;
+		},
+	
+		setZIndex: function (zIndex) {
+			this.options.zIndex = zIndex;
+			this._updateZIndex();
+	
+			return this;
+		},
+	
+		setUrl: function (url, noRedraw) {
+			this._url = url;
+	
+			if (!noRedraw) {
+				this.redraw();
+			}
+	
+			return this;
+		},
+	
+		redraw: function () {
+			if (this._map) {
+				this._reset({hard: true});
+				this._update();
+			}
+			return this;
+		},
+	
+		_updateZIndex: function () {
+			if (this._container && this.options.zIndex !== undefined) {
+				this._container.style.zIndex = this.options.zIndex;
+			}
+		},
+	
+		_setAutoZIndex: function (pane, compare) {
+	
+			var layers = pane.children,
+			    edgeZIndex = -compare(Infinity, -Infinity), // -Infinity for max, Infinity for min
+			    zIndex, i, len;
+	
+			for (i = 0, len = layers.length; i < len; i++) {
+	
+				if (layers[i] !== this._container) {
+					zIndex = parseInt(layers[i].style.zIndex, 10);
+	
+					if (!isNaN(zIndex)) {
+						edgeZIndex = compare(edgeZIndex, zIndex);
+					}
+				}
+			}
+	
+			this.options.zIndex = this._container.style.zIndex =
+			        (isFinite(edgeZIndex) ? edgeZIndex : 0) + compare(1, -1);
+		},
+	
+		_updateOpacity: function () {
+			var i,
+			    tiles = this._tiles;
+	
+			if (L.Browser.ielt9) {
+				for (i in tiles) {
+					L.DomUtil.setOpacity(tiles[i], this.options.opacity);
+				}
+			} else {
+				L.DomUtil.setOpacity(this._container, this.options.opacity);
+			}
+		},
+	
+		_initContainer: function () {
+			var tilePane = this._map._panes.tilePane;
+	
+			if (!this._container) {
+				this._container = L.DomUtil.create('div', 'leaflet-layer');
+	
+				this._updateZIndex();
+	
+				if (this._animated) {
+					var className = 'leaflet-tile-container';
+	
+					this._bgBuffer = L.DomUtil.create('div', className, this._container);
+					this._tileContainer = L.DomUtil.create('div', className, this._container);
+	
+				} else {
+					this._tileContainer = this._container;
+				}
+	
+				tilePane.appendChild(this._container);
+	
+				if (this.options.opacity < 1) {
+					this._updateOpacity();
+				}
+			}
+		},
+	
+		_reset: function (e) {
+			for (var key in this._tiles) {
+				this.fire('tileunload', {tile: this._tiles[key]});
+			}
+	
+			this._tiles = {};
+			this._tilesToLoad = 0;
+	
+			if (this.options.reuseTiles) {
+				this._unusedTiles = [];
+			}
+	
+			this._tileContainer.innerHTML = '';
+	
+			if (this._animated && e && e.hard) {
+				this._clearBgBuffer();
+			}
+	
+			this._initContainer();
+		},
+	
+		_getTileSize: function () {
+			var map = this._map,
+			    zoom = map.getZoom() + this.options.zoomOffset,
+			    zoomN = this.options.maxNativeZoom,
+			    tileSize = this.options.tileSize;
+	
+			if (zoomN && zoom > zoomN) {
+				tileSize = Math.round(map.getZoomScale(zoom) / map.getZoomScale(zoomN) * tileSize);
+			}
+	
+			return tileSize;
+		},
+	
+		_update: function () {
+	
+			if (!this._map) { return; }
+	
+			var map = this._map,
+			    bounds = map.getPixelBounds(),
+			    zoom = map.getZoom(),
+			    tileSize = this._getTileSize();
+	
+			if (zoom > this.options.maxZoom || zoom < this.options.minZoom) {
+				return;
+			}
+	
+			var tileBounds = L.bounds(
+			        bounds.min.divideBy(tileSize)._floor(),
+			        bounds.max.divideBy(tileSize)._floor());
+	
+			this._addTilesFromCenterOut(tileBounds);
+	
+			if (this.options.unloadInvisibleTiles || this.options.reuseTiles) {
+				this._removeOtherTiles(tileBounds);
+			}
+		},
+	
+		_addTilesFromCenterOut: function (bounds) {
+			var queue = [],
+			    center = bounds.getCenter();
+	
+			var j, i, point;
+	
+			for (j = bounds.min.y; j <= bounds.max.y; j++) {
+				for (i = bounds.min.x; i <= bounds.max.x; i++) {
+					point = new L.Point(i, j);
+	
+					if (this._tileShouldBeLoaded(point)) {
+						queue.push(point);
+					}
+				}
+			}
+	
+			var tilesToLoad = queue.length;
+	
+			if (tilesToLoad === 0) { return; }
+	
+			// load tiles in order of their distance to center
+			queue.sort(function (a, b) {
+				return a.distanceTo(center) - b.distanceTo(center);
+			});
+	
+			var fragment = document.createDocumentFragment();
+	
+			// if its the first batch of tiles to load
+			if (!this._tilesToLoad) {
+				this.fire('loading');
+			}
+	
+			this._tilesToLoad += tilesToLoad;
+	
+			for (i = 0; i < tilesToLoad; i++) {
+				this._addTile(queue[i], fragment);
+			}
+	
+			this._tileContainer.appendChild(fragment);
+		},
+	
+		_tileShouldBeLoaded: function (tilePoint) {
+			if ((tilePoint.x + ':' + tilePoint.y) in this._tiles) {
+				return false; // already loaded
+			}
+	
+			var options = this.options;
+	
+			if (!options.continuousWorld) {
+				var limit = this._getWrapTileNum();
+	
+				// don't load if exceeds world bounds
+				if ((options.noWrap && (tilePoint.x < 0 || tilePoint.x >= limit.x)) ||
+					tilePoint.y < 0 || tilePoint.y >= limit.y) { return false; }
+			}
+	
+			if (options.bounds) {
+				var tileSize = this._getTileSize(),
+				    nwPoint = tilePoint.multiplyBy(tileSize),
+				    sePoint = nwPoint.add([tileSize, tileSize]),
+				    nw = this._map.unproject(nwPoint),
+				    se = this._map.unproject(sePoint);
+	
+				// TODO temporary hack, will be removed after refactoring projections
+				// https://github.com/Leaflet/Leaflet/issues/1618
+				if (!options.continuousWorld && !options.noWrap) {
+					nw = nw.wrap();
+					se = se.wrap();
+				}
+	
+				if (!options.bounds.intersects([nw, se])) { return false; }
+			}
+	
+			return true;
+		},
+	
+		_removeOtherTiles: function (bounds) {
+			var kArr, x, y, key;
+	
+			for (key in this._tiles) {
+				kArr = key.split(':');
+				x = parseInt(kArr[0], 10);
+				y = parseInt(kArr[1], 10);
+	
+				// remove tile if it's out of bounds
+				if (x < bounds.min.x || x > bounds.max.x || y < bounds.min.y || y > bounds.max.y) {
+					this._removeTile(key);
+				}
+			}
+		},
+	
+		_removeTile: function (key) {
+			var tile = this._tiles[key];
+	
+			this.fire('tileunload', {tile: tile, url: tile.src});
+	
+			if (this.options.reuseTiles) {
+				L.DomUtil.removeClass(tile, 'leaflet-tile-loaded');
+				this._unusedTiles.push(tile);
+	
+			} else if (tile.parentNode === this._tileContainer) {
+				this._tileContainer.removeChild(tile);
+			}
+	
+			// for https://github.com/CloudMade/Leaflet/issues/137
+			if (!L.Browser.android) {
+				tile.onload = null;
+				tile.src = L.Util.emptyImageUrl;
+			}
+	
+			delete this._tiles[key];
+		},
+	
+		_addTile: function (tilePoint, container) {
+			var tilePos = this._getTilePos(tilePoint);
+	
+			// get unused tile - or create a new tile
+			var tile = this._getTile();
+	
+			/*
+			Chrome 20 layouts much faster with top/left (verify with timeline, frames)
+			Android 4 browser has display issues with top/left and requires transform instead
+			(other browsers don't currently care) - see debug/hacks/jitter.html for an example
+			*/
+			L.DomUtil.setPosition(tile, tilePos, L.Browser.chrome);
+	
+			this._tiles[tilePoint.x + ':' + tilePoint.y] = tile;
+	
+			this._loadTile(tile, tilePoint);
+	
+			if (tile.parentNode !== this._tileContainer) {
+				container.appendChild(tile);
+			}
+		},
+	
+		_getZoomForUrl: function () {
+	
+			var options = this.options,
+			    zoom = this._map.getZoom();
+	
+			if (options.zoomReverse) {
+				zoom = options.maxZoom - zoom;
+			}
+	
+			zoom += options.zoomOffset;
+	
+			return options.maxNativeZoom ? Math.min(zoom, options.maxNativeZoom) : zoom;
+		},
+	
+		_getTilePos: function (tilePoint) {
+			var origin = this._map.getPixelOrigin(),
+			    tileSize = this._getTileSize();
+	
+			return tilePoint.multiplyBy(tileSize).subtract(origin);
+		},
+	
+		// image-specific code (override to implement e.g. Canvas or SVG tile layer)
+	
+		getTileUrl: function (tilePoint) {
+			return L.Util.template(this._url, L.extend({
+				s: this._getSubdomain(tilePoint),
+				z: tilePoint.z,
+				x: tilePoint.x,
+				y: tilePoint.y
+			}, this.options));
+		},
+	
+		_getWrapTileNum: function () {
+			var crs = this._map.options.crs,
+			    size = crs.getSize(this._map.getZoom());
+			return size.divideBy(this._getTileSize())._floor();
+		},
+	
+		_adjustTilePoint: function (tilePoint) {
+	
+			var limit = this._getWrapTileNum();
+	
+			// wrap tile coordinates
+			if (!this.options.continuousWorld && !this.options.noWrap) {
+				tilePoint.x = ((tilePoint.x % limit.x) + limit.x) % limit.x;
+			}
+	
+			if (this.options.tms) {
+				tilePoint.y = limit.y - tilePoint.y - 1;
+			}
+	
+			tilePoint.z = this._getZoomForUrl();
+		},
+	
+		_getSubdomain: function (tilePoint) {
+			var index = Math.abs(tilePoint.x + tilePoint.y) % this.options.subdomains.length;
+			return this.options.subdomains[index];
+		},
+	
+		_getTile: function () {
+			if (this.options.reuseTiles && this._unusedTiles.length > 0) {
+				var tile = this._unusedTiles.pop();
+				this._resetTile(tile);
+				return tile;
+			}
+			return this._createTile();
+		},
+	
+		// Override if data stored on a tile needs to be cleaned up before reuse
+		_resetTile: function (/*tile*/) {},
+	
+		_createTile: function () {
+			var tile = L.DomUtil.create('img', 'leaflet-tile');
+			tile.style.width = tile.style.height = this._getTileSize() + 'px';
+			tile.galleryimg = 'no';
+	
+			tile.onselectstart = tile.onmousemove = L.Util.falseFn;
+	
+			if (L.Browser.ielt9 && this.options.opacity !== undefined) {
+				L.DomUtil.setOpacity(tile, this.options.opacity);
+			}
+			// without this hack, tiles disappear after zoom on Chrome for Android
+			// https://github.com/Leaflet/Leaflet/issues/2078
+			if (L.Browser.mobileWebkit3d) {
+				tile.style.WebkitBackfaceVisibility = 'hidden';
+			}
+			return tile;
+		},
+	
+		_loadTile: function (tile, tilePoint) {
+			tile._layer  = this;
+			tile.onload  = this._tileOnLoad;
+			tile.onerror = this._tileOnError;
+	
+			this._adjustTilePoint(tilePoint);
+			tile.src     = this.getTileUrl(tilePoint);
+	
+			this.fire('tileloadstart', {
+				tile: tile,
+				url: tile.src
+			});
+		},
+	
+		_tileLoaded: function () {
+			this._tilesToLoad--;
+	
+			if (this._animated) {
+				L.DomUtil.addClass(this._tileContainer, 'leaflet-zoom-animated');
+			}
+	
+			if (!this._tilesToLoad) {
+				this.fire('load');
+	
+				if (this._animated) {
+					// clear scaled tiles after all new tiles are loaded (for performance)
+					clearTimeout(this._clearBgBufferTimer);
+					this._clearBgBufferTimer = setTimeout(L.bind(this._clearBgBuffer, this), 500);
+				}
+			}
+		},
+	
+		_tileOnLoad: function () {
+			var layer = this._layer;
+	
+			//Only if we are loading an actual image
+			if (this.src !== L.Util.emptyImageUrl) {
+				L.DomUtil.addClass(this, 'leaflet-tile-loaded');
+	
+				layer.fire('tileload', {
+					tile: this,
+					url: this.src
+				});
+			}
+	
+			layer._tileLoaded();
+		},
+	
+		_tileOnError: function () {
+			var layer = this._layer;
+	
+			layer.fire('tileerror', {
+				tile: this,
+				url: this.src
+			});
+	
+			var newUrl = layer.options.errorTileUrl;
+			if (newUrl) {
+				this.src = newUrl;
+			}
+	
+			layer._tileLoaded();
+		}
+	});
+	
+	L.tileLayer = function (url, options) {
+		return new L.TileLayer(url, options);
+	};
+	
+	
+	/*
+	 * L.TileLayer.WMS is used for putting WMS tile layers on the map.
+	 */
+	
+	L.TileLayer.WMS = L.TileLayer.extend({
+	
+		defaultWmsParams: {
+			service: 'WMS',
+			request: 'GetMap',
+			version: '1.1.1',
+			layers: '',
+			styles: '',
+			format: 'image/jpeg',
+			transparent: false
+		},
+	
+		initialize: function (url, options) { // (String, Object)
+	
+			this._url = url;
+	
+			var wmsParams = L.extend({}, this.defaultWmsParams),
+			    tileSize = options.tileSize || this.options.tileSize;
+	
+			if (options.detectRetina && L.Browser.retina) {
+				wmsParams.width = wmsParams.height = tileSize * 2;
+			} else {
+				wmsParams.width = wmsParams.height = tileSize;
+			}
+	
+			for (var i in options) {
+				// all keys that are not TileLayer options go to WMS params
+				if (!this.options.hasOwnProperty(i) && i !== 'crs') {
+					wmsParams[i] = options[i];
+				}
+			}
+	
+			this.wmsParams = wmsParams;
+	
+			L.setOptions(this, options);
+		},
+	
+		onAdd: function (map) {
+	
+			this._crs = this.options.crs || map.options.crs;
+	
+			this._wmsVersion = parseFloat(this.wmsParams.version);
+	
+			var projectionKey = this._wmsVersion >= 1.3 ? 'crs' : 'srs';
+			this.wmsParams[projectionKey] = this._crs.code;
+	
+			L.TileLayer.prototype.onAdd.call(this, map);
+		},
+	
+		getTileUrl: function (tilePoint) { // (Point, Number) -> String
+	
+			var map = this._map,
+			    tileSize = this.options.tileSize,
+	
+			    nwPoint = tilePoint.multiplyBy(tileSize),
+			    sePoint = nwPoint.add([tileSize, tileSize]),
+	
+			    nw = this._crs.project(map.unproject(nwPoint, tilePoint.z)),
+			    se = this._crs.project(map.unproject(sePoint, tilePoint.z)),
+			    bbox = this._wmsVersion >= 1.3 && this._crs === L.CRS.EPSG4326 ?
+			        [se.y, nw.x, nw.y, se.x].join(',') :
+			        [nw.x, se.y, se.x, nw.y].join(','),
+	
+			    url = L.Util.template(this._url, {s: this._getSubdomain(tilePoint)});
+	
+			return url + L.Util.getParamString(this.wmsParams, url, true) + '&BBOX=' + bbox;
+		},
+	
+		setParams: function (params, noRedraw) {
+	
+			L.extend(this.wmsParams, params);
+	
+			if (!noRedraw) {
+				this.redraw();
+			}
+	
+			return this;
+		}
+	});
+	
+	L.tileLayer.wms = function (url, options) {
+		return new L.TileLayer.WMS(url, options);
+	};
+	
+	
+	/*
+	 * L.TileLayer.Canvas is a class that you can use as a base for creating
+	 * dynamically drawn Canvas-based tile layers.
+	 */
+	
+	L.TileLayer.Canvas = L.TileLayer.extend({
+		options: {
+			async: false
+		},
+	
+		initialize: function (options) {
+			L.setOptions(this, options);
+		},
+	
+		redraw: function () {
+			if (this._map) {
+				this._reset({hard: true});
+				this._update();
+			}
+	
+			for (var i in this._tiles) {
+				this._redrawTile(this._tiles[i]);
+			}
+			return this;
+		},
+	
+		_redrawTile: function (tile) {
+			this.drawTile(tile, tile._tilePoint, this._map._zoom);
+		},
+	
+		_createTile: function () {
+			var tile = L.DomUtil.create('canvas', 'leaflet-tile');
+			tile.width = tile.height = this.options.tileSize;
+			tile.onselectstart = tile.onmousemove = L.Util.falseFn;
+			return tile;
+		},
+	
+		_loadTile: function (tile, tilePoint) {
+			tile._layer = this;
+			tile._tilePoint = tilePoint;
+	
+			this._redrawTile(tile);
+	
+			if (!this.options.async) {
+				this.tileDrawn(tile);
+			}
+		},
+	
+		drawTile: function (/*tile, tilePoint*/) {
+			// override with rendering code
+		},
+	
+		tileDrawn: function (tile) {
+			this._tileOnLoad.call(tile);
+		}
+	});
+	
+	
+	L.tileLayer.canvas = function (options) {
+		return new L.TileLayer.Canvas(options);
+	};
+	
+	
+	/*
+	 * L.ImageOverlay is used to overlay images over the map (to specific geographical bounds).
+	 */
+	
+	L.ImageOverlay = L.Class.extend({
+		includes: L.Mixin.Events,
+	
+		options: {
+			opacity: 1
+		},
+	
+		initialize: function (url, bounds, options) { // (String, LatLngBounds, Object)
+			this._url = url;
+			this._bounds = L.latLngBounds(bounds);
+	
+			L.setOptions(this, options);
+		},
+	
+		onAdd: function (map) {
+			this._map = map;
+	
+			if (!this._image) {
+				this._initImage();
+			}
+	
+			map._panes.overlayPane.appendChild(this._image);
+	
+			map.on('viewreset', this._reset, this);
+	
+			if (map.options.zoomAnimation && L.Browser.any3d) {
+				map.on('zoomanim', this._animateZoom, this);
+			}
+	
+			this._reset();
+		},
+	
+		onRemove: function (map) {
+			map.getPanes().overlayPane.removeChild(this._image);
+	
+			map.off('viewreset', this._reset, this);
+	
+			if (map.options.zoomAnimation) {
+				map.off('zoomanim', this._animateZoom, this);
+			}
+		},
+	
+		addTo: function (map) {
+			map.addLayer(this);
+			return this;
+		},
+	
+		setOpacity: function (opacity) {
+			this.options.opacity = opacity;
+			this._updateOpacity();
+			return this;
+		},
+	
+		// TODO remove bringToFront/bringToBack duplication from TileLayer/Path
+		bringToFront: function () {
+			if (this._image) {
+				this._map._panes.overlayPane.appendChild(this._image);
+			}
+			return this;
+		},
+	
+		bringToBack: function () {
+			var pane = this._map._panes.overlayPane;
+			if (this._image) {
+				pane.insertBefore(this._image, pane.firstChild);
+			}
+			return this;
+		},
+	
+		setUrl: function (url) {
+			this._url = url;
+			this._image.src = this._url;
+		},
+	
+		getAttribution: function () {
+			return this.options.attribution;
+		},
+	
+		_initImage: function () {
+			this._image = L.DomUtil.create('img', 'leaflet-image-layer');
+	
+			if (this._map.options.zoomAnimation && L.Browser.any3d) {
+				L.DomUtil.addClass(this._image, 'leaflet-zoom-animated');
+			} else {
+				L.DomUtil.addClass(this._image, 'leaflet-zoom-hide');
+			}
+	
+			this._updateOpacity();
+	
+			//TODO createImage util method to remove duplication
+			L.extend(this._image, {
+				galleryimg: 'no',
+				onselectstart: L.Util.falseFn,
+				onmousemove: L.Util.falseFn,
+				onload: L.bind(this._onImageLoad, this),
+				src: this._url
+			});
+		},
+	
+		_animateZoom: function (e) {
+			var map = this._map,
+			    image = this._image,
+			    scale = map.getZoomScale(e.zoom),
+			    nw = this._bounds.getNorthWest(),
+			    se = this._bounds.getSouthEast(),
+	
+			    topLeft = map._latLngToNewLayerPoint(nw, e.zoom, e.center),
+			    size = map._latLngToNewLayerPoint(se, e.zoom, e.center)._subtract(topLeft),
+			    origin = topLeft._add(size._multiplyBy((1 / 2) * (1 - 1 / scale)));
+	
+			image.style[L.DomUtil.TRANSFORM] =
+			        L.DomUtil.getTranslateString(origin) + ' scale(' + scale + ') ';
+		},
+	
+		_reset: function () {
+			var image   = this._image,
+			    topLeft = this._map.latLngToLayerPoint(this._bounds.getNorthWest()),
+			    size = this._map.latLngToLayerPoint(this._bounds.getSouthEast())._subtract(topLeft);
+	
+			L.DomUtil.setPosition(image, topLeft);
+	
+			image.style.width  = size.x + 'px';
+			image.style.height = size.y + 'px';
+		},
+	
+		_onImageLoad: function () {
+			this.fire('load');
+		},
+	
+		_updateOpacity: function () {
+			L.DomUtil.setOpacity(this._image, this.options.opacity);
+		}
+	});
+	
+	L.imageOverlay = function (url, bounds, options) {
+		return new L.ImageOverlay(url, bounds, options);
+	};
+	
+	
+	/*
+	 * L.Icon is an image-based icon class that you can use with L.Marker for custom markers.
+	 */
+	
+	L.Icon = L.Class.extend({
+		options: {
+			/*
+			iconUrl: (String) (required)
+			iconRetinaUrl: (String) (optional, used for retina devices if detected)
+			iconSize: (Point) (can be set through CSS)
+			iconAnchor: (Point) (centered by default, can be set in CSS with negative margins)
+			popupAnchor: (Point) (if not specified, popup opens in the anchor point)
+			shadowUrl: (String) (no shadow by default)
+			shadowRetinaUrl: (String) (optional, used for retina devices if detected)
+			shadowSize: (Point)
+			shadowAnchor: (Point)
+			*/
+			className: ''
+		},
+	
+		initialize: function (options) {
+			L.setOptions(this, options);
+		},
+	
+		createIcon: function (oldIcon) {
+			return this._createIcon('icon', oldIcon);
+		},
+	
+		createShadow: function (oldIcon) {
+			return this._createIcon('shadow', oldIcon);
+		},
+	
+		_createIcon: function (name, oldIcon) {
+			var src = this._getIconUrl(name);
+	
+			if (!src) {
+				if (name === 'icon') {
+					throw new Error('iconUrl not set in Icon options (see the docs).');
+				}
+				return null;
+			}
+	
+			var img;
+			if (!oldIcon || oldIcon.tagName !== 'IMG') {
+				img = this._createImg(src);
+			} else {
+				img = this._createImg(src, oldIcon);
+			}
+			this._setIconStyles(img, name);
+	
+			return img;
+		},
+	
+		_setIconStyles: function (img, name) {
+			var options = this.options,
+			    size = L.point(options[name + 'Size']),
+			    anchor;
+	
+			if (name === 'shadow') {
+				anchor = L.point(options.shadowAnchor || options.iconAnchor);
+			} else {
+				anchor = L.point(options.iconAnchor);
+			}
+	
+			if (!anchor && size) {
+				anchor = size.divideBy(2, true);
+			}
+	
+			img.className = 'leaflet-marker-' + name + ' ' + options.className;
+	
+			if (anchor) {
+				img.style.marginLeft = (-anchor.x) + 'px';
+				img.style.marginTop  = (-anchor.y) + 'px';
+			}
+	
+			if (size) {
+				img.style.width  = size.x + 'px';
+				img.style.height = size.y + 'px';
+			}
+		},
+	
+		_createImg: function (src, el) {
+			el = el || document.createElement('img');
+			el.src = src;
+			return el;
+		},
+	
+		_getIconUrl: function (name) {
+			if (L.Browser.retina && this.options[name + 'RetinaUrl']) {
+				return this.options[name + 'RetinaUrl'];
+			}
+			return this.options[name + 'Url'];
+		}
+	});
+	
+	L.icon = function (options) {
+		return new L.Icon(options);
+	};
+	
+	
+	/*
+	 * L.Icon.Default is the blue marker icon used by default in Leaflet.
+	 */
+	
+	L.Icon.Default = L.Icon.extend({
+	
+		options: {
+			iconSize: [25, 41],
+			iconAnchor: [12, 41],
+			popupAnchor: [1, -34],
+	
+			shadowSize: [41, 41]
+		},
+	
+		_getIconUrl: function (name) {
+			var key = name + 'Url';
+	
+			if (this.options[key]) {
+				return this.options[key];
+			}
+	
+			if (L.Browser.retina && name === 'icon') {
+				name += '-2x';
+			}
+	
+			var path = L.Icon.Default.imagePath;
+	
+			if (!path) {
+				throw new Error('Couldn\'t autodetect L.Icon.Default.imagePath, set it manually.');
+			}
+	
+			return path + '/marker-' + name + '.png';
+		}
+	});
+	
+	L.Icon.Default.imagePath = (function () {
+		var scripts = document.getElementsByTagName('script'),
+		    leafletRe = /[\/^]leaflet[\-\._]?([\w\-\._]*)\.js\??/;
+	
+		var i, len, src, matches, path;
+	
+		for (i = 0, len = scripts.length; i < len; i++) {
+			src = scripts[i].src;
+			matches = src.match(leafletRe);
+	
+			if (matches) {
+				path = src.split(leafletRe)[0];
+				return (path ? path + '/' : '') + 'images';
+			}
+		}
+	}());
+	
+	
+	/*
+	 * L.Marker is used to display clickable/draggable icons on the map.
+	 */
+	
+	L.Marker = L.Class.extend({
+	
+		includes: L.Mixin.Events,
+	
+		options: {
+			icon: new L.Icon.Default(),
+			title: '',
+			alt: '',
+			clickable: true,
+			draggable: false,
+			keyboard: true,
+			zIndexOffset: 0,
+			opacity: 1,
+			riseOnHover: false,
+			riseOffset: 250
+		},
+	
+		initialize: function (latlng, options) {
+			L.setOptions(this, options);
+			this._latlng = L.latLng(latlng);
+		},
+	
+		onAdd: function (map) {
+			this._map = map;
+	
+			map.on('viewreset', this.update, this);
+	
+			this._initIcon();
+			this.update();
+			this.fire('add');
+	
+			if (map.options.zoomAnimation && map.options.markerZoomAnimation) {
+				map.on('zoomanim', this._animateZoom, this);
+			}
+		},
+	
+		addTo: function (map) {
+			map.addLayer(this);
+			return this;
+		},
+	
+		onRemove: function (map) {
+			if (this.dragging) {
+				this.dragging.disable();
+			}
+	
+			this._removeIcon();
+			this._removeShadow();
+	
+			this.fire('remove');
+	
+			map.off({
+				'viewreset': this.update,
+				'zoomanim': this._animateZoom
+			}, this);
+	
+			this._map = null;
+		},
+	
+		getLatLng: function () {
+			return this._latlng;
+		},
+	
+		setLatLng: function (latlng) {
+			this._latlng = L.latLng(latlng);
+	
+			this.update();
+	
+			return this.fire('move', { latlng: this._latlng });
+		},
+	
+		setZIndexOffset: function (offset) {
+			this.options.zIndexOffset = offset;
+			this.update();
+	
+			return this;
+		},
+	
+		setIcon: function (icon) {
+	
+			this.options.icon = icon;
+	
+			if (this._map) {
+				this._initIcon();
+				this.update();
+			}
+	
+			if (this._popup) {
+				this.bindPopup(this._popup);
+			}
+	
+			return this;
+		},
+	
+		update: function () {
+			if (this._icon) {
+				this._setPos(this._map.latLngToLayerPoint(this._latlng).round());
+			}
+			return this;
+		},
+	
+		_initIcon: function () {
+			var options = this.options,
+			    map = this._map,
+			    animation = (map.options.zoomAnimation && map.options.markerZoomAnimation),
+			    classToAdd = animation ? 'leaflet-zoom-animated' : 'leaflet-zoom-hide';
+	
+			var icon = options.icon.createIcon(this._icon),
+				addIcon = false;
+	
+			// if we're not reusing the icon, remove the old one and init new one
+			if (icon !== this._icon) {
+				if (this._icon) {
+					this._removeIcon();
+				}
+				addIcon = true;
+	
+				if (options.title) {
+					icon.title = options.title;
+				}
+	
+				if (options.alt) {
+					icon.alt = options.alt;
+				}
+			}
+	
+			L.DomUtil.addClass(icon, classToAdd);
+	
+			if (options.keyboard) {
+				icon.tabIndex = '0';
+			}
+	
+			this._icon = icon;
+	
+			this._initInteraction();
+	
+			if (options.riseOnHover) {
+				L.DomEvent
+					.on(icon, 'mouseover', this._bringToFront, this)
+					.on(icon, 'mouseout', this._resetZIndex, this);
+			}
+	
+			var newShadow = options.icon.createShadow(this._shadow),
+				addShadow = false;
+	
+			if (newShadow !== this._shadow) {
+				this._removeShadow();
+				addShadow = true;
+			}
+	
+			if (newShadow) {
+				L.DomUtil.addClass(newShadow, classToAdd);
+			}
+			this._shadow = newShadow;
+	
+	
+			if (options.opacity < 1) {
+				this._updateOpacity();
+			}
+	
+	
+			var panes = this._map._panes;
+	
+			if (addIcon) {
+				panes.markerPane.appendChild(this._icon);
+			}
+	
+			if (newShadow && addShadow) {
+				panes.shadowPane.appendChild(this._shadow);
+			}
+		},
+	
+		_removeIcon: function () {
+			if (this.options.riseOnHover) {
+				L.DomEvent
+				    .off(this._icon, 'mouseover', this._bringToFront)
+				    .off(this._icon, 'mouseout', this._resetZIndex);
+			}
+	
+			this._map._panes.markerPane.removeChild(this._icon);
+	
+			this._icon = null;
+		},
+	
+		_removeShadow: function () {
+			if (this._shadow) {
+				this._map._panes.shadowPane.removeChild(this._shadow);
+			}
+			this._shadow = null;
+		},
+	
+		_setPos: function (pos) {
+			L.DomUtil.setPosition(this._icon, pos);
+	
+			if (this._shadow) {
+				L.DomUtil.setPosition(this._shadow, pos);
+			}
+	
+			this._zIndex = pos.y + this.options.zIndexOffset;
+	
+			this._resetZIndex();
+		},
+	
+		_updateZIndex: function (offset) {
+			this._icon.style.zIndex = this._zIndex + offset;
+		},
+	
+		_animateZoom: function (opt) {
+			var pos = this._map._latLngToNewLayerPoint(this._latlng, opt.zoom, opt.center).round();
+	
+			this._setPos(pos);
+		},
+	
+		_initInteraction: function () {
+	
+			if (!this.options.clickable) { return; }
+	
+			// TODO refactor into something shared with Map/Path/etc. to DRY it up
+	
+			var icon = this._icon,
+			    events = ['dblclick', 'mousedown', 'mouseover', 'mouseout', 'contextmenu'];
+	
+			L.DomUtil.addClass(icon, 'leaflet-clickable');
+			L.DomEvent.on(icon, 'click', this._onMouseClick, this);
+			L.DomEvent.on(icon, 'keypress', this._onKeyPress, this);
+	
+			for (var i = 0; i < events.length; i++) {
+				L.DomEvent.on(icon, events[i], this._fireMouseEvent, this);
+			}
+	
+			if (L.Handler.MarkerDrag) {
+				this.dragging = new L.Handler.MarkerDrag(this);
+	
+				if (this.options.draggable) {
+					this.dragging.enable();
+				}
+			}
+		},
+	
+		_onMouseClick: function (e) {
+			var wasDragged = this.dragging && this.dragging.moved();
+	
+			if (this.hasEventListeners(e.type) || wasDragged) {
+				L.DomEvent.stopPropagation(e);
+			}
+	
+			if (wasDragged) { return; }
+	
+			if ((!this.dragging || !this.dragging._enabled) && this._map.dragging && this._map.dragging.moved()) { return; }
+	
+			this.fire(e.type, {
+				originalEvent: e,
+				latlng: this._latlng
+			});
+		},
+	
+		_onKeyPress: function (e) {
+			if (e.keyCode === 13) {
+				this.fire('click', {
+					originalEvent: e,
+					latlng: this._latlng
+				});
+			}
+		},
+	
+		_fireMouseEvent: function (e) {
+	
+			this.fire(e.type, {
+				originalEvent: e,
+				latlng: this._latlng
+			});
+	
+			// TODO proper custom event propagation
+			// this line will always be called if marker is in a FeatureGroup
+			if (e.type === 'contextmenu' && this.hasEventListeners(e.type)) {
+				L.DomEvent.preventDefault(e);
+			}
+			if (e.type !== 'mousedown') {
+				L.DomEvent.stopPropagation(e);
+			} else {
+				L.DomEvent.preventDefault(e);
+			}
+		},
+	
+		setOpacity: function (opacity) {
+			this.options.opacity = opacity;
+			if (this._map) {
+				this._updateOpacity();
+			}
+	
+			return this;
+		},
+	
+		_updateOpacity: function () {
+			L.DomUtil.setOpacity(this._icon, this.options.opacity);
+			if (this._shadow) {
+				L.DomUtil.setOpacity(this._shadow, this.options.opacity);
+			}
+		},
+	
+		_bringToFront: function () {
+			this._updateZIndex(this.options.riseOffset);
+		},
+	
+		_resetZIndex: function () {
+			this._updateZIndex(0);
+		}
+	});
+	
+	L.marker = function (latlng, options) {
+		return new L.Marker(latlng, options);
+	};
+	
+	
+	/*
+	 * L.DivIcon is a lightweight HTML-based icon class (as opposed to the image-based L.Icon)
+	 * to use with L.Marker.
+	 */
+	
+	L.DivIcon = L.Icon.extend({
+		options: {
+			iconSize: [12, 12], // also can be set through CSS
+			/*
+			iconAnchor: (Point)
+			popupAnchor: (Point)
+			html: (String)
+			bgPos: (Point)
+			*/
+			className: 'leaflet-div-icon',
+			html: false
+		},
+	
+		createIcon: function (oldIcon) {
+			var div = (oldIcon && oldIcon.tagName === 'DIV') ? oldIcon : document.createElement('div'),
+			    options = this.options;
+	
+			if (options.html !== false) {
+				div.innerHTML = options.html;
+			} else {
+				div.innerHTML = '';
+			}
+	
+			if (options.bgPos) {
+				div.style.backgroundPosition =
+				        (-options.bgPos.x) + 'px ' + (-options.bgPos.y) + 'px';
+			}
+	
+			this._setIconStyles(div, 'icon');
+			return div;
+		},
+	
+		createShadow: function () {
+			return null;
+		}
+	});
+	
+	L.divIcon = function (options) {
+		return new L.DivIcon(options);
+	};
+	
+	
+	/*
+	 * L.Popup is used for displaying popups on the map.
+	 */
+	
+	L.Map.mergeOptions({
+		closePopupOnClick: true
+	});
+	
+	L.Popup = L.Class.extend({
+		includes: L.Mixin.Events,
+	
+		options: {
+			minWidth: 50,
+			maxWidth: 300,
+			// maxHeight: null,
+			autoPan: true,
+			closeButton: true,
+			offset: [0, 7],
+			autoPanPadding: [5, 5],
+			// autoPanPaddingTopLeft: null,
+			// autoPanPaddingBottomRight: null,
+			keepInView: false,
+			className: '',
+			zoomAnimation: true
+		},
+	
+		initialize: function (options, source) {
+			L.setOptions(this, options);
+	
+			this._source = source;
+			this._animated = L.Browser.any3d && this.options.zoomAnimation;
+			this._isOpen = false;
+		},
+	
+		onAdd: function (map) {
+			this._map = map;
+	
+			if (!this._container) {
+				this._initLayout();
+			}
+	
+			var animFade = map.options.fadeAnimation;
+	
+			if (animFade) {
+				L.DomUtil.setOpacity(this._container, 0);
+			}
+			map._panes.popupPane.appendChild(this._container);
+	
+			map.on(this._getEvents(), this);
+	
+			this.update();
+	
+			if (animFade) {
+				L.DomUtil.setOpacity(this._container, 1);
+			}
+	
+			this.fire('open');
+	
+			map.fire('popupopen', {popup: this});
+	
+			if (this._source) {
+				this._source.fire('popupopen', {popup: this});
+			}
+		},
+	
+		addTo: function (map) {
+			map.addLayer(this);
+			return this;
+		},
+	
+		openOn: function (map) {
+			map.openPopup(this);
+			return this;
+		},
+	
+		onRemove: function (map) {
+			map._panes.popupPane.removeChild(this._container);
+	
+			L.Util.falseFn(this._container.offsetWidth); // force reflow
+	
+			map.off(this._getEvents(), this);
+	
+			if (map.options.fadeAnimation) {
+				L.DomUtil.setOpacity(this._container, 0);
+			}
+	
+			this._map = null;
+	
+			this.fire('close');
+	
+			map.fire('popupclose', {popup: this});
+	
+			if (this._source) {
+				this._source.fire('popupclose', {popup: this});
+			}
+		},
+	
+		getLatLng: function () {
+			return this._latlng;
+		},
+	
+		setLatLng: function (latlng) {
+			this._latlng = L.latLng(latlng);
+			if (this._map) {
+				this._updatePosition();
+				this._adjustPan();
+			}
+			return this;
+		},
+	
+		getContent: function () {
+			return this._content;
+		},
+	
+		setContent: function (content) {
+			this._content = content;
+			this.update();
+			return this;
+		},
+	
+		update: function () {
+			if (!this._map) { return; }
+	
+			this._container.style.visibility = 'hidden';
+	
+			this._updateContent();
+			this._updateLayout();
+			this._updatePosition();
+	
+			this._container.style.visibility = '';
+	
+			this._adjustPan();
+		},
+	
+		_getEvents: function () {
+			var events = {
+				viewreset: this._updatePosition
+			};
+	
+			if (this._animated) {
+				events.zoomanim = this._zoomAnimation;
+			}
+			if ('closeOnClick' in this.options ? this.options.closeOnClick : this._map.options.closePopupOnClick) {
+				events.preclick = this._close;
+			}
+			if (this.options.keepInView) {
+				events.moveend = this._adjustPan;
+			}
+	
+			return events;
+		},
+	
+		_close: function () {
+			if (this._map) {
+				this._map.closePopup(this);
+			}
+		},
+	
+		_initLayout: function () {
+			var prefix = 'leaflet-popup',
+				containerClass = prefix + ' ' + this.options.className + ' leaflet-zoom-' +
+				        (this._animated ? 'animated' : 'hide'),
+				container = this._container = L.DomUtil.create('div', containerClass),
+				closeButton;
+	
+			if (this.options.closeButton) {
+				closeButton = this._closeButton =
+				        L.DomUtil.create('a', prefix + '-close-button', container);
+				closeButton.href = '#close';
+				closeButton.innerHTML = '&#215;';
+				L.DomEvent.disableClickPropagation(closeButton);
+	
+				L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
+			}
+	
+			var wrapper = this._wrapper =
+			        L.DomUtil.create('div', prefix + '-content-wrapper', container);
+			L.DomEvent.disableClickPropagation(wrapper);
+	
+			this._contentNode = L.DomUtil.create('div', prefix + '-content', wrapper);
+	
+			L.DomEvent.disableScrollPropagation(this._contentNode);
+			L.DomEvent.on(wrapper, 'contextmenu', L.DomEvent.stopPropagation);
+	
+			this._tipContainer = L.DomUtil.create('div', prefix + '-tip-container', container);
+			this._tip = L.DomUtil.create('div', prefix + '-tip', this._tipContainer);
+		},
+	
+		_updateContent: function () {
+			if (!this._content) { return; }
+	
+			if (typeof this._content === 'string') {
+				this._contentNode.innerHTML = this._content;
+			} else {
+				while (this._contentNode.hasChildNodes()) {
+					this._contentNode.removeChild(this._contentNode.firstChild);
+				}
+				this._contentNode.appendChild(this._content);
+			}
+			this.fire('contentupdate');
+		},
+	
+		_updateLayout: function () {
+			var container = this._contentNode,
+			    style = container.style;
+	
+			style.width = '';
+			style.whiteSpace = 'nowrap';
+	
+			var width = container.offsetWidth;
+			width = Math.min(width, this.options.maxWidth);
+			width = Math.max(width, this.options.minWidth);
+	
+			style.width = (width + 1) + 'px';
+			style.whiteSpace = '';
+	
+			style.height = '';
+	
+			var height = container.offsetHeight,
+			    maxHeight = this.options.maxHeight,
+			    scrolledClass = 'leaflet-popup-scrolled';
+	
+			if (maxHeight && height > maxHeight) {
+				style.height = maxHeight + 'px';
+				L.DomUtil.addClass(container, scrolledClass);
+			} else {
+				L.DomUtil.removeClass(container, scrolledClass);
+			}
+	
+			this._containerWidth = this._container.offsetWidth;
+		},
+	
+		_updatePosition: function () {
+			if (!this._map) { return; }
+	
+			var pos = this._map.latLngToLayerPoint(this._latlng),
+			    animated = this._animated,
+			    offset = L.point(this.options.offset);
+	
+			if (animated) {
+				L.DomUtil.setPosition(this._container, pos);
+			}
+	
+			this._containerBottom = -offset.y - (animated ? 0 : pos.y);
+			this._containerLeft = -Math.round(this._containerWidth / 2) + offset.x + (animated ? 0 : pos.x);
+	
+			// bottom position the popup in case the height of the popup changes (images loading etc)
+			this._container.style.bottom = this._containerBottom + 'px';
+			this._container.style.left = this._containerLeft + 'px';
+		},
+	
+		_zoomAnimation: function (opt) {
+			var pos = this._map._latLngToNewLayerPoint(this._latlng, opt.zoom, opt.center);
+	
+			L.DomUtil.setPosition(this._container, pos);
+		},
+	
+		_adjustPan: function () {
+			if (!this.options.autoPan) { return; }
+	
+			var map = this._map,
+			    containerHeight = this._container.offsetHeight,
+			    containerWidth = this._containerWidth,
+	
+			    layerPos = new L.Point(this._containerLeft, -containerHeight - this._containerBottom);
+	
+			if (this._animated) {
+				layerPos._add(L.DomUtil.getPosition(this._container));
+			}
+	
+			var containerPos = map.layerPointToContainerPoint(layerPos),
+			    padding = L.point(this.options.autoPanPadding),
+			    paddingTL = L.point(this.options.autoPanPaddingTopLeft || padding),
+			    paddingBR = L.point(this.options.autoPanPaddingBottomRight || padding),
+			    size = map.getSize(),
+			    dx = 0,
+			    dy = 0;
+	
+			if (containerPos.x + containerWidth + paddingBR.x > size.x) { // right
+				dx = containerPos.x + containerWidth - size.x + paddingBR.x;
+			}
+			if (containerPos.x - dx - paddingTL.x < 0) { // left
+				dx = containerPos.x - paddingTL.x;
+			}
+			if (containerPos.y + containerHeight + paddingBR.y > size.y) { // bottom
+				dy = containerPos.y + containerHeight - size.y + paddingBR.y;
+			}
+			if (containerPos.y - dy - paddingTL.y < 0) { // top
+				dy = containerPos.y - paddingTL.y;
+			}
+	
+			if (dx || dy) {
+				map
+				    .fire('autopanstart')
+				    .panBy([dx, dy]);
+			}
+		},
+	
+		_onCloseButtonClick: function (e) {
+			this._close();
+			L.DomEvent.stop(e);
+		}
+	});
+	
+	L.popup = function (options, source) {
+		return new L.Popup(options, source);
+	};
+	
+	
+	L.Map.include({
+		openPopup: function (popup, latlng, options) { // (Popup) or (String || HTMLElement, LatLng[, Object])
+			this.closePopup();
+	
+			if (!(popup instanceof L.Popup)) {
+				var content = popup;
+	
+				popup = new L.Popup(options)
+				    .setLatLng(latlng)
+				    .setContent(content);
+			}
+			popup._isOpen = true;
+	
+			this._popup = popup;
+			return this.addLayer(popup);
+		},
+	
+		closePopup: function (popup) {
+			if (!popup || popup === this._popup) {
+				popup = this._popup;
+				this._popup = null;
+			}
+			if (popup) {
+				this.removeLayer(popup);
+				popup._isOpen = false;
+			}
+			return this;
+		}
+	});
+	
+	
+	/*
+	 * Popup extension to L.Marker, adding popup-related methods.
+	 */
+	
+	L.Marker.include({
+		openPopup: function () {
+			if (this._popup && this._map && !this._map.hasLayer(this._popup)) {
+				this._popup.setLatLng(this._latlng);
+				this._map.openPopup(this._popup);
+			}
+	
+			return this;
+		},
+	
+		closePopup: function () {
+			if (this._popup) {
+				this._popup._close();
+			}
+			return this;
+		},
+	
+		togglePopup: function () {
+			if (this._popup) {
+				if (this._popup._isOpen) {
+					this.closePopup();
+				} else {
+					this.openPopup();
+				}
+			}
+			return this;
+		},
+	
+		bindPopup: function (content, options) {
+			var anchor = L.point(this.options.icon.options.popupAnchor || [0, 0]);
+	
+			anchor = anchor.add(L.Popup.prototype.options.offset);
+	
+			if (options && options.offset) {
+				anchor = anchor.add(options.offset);
+			}
+	
+			options = L.extend({offset: anchor}, options);
+	
+			if (!this._popupHandlersAdded) {
+				this
+				    .on('click', this.togglePopup, this)
+				    .on('remove', this.closePopup, this)
+				    .on('move', this._movePopup, this);
+				this._popupHandlersAdded = true;
+			}
+	
+			if (content instanceof L.Popup) {
+				L.setOptions(content, options);
+				this._popup = content;
+				content._source = this;
+			} else {
+				this._popup = new L.Popup(options, this)
+					.setContent(content);
+			}
+	
+			return this;
+		},
+	
+		setPopupContent: function (content) {
+			if (this._popup) {
+				this._popup.setContent(content);
+			}
+			return this;
+		},
+	
+		unbindPopup: function () {
+			if (this._popup) {
+				this._popup = null;
+				this
+				    .off('click', this.togglePopup, this)
+				    .off('remove', this.closePopup, this)
+				    .off('move', this._movePopup, this);
+				this._popupHandlersAdded = false;
+			}
+			return this;
+		},
+	
+		getPopup: function () {
+			return this._popup;
+		},
+	
+		_movePopup: function (e) {
+			this._popup.setLatLng(e.latlng);
+		}
+	});
+	
+	
+	/*
+	 * L.LayerGroup is a class to combine several layers into one so that
+	 * you can manipulate the group (e.g. add/remove it) as one layer.
+	 */
+	
+	L.LayerGroup = L.Class.extend({
+		initialize: function (layers) {
+			this._layers = {};
+	
+			var i, len;
+	
+			if (layers) {
+				for (i = 0, len = layers.length; i < len; i++) {
+					this.addLayer(layers[i]);
+				}
+			}
+		},
+	
+		addLayer: function (layer) {
+			var id = this.getLayerId(layer);
+	
+			this._layers[id] = layer;
+	
+			if (this._map) {
+				this._map.addLayer(layer);
+			}
+	
+			return this;
+		},
+	
+		removeLayer: function (layer) {
+			var id = layer in this._layers ? layer : this.getLayerId(layer);
+	
+			if (this._map && this._layers[id]) {
+				this._map.removeLayer(this._layers[id]);
+			}
+	
+			delete this._layers[id];
+	
+			return this;
+		},
+	
+		hasLayer: function (layer) {
+			if (!layer) { return false; }
+	
+			return (layer in this._layers || this.getLayerId(layer) in this._layers);
+		},
+	
+		clearLayers: function () {
+			this.eachLayer(this.removeLayer, this);
+			return this;
+		},
+	
+		invoke: function (methodName) {
+			var args = Array.prototype.slice.call(arguments, 1),
+			    i, layer;
+	
+			for (i in this._layers) {
+				layer = this._layers[i];
+	
+				if (layer[methodName]) {
+					layer[methodName].apply(layer, args);
+				}
+			}
+	
+			return this;
+		},
+	
+		onAdd: function (map) {
+			this._map = map;
+			this.eachLayer(map.addLayer, map);
+		},
+	
+		onRemove: function (map) {
+			this.eachLayer(map.removeLayer, map);
+			this._map = null;
+		},
+	
+		addTo: function (map) {
+			map.addLayer(this);
+			return this;
+		},
+	
+		eachLayer: function (method, context) {
+			for (var i in this._layers) {
+				method.call(context, this._layers[i]);
+			}
+			return this;
+		},
+	
+		getLayer: function (id) {
+			return this._layers[id];
+		},
+	
+		getLayers: function () {
+			var layers = [];
+	
+			for (var i in this._layers) {
+				layers.push(this._layers[i]);
+			}
+			return layers;
+		},
+	
+		setZIndex: function (zIndex) {
+			return this.invoke('setZIndex', zIndex);
+		},
+	
+		getLayerId: function (layer) {
+			return L.stamp(layer);
+		}
+	});
+	
+	L.layerGroup = function (layers) {
+		return new L.LayerGroup(layers);
+	};
+	
+	
+	/*
+	 * L.FeatureGroup extends L.LayerGroup by introducing mouse events and additional methods
+	 * shared between a group of interactive layers (like vectors or markers).
+	 */
+	
+	L.FeatureGroup = L.LayerGroup.extend({
+		includes: L.Mixin.Events,
+	
+		statics: {
+			EVENTS: 'click dblclick mouseover mouseout mousemove contextmenu popupopen popupclose'
+		},
+	
+		addLayer: function (layer) {
+			if (this.hasLayer(layer)) {
+				return this;
+			}
+	
+			if ('on' in layer) {
+				layer.on(L.FeatureGroup.EVENTS, this._propagateEvent, this);
+			}
+	
+			L.LayerGroup.prototype.addLayer.call(this, layer);
+	
+			if (this._popupContent && layer.bindPopup) {
+				layer.bindPopup(this._popupContent, this._popupOptions);
+			}
+	
+			return this.fire('layeradd', {layer: layer});
+		},
+	
+		removeLayer: function (layer) {
+			if (!this.hasLayer(layer)) {
+				return this;
+			}
+			if (layer in this._layers) {
+				layer = this._layers[layer];
+			}
+	
+			if ('off' in layer) {
+				layer.off(L.FeatureGroup.EVENTS, this._propagateEvent, this);
+			}
+	
+			L.LayerGroup.prototype.removeLayer.call(this, layer);
+	
+			if (this._popupContent) {
+				this.invoke('unbindPopup');
+			}
+	
+			return this.fire('layerremove', {layer: layer});
+		},
+	
+		bindPopup: function (content, options) {
+			this._popupContent = content;
+			this._popupOptions = options;
+			return this.invoke('bindPopup', content, options);
+		},
+	
+		openPopup: function (latlng) {
+			// open popup on the first layer
+			for (var id in this._layers) {
+				this._layers[id].openPopup(latlng);
+				break;
+			}
+			return this;
+		},
+	
+		setStyle: function (style) {
+			return this.invoke('setStyle', style);
+		},
+	
+		bringToFront: function () {
+			return this.invoke('bringToFront');
+		},
+	
+		bringToBack: function () {
+			return this.invoke('bringToBack');
+		},
+	
+		getBounds: function () {
+			var bounds = new L.LatLngBounds();
+	
+			this.eachLayer(function (layer) {
+				bounds.extend(layer instanceof L.Marker ? layer.getLatLng() : layer.getBounds());
+			});
+	
+			return bounds;
+		},
+	
+		_propagateEvent: function (e) {
+			e = L.extend({
+				layer: e.target,
+				target: this
+			}, e);
+			this.fire(e.type, e);
+		}
+	});
+	
+	L.featureGroup = function (layers) {
+		return new L.FeatureGroup(layers);
+	};
+	
+	
+	/*
+	 * L.Path is a base class for rendering vector paths on a map. Inherited by Polyline, Circle, etc.
+	 */
+	
+	L.Path = L.Class.extend({
+		includes: [L.Mixin.Events],
+	
+		statics: {
+			// how much to extend the clip area around the map view
+			// (relative to its size, e.g. 0.5 is half the screen in each direction)
+			// set it so that SVG element doesn't exceed 1280px (vectors flicker on dragend if it is)
+			CLIP_PADDING: (function () {
+				var max = L.Browser.mobile ? 1280 : 2000,
+				    target = (max / Math.max(window.outerWidth, window.outerHeight) - 1) / 2;
+				return Math.max(0, Math.min(0.5, target));
+			})()
+		},
+	
+		options: {
+			stroke: true,
+			color: '#0033ff',
+			dashArray: null,
+			lineCap: null,
+			lineJoin: null,
+			weight: 5,
+			opacity: 0.5,
+	
+			fill: false,
+			fillColor: null, //same as color by default
+			fillOpacity: 0.2,
+	
+			clickable: true
+		},
+	
+		initialize: function (options) {
+			L.setOptions(this, options);
+		},
+	
+		onAdd: function (map) {
+			this._map = map;
+	
+			if (!this._container) {
+				this._initElements();
+				this._initEvents();
+			}
+	
+			this.projectLatlngs();
+			this._updatePath();
+	
+			if (this._container) {
+				this._map._pathRoot.appendChild(this._container);
+			}
+	
+			this.fire('add');
+	
+			map.on({
+				'viewreset': this.projectLatlngs,
+				'moveend': this._updatePath
+			}, this);
+		},
+	
+		addTo: function (map) {
+			map.addLayer(this);
+			return this;
+		},
+	
+		onRemove: function (map) {
+			map._pathRoot.removeChild(this._container);
+	
+			// Need to fire remove event before we set _map to null as the event hooks might need the object
+			this.fire('remove');
+			this._map = null;
+	
+			if (L.Browser.vml) {
+				this._container = null;
+				this._stroke = null;
+				this._fill = null;
+			}
+	
+			map.off({
+				'viewreset': this.projectLatlngs,
+				'moveend': this._updatePath
+			}, this);
+		},
+	
+		projectLatlngs: function () {
+			// do all projection stuff here
+		},
+	
+		setStyle: function (style) {
+			L.setOptions(this, style);
+	
+			if (this._container) {
+				this._updateStyle();
+			}
+	
+			return this;
+		},
+	
+		redraw: function () {
+			if (this._map) {
+				this.projectLatlngs();
+				this._updatePath();
+			}
+			return this;
+		}
+	});
+	
+	L.Map.include({
+		_updatePathViewport: function () {
+			var p = L.Path.CLIP_PADDING,
+			    size = this.getSize(),
+			    panePos = L.DomUtil.getPosition(this._mapPane),
+			    min = panePos.multiplyBy(-1)._subtract(size.multiplyBy(p)._round()),
+			    max = min.add(size.multiplyBy(1 + p * 2)._round());
+	
+			this._pathViewport = new L.Bounds(min, max);
+		}
+	});
+	
+	
+	/*
+	 * Extends L.Path with SVG-specific rendering code.
+	 */
+	
+	L.Path.SVG_NS = 'http://www.w3.org/2000/svg';
+	
+	L.Browser.svg = !!(document.createElementNS && document.createElementNS(L.Path.SVG_NS, 'svg').createSVGRect);
+	
+	L.Path = L.Path.extend({
+		statics: {
+			SVG: L.Browser.svg
+		},
+	
+		bringToFront: function () {
+			var root = this._map._pathRoot,
+			    path = this._container;
+	
+			if (path && root.lastChild !== path) {
+				root.appendChild(path);
+			}
+			return this;
+		},
+	
+		bringToBack: function () {
+			var root = this._map._pathRoot,
+			    path = this._container,
+			    first = root.firstChild;
+	
+			if (path && first !== path) {
+				root.insertBefore(path, first);
+			}
+			return this;
+		},
+	
+		getPathString: function () {
+			// form path string here
+		},
+	
+		_createElement: function (name) {
+			return document.createElementNS(L.Path.SVG_NS, name);
+		},
+	
+		_initElements: function () {
+			this._map._initPathRoot();
+			this._initPath();
+			this._initStyle();
+		},
+	
+		_initPath: function () {
+			this._container = this._createElement('g');
+	
+			this._path = this._createElement('path');
+	
+			if (this.options.className) {
+				L.DomUtil.addClass(this._path, this.options.className);
+			}
+	
+			this._container.appendChild(this._path);
+		},
+	
+		_initStyle: function () {
+			if (this.options.stroke) {
+				this._path.setAttribute('stroke-linejoin', 'round');
+				this._path.setAttribute('stroke-linecap', 'round');
+			}
+			if (this.options.fill) {
+				this._path.setAttribute('fill-rule', 'evenodd');
+			}
+			if (this.options.pointerEvents) {
+				this._path.setAttribute('pointer-events', this.options.pointerEvents);
+			}
+			if (!this.options.clickable && !this.options.pointerEvents) {
+				this._path.setAttribute('pointer-events', 'none');
+			}
+			this._updateStyle();
+		},
+	
+		_updateStyle: function () {
+			if (this.options.stroke) {
+				this._path.setAttribute('stroke', this.options.color);
+				this._path.setAttribute('stroke-opacity', this.options.opacity);
+				this._path.setAttribute('stroke-width', this.options.weight);
+				if (this.options.dashArray) {
+					this._path.setAttribute('stroke-dasharray', this.options.dashArray);
+				} else {
+					this._path.removeAttribute('stroke-dasharray');
+				}
+				if (this.options.lineCap) {
+					this._path.setAttribute('stroke-linecap', this.options.lineCap);
+				}
+				if (this.options.lineJoin) {
+					this._path.setAttribute('stroke-linejoin', this.options.lineJoin);
+				}
+			} else {
+				this._path.setAttribute('stroke', 'none');
+			}
+			if (this.options.fill) {
+				this._path.setAttribute('fill', this.options.fillColor || this.options.color);
+				this._path.setAttribute('fill-opacity', this.options.fillOpacity);
+			} else {
+				this._path.setAttribute('fill', 'none');
+			}
+		},
+	
+		_updatePath: function () {
+			var str = this.getPathString();
+			if (!str) {
+				// fix webkit empty string parsing bug
+				str = 'M0 0';
+			}
+			this._path.setAttribute('d', str);
+		},
+	
+		// TODO remove duplication with L.Map
+		_initEvents: function () {
+			if (this.options.clickable) {
+				if (L.Browser.svg || !L.Browser.vml) {
+					L.DomUtil.addClass(this._path, 'leaflet-clickable');
+				}
+	
+				L.DomEvent.on(this._container, 'click', this._onMouseClick, this);
+	
+				var events = ['dblclick', 'mousedown', 'mouseover',
+				              'mouseout', 'mousemove', 'contextmenu'];
+				for (var i = 0; i < events.length; i++) {
+					L.DomEvent.on(this._container, events[i], this._fireMouseEvent, this);
+				}
+			}
+		},
+	
+		_onMouseClick: function (e) {
+			if (this._map.dragging && this._map.dragging.moved()) { return; }
+	
+			this._fireMouseEvent(e);
+		},
+	
+		_fireMouseEvent: function (e) {
+			if (!this._map || !this.hasEventListeners(e.type)) { return; }
+	
+			var map = this._map,
+			    containerPoint = map.mouseEventToContainerPoint(e),
+			    layerPoint = map.containerPointToLayerPoint(containerPoint),
+			    latlng = map.layerPointToLatLng(layerPoint);
+	
+			this.fire(e.type, {
+				latlng: latlng,
+				layerPoint: layerPoint,
+				containerPoint: containerPoint,
+				originalEvent: e
+			});
+	
+			if (e.type === 'contextmenu') {
+				L.DomEvent.preventDefault(e);
+			}
+			if (e.type !== 'mousemove') {
+				L.DomEvent.stopPropagation(e);
+			}
+		}
+	});
+	
+	L.Map.include({
+		_initPathRoot: function () {
+			if (!this._pathRoot) {
+				this._pathRoot = L.Path.prototype._createElement('svg');
+				this._panes.overlayPane.appendChild(this._pathRoot);
+	
+				if (this.options.zoomAnimation && L.Browser.any3d) {
+					L.DomUtil.addClass(this._pathRoot, 'leaflet-zoom-animated');
+	
+					this.on({
+						'zoomanim': this._animatePathZoom,
+						'zoomend': this._endPathZoom
+					});
+				} else {
+					L.DomUtil.addClass(this._pathRoot, 'leaflet-zoom-hide');
+				}
+	
+				this.on('moveend', this._updateSvgViewport);
+				this._updateSvgViewport();
+			}
+		},
+	
+		_animatePathZoom: function (e) {
+			var scale = this.getZoomScale(e.zoom),
+			    offset = this._getCenterOffset(e.center)._multiplyBy(-scale)._add(this._pathViewport.min);
+	
+			this._pathRoot.style[L.DomUtil.TRANSFORM] =
+			        L.DomUtil.getTranslateString(offset) + ' scale(' + scale + ') ';
+	
+			this._pathZooming = true;
+		},
+	
+		_endPathZoom: function () {
+			this._pathZooming = false;
+		},
+	
+		_updateSvgViewport: function () {
+	
+			if (this._pathZooming) {
+				// Do not update SVGs while a zoom animation is going on otherwise the animation will break.
+				// When the zoom animation ends we will be updated again anyway
+				// This fixes the case where you do a momentum move and zoom while the move is still ongoing.
+				return;
+			}
+	
+			this._updatePathViewport();
+	
+			var vp = this._pathViewport,
+			    min = vp.min,
+			    max = vp.max,
+			    width = max.x - min.x,
+			    height = max.y - min.y,
+			    root = this._pathRoot,
+			    pane = this._panes.overlayPane;
+	
+			// Hack to make flicker on drag end on mobile webkit less irritating
+			if (L.Browser.mobileWebkit) {
+				pane.removeChild(root);
+			}
+	
+			L.DomUtil.setPosition(root, min);
+			root.setAttribute('width', width);
+			root.setAttribute('height', height);
+			root.setAttribute('viewBox', [min.x, min.y, width, height].join(' '));
+	
+			if (L.Browser.mobileWebkit) {
+				pane.appendChild(root);
+			}
+		}
+	});
+	
+	
+	/*
+	 * Popup extension to L.Path (polylines, polygons, circles), adding popup-related methods.
+	 */
+	
+	L.Path.include({
+	
+		bindPopup: function (content, options) {
+	
+			if (content instanceof L.Popup) {
+				this._popup = content;
+			} else {
+				if (!this._popup || options) {
+					this._popup = new L.Popup(options, this);
+				}
+				this._popup.setContent(content);
+			}
+	
+			if (!this._popupHandlersAdded) {
+				this
+				    .on('click', this._openPopup, this)
+				    .on('remove', this.closePopup, this);
+	
+				this._popupHandlersAdded = true;
+			}
+	
+			return this;
+		},
+	
+		unbindPopup: function () {
+			if (this._popup) {
+				this._popup = null;
+				this
+				    .off('click', this._openPopup)
+				    .off('remove', this.closePopup);
+	
+				this._popupHandlersAdded = false;
+			}
+			return this;
+		},
+	
+		openPopup: function (latlng) {
+	
+			if (this._popup) {
+				// open the popup from one of the path's points if not specified
+				latlng = latlng || this._latlng ||
+				         this._latlngs[Math.floor(this._latlngs.length / 2)];
+	
+				this._openPopup({latlng: latlng});
+			}
+	
+			return this;
+		},
+	
+		closePopup: function () {
+			if (this._popup) {
+				this._popup._close();
+			}
+			return this;
+		},
+	
+		_openPopup: function (e) {
+			this._popup.setLatLng(e.latlng);
+			this._map.openPopup(this._popup);
+		}
+	});
+	
+	
+	/*
+	 * Vector rendering for IE6-8 through VML.
+	 * Thanks to Dmitry Baranovsky and his Raphael library for inspiration!
+	 */
+	
+	L.Browser.vml = !L.Browser.svg && (function () {
+		try {
+			var div = document.createElement('div');
+			div.innerHTML = '<v:shape adj="1"/>';
+	
+			var shape = div.firstChild;
+			shape.style.behavior = 'url(#default#VML)';
+	
+			return shape && (typeof shape.adj === 'object');
+	
+		} catch (e) {
+			return false;
+		}
+	}());
+	
+	L.Path = L.Browser.svg || !L.Browser.vml ? L.Path : L.Path.extend({
+		statics: {
+			VML: true,
+			CLIP_PADDING: 0.02
+		},
+	
+		_createElement: (function () {
+			try {
+				document.namespaces.add('lvml', 'urn:schemas-microsoft-com:vml');
+				return function (name) {
+					return document.createElement('<lvml:' + name + ' class="lvml">');
+				};
+			} catch (e) {
+				return function (name) {
+					return document.createElement(
+					        '<' + name + ' xmlns="urn:schemas-microsoft.com:vml" class="lvml">');
+				};
+			}
+		}()),
+	
+		_initPath: function () {
+			var container = this._container = this._createElement('shape');
+	
+			L.DomUtil.addClass(container, 'leaflet-vml-shape' +
+				(this.options.className ? ' ' + this.options.className : ''));
+	
+			if (this.options.clickable) {
+				L.DomUtil.addClass(container, 'leaflet-clickable');
+			}
+	
+			container.coordsize = '1 1';
+	
+			this._path = this._createElement('path');
+			container.appendChild(this._path);
+	
+			this._map._pathRoot.appendChild(container);
+		},
+	
+		_initStyle: function () {
+			this._updateStyle();
+		},
+	
+		_updateStyle: function () {
+			var stroke = this._stroke,
+			    fill = this._fill,
+			    options = this.options,
+			    container = this._container;
+	
+			container.stroked = options.stroke;
+			container.filled = options.fill;
+	
+			if (options.stroke) {
+				if (!stroke) {
+					stroke = this._stroke = this._createElement('stroke');
+					stroke.endcap = 'round';
+					container.appendChild(stroke);
+				}
+				stroke.weight = options.weight + 'px';
+				stroke.color = options.color;
+				stroke.opacity = options.opacity;
+	
+				if (options.dashArray) {
+					stroke.dashStyle = L.Util.isArray(options.dashArray) ?
+					    options.dashArray.join(' ') :
+					    options.dashArray.replace(/( *, *)/g, ' ');
+				} else {
+					stroke.dashStyle = '';
+				}
+				if (options.lineCap) {
+					stroke.endcap = options.lineCap.replace('butt', 'flat');
+				}
+				if (options.lineJoin) {
+					stroke.joinstyle = options.lineJoin;
+				}
+	
+			} else if (stroke) {
+				container.removeChild(stroke);
+				this._stroke = null;
+			}
+	
+			if (options.fill) {
+				if (!fill) {
+					fill = this._fill = this._createElement('fill');
+					container.appendChild(fill);
+				}
+				fill.color = options.fillColor || options.color;
+				fill.opacity = options.fillOpacity;
+	
+			} else if (fill) {
+				container.removeChild(fill);
+				this._fill = null;
+			}
+		},
+	
+		_updatePath: function () {
+			var style = this._container.style;
+	
+			style.display = 'none';
+			this._path.v = this.getPathString() + ' '; // the space fixes IE empty path string bug
+			style.display = '';
+		}
+	});
+	
+	L.Map.include(L.Browser.svg || !L.Browser.vml ? {} : {
+		_initPathRoot: function () {
+			if (this._pathRoot) { return; }
+	
+			var root = this._pathRoot = document.createElement('div');
+			root.className = 'leaflet-vml-container';
+			this._panes.overlayPane.appendChild(root);
+	
+			this.on('moveend', this._updatePathViewport);
+			this._updatePathViewport();
+		}
+	});
+	
+	
+	/*
+	 * Vector rendering for all browsers that support canvas.
+	 */
+	
+	L.Browser.canvas = (function () {
+		return !!document.createElement('canvas').getContext;
+	}());
+	
+	L.Path = (L.Path.SVG && !window.L_PREFER_CANVAS) || !L.Browser.canvas ? L.Path : L.Path.extend({
+		statics: {
+			//CLIP_PADDING: 0.02, // not sure if there's a need to set it to a small value
+			CANVAS: true,
+			SVG: false
+		},
+	
+		redraw: function () {
+			if (this._map) {
+				this.projectLatlngs();
+				this._requestUpdate();
+			}
+			return this;
+		},
+	
+		setStyle: function (style) {
+			L.setOptions(this, style);
+	
+			if (this._map) {
+				this._updateStyle();
+				this._requestUpdate();
+			}
+			return this;
+		},
+	
+		onRemove: function (map) {
+			map
+			    .off('viewreset', this.projectLatlngs, this)
+			    .off('moveend', this._updatePath, this);
+	
+			if (this.options.clickable) {
+				this._map.off('click', this._onClick, this);
+				this._map.off('mousemove', this._onMouseMove, this);
+			}
+	
+			this._requestUpdate();
+			
+			this.fire('remove');
+			this._map = null;
+		},
+	
+		_requestUpdate: function () {
+			if (this._map && !L.Path._updateRequest) {
+				L.Path._updateRequest = L.Util.requestAnimFrame(this._fireMapMoveEnd, this._map);
+			}
+		},
+	
+		_fireMapMoveEnd: function () {
+			L.Path._updateRequest = null;
+			this.fire('moveend');
+		},
+	
+		_initElements: function () {
+			this._map._initPathRoot();
+			this._ctx = this._map._canvasCtx;
+		},
+	
+		_updateStyle: function () {
+			var options = this.options;
+	
+			if (options.stroke) {
+				this._ctx.lineWidth = options.weight;
+				this._ctx.strokeStyle = options.color;
+			}
+			if (options.fill) {
+				this._ctx.fillStyle = options.fillColor || options.color;
+			}
+	
+			if (options.lineCap) {
+				this._ctx.lineCap = options.lineCap;
+			}
+			if (options.lineJoin) {
+				this._ctx.lineJoin = options.lineJoin;
+			}
+		},
+	
+		_drawPath: function () {
+			var i, j, len, len2, point, drawMethod;
+	
+			this._ctx.beginPath();
+	
+			for (i = 0, len = this._parts.length; i < len; i++) {
+				for (j = 0, len2 = this._parts[i].length; j < len2; j++) {
+					point = this._parts[i][j];
+					drawMethod = (j === 0 ? 'move' : 'line') + 'To';
+	
+					this._ctx[drawMethod](point.x, point.y);
+				}
+				// TODO refactor ugly hack
+				if (this instanceof L.Polygon) {
+					this._ctx.closePath();
+				}
+			}
+		},
+	
+		_checkIfEmpty: function () {
+			return !this._parts.length;
+		},
+	
+		_updatePath: function () {
+			if (this._checkIfEmpty()) { return; }
+	
+			var ctx = this._ctx,
+			    options = this.options;
+	
+			this._drawPath();
+			ctx.save();
+			this._updateStyle();
+	
+			if (options.fill) {
+				ctx.globalAlpha = options.fillOpacity;
+				ctx.fill(options.fillRule || 'evenodd');
+			}
+	
+			if (options.stroke) {
+				ctx.globalAlpha = options.opacity;
+				ctx.stroke();
+			}
+	
+			ctx.restore();
+	
+			// TODO optimization: 1 fill/stroke for all features with equal style instead of 1 for each feature
+		},
+	
+		_initEvents: function () {
+			if (this.options.clickable) {
+				this._map.on('mousemove', this._onMouseMove, this);
+				this._map.on('click dblclick contextmenu', this._fireMouseEvent, this);
+			}
+		},
+	
+		_fireMouseEvent: function (e) {
+			if (this._containsPoint(e.layerPoint)) {
+				this.fire(e.type, e);
+			}
+		},
+	
+		_onMouseMove: function (e) {
+			if (!this._map || this._map._animatingZoom) { return; }
+	
+			// TODO don't do on each move
+			if (this._containsPoint(e.layerPoint)) {
+				this._ctx.canvas.style.cursor = 'pointer';
+				this._mouseInside = true;
+				this.fire('mouseover', e);
+	
+			} else if (this._mouseInside) {
+				this._ctx.canvas.style.cursor = '';
+				this._mouseInside = false;
+				this.fire('mouseout', e);
+			}
+		}
+	});
+	
+	L.Map.include((L.Path.SVG && !window.L_PREFER_CANVAS) || !L.Browser.canvas ? {} : {
+		_initPathRoot: function () {
+			var root = this._pathRoot,
+			    ctx;
+	
+			if (!root) {
+				root = this._pathRoot = document.createElement('canvas');
+				root.style.position = 'absolute';
+				ctx = this._canvasCtx = root.getContext('2d');
+	
+				ctx.lineCap = 'round';
+				ctx.lineJoin = 'round';
+	
+				this._panes.overlayPane.appendChild(root);
+	
+				if (this.options.zoomAnimation) {
+					this._pathRoot.className = 'leaflet-zoom-animated';
+					this.on('zoomanim', this._animatePathZoom);
+					this.on('zoomend', this._endPathZoom);
+				}
+				this.on('moveend', this._updateCanvasViewport);
+				this._updateCanvasViewport();
+			}
+		},
+	
+		_updateCanvasViewport: function () {
+			// don't redraw while zooming. See _updateSvgViewport for more details
+			if (this._pathZooming) { return; }
+			this._updatePathViewport();
+	
+			var vp = this._pathViewport,
+			    min = vp.min,
+			    size = vp.max.subtract(min),
+			    root = this._pathRoot;
+	
+			//TODO check if this works properly on mobile webkit
+			L.DomUtil.setPosition(root, min);
+			root.width = size.x;
+			root.height = size.y;
+			root.getContext('2d').translate(-min.x, -min.y);
+		}
+	});
+	
+	
+	/*
+	 * L.LineUtil contains different utility functions for line segments
+	 * and polylines (clipping, simplification, distances, etc.)
+	 */
+	
+	/*jshint bitwise:false */ // allow bitwise operations for this file
+	
+	L.LineUtil = {
+	
+		// Simplify polyline with vertex reduction and Douglas-Peucker simplification.
+		// Improves rendering performance dramatically by lessening the number of points to draw.
+	
+		simplify: function (/*Point[]*/ points, /*Number*/ tolerance) {
+			if (!tolerance || !points.length) {
+				return points.slice();
+			}
+	
+			var sqTolerance = tolerance * tolerance;
+	
+			// stage 1: vertex reduction
+			points = this._reducePoints(points, sqTolerance);
+	
+			// stage 2: Douglas-Peucker simplification
+			points = this._simplifyDP(points, sqTolerance);
+	
+			return points;
+		},
+	
+		// distance from a point to a segment between two points
+		pointToSegmentDistance:  function (/*Point*/ p, /*Point*/ p1, /*Point*/ p2) {
+			return Math.sqrt(this._sqClosestPointOnSegment(p, p1, p2, true));
+		},
+	
+		closestPointOnSegment: function (/*Point*/ p, /*Point*/ p1, /*Point*/ p2) {
+			return this._sqClosestPointOnSegment(p, p1, p2);
+		},
+	
+		// Douglas-Peucker simplification, see http://en.wikipedia.org/wiki/Douglas-Peucker_algorithm
+		_simplifyDP: function (points, sqTolerance) {
+	
+			var len = points.length,
+			    ArrayConstructor = typeof Uint8Array !== undefined + '' ? Uint8Array : Array,
+			    markers = new ArrayConstructor(len);
+	
+			markers[0] = markers[len - 1] = 1;
+	
+			this._simplifyDPStep(points, markers, sqTolerance, 0, len - 1);
+	
+			var i,
+			    newPoints = [];
+	
+			for (i = 0; i < len; i++) {
+				if (markers[i]) {
+					newPoints.push(points[i]);
+				}
+			}
+	
+			return newPoints;
+		},
+	
+		_simplifyDPStep: function (points, markers, sqTolerance, first, last) {
+	
+			var maxSqDist = 0,
+			    index, i, sqDist;
+	
+			for (i = first + 1; i <= last - 1; i++) {
+				sqDist = this._sqClosestPointOnSegment(points[i], points[first], points[last], true);
+	
+				if (sqDist > maxSqDist) {
+					index = i;
+					maxSqDist = sqDist;
+				}
+			}
+	
+			if (maxSqDist > sqTolerance) {
+				markers[index] = 1;
+	
+				this._simplifyDPStep(points, markers, sqTolerance, first, index);
+				this._simplifyDPStep(points, markers, sqTolerance, index, last);
+			}
+		},
+	
+		// reduce points that are too close to each other to a single point
+		_reducePoints: function (points, sqTolerance) {
+			var reducedPoints = [points[0]];
+	
+			for (var i = 1, prev = 0, len = points.length; i < len; i++) {
+				if (this._sqDist(points[i], points[prev]) > sqTolerance) {
+					reducedPoints.push(points[i]);
+					prev = i;
+				}
+			}
+			if (prev < len - 1) {
+				reducedPoints.push(points[len - 1]);
+			}
+			return reducedPoints;
+		},
+	
+		// Cohen-Sutherland line clipping algorithm.
+		// Used to avoid rendering parts of a polyline that are not currently visible.
+	
+		clipSegment: function (a, b, bounds, useLastCode) {
+			var codeA = useLastCode ? this._lastCode : this._getBitCode(a, bounds),
+			    codeB = this._getBitCode(b, bounds),
+	
+			    codeOut, p, newCode;
+	
+			// save 2nd code to avoid calculating it on the next segment
+			this._lastCode = codeB;
+	
+			while (true) {
+				// if a,b is inside the clip window (trivial accept)
+				if (!(codeA | codeB)) {
+					return [a, b];
+				// if a,b is outside the clip window (trivial reject)
+				} else if (codeA & codeB) {
+					return false;
+				// other cases
+				} else {
+					codeOut = codeA || codeB;
+					p = this._getEdgeIntersection(a, b, codeOut, bounds);
+					newCode = this._getBitCode(p, bounds);
+	
+					if (codeOut === codeA) {
+						a = p;
+						codeA = newCode;
+					} else {
+						b = p;
+						codeB = newCode;
+					}
+				}
+			}
+		},
+	
+		_getEdgeIntersection: function (a, b, code, bounds) {
+			var dx = b.x - a.x,
+			    dy = b.y - a.y,
+			    min = bounds.min,
+			    max = bounds.max;
+	
+			if (code & 8) { // top
+				return new L.Point(a.x + dx * (max.y - a.y) / dy, max.y);
+			} else if (code & 4) { // bottom
+				return new L.Point(a.x + dx * (min.y - a.y) / dy, min.y);
+			} else if (code & 2) { // right
+				return new L.Point(max.x, a.y + dy * (max.x - a.x) / dx);
+			} else if (code & 1) { // left
+				return new L.Point(min.x, a.y + dy * (min.x - a.x) / dx);
+			}
+		},
+	
+		_getBitCode: function (/*Point*/ p, bounds) {
+			var code = 0;
+	
+			if (p.x < bounds.min.x) { // left
+				code |= 1;
+			} else if (p.x > bounds.max.x) { // right
+				code |= 2;
+			}
+			if (p.y < bounds.min.y) { // bottom
+				code |= 4;
+			} else if (p.y > bounds.max.y) { // top
+				code |= 8;
+			}
+	
+			return code;
+		},
+	
+		// square distance (to avoid unnecessary Math.sqrt calls)
+		_sqDist: function (p1, p2) {
+			var dx = p2.x - p1.x,
+			    dy = p2.y - p1.y;
+			return dx * dx + dy * dy;
+		},
+	
+		// return closest point on segment or distance to that point
+		_sqClosestPointOnSegment: function (p, p1, p2, sqDist) {
+			var x = p1.x,
+			    y = p1.y,
+			    dx = p2.x - x,
+			    dy = p2.y - y,
+			    dot = dx * dx + dy * dy,
+			    t;
+	
+			if (dot > 0) {
+				t = ((p.x - x) * dx + (p.y - y) * dy) / dot;
+	
+				if (t > 1) {
+					x = p2.x;
+					y = p2.y;
+				} else if (t > 0) {
+					x += dx * t;
+					y += dy * t;
+				}
+			}
+	
+			dx = p.x - x;
+			dy = p.y - y;
+	
+			return sqDist ? dx * dx + dy * dy : new L.Point(x, y);
+		}
+	};
+	
+	
+	/*
+	 * L.Polyline is used to display polylines on a map.
+	 */
+	
+	L.Polyline = L.Path.extend({
+		initialize: function (latlngs, options) {
+			L.Path.prototype.initialize.call(this, options);
+	
+			this._latlngs = this._convertLatLngs(latlngs);
+		},
+	
+		options: {
+			// how much to simplify the polyline on each zoom level
+			// more = better performance and smoother look, less = more accurate
+			smoothFactor: 1.0,
+			noClip: false
+		},
+	
+		projectLatlngs: function () {
+			this._originalPoints = [];
+	
+			for (var i = 0, len = this._latlngs.length; i < len; i++) {
+				this._originalPoints[i] = this._map.latLngToLayerPoint(this._latlngs[i]);
+			}
+		},
+	
+		getPathString: function () {
+			for (var i = 0, len = this._parts.length, str = ''; i < len; i++) {
+				str += this._getPathPartStr(this._parts[i]);
+			}
+			return str;
+		},
+	
+		getLatLngs: function () {
+			return this._latlngs;
+		},
+	
+		setLatLngs: function (latlngs) {
+			this._latlngs = this._convertLatLngs(latlngs);
+			return this.redraw();
+		},
+	
+		addLatLng: function (latlng) {
+			this._latlngs.push(L.latLng(latlng));
+			return this.redraw();
+		},
+	
+		spliceLatLngs: function () { // (Number index, Number howMany)
+			var removed = [].splice.apply(this._latlngs, arguments);
+			this._convertLatLngs(this._latlngs, true);
+			this.redraw();
+			return removed;
+		},
+	
+		closestLayerPoint: function (p) {
+			var minDistance = Infinity, parts = this._parts, p1, p2, minPoint = null;
+	
+			for (var j = 0, jLen = parts.length; j < jLen; j++) {
+				var points = parts[j];
+				for (var i = 1, len = points.length; i < len; i++) {
+					p1 = points[i - 1];
+					p2 = points[i];
+					var sqDist = L.LineUtil._sqClosestPointOnSegment(p, p1, p2, true);
+					if (sqDist < minDistance) {
+						minDistance = sqDist;
+						minPoint = L.LineUtil._sqClosestPointOnSegment(p, p1, p2);
+					}
+				}
+			}
+			if (minPoint) {
+				minPoint.distance = Math.sqrt(minDistance);
+			}
+			return minPoint;
+		},
+	
+		getBounds: function () {
+			return new L.LatLngBounds(this.getLatLngs());
+		},
+	
+		_convertLatLngs: function (latlngs, overwrite) {
+			var i, len, target = overwrite ? latlngs : [];
+	
+			for (i = 0, len = latlngs.length; i < len; i++) {
+				if (L.Util.isArray(latlngs[i]) && typeof latlngs[i][0] !== 'number') {
+					return;
+				}
+				target[i] = L.latLng(latlngs[i]);
+			}
+			return target;
+		},
+	
+		_initEvents: function () {
+			L.Path.prototype._initEvents.call(this);
+		},
+	
+		_getPathPartStr: function (points) {
+			var round = L.Path.VML;
+	
+			for (var j = 0, len2 = points.length, str = '', p; j < len2; j++) {
+				p = points[j];
+				if (round) {
+					p._round();
+				}
+				str += (j ? 'L' : 'M') + p.x + ' ' + p.y;
+			}
+			return str;
+		},
+	
+		_clipPoints: function () {
+			var points = this._originalPoints,
+			    len = points.length,
+			    i, k, segment;
+	
+			if (this.options.noClip) {
+				this._parts = [points];
+				return;
+			}
+	
+			this._parts = [];
+	
+			var parts = this._parts,
+			    vp = this._map._pathViewport,
+			    lu = L.LineUtil;
+	
+			for (i = 0, k = 0; i < len - 1; i++) {
+				segment = lu.clipSegment(points[i], points[i + 1], vp, i);
+				if (!segment) {
+					continue;
+				}
+	
+				parts[k] = parts[k] || [];
+				parts[k].push(segment[0]);
+	
+				// if segment goes out of screen, or it's the last one, it's the end of the line part
+				if ((segment[1] !== points[i + 1]) || (i === len - 2)) {
+					parts[k].push(segment[1]);
+					k++;
+				}
+			}
+		},
+	
+		// simplify each clipped part of the polyline
+		_simplifyPoints: function () {
+			var parts = this._parts,
+			    lu = L.LineUtil;
+	
+			for (var i = 0, len = parts.length; i < len; i++) {
+				parts[i] = lu.simplify(parts[i], this.options.smoothFactor);
+			}
+		},
+	
+		_updatePath: function () {
+			if (!this._map) { return; }
+	
+			this._clipPoints();
+			this._simplifyPoints();
+	
+			L.Path.prototype._updatePath.call(this);
+		}
+	});
+	
+	L.polyline = function (latlngs, options) {
+		return new L.Polyline(latlngs, options);
+	};
+	
+	
+	/*
+	 * L.PolyUtil contains utility functions for polygons (clipping, etc.).
+	 */
+	
+	/*jshint bitwise:false */ // allow bitwise operations here
+	
+	L.PolyUtil = {};
+	
+	/*
+	 * Sutherland-Hodgeman polygon clipping algorithm.
+	 * Used to avoid rendering parts of a polygon that are not currently visible.
+	 */
+	L.PolyUtil.clipPolygon = function (points, bounds) {
+		var clippedPoints,
+		    edges = [1, 4, 2, 8],
+		    i, j, k,
+		    a, b,
+		    len, edge, p,
+		    lu = L.LineUtil;
+	
+		for (i = 0, len = points.length; i < len; i++) {
+			points[i]._code = lu._getBitCode(points[i], bounds);
+		}
+	
+		// for each edge (left, bottom, right, top)
+		for (k = 0; k < 4; k++) {
+			edge = edges[k];
+			clippedPoints = [];
+	
+			for (i = 0, len = points.length, j = len - 1; i < len; j = i++) {
+				a = points[i];
+				b = points[j];
+	
+				// if a is inside the clip window
+				if (!(a._code & edge)) {
+					// if b is outside the clip window (a->b goes out of screen)
+					if (b._code & edge) {
+						p = lu._getEdgeIntersection(b, a, edge, bounds);
+						p._code = lu._getBitCode(p, bounds);
+						clippedPoints.push(p);
+					}
+					clippedPoints.push(a);
+	
+				// else if b is inside the clip window (a->b enters the screen)
+				} else if (!(b._code & edge)) {
+					p = lu._getEdgeIntersection(b, a, edge, bounds);
+					p._code = lu._getBitCode(p, bounds);
+					clippedPoints.push(p);
+				}
+			}
+			points = clippedPoints;
+		}
+	
+		return points;
+	};
+	
+	
+	/*
+	 * L.Polygon is used to display polygons on a map.
+	 */
+	
+	L.Polygon = L.Polyline.extend({
+		options: {
+			fill: true
+		},
+	
+		initialize: function (latlngs, options) {
+			L.Polyline.prototype.initialize.call(this, latlngs, options);
+			this._initWithHoles(latlngs);
+		},
+	
+		_initWithHoles: function (latlngs) {
+			var i, len, hole;
+			if (latlngs && L.Util.isArray(latlngs[0]) && (typeof latlngs[0][0] !== 'number')) {
+				this._latlngs = this._convertLatLngs(latlngs[0]);
+				this._holes = latlngs.slice(1);
+	
+				for (i = 0, len = this._holes.length; i < len; i++) {
+					hole = this._holes[i] = this._convertLatLngs(this._holes[i]);
+					if (hole[0].equals(hole[hole.length - 1])) {
+						hole.pop();
+					}
+				}
+			}
+	
+			// filter out last point if its equal to the first one
+			latlngs = this._latlngs;
+	
+			if (latlngs.length >= 2 && latlngs[0].equals(latlngs[latlngs.length - 1])) {
+				latlngs.pop();
+			}
+		},
+	
+		projectLatlngs: function () {
+			L.Polyline.prototype.projectLatlngs.call(this);
+	
+			// project polygon holes points
+			// TODO move this logic to Polyline to get rid of duplication
+			this._holePoints = [];
+	
+			if (!this._holes) { return; }
+	
+			var i, j, len, len2;
+	
+			for (i = 0, len = this._holes.length; i < len; i++) {
+				this._holePoints[i] = [];
+	
+				for (j = 0, len2 = this._holes[i].length; j < len2; j++) {
+					this._holePoints[i][j] = this._map.latLngToLayerPoint(this._holes[i][j]);
+				}
+			}
+		},
+	
+		setLatLngs: function (latlngs) {
+			if (latlngs && L.Util.isArray(latlngs[0]) && (typeof latlngs[0][0] !== 'number')) {
+				this._initWithHoles(latlngs);
+				return this.redraw();
+			} else {
+				return L.Polyline.prototype.setLatLngs.call(this, latlngs);
+			}
+		},
+	
+		_clipPoints: function () {
+			var points = this._originalPoints,
+			    newParts = [];
+	
+			this._parts = [points].concat(this._holePoints);
+	
+			if (this.options.noClip) { return; }
+	
+			for (var i = 0, len = this._parts.length; i < len; i++) {
+				var clipped = L.PolyUtil.clipPolygon(this._parts[i], this._map._pathViewport);
+				if (clipped.length) {
+					newParts.push(clipped);
+				}
+			}
+	
+			this._parts = newParts;
+		},
+	
+		_getPathPartStr: function (points) {
+			var str = L.Polyline.prototype._getPathPartStr.call(this, points);
+			return str + (L.Browser.svg ? 'z' : 'x');
+		}
+	});
+	
+	L.polygon = function (latlngs, options) {
+		return new L.Polygon(latlngs, options);
+	};
+	
+	
+	/*
+	 * Contains L.MultiPolyline and L.MultiPolygon layers.
+	 */
+	
+	(function () {
+		function createMulti(Klass) {
+	
+			return L.FeatureGroup.extend({
+	
+				initialize: function (latlngs, options) {
+					this._layers = {};
+					this._options = options;
+					this.setLatLngs(latlngs);
+				},
+	
+				setLatLngs: function (latlngs) {
+					var i = 0,
+					    len = latlngs.length;
+	
+					this.eachLayer(function (layer) {
+						if (i < len) {
+							layer.setLatLngs(latlngs[i++]);
+						} else {
+							this.removeLayer(layer);
+						}
+					}, this);
+	
+					while (i < len) {
+						this.addLayer(new Klass(latlngs[i++], this._options));
+					}
+	
+					return this;
+				},
+	
+				getLatLngs: function () {
+					var latlngs = [];
+	
+					this.eachLayer(function (layer) {
+						latlngs.push(layer.getLatLngs());
+					});
+	
+					return latlngs;
+				}
+			});
+		}
+	
+		L.MultiPolyline = createMulti(L.Polyline);
+		L.MultiPolygon = createMulti(L.Polygon);
+	
+		L.multiPolyline = function (latlngs, options) {
+			return new L.MultiPolyline(latlngs, options);
+		};
+	
+		L.multiPolygon = function (latlngs, options) {
+			return new L.MultiPolygon(latlngs, options);
+		};
+	}());
+	
+	
+	/*
+	 * L.Rectangle extends Polygon and creates a rectangle when passed a LatLngBounds object.
+	 */
+	
+	L.Rectangle = L.Polygon.extend({
+		initialize: function (latLngBounds, options) {
+			L.Polygon.prototype.initialize.call(this, this._boundsToLatLngs(latLngBounds), options);
+		},
+	
+		setBounds: function (latLngBounds) {
+			this.setLatLngs(this._boundsToLatLngs(latLngBounds));
+		},
+	
+		_boundsToLatLngs: function (latLngBounds) {
+			latLngBounds = L.latLngBounds(latLngBounds);
+			return [
+				latLngBounds.getSouthWest(),
+				latLngBounds.getNorthWest(),
+				latLngBounds.getNorthEast(),
+				latLngBounds.getSouthEast()
+			];
+		}
+	});
+	
+	L.rectangle = function (latLngBounds, options) {
+		return new L.Rectangle(latLngBounds, options);
+	};
+	
+	
+	/*
+	 * L.Circle is a circle overlay (with a certain radius in meters).
+	 */
+	
+	L.Circle = L.Path.extend({
+		initialize: function (latlng, radius, options) {
+			L.Path.prototype.initialize.call(this, options);
+	
+			this._latlng = L.latLng(latlng);
+			this._mRadius = radius;
+		},
+	
+		options: {
+			fill: true
+		},
+	
+		setLatLng: function (latlng) {
+			this._latlng = L.latLng(latlng);
+			return this.redraw();
+		},
+	
+		setRadius: function (radius) {
+			this._mRadius = radius;
+			return this.redraw();
+		},
+	
+		projectLatlngs: function () {
+			var lngRadius = this._getLngRadius(),
+			    latlng = this._latlng,
+			    pointLeft = this._map.latLngToLayerPoint([latlng.lat, latlng.lng - lngRadius]);
+	
+			this._point = this._map.latLngToLayerPoint(latlng);
+			this._radius = Math.max(this._point.x - pointLeft.x, 1);
+		},
+	
+		getBounds: function () {
+			var lngRadius = this._getLngRadius(),
+			    latRadius = (this._mRadius / 40075017) * 360,
+			    latlng = this._latlng;
+	
+			return new L.LatLngBounds(
+			        [latlng.lat - latRadius, latlng.lng - lngRadius],
+			        [latlng.lat + latRadius, latlng.lng + lngRadius]);
+		},
+	
+		getLatLng: function () {
+			return this._latlng;
+		},
+	
+		getPathString: function () {
+			var p = this._point,
+			    r = this._radius;
+	
+			if (this._checkIfEmpty()) {
+				return '';
+			}
+	
+			if (L.Browser.svg) {
+				return 'M' + p.x + ',' + (p.y - r) +
+				       'A' + r + ',' + r + ',0,1,1,' +
+				       (p.x - 0.1) + ',' + (p.y - r) + ' z';
+			} else {
+				p._round();
+				r = Math.round(r);
+				return 'AL ' + p.x + ',' + p.y + ' ' + r + ',' + r + ' 0,' + (65535 * 360);
+			}
+		},
+	
+		getRadius: function () {
+			return this._mRadius;
+		},
+	
+		// TODO Earth hardcoded, move into projection code!
+	
+		_getLatRadius: function () {
+			return (this._mRadius / 40075017) * 360;
+		},
+	
+		_getLngRadius: function () {
+			return this._getLatRadius() / Math.cos(L.LatLng.DEG_TO_RAD * this._latlng.lat);
+		},
+	
+		_checkIfEmpty: function () {
+			if (!this._map) {
+				return false;
+			}
+			var vp = this._map._pathViewport,
+			    r = this._radius,
+			    p = this._point;
+	
+			return p.x - r > vp.max.x || p.y - r > vp.max.y ||
+			       p.x + r < vp.min.x || p.y + r < vp.min.y;
+		}
+	});
+	
+	L.circle = function (latlng, radius, options) {
+		return new L.Circle(latlng, radius, options);
+	};
+	
+	
+	/*
+	 * L.CircleMarker is a circle overlay with a permanent pixel radius.
+	 */
+	
+	L.CircleMarker = L.Circle.extend({
+		options: {
+			radius: 10,
+			weight: 2
+		},
+	
+		initialize: function (latlng, options) {
+			L.Circle.prototype.initialize.call(this, latlng, null, options);
+			this._radius = this.options.radius;
+		},
+	
+		projectLatlngs: function () {
+			this._point = this._map.latLngToLayerPoint(this._latlng);
+		},
+	
+		_updateStyle : function () {
+			L.Circle.prototype._updateStyle.call(this);
+			this.setRadius(this.options.radius);
+		},
+	
+		setLatLng: function (latlng) {
+			L.Circle.prototype.setLatLng.call(this, latlng);
+			if (this._popup && this._popup._isOpen) {
+				this._popup.setLatLng(latlng);
+			}
+			return this;
+		},
+	
+		setRadius: function (radius) {
+			this.options.radius = this._radius = radius;
+			return this.redraw();
+		},
+	
+		getRadius: function () {
+			return this._radius;
+		}
+	});
+	
+	L.circleMarker = function (latlng, options) {
+		return new L.CircleMarker(latlng, options);
+	};
+	
+	
+	/*
+	 * Extends L.Polyline to be able to manually detect clicks on Canvas-rendered polylines.
+	 */
+	
+	L.Polyline.include(!L.Path.CANVAS ? {} : {
+		_containsPoint: function (p, closed) {
+			var i, j, k, len, len2, dist, part,
+			    w = this.options.weight / 2;
+	
+			if (L.Browser.touch) {
+				w += 10; // polyline click tolerance on touch devices
+			}
+	
+			for (i = 0, len = this._parts.length; i < len; i++) {
+				part = this._parts[i];
+				for (j = 0, len2 = part.length, k = len2 - 1; j < len2; k = j++) {
+					if (!closed && (j === 0)) {
+						continue;
+					}
+	
+					dist = L.LineUtil.pointToSegmentDistance(p, part[k], part[j]);
+	
+					if (dist <= w) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+	});
+	
+	
+	/*
+	 * Extends L.Polygon to be able to manually detect clicks on Canvas-rendered polygons.
+	 */
+	
+	L.Polygon.include(!L.Path.CANVAS ? {} : {
+		_containsPoint: function (p) {
+			var inside = false,
+			    part, p1, p2,
+			    i, j, k,
+			    len, len2;
+	
+			// TODO optimization: check if within bounds first
+	
+			if (L.Polyline.prototype._containsPoint.call(this, p, true)) {
+				// click on polygon border
+				return true;
+			}
+	
+			// ray casting algorithm for detecting if point is in polygon
+	
+			for (i = 0, len = this._parts.length; i < len; i++) {
+				part = this._parts[i];
+	
+				for (j = 0, len2 = part.length, k = len2 - 1; j < len2; k = j++) {
+					p1 = part[j];
+					p2 = part[k];
+	
+					if (((p1.y > p.y) !== (p2.y > p.y)) &&
+							(p.x < (p2.x - p1.x) * (p.y - p1.y) / (p2.y - p1.y) + p1.x)) {
+						inside = !inside;
+					}
+				}
+			}
+	
+			return inside;
+		}
+	});
+	
+	
+	/*
+	 * Extends L.Circle with Canvas-specific code.
+	 */
+	
+	L.Circle.include(!L.Path.CANVAS ? {} : {
+		_drawPath: function () {
+			var p = this._point;
+			this._ctx.beginPath();
+			this._ctx.arc(p.x, p.y, this._radius, 0, Math.PI * 2, false);
+		},
+	
+		_containsPoint: function (p) {
+			var center = this._point,
+			    w2 = this.options.stroke ? this.options.weight / 2 : 0;
+	
+			return (p.distanceTo(center) <= this._radius + w2);
+		}
+	});
+	
+	
+	/*
+	 * CircleMarker canvas specific drawing parts.
+	 */
+	
+	L.CircleMarker.include(!L.Path.CANVAS ? {} : {
+		_updateStyle: function () {
+			L.Path.prototype._updateStyle.call(this);
+		}
+	});
+	
+	
+	/*
+	 * L.GeoJSON turns any GeoJSON data into a Leaflet layer.
+	 */
+	
+	L.GeoJSON = L.FeatureGroup.extend({
+	
+		initialize: function (geojson, options) {
+			L.setOptions(this, options);
+	
+			this._layers = {};
+	
+			if (geojson) {
+				this.addData(geojson);
+			}
+		},
+	
+		addData: function (geojson) {
+			var features = L.Util.isArray(geojson) ? geojson : geojson.features,
+			    i, len, feature;
+	
+			if (features) {
+				for (i = 0, len = features.length; i < len; i++) {
+					// Only add this if geometry or geometries are set and not null
+					feature = features[i];
+					if (feature.geometries || feature.geometry || feature.features || feature.coordinates) {
+						this.addData(features[i]);
+					}
+				}
+				return this;
+			}
+	
+			var options = this.options;
+	
+			if (options.filter && !options.filter(geojson)) { return; }
+	
+			var layer = L.GeoJSON.geometryToLayer(geojson, options.pointToLayer, options.coordsToLatLng, options);
+			layer.feature = L.GeoJSON.asFeature(geojson);
+	
+			layer.defaultOptions = layer.options;
+			this.resetStyle(layer);
+	
+			if (options.onEachFeature) {
+				options.onEachFeature(geojson, layer);
+			}
+	
+			return this.addLayer(layer);
+		},
+	
+		resetStyle: function (layer) {
+			var style = this.options.style;
+			if (style) {
+				// reset any custom styles
+				L.Util.extend(layer.options, layer.defaultOptions);
+	
+				this._setLayerStyle(layer, style);
+			}
+		},
+	
+		setStyle: function (style) {
+			this.eachLayer(function (layer) {
+				this._setLayerStyle(layer, style);
+			}, this);
+		},
+	
+		_setLayerStyle: function (layer, style) {
+			if (typeof style === 'function') {
+				style = style(layer.feature);
+			}
+			if (layer.setStyle) {
+				layer.setStyle(style);
+			}
+		}
+	});
+	
+	L.extend(L.GeoJSON, {
+		geometryToLayer: function (geojson, pointToLayer, coordsToLatLng, vectorOptions) {
+			var geometry = geojson.type === 'Feature' ? geojson.geometry : geojson,
+			    coords = geometry.coordinates,
+			    layers = [],
+			    latlng, latlngs, i, len;
+	
+			coordsToLatLng = coordsToLatLng || this.coordsToLatLng;
+	
+			switch (geometry.type) {
+			case 'Point':
+				latlng = coordsToLatLng(coords);
+				return pointToLayer ? pointToLayer(geojson, latlng) : new L.Marker(latlng);
+	
+			case 'MultiPoint':
+				for (i = 0, len = coords.length; i < len; i++) {
+					latlng = coordsToLatLng(coords[i]);
+					layers.push(pointToLayer ? pointToLayer(geojson, latlng) : new L.Marker(latlng));
+				}
+				return new L.FeatureGroup(layers);
+	
+			case 'LineString':
+				latlngs = this.coordsToLatLngs(coords, 0, coordsToLatLng);
+				return new L.Polyline(latlngs, vectorOptions);
+	
+			case 'Polygon':
+				if (coords.length === 2 && !coords[1].length) {
+					throw new Error('Invalid GeoJSON object.');
+				}
+				latlngs = this.coordsToLatLngs(coords, 1, coordsToLatLng);
+				return new L.Polygon(latlngs, vectorOptions);
+	
+			case 'MultiLineString':
+				latlngs = this.coordsToLatLngs(coords, 1, coordsToLatLng);
+				return new L.MultiPolyline(latlngs, vectorOptions);
+	
+			case 'MultiPolygon':
+				latlngs = this.coordsToLatLngs(coords, 2, coordsToLatLng);
+				return new L.MultiPolygon(latlngs, vectorOptions);
+	
+			case 'GeometryCollection':
+				for (i = 0, len = geometry.geometries.length; i < len; i++) {
+	
+					layers.push(this.geometryToLayer({
+						geometry: geometry.geometries[i],
+						type: 'Feature',
+						properties: geojson.properties
+					}, pointToLayer, coordsToLatLng, vectorOptions));
+				}
+				return new L.FeatureGroup(layers);
+	
+			default:
+				throw new Error('Invalid GeoJSON object.');
+			}
+		},
+	
+		coordsToLatLng: function (coords) { // (Array[, Boolean]) -> LatLng
+			return new L.LatLng(coords[1], coords[0], coords[2]);
+		},
+	
+		coordsToLatLngs: function (coords, levelsDeep, coordsToLatLng) { // (Array[, Number, Function]) -> Array
+			var latlng, i, len,
+			    latlngs = [];
+	
+			for (i = 0, len = coords.length; i < len; i++) {
+				latlng = levelsDeep ?
+				        this.coordsToLatLngs(coords[i], levelsDeep - 1, coordsToLatLng) :
+				        (coordsToLatLng || this.coordsToLatLng)(coords[i]);
+	
+				latlngs.push(latlng);
+			}
+	
+			return latlngs;
+		},
+	
+		latLngToCoords: function (latlng) {
+			var coords = [latlng.lng, latlng.lat];
+	
+			if (latlng.alt !== undefined) {
+				coords.push(latlng.alt);
+			}
+			return coords;
+		},
+	
+		latLngsToCoords: function (latLngs) {
+			var coords = [];
+	
+			for (var i = 0, len = latLngs.length; i < len; i++) {
+				coords.push(L.GeoJSON.latLngToCoords(latLngs[i]));
+			}
+	
+			return coords;
+		},
+	
+		getFeature: function (layer, newGeometry) {
+			return layer.feature ? L.extend({}, layer.feature, {geometry: newGeometry}) : L.GeoJSON.asFeature(newGeometry);
+		},
+	
+		asFeature: function (geoJSON) {
+			if (geoJSON.type === 'Feature') {
+				return geoJSON;
+			}
+	
+			return {
+				type: 'Feature',
+				properties: {},
+				geometry: geoJSON
+			};
+		}
+	});
+	
+	var PointToGeoJSON = {
+		toGeoJSON: function () {
+			return L.GeoJSON.getFeature(this, {
+				type: 'Point',
+				coordinates: L.GeoJSON.latLngToCoords(this.getLatLng())
+			});
+		}
+	};
+	
+	L.Marker.include(PointToGeoJSON);
+	L.Circle.include(PointToGeoJSON);
+	L.CircleMarker.include(PointToGeoJSON);
+	
+	L.Polyline.include({
+		toGeoJSON: function () {
+			return L.GeoJSON.getFeature(this, {
+				type: 'LineString',
+				coordinates: L.GeoJSON.latLngsToCoords(this.getLatLngs())
+			});
+		}
+	});
+	
+	L.Polygon.include({
+		toGeoJSON: function () {
+			var coords = [L.GeoJSON.latLngsToCoords(this.getLatLngs())],
+			    i, len, hole;
+	
+			coords[0].push(coords[0][0]);
+	
+			if (this._holes) {
+				for (i = 0, len = this._holes.length; i < len; i++) {
+					hole = L.GeoJSON.latLngsToCoords(this._holes[i]);
+					hole.push(hole[0]);
+					coords.push(hole);
+				}
+			}
+	
+			return L.GeoJSON.getFeature(this, {
+				type: 'Polygon',
+				coordinates: coords
+			});
+		}
+	});
+	
+	(function () {
+		function multiToGeoJSON(type) {
+			return function () {
+				var coords = [];
+	
+				this.eachLayer(function (layer) {
+					coords.push(layer.toGeoJSON().geometry.coordinates);
+				});
+	
+				return L.GeoJSON.getFeature(this, {
+					type: type,
+					coordinates: coords
+				});
+			};
+		}
+	
+		L.MultiPolyline.include({toGeoJSON: multiToGeoJSON('MultiLineString')});
+		L.MultiPolygon.include({toGeoJSON: multiToGeoJSON('MultiPolygon')});
+	
+		L.LayerGroup.include({
+			toGeoJSON: function () {
+	
+				var geometry = this.feature && this.feature.geometry,
+					jsons = [],
+					json;
+	
+				if (geometry && geometry.type === 'MultiPoint') {
+					return multiToGeoJSON('MultiPoint').call(this);
+				}
+	
+				var isGeometryCollection = geometry && geometry.type === 'GeometryCollection';
+	
+				this.eachLayer(function (layer) {
+					if (layer.toGeoJSON) {
+						json = layer.toGeoJSON();
+						jsons.push(isGeometryCollection ? json.geometry : L.GeoJSON.asFeature(json));
+					}
+				});
+	
+				if (isGeometryCollection) {
+					return L.GeoJSON.getFeature(this, {
+						geometries: jsons,
+						type: 'GeometryCollection'
+					});
+				}
+	
+				return {
+					type: 'FeatureCollection',
+					features: jsons
+				};
+			}
+		});
+	}());
+	
+	L.geoJson = function (geojson, options) {
+		return new L.GeoJSON(geojson, options);
+	};
+	
+	
+	/*
+	 * L.DomEvent contains functions for working with DOM events.
+	 */
+	
+	L.DomEvent = {
+		/* inspired by John Resig, Dean Edwards and YUI addEvent implementations */
+		addListener: function (obj, type, fn, context) { // (HTMLElement, String, Function[, Object])
+	
+			var id = L.stamp(fn),
+			    key = '_leaflet_' + type + id,
+			    handler, originalHandler, newType;
+	
+			if (obj[key]) { return this; }
+	
+			handler = function (e) {
+				return fn.call(context || obj, e || L.DomEvent._getEvent());
+			};
+	
+			if (L.Browser.pointer && type.indexOf('touch') === 0) {
+				return this.addPointerListener(obj, type, handler, id);
+			}
+			if (L.Browser.touch && (type === 'dblclick') && this.addDoubleTapListener) {
+				this.addDoubleTapListener(obj, handler, id);
+			}
+	
+			if ('addEventListener' in obj) {
+	
+				if (type === 'mousewheel') {
+					obj.addEventListener('DOMMouseScroll', handler, false);
+					obj.addEventListener(type, handler, false);
+	
+				} else if ((type === 'mouseenter') || (type === 'mouseleave')) {
+	
+					originalHandler = handler;
+					newType = (type === 'mouseenter' ? 'mouseover' : 'mouseout');
+	
+					handler = function (e) {
+						if (!L.DomEvent._checkMouse(obj, e)) { return; }
+						return originalHandler(e);
+					};
+	
+					obj.addEventListener(newType, handler, false);
+	
+				} else if (type === 'click' && L.Browser.android) {
+					originalHandler = handler;
+					handler = function (e) {
+						return L.DomEvent._filterClick(e, originalHandler);
+					};
+	
+					obj.addEventListener(type, handler, false);
+				} else {
+					obj.addEventListener(type, handler, false);
+				}
+	
+			} else if ('attachEvent' in obj) {
+				obj.attachEvent('on' + type, handler);
+			}
+	
+			obj[key] = handler;
+	
+			return this;
+		},
+	
+		removeListener: function (obj, type, fn) {  // (HTMLElement, String, Function)
+	
+			var id = L.stamp(fn),
+			    key = '_leaflet_' + type + id,
+			    handler = obj[key];
+	
+			if (!handler) { return this; }
+	
+			if (L.Browser.pointer && type.indexOf('touch') === 0) {
+				this.removePointerListener(obj, type, id);
+			} else if (L.Browser.touch && (type === 'dblclick') && this.removeDoubleTapListener) {
+				this.removeDoubleTapListener(obj, id);
+	
+			} else if ('removeEventListener' in obj) {
+	
+				if (type === 'mousewheel') {
+					obj.removeEventListener('DOMMouseScroll', handler, false);
+					obj.removeEventListener(type, handler, false);
+	
+				} else if ((type === 'mouseenter') || (type === 'mouseleave')) {
+					obj.removeEventListener((type === 'mouseenter' ? 'mouseover' : 'mouseout'), handler, false);
+				} else {
+					obj.removeEventListener(type, handler, false);
+				}
+			} else if ('detachEvent' in obj) {
+				obj.detachEvent('on' + type, handler);
+			}
+	
+			obj[key] = null;
+	
+			return this;
+		},
+	
+		stopPropagation: function (e) {
+	
+			if (e.stopPropagation) {
+				e.stopPropagation();
+			} else {
+				e.cancelBubble = true;
+			}
+			L.DomEvent._skipped(e);
+	
+			return this;
+		},
+	
+		disableScrollPropagation: function (el) {
+			var stop = L.DomEvent.stopPropagation;
+	
+			return L.DomEvent
+				.on(el, 'mousewheel', stop)
+				.on(el, 'MozMousePixelScroll', stop);
+		},
+	
+		disableClickPropagation: function (el) {
+			var stop = L.DomEvent.stopPropagation;
+	
+			for (var i = L.Draggable.START.length - 1; i >= 0; i--) {
+				L.DomEvent.on(el, L.Draggable.START[i], stop);
+			}
+	
+			return L.DomEvent
+				.on(el, 'click', L.DomEvent._fakeStop)
+				.on(el, 'dblclick', stop);
+		},
+	
+		preventDefault: function (e) {
+	
+			if (e.preventDefault) {
+				e.preventDefault();
+			} else {
+				e.returnValue = false;
+			}
+			return this;
+		},
+	
+		stop: function (e) {
+			return L.DomEvent
+				.preventDefault(e)
+				.stopPropagation(e);
+		},
+	
+		getMousePosition: function (e, container) {
+			if (!container) {
+				return new L.Point(e.clientX, e.clientY);
+			}
+	
+			var rect = container.getBoundingClientRect();
+	
+			return new L.Point(
+				e.clientX - rect.left - container.clientLeft,
+				e.clientY - rect.top - container.clientTop);
+		},
+	
+		getWheelDelta: function (e) {
+	
+			var delta = 0;
+	
+			if (e.wheelDelta) {
+				delta = e.wheelDelta / 120;
+			}
+			if (e.detail) {
+				delta = -e.detail / 3;
+			}
+			return delta;
+		},
+	
+		_skipEvents: {},
+	
+		_fakeStop: function (e) {
+			// fakes stopPropagation by setting a special event flag, checked/reset with L.DomEvent._skipped(e)
+			L.DomEvent._skipEvents[e.type] = true;
+		},
+	
+		_skipped: function (e) {
+			var skipped = this._skipEvents[e.type];
+			// reset when checking, as it's only used in map container and propagates outside of the map
+			this._skipEvents[e.type] = false;
+			return skipped;
+		},
+	
+		// check if element really left/entered the event target (for mouseenter/mouseleave)
+		_checkMouse: function (el, e) {
+	
+			var related = e.relatedTarget;
+	
+			if (!related) { return true; }
+	
+			try {
+				while (related && (related !== el)) {
+					related = related.parentNode;
+				}
+			} catch (err) {
+				return false;
+			}
+			return (related !== el);
+		},
+	
+		_getEvent: function () { // evil magic for IE
+			/*jshint noarg:false */
+			var e = window.event;
+			if (!e) {
+				var caller = arguments.callee.caller;
+				while (caller) {
+					e = caller['arguments'][0];
+					if (e && window.Event === e.constructor) {
+						break;
+					}
+					caller = caller.caller;
+				}
+			}
+			return e;
+		},
+	
+		// this is a horrible workaround for a bug in Android where a single touch triggers two click events
+		_filterClick: function (e, handler) {
+			var timeStamp = (e.timeStamp || e.originalEvent.timeStamp),
+				elapsed = L.DomEvent._lastClick && (timeStamp - L.DomEvent._lastClick);
+	
+			// are they closer together than 500ms yet more than 100ms?
+			// Android typically triggers them ~300ms apart while multiple listeners
+			// on the same event should be triggered far faster;
+			// or check if click is simulated on the element, and if it is, reject any non-simulated events
+	
+			if ((elapsed && elapsed > 100 && elapsed < 500) || (e.target._simulatedClick && !e._simulated)) {
+				L.DomEvent.stop(e);
+				return;
+			}
+			L.DomEvent._lastClick = timeStamp;
+	
+			return handler(e);
+		}
+	};
+	
+	L.DomEvent.on = L.DomEvent.addListener;
+	L.DomEvent.off = L.DomEvent.removeListener;
+	
+	
+	/*
+	 * L.Draggable allows you to add dragging capabilities to any element. Supports mobile devices too.
+	 */
+	
+	L.Draggable = L.Class.extend({
+		includes: L.Mixin.Events,
+	
+		statics: {
+			START: L.Browser.touch ? ['touchstart', 'mousedown'] : ['mousedown'],
+			END: {
+				mousedown: 'mouseup',
+				touchstart: 'touchend',
+				pointerdown: 'touchend',
+				MSPointerDown: 'touchend'
+			},
+			MOVE: {
+				mousedown: 'mousemove',
+				touchstart: 'touchmove',
+				pointerdown: 'touchmove',
+				MSPointerDown: 'touchmove'
+			}
+		},
+	
+		initialize: function (element, dragStartTarget) {
+			this._element = element;
+			this._dragStartTarget = dragStartTarget || element;
+		},
+	
+		enable: function () {
+			if (this._enabled) { return; }
+	
+			for (var i = L.Draggable.START.length - 1; i >= 0; i--) {
+				L.DomEvent.on(this._dragStartTarget, L.Draggable.START[i], this._onDown, this);
+			}
+	
+			this._enabled = true;
+		},
+	
+		disable: function () {
+			if (!this._enabled) { return; }
+	
+			for (var i = L.Draggable.START.length - 1; i >= 0; i--) {
+				L.DomEvent.off(this._dragStartTarget, L.Draggable.START[i], this._onDown, this);
+			}
+	
+			this._enabled = false;
+			this._moved = false;
+		},
+	
+		_onDown: function (e) {
+			this._moved = false;
+	
+			if (e.shiftKey || ((e.which !== 1) && (e.button !== 1) && !e.touches)) { return; }
+	
+			L.DomEvent.stopPropagation(e);
+	
+			if (L.Draggable._disabled) { return; }
+	
+			L.DomUtil.disableImageDrag();
+			L.DomUtil.disableTextSelection();
+	
+			if (this._moving) { return; }
+	
+			var first = e.touches ? e.touches[0] : e;
+	
+			this._startPoint = new L.Point(first.clientX, first.clientY);
+			this._startPos = this._newPos = L.DomUtil.getPosition(this._element);
+	
+			L.DomEvent
+			    .on(document, L.Draggable.MOVE[e.type], this._onMove, this)
+			    .on(document, L.Draggable.END[e.type], this._onUp, this);
+		},
+	
+		_onMove: function (e) {
+			if (e.touches && e.touches.length > 1) {
+				this._moved = true;
+				return;
+			}
+	
+			var first = (e.touches && e.touches.length === 1 ? e.touches[0] : e),
+			    newPoint = new L.Point(first.clientX, first.clientY),
+			    offset = newPoint.subtract(this._startPoint);
+	
+			if (!offset.x && !offset.y) { return; }
+			if (L.Browser.touch && Math.abs(offset.x) + Math.abs(offset.y) < 3) { return; }
+	
+			L.DomEvent.preventDefault(e);
+	
+			if (!this._moved) {
+				this.fire('dragstart');
+	
+				this._moved = true;
+				this._startPos = L.DomUtil.getPosition(this._element).subtract(offset);
+	
+				L.DomUtil.addClass(document.body, 'leaflet-dragging');
+				this._lastTarget = e.target || e.srcElement;
+				L.DomUtil.addClass(this._lastTarget, 'leaflet-drag-target');
+			}
+	
+			this._newPos = this._startPos.add(offset);
+			this._moving = true;
+	
+			L.Util.cancelAnimFrame(this._animRequest);
+			this._animRequest = L.Util.requestAnimFrame(this._updatePosition, this, true, this._dragStartTarget);
+		},
+	
+		_updatePosition: function () {
+			this.fire('predrag');
+			L.DomUtil.setPosition(this._element, this._newPos);
+			this.fire('drag');
+		},
+	
+		_onUp: function () {
+			L.DomUtil.removeClass(document.body, 'leaflet-dragging');
+	
+			if (this._lastTarget) {
+				L.DomUtil.removeClass(this._lastTarget, 'leaflet-drag-target');
+				this._lastTarget = null;
+			}
+	
+			for (var i in L.Draggable.MOVE) {
+				L.DomEvent
+				    .off(document, L.Draggable.MOVE[i], this._onMove)
+				    .off(document, L.Draggable.END[i], this._onUp);
+			}
+	
+			L.DomUtil.enableImageDrag();
+			L.DomUtil.enableTextSelection();
+	
+			if (this._moved && this._moving) {
+				// ensure drag is not fired after dragend
+				L.Util.cancelAnimFrame(this._animRequest);
+	
+				this.fire('dragend', {
+					distance: this._newPos.distanceTo(this._startPos)
+				});
+			}
+	
+			this._moving = false;
+		}
+	});
+	
+	
+	/*
+		L.Handler is a base class for handler classes that are used internally to inject
+		interaction features like dragging to classes like Map and Marker.
+	*/
+	
+	L.Handler = L.Class.extend({
+		initialize: function (map) {
+			this._map = map;
+		},
+	
+		enable: function () {
+			if (this._enabled) { return; }
+	
+			this._enabled = true;
+			this.addHooks();
+		},
+	
+		disable: function () {
+			if (!this._enabled) { return; }
+	
+			this._enabled = false;
+			this.removeHooks();
+		},
+	
+		enabled: function () {
+			return !!this._enabled;
+		}
+	});
+	
+	
+	/*
+	 * L.Handler.MapDrag is used to make the map draggable (with panning inertia), enabled by default.
+	 */
+	
+	L.Map.mergeOptions({
+		dragging: true,
+	
+		inertia: !L.Browser.android23,
+		inertiaDeceleration: 3400, // px/s^2
+		inertiaMaxSpeed: Infinity, // px/s
+		inertiaThreshold: L.Browser.touch ? 32 : 18, // ms
+		easeLinearity: 0.25,
+	
+		// TODO refactor, move to CRS
+		worldCopyJump: false
+	});
+	
+	L.Map.Drag = L.Handler.extend({
+		addHooks: function () {
+			if (!this._draggable) {
+				var map = this._map;
+	
+				this._draggable = new L.Draggable(map._mapPane, map._container);
+	
+				this._draggable.on({
+					'dragstart': this._onDragStart,
+					'drag': this._onDrag,
+					'dragend': this._onDragEnd
+				}, this);
+	
+				if (map.options.worldCopyJump) {
+					this._draggable.on('predrag', this._onPreDrag, this);
+					map.on('viewreset', this._onViewReset, this);
+	
+					map.whenReady(this._onViewReset, this);
+				}
+			}
+			this._draggable.enable();
+		},
+	
+		removeHooks: function () {
+			this._draggable.disable();
+		},
+	
+		moved: function () {
+			return this._draggable && this._draggable._moved;
+		},
+	
+		_onDragStart: function () {
+			var map = this._map;
+	
+			if (map._panAnim) {
+				map._panAnim.stop();
+			}
+	
+			map
+			    .fire('movestart')
+			    .fire('dragstart');
+	
+			if (map.options.inertia) {
+				this._positions = [];
+				this._times = [];
+			}
+		},
+	
+		_onDrag: function () {
+			if (this._map.options.inertia) {
+				var time = this._lastTime = +new Date(),
+				    pos = this._lastPos = this._draggable._newPos;
+	
+				this._positions.push(pos);
+				this._times.push(time);
+	
+				if (time - this._times[0] > 200) {
+					this._positions.shift();
+					this._times.shift();
+				}
+			}
+	
+			this._map
+			    .fire('move')
+			    .fire('drag');
+		},
+	
+		_onViewReset: function () {
+			// TODO fix hardcoded Earth values
+			var pxCenter = this._map.getSize()._divideBy(2),
+			    pxWorldCenter = this._map.latLngToLayerPoint([0, 0]);
+	
+			this._initialWorldOffset = pxWorldCenter.subtract(pxCenter).x;
+			this._worldWidth = this._map.project([0, 180]).x;
+		},
+	
+		_onPreDrag: function () {
+			// TODO refactor to be able to adjust map pane position after zoom
+			var worldWidth = this._worldWidth,
+			    halfWidth = Math.round(worldWidth / 2),
+			    dx = this._initialWorldOffset,
+			    x = this._draggable._newPos.x,
+			    newX1 = (x - halfWidth + dx) % worldWidth + halfWidth - dx,
+			    newX2 = (x + halfWidth + dx) % worldWidth - halfWidth - dx,
+			    newX = Math.abs(newX1 + dx) < Math.abs(newX2 + dx) ? newX1 : newX2;
+	
+			this._draggable._newPos.x = newX;
+		},
+	
+		_onDragEnd: function (e) {
+			var map = this._map,
+			    options = map.options,
+			    delay = +new Date() - this._lastTime,
+	
+			    noInertia = !options.inertia || delay > options.inertiaThreshold || !this._positions[0];
+	
+			map.fire('dragend', e);
+	
+			if (noInertia) {
+				map.fire('moveend');
+	
+			} else {
+	
+				var direction = this._lastPos.subtract(this._positions[0]),
+				    duration = (this._lastTime + delay - this._times[0]) / 1000,
+				    ease = options.easeLinearity,
+	
+				    speedVector = direction.multiplyBy(ease / duration),
+				    speed = speedVector.distanceTo([0, 0]),
+	
+				    limitedSpeed = Math.min(options.inertiaMaxSpeed, speed),
+				    limitedSpeedVector = speedVector.multiplyBy(limitedSpeed / speed),
+	
+				    decelerationDuration = limitedSpeed / (options.inertiaDeceleration * ease),
+				    offset = limitedSpeedVector.multiplyBy(-decelerationDuration / 2).round();
+	
+				if (!offset.x || !offset.y) {
+					map.fire('moveend');
+	
+				} else {
+					offset = map._limitOffset(offset, map.options.maxBounds);
+	
+					L.Util.requestAnimFrame(function () {
+						map.panBy(offset, {
+							duration: decelerationDuration,
+							easeLinearity: ease,
+							noMoveStart: true
+						});
+					});
+				}
+			}
+		}
+	});
+	
+	L.Map.addInitHook('addHandler', 'dragging', L.Map.Drag);
+	
+	
+	/*
+	 * L.Handler.DoubleClickZoom is used to handle double-click zoom on the map, enabled by default.
+	 */
+	
+	L.Map.mergeOptions({
+		doubleClickZoom: true
+	});
+	
+	L.Map.DoubleClickZoom = L.Handler.extend({
+		addHooks: function () {
+			this._map.on('dblclick', this._onDoubleClick, this);
+		},
+	
+		removeHooks: function () {
+			this._map.off('dblclick', this._onDoubleClick, this);
+		},
+	
+		_onDoubleClick: function (e) {
+			var map = this._map,
+			    zoom = map.getZoom() + (e.originalEvent.shiftKey ? -1 : 1);
+	
+			if (map.options.doubleClickZoom === 'center') {
+				map.setZoom(zoom);
+			} else {
+				map.setZoomAround(e.containerPoint, zoom);
+			}
+		}
+	});
+	
+	L.Map.addInitHook('addHandler', 'doubleClickZoom', L.Map.DoubleClickZoom);
+	
+	
+	/*
+	 * L.Handler.ScrollWheelZoom is used by L.Map to enable mouse scroll wheel zoom on the map.
+	 */
+	
+	L.Map.mergeOptions({
+		scrollWheelZoom: true
+	});
+	
+	L.Map.ScrollWheelZoom = L.Handler.extend({
+		addHooks: function () {
+			L.DomEvent.on(this._map._container, 'mousewheel', this._onWheelScroll, this);
+			L.DomEvent.on(this._map._container, 'MozMousePixelScroll', L.DomEvent.preventDefault);
+			this._delta = 0;
+		},
+	
+		removeHooks: function () {
+			L.DomEvent.off(this._map._container, 'mousewheel', this._onWheelScroll);
+			L.DomEvent.off(this._map._container, 'MozMousePixelScroll', L.DomEvent.preventDefault);
+		},
+	
+		_onWheelScroll: function (e) {
+			var delta = L.DomEvent.getWheelDelta(e);
+	
+			this._delta += delta;
+			this._lastMousePos = this._map.mouseEventToContainerPoint(e);
+	
+			if (!this._startTime) {
+				this._startTime = +new Date();
+			}
+	
+			var left = Math.max(40 - (+new Date() - this._startTime), 0);
+	
+			clearTimeout(this._timer);
+			this._timer = setTimeout(L.bind(this._performZoom, this), left);
+	
+			L.DomEvent.preventDefault(e);
+			L.DomEvent.stopPropagation(e);
+		},
+	
+		_performZoom: function () {
+			var map = this._map,
+			    delta = this._delta,
+			    zoom = map.getZoom();
+	
+			delta = delta > 0 ? Math.ceil(delta) : Math.floor(delta);
+			delta = Math.max(Math.min(delta, 4), -4);
+			delta = map._limitZoom(zoom + delta) - zoom;
+	
+			this._delta = 0;
+			this._startTime = null;
+	
+			if (!delta) { return; }
+	
+			if (map.options.scrollWheelZoom === 'center') {
+				map.setZoom(zoom + delta);
+			} else {
+				map.setZoomAround(this._lastMousePos, zoom + delta);
+			}
+		}
+	});
+	
+	L.Map.addInitHook('addHandler', 'scrollWheelZoom', L.Map.ScrollWheelZoom);
+	
+	
+	/*
+	 * Extends the event handling code with double tap support for mobile browsers.
+	 */
+	
+	L.extend(L.DomEvent, {
+	
+		_touchstart: L.Browser.msPointer ? 'MSPointerDown' : L.Browser.pointer ? 'pointerdown' : 'touchstart',
+		_touchend: L.Browser.msPointer ? 'MSPointerUp' : L.Browser.pointer ? 'pointerup' : 'touchend',
+	
+		// inspired by Zepto touch code by Thomas Fuchs
+		addDoubleTapListener: function (obj, handler, id) {
+			var last,
+			    doubleTap = false,
+			    delay = 250,
+			    touch,
+			    pre = '_leaflet_',
+			    touchstart = this._touchstart,
+			    touchend = this._touchend,
+			    trackedTouches = [];
+	
+			function onTouchStart(e) {
+				var count;
+	
+				if (L.Browser.pointer) {
+					trackedTouches.push(e.pointerId);
+					count = trackedTouches.length;
+				} else {
+					count = e.touches.length;
+				}
+				if (count > 1) {
+					return;
+				}
+	
+				var now = Date.now(),
+					delta = now - (last || now);
+	
+				touch = e.touches ? e.touches[0] : e;
+				doubleTap = (delta > 0 && delta <= delay);
+				last = now;
+			}
+	
+			function onTouchEnd(e) {
+				if (L.Browser.pointer) {
+					var idx = trackedTouches.indexOf(e.pointerId);
+					if (idx === -1) {
+						return;
+					}
+					trackedTouches.splice(idx, 1);
+				}
+	
+				if (doubleTap) {
+					if (L.Browser.pointer) {
+						// work around .type being readonly with MSPointer* events
+						var newTouch = { },
+							prop;
+	
+						// jshint forin:false
+						for (var i in touch) {
+							prop = touch[i];
+							if (typeof prop === 'function') {
+								newTouch[i] = prop.bind(touch);
+							} else {
+								newTouch[i] = prop;
+							}
+						}
+						touch = newTouch;
+					}
+					touch.type = 'dblclick';
+					handler(touch);
+					last = null;
+				}
+			}
+			obj[pre + touchstart + id] = onTouchStart;
+			obj[pre + touchend + id] = onTouchEnd;
+	
+			// on pointer we need to listen on the document, otherwise a drag starting on the map and moving off screen
+			// will not come through to us, so we will lose track of how many touches are ongoing
+			var endElement = L.Browser.pointer ? document.documentElement : obj;
+	
+			obj.addEventListener(touchstart, onTouchStart, false);
+			endElement.addEventListener(touchend, onTouchEnd, false);
+	
+			if (L.Browser.pointer) {
+				endElement.addEventListener(L.DomEvent.POINTER_CANCEL, onTouchEnd, false);
+			}
+	
+			return this;
+		},
+	
+		removeDoubleTapListener: function (obj, id) {
+			var pre = '_leaflet_';
+	
+			obj.removeEventListener(this._touchstart, obj[pre + this._touchstart + id], false);
+			(L.Browser.pointer ? document.documentElement : obj).removeEventListener(
+			        this._touchend, obj[pre + this._touchend + id], false);
+	
+			if (L.Browser.pointer) {
+				document.documentElement.removeEventListener(L.DomEvent.POINTER_CANCEL, obj[pre + this._touchend + id],
+					false);
+			}
+	
+			return this;
+		}
+	});
+	
+	
+	/*
+	 * Extends L.DomEvent to provide touch support for Internet Explorer and Windows-based devices.
+	 */
+	
+	L.extend(L.DomEvent, {
+	
+		//static
+		POINTER_DOWN: L.Browser.msPointer ? 'MSPointerDown' : 'pointerdown',
+		POINTER_MOVE: L.Browser.msPointer ? 'MSPointerMove' : 'pointermove',
+		POINTER_UP: L.Browser.msPointer ? 'MSPointerUp' : 'pointerup',
+		POINTER_CANCEL: L.Browser.msPointer ? 'MSPointerCancel' : 'pointercancel',
+	
+		_pointers: [],
+		_pointerDocumentListener: false,
+	
+		// Provides a touch events wrapper for (ms)pointer events.
+		// Based on changes by veproza https://github.com/CloudMade/Leaflet/pull/1019
+		//ref http://www.w3.org/TR/pointerevents/ https://www.w3.org/Bugs/Public/show_bug.cgi?id=22890
+	
+		addPointerListener: function (obj, type, handler, id) {
+	
+			switch (type) {
+			case 'touchstart':
+				return this.addPointerListenerStart(obj, type, handler, id);
+			case 'touchend':
+				return this.addPointerListenerEnd(obj, type, handler, id);
+			case 'touchmove':
+				return this.addPointerListenerMove(obj, type, handler, id);
+			default:
+				throw 'Unknown touch event type';
+			}
+		},
+	
+		addPointerListenerStart: function (obj, type, handler, id) {
+			var pre = '_leaflet_',
+			    pointers = this._pointers;
+	
+			var cb = function (e) {
+				if (e.pointerType !== 'mouse' && e.pointerType !== e.MSPOINTER_TYPE_MOUSE) {
+					L.DomEvent.preventDefault(e);
+				}
+	
+				var alreadyInArray = false;
+				for (var i = 0; i < pointers.length; i++) {
+					if (pointers[i].pointerId === e.pointerId) {
+						alreadyInArray = true;
+						break;
+					}
+				}
+				if (!alreadyInArray) {
+					pointers.push(e);
+				}
+	
+				e.touches = pointers.slice();
+				e.changedTouches = [e];
+	
+				handler(e);
+			};
+	
+			obj[pre + 'touchstart' + id] = cb;
+			obj.addEventListener(this.POINTER_DOWN, cb, false);
+	
+			// need to also listen for end events to keep the _pointers list accurate
+			// this needs to be on the body and never go away
+			if (!this._pointerDocumentListener) {
+				var internalCb = function (e) {
+					for (var i = 0; i < pointers.length; i++) {
+						if (pointers[i].pointerId === e.pointerId) {
+							pointers.splice(i, 1);
+							break;
+						}
+					}
+				};
+				//We listen on the documentElement as any drags that end by moving the touch off the screen get fired there
+				document.documentElement.addEventListener(this.POINTER_UP, internalCb, false);
+				document.documentElement.addEventListener(this.POINTER_CANCEL, internalCb, false);
+	
+				this._pointerDocumentListener = true;
+			}
+	
+			return this;
+		},
+	
+		addPointerListenerMove: function (obj, type, handler, id) {
+			var pre = '_leaflet_',
+			    touches = this._pointers;
+	
+			function cb(e) {
+	
+				// don't fire touch moves when mouse isn't down
+				if ((e.pointerType === e.MSPOINTER_TYPE_MOUSE || e.pointerType === 'mouse') && e.buttons === 0) { return; }
+	
+				for (var i = 0; i < touches.length; i++) {
+					if (touches[i].pointerId === e.pointerId) {
+						touches[i] = e;
+						break;
+					}
+				}
+	
+				e.touches = touches.slice();
+				e.changedTouches = [e];
+	
+				handler(e);
+			}
+	
+			obj[pre + 'touchmove' + id] = cb;
+			obj.addEventListener(this.POINTER_MOVE, cb, false);
+	
+			return this;
+		},
+	
+		addPointerListenerEnd: function (obj, type, handler, id) {
+			var pre = '_leaflet_',
+			    touches = this._pointers;
+	
+			var cb = function (e) {
+				for (var i = 0; i < touches.length; i++) {
+					if (touches[i].pointerId === e.pointerId) {
+						touches.splice(i, 1);
+						break;
+					}
+				}
+	
+				e.touches = touches.slice();
+				e.changedTouches = [e];
+	
+				handler(e);
+			};
+	
+			obj[pre + 'touchend' + id] = cb;
+			obj.addEventListener(this.POINTER_UP, cb, false);
+			obj.addEventListener(this.POINTER_CANCEL, cb, false);
+	
+			return this;
+		},
+	
+		removePointerListener: function (obj, type, id) {
+			var pre = '_leaflet_',
+			    cb = obj[pre + type + id];
+	
+			switch (type) {
+			case 'touchstart':
+				obj.removeEventListener(this.POINTER_DOWN, cb, false);
+				break;
+			case 'touchmove':
+				obj.removeEventListener(this.POINTER_MOVE, cb, false);
+				break;
+			case 'touchend':
+				obj.removeEventListener(this.POINTER_UP, cb, false);
+				obj.removeEventListener(this.POINTER_CANCEL, cb, false);
+				break;
+			}
+	
+			return this;
+		}
+	});
+	
+	
+	/*
+	 * L.Handler.TouchZoom is used by L.Map to add pinch zoom on supported mobile browsers.
+	 */
+	
+	L.Map.mergeOptions({
+		touchZoom: L.Browser.touch && !L.Browser.android23,
+		bounceAtZoomLimits: true
+	});
+	
+	L.Map.TouchZoom = L.Handler.extend({
+		addHooks: function () {
+			L.DomEvent.on(this._map._container, 'touchstart', this._onTouchStart, this);
+		},
+	
+		removeHooks: function () {
+			L.DomEvent.off(this._map._container, 'touchstart', this._onTouchStart, this);
+		},
+	
+		_onTouchStart: function (e) {
+			var map = this._map;
+	
+			if (!e.touches || e.touches.length !== 2 || map._animatingZoom || this._zooming) { return; }
+	
+			var p1 = map.mouseEventToLayerPoint(e.touches[0]),
+			    p2 = map.mouseEventToLayerPoint(e.touches[1]),
+			    viewCenter = map._getCenterLayerPoint();
+	
+			this._startCenter = p1.add(p2)._divideBy(2);
+			this._startDist = p1.distanceTo(p2);
+	
+			this._moved = false;
+			this._zooming = true;
+	
+			this._centerOffset = viewCenter.subtract(this._startCenter);
+	
+			if (map._panAnim) {
+				map._panAnim.stop();
+			}
+	
+			L.DomEvent
+			    .on(document, 'touchmove', this._onTouchMove, this)
+			    .on(document, 'touchend', this._onTouchEnd, this);
+	
+			L.DomEvent.preventDefault(e);
+		},
+	
+		_onTouchMove: function (e) {
+			var map = this._map;
+	
+			if (!e.touches || e.touches.length !== 2 || !this._zooming) { return; }
+	
+			var p1 = map.mouseEventToLayerPoint(e.touches[0]),
+			    p2 = map.mouseEventToLayerPoint(e.touches[1]);
+	
+			this._scale = p1.distanceTo(p2) / this._startDist;
+			this._delta = p1._add(p2)._divideBy(2)._subtract(this._startCenter);
+	
+			if (this._scale === 1) { return; }
+	
+			if (!map.options.bounceAtZoomLimits) {
+				if ((map.getZoom() === map.getMinZoom() && this._scale < 1) ||
+				    (map.getZoom() === map.getMaxZoom() && this._scale > 1)) { return; }
+			}
+	
+			if (!this._moved) {
+				L.DomUtil.addClass(map._mapPane, 'leaflet-touching');
+	
+				map
+				    .fire('movestart')
+				    .fire('zoomstart');
+	
+				this._moved = true;
+			}
+	
+			L.Util.cancelAnimFrame(this._animRequest);
+			this._animRequest = L.Util.requestAnimFrame(
+			        this._updateOnMove, this, true, this._map._container);
+	
+			L.DomEvent.preventDefault(e);
+		},
+	
+		_updateOnMove: function () {
+			var map = this._map,
+			    origin = this._getScaleOrigin(),
+			    center = map.layerPointToLatLng(origin),
+			    zoom = map.getScaleZoom(this._scale);
+	
+			map._animateZoom(center, zoom, this._startCenter, this._scale, this._delta, false, true);
+		},
+	
+		_onTouchEnd: function () {
+			if (!this._moved || !this._zooming) {
+				this._zooming = false;
+				return;
+			}
+	
+			var map = this._map;
+	
+			this._zooming = false;
+			L.DomUtil.removeClass(map._mapPane, 'leaflet-touching');
+			L.Util.cancelAnimFrame(this._animRequest);
+	
+			L.DomEvent
+			    .off(document, 'touchmove', this._onTouchMove)
+			    .off(document, 'touchend', this._onTouchEnd);
+	
+			var origin = this._getScaleOrigin(),
+			    center = map.layerPointToLatLng(origin),
+	
+			    oldZoom = map.getZoom(),
+			    floatZoomDelta = map.getScaleZoom(this._scale) - oldZoom,
+			    roundZoomDelta = (floatZoomDelta > 0 ?
+			            Math.ceil(floatZoomDelta) : Math.floor(floatZoomDelta)),
+	
+			    zoom = map._limitZoom(oldZoom + roundZoomDelta),
+			    scale = map.getZoomScale(zoom) / this._scale;
+	
+			map._animateZoom(center, zoom, origin, scale);
+		},
+	
+		_getScaleOrigin: function () {
+			var centerOffset = this._centerOffset.subtract(this._delta).divideBy(this._scale);
+			return this._startCenter.add(centerOffset);
+		}
+	});
+	
+	L.Map.addInitHook('addHandler', 'touchZoom', L.Map.TouchZoom);
+	
+	
+	/*
+	 * L.Map.Tap is used to enable mobile hacks like quick taps and long hold.
+	 */
+	
+	L.Map.mergeOptions({
+		tap: true,
+		tapTolerance: 15
+	});
+	
+	L.Map.Tap = L.Handler.extend({
+		addHooks: function () {
+			L.DomEvent.on(this._map._container, 'touchstart', this._onDown, this);
+		},
+	
+		removeHooks: function () {
+			L.DomEvent.off(this._map._container, 'touchstart', this._onDown, this);
+		},
+	
+		_onDown: function (e) {
+			if (!e.touches) { return; }
+	
+			L.DomEvent.preventDefault(e);
+	
+			this._fireClick = true;
+	
+			// don't simulate click or track longpress if more than 1 touch
+			if (e.touches.length > 1) {
+				this._fireClick = false;
+				clearTimeout(this._holdTimeout);
+				return;
+			}
+	
+			var first = e.touches[0],
+			    el = first.target;
+	
+			this._startPos = this._newPos = new L.Point(first.clientX, first.clientY);
+	
+			// if touching a link, highlight it
+			if (el.tagName && el.tagName.toLowerCase() === 'a') {
+				L.DomUtil.addClass(el, 'leaflet-active');
+			}
+	
+			// simulate long hold but setting a timeout
+			this._holdTimeout = setTimeout(L.bind(function () {
+				if (this._isTapValid()) {
+					this._fireClick = false;
+					this._onUp();
+					this._simulateEvent('contextmenu', first);
+				}
+			}, this), 1000);
+	
+			L.DomEvent
+				.on(document, 'touchmove', this._onMove, this)
+				.on(document, 'touchend', this._onUp, this);
+		},
+	
+		_onUp: function (e) {
+			clearTimeout(this._holdTimeout);
+	
+			L.DomEvent
+				.off(document, 'touchmove', this._onMove, this)
+				.off(document, 'touchend', this._onUp, this);
+	
+			if (this._fireClick && e && e.changedTouches) {
+	
+				var first = e.changedTouches[0],
+				    el = first.target;
+	
+				if (el && el.tagName && el.tagName.toLowerCase() === 'a') {
+					L.DomUtil.removeClass(el, 'leaflet-active');
+				}
+	
+				// simulate click if the touch didn't move too much
+				if (this._isTapValid()) {
+					this._simulateEvent('click', first);
+				}
+			}
+		},
+	
+		_isTapValid: function () {
+			return this._newPos.distanceTo(this._startPos) <= this._map.options.tapTolerance;
+		},
+	
+		_onMove: function (e) {
+			var first = e.touches[0];
+			this._newPos = new L.Point(first.clientX, first.clientY);
+		},
+	
+		_simulateEvent: function (type, e) {
+			var simulatedEvent = document.createEvent('MouseEvents');
+	
+			simulatedEvent._simulated = true;
+			e.target._simulatedClick = true;
+	
+			simulatedEvent.initMouseEvent(
+			        type, true, true, window, 1,
+			        e.screenX, e.screenY,
+			        e.clientX, e.clientY,
+			        false, false, false, false, 0, null);
+	
+			e.target.dispatchEvent(simulatedEvent);
+		}
+	});
+	
+	if (L.Browser.touch && !L.Browser.pointer) {
+		L.Map.addInitHook('addHandler', 'tap', L.Map.Tap);
+	}
+	
+	
+	/*
+	 * L.Handler.ShiftDragZoom is used to add shift-drag zoom interaction to the map
+	  * (zoom to a selected bounding box), enabled by default.
+	 */
+	
+	L.Map.mergeOptions({
+		boxZoom: true
+	});
+	
+	L.Map.BoxZoom = L.Handler.extend({
+		initialize: function (map) {
+			this._map = map;
+			this._container = map._container;
+			this._pane = map._panes.overlayPane;
+			this._moved = false;
+		},
+	
+		addHooks: function () {
+			L.DomEvent.on(this._container, 'mousedown', this._onMouseDown, this);
+		},
+	
+		removeHooks: function () {
+			L.DomEvent.off(this._container, 'mousedown', this._onMouseDown);
+			this._moved = false;
+		},
+	
+		moved: function () {
+			return this._moved;
+		},
+	
+		_onMouseDown: function (e) {
+			this._moved = false;
+	
+			if (!e.shiftKey || ((e.which !== 1) && (e.button !== 1))) { return false; }
+	
+			L.DomUtil.disableTextSelection();
+			L.DomUtil.disableImageDrag();
+	
+			this._startLayerPoint = this._map.mouseEventToLayerPoint(e);
+	
+			L.DomEvent
+			    .on(document, 'mousemove', this._onMouseMove, this)
+			    .on(document, 'mouseup', this._onMouseUp, this)
+			    .on(document, 'keydown', this._onKeyDown, this);
+		},
+	
+		_onMouseMove: function (e) {
+			if (!this._moved) {
+				this._box = L.DomUtil.create('div', 'leaflet-zoom-box', this._pane);
+				L.DomUtil.setPosition(this._box, this._startLayerPoint);
+	
+				//TODO refactor: move cursor to styles
+				this._container.style.cursor = 'crosshair';
+				this._map.fire('boxzoomstart');
+			}
+	
+			var startPoint = this._startLayerPoint,
+			    box = this._box,
+	
+			    layerPoint = this._map.mouseEventToLayerPoint(e),
+			    offset = layerPoint.subtract(startPoint),
+	
+			    newPos = new L.Point(
+			        Math.min(layerPoint.x, startPoint.x),
+			        Math.min(layerPoint.y, startPoint.y));
+	
+			L.DomUtil.setPosition(box, newPos);
+	
+			this._moved = true;
+	
+			// TODO refactor: remove hardcoded 4 pixels
+			box.style.width  = (Math.max(0, Math.abs(offset.x) - 4)) + 'px';
+			box.style.height = (Math.max(0, Math.abs(offset.y) - 4)) + 'px';
+		},
+	
+		_finish: function () {
+			if (this._moved) {
+				this._pane.removeChild(this._box);
+				this._container.style.cursor = '';
+			}
+	
+			L.DomUtil.enableTextSelection();
+			L.DomUtil.enableImageDrag();
+	
+			L.DomEvent
+			    .off(document, 'mousemove', this._onMouseMove)
+			    .off(document, 'mouseup', this._onMouseUp)
+			    .off(document, 'keydown', this._onKeyDown);
+		},
+	
+		_onMouseUp: function (e) {
+	
+			this._finish();
+	
+			var map = this._map,
+			    layerPoint = map.mouseEventToLayerPoint(e);
+	
+			if (this._startLayerPoint.equals(layerPoint)) { return; }
+	
+			var bounds = new L.LatLngBounds(
+			        map.layerPointToLatLng(this._startLayerPoint),
+			        map.layerPointToLatLng(layerPoint));
+	
+			map.fitBounds(bounds);
+	
+			map.fire('boxzoomend', {
+				boxZoomBounds: bounds
+			});
+		},
+	
+		_onKeyDown: function (e) {
+			if (e.keyCode === 27) {
+				this._finish();
+			}
+		}
+	});
+	
+	L.Map.addInitHook('addHandler', 'boxZoom', L.Map.BoxZoom);
+	
+	
+	/*
+	 * L.Map.Keyboard is handling keyboard interaction with the map, enabled by default.
+	 */
+	
+	L.Map.mergeOptions({
+		keyboard: true,
+		keyboardPanOffset: 80,
+		keyboardZoomOffset: 1
+	});
+	
+	L.Map.Keyboard = L.Handler.extend({
+	
+		keyCodes: {
+			left:    [37],
+			right:   [39],
+			down:    [40],
+			up:      [38],
+			zoomIn:  [187, 107, 61, 171],
+			zoomOut: [189, 109, 173]
+		},
+	
+		initialize: function (map) {
+			this._map = map;
+	
+			this._setPanOffset(map.options.keyboardPanOffset);
+			this._setZoomOffset(map.options.keyboardZoomOffset);
+		},
+	
+		addHooks: function () {
+			var container = this._map._container;
+	
+			// make the container focusable by tabbing
+			if (container.tabIndex === -1) {
+				container.tabIndex = '0';
+			}
+	
+			L.DomEvent
+			    .on(container, 'focus', this._onFocus, this)
+			    .on(container, 'blur', this._onBlur, this)
+			    .on(container, 'mousedown', this._onMouseDown, this);
+	
+			this._map
+			    .on('focus', this._addHooks, this)
+			    .on('blur', this._removeHooks, this);
+		},
+	
+		removeHooks: function () {
+			this._removeHooks();
+	
+			var container = this._map._container;
+	
+			L.DomEvent
+			    .off(container, 'focus', this._onFocus, this)
+			    .off(container, 'blur', this._onBlur, this)
+			    .off(container, 'mousedown', this._onMouseDown, this);
+	
+			this._map
+			    .off('focus', this._addHooks, this)
+			    .off('blur', this._removeHooks, this);
+		},
+	
+		_onMouseDown: function () {
+			if (this._focused) { return; }
+	
+			var body = document.body,
+			    docEl = document.documentElement,
+			    top = body.scrollTop || docEl.scrollTop,
+			    left = body.scrollLeft || docEl.scrollLeft;
+	
+			this._map._container.focus();
+	
+			window.scrollTo(left, top);
+		},
+	
+		_onFocus: function () {
+			this._focused = true;
+			this._map.fire('focus');
+		},
+	
+		_onBlur: function () {
+			this._focused = false;
+			this._map.fire('blur');
+		},
+	
+		_setPanOffset: function (pan) {
+			var keys = this._panKeys = {},
+			    codes = this.keyCodes,
+			    i, len;
+	
+			for (i = 0, len = codes.left.length; i < len; i++) {
+				keys[codes.left[i]] = [-1 * pan, 0];
+			}
+			for (i = 0, len = codes.right.length; i < len; i++) {
+				keys[codes.right[i]] = [pan, 0];
+			}
+			for (i = 0, len = codes.down.length; i < len; i++) {
+				keys[codes.down[i]] = [0, pan];
+			}
+			for (i = 0, len = codes.up.length; i < len; i++) {
+				keys[codes.up[i]] = [0, -1 * pan];
+			}
+		},
+	
+		_setZoomOffset: function (zoom) {
+			var keys = this._zoomKeys = {},
+			    codes = this.keyCodes,
+			    i, len;
+	
+			for (i = 0, len = codes.zoomIn.length; i < len; i++) {
+				keys[codes.zoomIn[i]] = zoom;
+			}
+			for (i = 0, len = codes.zoomOut.length; i < len; i++) {
+				keys[codes.zoomOut[i]] = -zoom;
+			}
+		},
+	
+		_addHooks: function () {
+			L.DomEvent.on(document, 'keydown', this._onKeyDown, this);
+		},
+	
+		_removeHooks: function () {
+			L.DomEvent.off(document, 'keydown', this._onKeyDown, this);
+		},
+	
+		_onKeyDown: function (e) {
+			var key = e.keyCode,
+			    map = this._map;
+	
+			if (key in this._panKeys) {
+	
+				if (map._panAnim && map._panAnim._inProgress) { return; }
+	
+				map.panBy(this._panKeys[key]);
+	
+				if (map.options.maxBounds) {
+					map.panInsideBounds(map.options.maxBounds);
+				}
+	
+			} else if (key in this._zoomKeys) {
+				map.setZoom(map.getZoom() + this._zoomKeys[key]);
+	
+			} else {
+				return;
+			}
+	
+			L.DomEvent.stop(e);
+		}
+	});
+	
+	L.Map.addInitHook('addHandler', 'keyboard', L.Map.Keyboard);
+	
+	
+	/*
+	 * L.Handler.MarkerDrag is used internally by L.Marker to make the markers draggable.
+	 */
+	
+	L.Handler.MarkerDrag = L.Handler.extend({
+		initialize: function (marker) {
+			this._marker = marker;
+		},
+	
+		addHooks: function () {
+			var icon = this._marker._icon;
+			if (!this._draggable) {
+				this._draggable = new L.Draggable(icon, icon);
+			}
+	
+			this._draggable
+				.on('dragstart', this._onDragStart, this)
+				.on('drag', this._onDrag, this)
+				.on('dragend', this._onDragEnd, this);
+			this._draggable.enable();
+			L.DomUtil.addClass(this._marker._icon, 'leaflet-marker-draggable');
+		},
+	
+		removeHooks: function () {
+			this._draggable
+				.off('dragstart', this._onDragStart, this)
+				.off('drag', this._onDrag, this)
+				.off('dragend', this._onDragEnd, this);
+	
+			this._draggable.disable();
+			L.DomUtil.removeClass(this._marker._icon, 'leaflet-marker-draggable');
+		},
+	
+		moved: function () {
+			return this._draggable && this._draggable._moved;
+		},
+	
+		_onDragStart: function () {
+			this._marker
+			    .closePopup()
+			    .fire('movestart')
+			    .fire('dragstart');
+		},
+	
+		_onDrag: function () {
+			var marker = this._marker,
+			    shadow = marker._shadow,
+			    iconPos = L.DomUtil.getPosition(marker._icon),
+			    latlng = marker._map.layerPointToLatLng(iconPos);
+	
+			// update shadow position
+			if (shadow) {
+				L.DomUtil.setPosition(shadow, iconPos);
+			}
+	
+			marker._latlng = latlng;
+	
+			marker
+			    .fire('move', {latlng: latlng})
+			    .fire('drag');
+		},
+	
+		_onDragEnd: function (e) {
+			this._marker
+			    .fire('moveend')
+			    .fire('dragend', e);
+		}
+	});
+	
+	
+	/*
+	 * L.Control is a base class for implementing map controls. Handles positioning.
+	 * All other controls extend from this class.
+	 */
+	
+	L.Control = L.Class.extend({
+		options: {
+			position: 'topright'
+		},
+	
+		initialize: function (options) {
+			L.setOptions(this, options);
+		},
+	
+		getPosition: function () {
+			return this.options.position;
+		},
+	
+		setPosition: function (position) {
+			var map = this._map;
+	
+			if (map) {
+				map.removeControl(this);
+			}
+	
+			this.options.position = position;
+	
+			if (map) {
+				map.addControl(this);
+			}
+	
+			return this;
+		},
+	
+		getContainer: function () {
+			return this._container;
+		},
+	
+		addTo: function (map) {
+			this._map = map;
+	
+			var container = this._container = this.onAdd(map),
+			    pos = this.getPosition(),
+			    corner = map._controlCorners[pos];
+	
+			L.DomUtil.addClass(container, 'leaflet-control');
+	
+			if (pos.indexOf('bottom') !== -1) {
+				corner.insertBefore(container, corner.firstChild);
+			} else {
+				corner.appendChild(container);
+			}
+	
+			return this;
+		},
+	
+		removeFrom: function (map) {
+			var pos = this.getPosition(),
+			    corner = map._controlCorners[pos];
+	
+			corner.removeChild(this._container);
+			this._map = null;
+	
+			if (this.onRemove) {
+				this.onRemove(map);
+			}
+	
+			return this;
+		},
+	
+		_refocusOnMap: function () {
+			if (this._map) {
+				this._map.getContainer().focus();
+			}
+		}
+	});
+	
+	L.control = function (options) {
+		return new L.Control(options);
+	};
+	
+	
+	// adds control-related methods to L.Map
+	
+	L.Map.include({
+		addControl: function (control) {
+			control.addTo(this);
+			return this;
+		},
+	
+		removeControl: function (control) {
+			control.removeFrom(this);
+			return this;
+		},
+	
+		_initControlPos: function () {
+			var corners = this._controlCorners = {},
+			    l = 'leaflet-',
+			    container = this._controlContainer =
+			            L.DomUtil.create('div', l + 'control-container', this._container);
+	
+			function createCorner(vSide, hSide) {
+				var className = l + vSide + ' ' + l + hSide;
+	
+				corners[vSide + hSide] = L.DomUtil.create('div', className, container);
+			}
+	
+			createCorner('top', 'left');
+			createCorner('top', 'right');
+			createCorner('bottom', 'left');
+			createCorner('bottom', 'right');
+		},
+	
+		_clearControlPos: function () {
+			this._container.removeChild(this._controlContainer);
+		}
+	});
+	
+	
+	/*
+	 * L.Control.Zoom is used for the default zoom buttons on the map.
+	 */
+	
+	L.Control.Zoom = L.Control.extend({
+		options: {
+			position: 'topleft',
+			zoomInText: '+',
+			zoomInTitle: 'Zoom in',
+			zoomOutText: '-',
+			zoomOutTitle: 'Zoom out'
+		},
+	
+		onAdd: function (map) {
+			var zoomName = 'leaflet-control-zoom',
+			    container = L.DomUtil.create('div', zoomName + ' leaflet-bar');
+	
+			this._map = map;
+	
+			this._zoomInButton  = this._createButton(
+			        this.options.zoomInText, this.options.zoomInTitle,
+			        zoomName + '-in',  container, this._zoomIn,  this);
+			this._zoomOutButton = this._createButton(
+			        this.options.zoomOutText, this.options.zoomOutTitle,
+			        zoomName + '-out', container, this._zoomOut, this);
+	
+			this._updateDisabled();
+			map.on('zoomend zoomlevelschange', this._updateDisabled, this);
+	
+			return container;
+		},
+	
+		onRemove: function (map) {
+			map.off('zoomend zoomlevelschange', this._updateDisabled, this);
+		},
+	
+		_zoomIn: function (e) {
+			this._map.zoomIn(e.shiftKey ? 3 : 1);
+		},
+	
+		_zoomOut: function (e) {
+			this._map.zoomOut(e.shiftKey ? 3 : 1);
+		},
+	
+		_createButton: function (html, title, className, container, fn, context) {
+			var link = L.DomUtil.create('a', className, container);
+			link.innerHTML = html;
+			link.href = '#';
+			link.title = title;
+	
+			var stop = L.DomEvent.stopPropagation;
+	
+			L.DomEvent
+			    .on(link, 'click', stop)
+			    .on(link, 'mousedown', stop)
+			    .on(link, 'dblclick', stop)
+			    .on(link, 'click', L.DomEvent.preventDefault)
+			    .on(link, 'click', fn, context)
+			    .on(link, 'click', this._refocusOnMap, context);
+	
+			return link;
+		},
+	
+		_updateDisabled: function () {
+			var map = this._map,
+				className = 'leaflet-disabled';
+	
+			L.DomUtil.removeClass(this._zoomInButton, className);
+			L.DomUtil.removeClass(this._zoomOutButton, className);
+	
+			if (map._zoom === map.getMinZoom()) {
+				L.DomUtil.addClass(this._zoomOutButton, className);
+			}
+			if (map._zoom === map.getMaxZoom()) {
+				L.DomUtil.addClass(this._zoomInButton, className);
+			}
+		}
+	});
+	
+	L.Map.mergeOptions({
+		zoomControl: true
+	});
+	
+	L.Map.addInitHook(function () {
+		if (this.options.zoomControl) {
+			this.zoomControl = new L.Control.Zoom();
+			this.addControl(this.zoomControl);
+		}
+	});
+	
+	L.control.zoom = function (options) {
+		return new L.Control.Zoom(options);
+	};
+	
+	
+	
+	/*
+	 * L.Control.Attribution is used for displaying attribution on the map (added by default).
+	 */
+	
+	L.Control.Attribution = L.Control.extend({
+		options: {
+			position: 'bottomright',
+			prefix: '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>'
+		},
+	
+		initialize: function (options) {
+			L.setOptions(this, options);
+	
+			this._attributions = {};
+		},
+	
+		onAdd: function (map) {
+			this._container = L.DomUtil.create('div', 'leaflet-control-attribution');
+			L.DomEvent.disableClickPropagation(this._container);
+	
+			for (var i in map._layers) {
+				if (map._layers[i].getAttribution) {
+					this.addAttribution(map._layers[i].getAttribution());
+				}
+			}
+			
+			map
+			    .on('layeradd', this._onLayerAdd, this)
+			    .on('layerremove', this._onLayerRemove, this);
+	
+			this._update();
+	
+			return this._container;
+		},
+	
+		onRemove: function (map) {
+			map
+			    .off('layeradd', this._onLayerAdd)
+			    .off('layerremove', this._onLayerRemove);
+	
+		},
+	
+		setPrefix: function (prefix) {
+			this.options.prefix = prefix;
+			this._update();
+			return this;
+		},
+	
+		addAttribution: function (text) {
+			if (!text) { return; }
+	
+			if (!this._attributions[text]) {
+				this._attributions[text] = 0;
+			}
+			this._attributions[text]++;
+	
+			this._update();
+	
+			return this;
+		},
+	
+		removeAttribution: function (text) {
+			if (!text) { return; }
+	
+			if (this._attributions[text]) {
+				this._attributions[text]--;
+				this._update();
+			}
+	
+			return this;
+		},
+	
+		_update: function () {
+			if (!this._map) { return; }
+	
+			var attribs = [];
+	
+			for (var i in this._attributions) {
+				if (this._attributions[i]) {
+					attribs.push(i);
+				}
+			}
+	
+			var prefixAndAttribs = [];
+	
+			if (this.options.prefix) {
+				prefixAndAttribs.push(this.options.prefix);
+			}
+			if (attribs.length) {
+				prefixAndAttribs.push(attribs.join(', '));
+			}
+	
+			this._container.innerHTML = prefixAndAttribs.join(' | ');
+		},
+	
+		_onLayerAdd: function (e) {
+			if (e.layer.getAttribution) {
+				this.addAttribution(e.layer.getAttribution());
+			}
+		},
+	
+		_onLayerRemove: function (e) {
+			if (e.layer.getAttribution) {
+				this.removeAttribution(e.layer.getAttribution());
+			}
+		}
+	});
+	
+	L.Map.mergeOptions({
+		attributionControl: true
+	});
+	
+	L.Map.addInitHook(function () {
+		if (this.options.attributionControl) {
+			this.attributionControl = (new L.Control.Attribution()).addTo(this);
+		}
+	});
+	
+	L.control.attribution = function (options) {
+		return new L.Control.Attribution(options);
+	};
+	
+	
+	/*
+	 * L.Control.Scale is used for displaying metric/imperial scale on the map.
+	 */
+	
+	L.Control.Scale = L.Control.extend({
+		options: {
+			position: 'bottomleft',
+			maxWidth: 100,
+			metric: true,
+			imperial: true,
+			updateWhenIdle: false
+		},
+	
+		onAdd: function (map) {
+			this._map = map;
+	
+			var className = 'leaflet-control-scale',
+			    container = L.DomUtil.create('div', className),
+			    options = this.options;
+	
+			this._addScales(options, className, container);
+	
+			map.on(options.updateWhenIdle ? 'moveend' : 'move', this._update, this);
+			map.whenReady(this._update, this);
+	
+			return container;
+		},
+	
+		onRemove: function (map) {
+			map.off(this.options.updateWhenIdle ? 'moveend' : 'move', this._update, this);
+		},
+	
+		_addScales: function (options, className, container) {
+			if (options.metric) {
+				this._mScale = L.DomUtil.create('div', className + '-line', container);
+			}
+			if (options.imperial) {
+				this._iScale = L.DomUtil.create('div', className + '-line', container);
+			}
+		},
+	
+		_update: function () {
+			var bounds = this._map.getBounds(),
+			    centerLat = bounds.getCenter().lat,
+			    halfWorldMeters = 6378137 * Math.PI * Math.cos(centerLat * Math.PI / 180),
+			    dist = halfWorldMeters * (bounds.getNorthEast().lng - bounds.getSouthWest().lng) / 180,
+	
+			    size = this._map.getSize(),
+			    options = this.options,
+			    maxMeters = 0;
+	
+			if (size.x > 0) {
+				maxMeters = dist * (options.maxWidth / size.x);
+			}
+	
+			this._updateScales(options, maxMeters);
+		},
+	
+		_updateScales: function (options, maxMeters) {
+			if (options.metric && maxMeters) {
+				this._updateMetric(maxMeters);
+			}
+	
+			if (options.imperial && maxMeters) {
+				this._updateImperial(maxMeters);
+			}
+		},
+	
+		_updateMetric: function (maxMeters) {
+			var meters = this._getRoundNum(maxMeters);
+	
+			this._mScale.style.width = this._getScaleWidth(meters / maxMeters) + 'px';
+			this._mScale.innerHTML = meters < 1000 ? meters + ' m' : (meters / 1000) + ' km';
+		},
+	
+		_updateImperial: function (maxMeters) {
+			var maxFeet = maxMeters * 3.2808399,
+			    scale = this._iScale,
+			    maxMiles, miles, feet;
+	
+			if (maxFeet > 5280) {
+				maxMiles = maxFeet / 5280;
+				miles = this._getRoundNum(maxMiles);
+	
+				scale.style.width = this._getScaleWidth(miles / maxMiles) + 'px';
+				scale.innerHTML = miles + ' mi';
+	
+			} else {
+				feet = this._getRoundNum(maxFeet);
+	
+				scale.style.width = this._getScaleWidth(feet / maxFeet) + 'px';
+				scale.innerHTML = feet + ' ft';
+			}
+		},
+	
+		_getScaleWidth: function (ratio) {
+			return Math.round(this.options.maxWidth * ratio) - 10;
+		},
+	
+		_getRoundNum: function (num) {
+			var pow10 = Math.pow(10, (Math.floor(num) + '').length - 1),
+			    d = num / pow10;
+	
+			d = d >= 10 ? 10 : d >= 5 ? 5 : d >= 3 ? 3 : d >= 2 ? 2 : 1;
+	
+			return pow10 * d;
+		}
+	});
+	
+	L.control.scale = function (options) {
+		return new L.Control.Scale(options);
+	};
+	
+	
+	/*
+	 * L.Control.Layers is a control to allow users to switch between different layers on the map.
+	 */
+	
+	L.Control.Layers = L.Control.extend({
+		options: {
+			collapsed: true,
+			position: 'topright',
+			autoZIndex: true
+		},
+	
+		initialize: function (baseLayers, overlays, options) {
+			L.setOptions(this, options);
+	
+			this._layers = {};
+			this._lastZIndex = 0;
+			this._handlingClick = false;
+	
+			for (var i in baseLayers) {
+				this._addLayer(baseLayers[i], i);
+			}
+	
+			for (i in overlays) {
+				this._addLayer(overlays[i], i, true);
+			}
+		},
+	
+		onAdd: function (map) {
+			this._initLayout();
+			this._update();
+	
+			map
+			    .on('layeradd', this._onLayerChange, this)
+			    .on('layerremove', this._onLayerChange, this);
+	
+			return this._container;
+		},
+	
+		onRemove: function (map) {
+			map
+			    .off('layeradd', this._onLayerChange, this)
+			    .off('layerremove', this._onLayerChange, this);
+		},
+	
+		addBaseLayer: function (layer, name) {
+			this._addLayer(layer, name);
+			this._update();
+			return this;
+		},
+	
+		addOverlay: function (layer, name) {
+			this._addLayer(layer, name, true);
+			this._update();
+			return this;
+		},
+	
+		removeLayer: function (layer) {
+			var id = L.stamp(layer);
+			delete this._layers[id];
+			this._update();
+			return this;
+		},
+	
+		_initLayout: function () {
+			var className = 'leaflet-control-layers',
+			    container = this._container = L.DomUtil.create('div', className);
+	
+			//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
+			container.setAttribute('aria-haspopup', true);
+	
+			if (!L.Browser.touch) {
+				L.DomEvent
+					.disableClickPropagation(container)
+					.disableScrollPropagation(container);
+			} else {
+				L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
+			}
+	
+			var form = this._form = L.DomUtil.create('form', className + '-list');
+	
+			if (this.options.collapsed) {
+				if (!L.Browser.android) {
+					L.DomEvent
+					    .on(container, 'mouseover', this._expand, this)
+					    .on(container, 'mouseout', this._collapse, this);
+				}
+				var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
+				link.href = '#';
+				link.title = 'Layers';
+	
+				if (L.Browser.touch) {
+					L.DomEvent
+					    .on(link, 'click', L.DomEvent.stop)
+					    .on(link, 'click', this._expand, this);
+				}
+				else {
+					L.DomEvent.on(link, 'focus', this._expand, this);
+				}
+				//Work around for Firefox android issue https://github.com/Leaflet/Leaflet/issues/2033
+				L.DomEvent.on(form, 'click', function () {
+					setTimeout(L.bind(this._onInputClick, this), 0);
+				}, this);
+	
+				this._map.on('click', this._collapse, this);
+				// TODO keyboard accessibility
+			} else {
+				this._expand();
+			}
+	
+			this._baseLayersList = L.DomUtil.create('div', className + '-base', form);
+			this._separator = L.DomUtil.create('div', className + '-separator', form);
+			this._overlaysList = L.DomUtil.create('div', className + '-overlays', form);
+	
+			container.appendChild(form);
+		},
+	
+		_addLayer: function (layer, name, overlay) {
+			var id = L.stamp(layer);
+	
+			this._layers[id] = {
+				layer: layer,
+				name: name,
+				overlay: overlay
+			};
+	
+			if (this.options.autoZIndex && layer.setZIndex) {
+				this._lastZIndex++;
+				layer.setZIndex(this._lastZIndex);
+			}
+		},
+	
+		_update: function () {
+			if (!this._container) {
+				return;
+			}
+	
+			this._baseLayersList.innerHTML = '';
+			this._overlaysList.innerHTML = '';
+	
+			var baseLayersPresent = false,
+			    overlaysPresent = false,
+			    i, obj;
+	
+			for (i in this._layers) {
+				obj = this._layers[i];
+				this._addItem(obj);
+				overlaysPresent = overlaysPresent || obj.overlay;
+				baseLayersPresent = baseLayersPresent || !obj.overlay;
+			}
+	
+			this._separator.style.display = overlaysPresent && baseLayersPresent ? '' : 'none';
+		},
+	
+		_onLayerChange: function (e) {
+			var obj = this._layers[L.stamp(e.layer)];
+	
+			if (!obj) { return; }
+	
+			if (!this._handlingClick) {
+				this._update();
+			}
+	
+			var type = obj.overlay ?
+				(e.type === 'layeradd' ? 'overlayadd' : 'overlayremove') :
+				(e.type === 'layeradd' ? 'baselayerchange' : null);
+	
+			if (type) {
+				this._map.fire(type, obj);
+			}
+		},
+	
+		// IE7 bugs out if you create a radio dynamically, so you have to do it this hacky way (see http://bit.ly/PqYLBe)
+		_createRadioElement: function (name, checked) {
+	
+			var radioHtml = '<input type="radio" class="leaflet-control-layers-selector" name="' + name + '"';
+			if (checked) {
+				radioHtml += ' checked="checked"';
+			}
+			radioHtml += '/>';
+	
+			var radioFragment = document.createElement('div');
+			radioFragment.innerHTML = radioHtml;
+	
+			return radioFragment.firstChild;
+		},
+	
+		_addItem: function (obj) {
+			var label = document.createElement('label'),
+			    input,
+			    checked = this._map.hasLayer(obj.layer);
+	
+			if (obj.overlay) {
+				input = document.createElement('input');
+				input.type = 'checkbox';
+				input.className = 'leaflet-control-layers-selector';
+				input.defaultChecked = checked;
+			} else {
+				input = this._createRadioElement('leaflet-base-layers', checked);
+			}
+	
+			input.layerId = L.stamp(obj.layer);
+	
+			L.DomEvent.on(input, 'click', this._onInputClick, this);
+	
+			var name = document.createElement('span');
+			name.innerHTML = ' ' + obj.name;
+	
+			label.appendChild(input);
+			label.appendChild(name);
+	
+			var container = obj.overlay ? this._overlaysList : this._baseLayersList;
+			container.appendChild(label);
+	
+			return label;
+		},
+	
+		_onInputClick: function () {
+			var i, input, obj,
+			    inputs = this._form.getElementsByTagName('input'),
+			    inputsLen = inputs.length;
+	
+			this._handlingClick = true;
+	
+			for (i = 0; i < inputsLen; i++) {
+				input = inputs[i];
+				obj = this._layers[input.layerId];
+	
+				if (input.checked && !this._map.hasLayer(obj.layer)) {
+					this._map.addLayer(obj.layer);
+	
+				} else if (!input.checked && this._map.hasLayer(obj.layer)) {
+					this._map.removeLayer(obj.layer);
+				}
+			}
+	
+			this._handlingClick = false;
+	
+			this._refocusOnMap();
+		},
+	
+		_expand: function () {
+			L.DomUtil.addClass(this._container, 'leaflet-control-layers-expanded');
+		},
+	
+		_collapse: function () {
+			this._container.className = this._container.className.replace(' leaflet-control-layers-expanded', '');
+		}
+	});
+	
+	L.control.layers = function (baseLayers, overlays, options) {
+		return new L.Control.Layers(baseLayers, overlays, options);
+	};
+	
+	
+	/*
+	 * L.PosAnimation is used by Leaflet internally for pan animations.
+	 */
+	
+	L.PosAnimation = L.Class.extend({
+		includes: L.Mixin.Events,
+	
+		run: function (el, newPos, duration, easeLinearity) { // (HTMLElement, Point[, Number, Number])
+			this.stop();
+	
+			this._el = el;
+			this._inProgress = true;
+			this._newPos = newPos;
+	
+			this.fire('start');
+	
+			el.style[L.DomUtil.TRANSITION] = 'all ' + (duration || 0.25) +
+			        's cubic-bezier(0,0,' + (easeLinearity || 0.5) + ',1)';
+	
+			L.DomEvent.on(el, L.DomUtil.TRANSITION_END, this._onTransitionEnd, this);
+			L.DomUtil.setPosition(el, newPos);
+	
+			// toggle reflow, Chrome flickers for some reason if you don't do this
+			L.Util.falseFn(el.offsetWidth);
+	
+			// there's no native way to track value updates of transitioned properties, so we imitate this
+			this._stepTimer = setInterval(L.bind(this._onStep, this), 50);
+		},
+	
+		stop: function () {
+			if (!this._inProgress) { return; }
+	
+			// if we just removed the transition property, the element would jump to its final position,
+			// so we need to make it stay at the current position
+	
+			L.DomUtil.setPosition(this._el, this._getPos());
+			this._onTransitionEnd();
+			L.Util.falseFn(this._el.offsetWidth); // force reflow in case we are about to start a new animation
+		},
+	
+		_onStep: function () {
+			var stepPos = this._getPos();
+			if (!stepPos) {
+				this._onTransitionEnd();
+				return;
+			}
+			// jshint camelcase: false
+			// make L.DomUtil.getPosition return intermediate position value during animation
+			this._el._leaflet_pos = stepPos;
+	
+			this.fire('step');
+		},
+	
+		// you can't easily get intermediate values of properties animated with CSS3 Transitions,
+		// we need to parse computed style (in case of transform it returns matrix string)
+	
+		_transformRe: /([-+]?(?:\d*\.)?\d+)\D*, ([-+]?(?:\d*\.)?\d+)\D*\)/,
+	
+		_getPos: function () {
+			var left, top, matches,
+			    el = this._el,
+			    style = window.getComputedStyle(el);
+	
+			if (L.Browser.any3d) {
+				matches = style[L.DomUtil.TRANSFORM].match(this._transformRe);
+				if (!matches) { return; }
+				left = parseFloat(matches[1]);
+				top  = parseFloat(matches[2]);
+			} else {
+				left = parseFloat(style.left);
+				top  = parseFloat(style.top);
+			}
+	
+			return new L.Point(left, top, true);
+		},
+	
+		_onTransitionEnd: function () {
+			L.DomEvent.off(this._el, L.DomUtil.TRANSITION_END, this._onTransitionEnd, this);
+	
+			if (!this._inProgress) { return; }
+			this._inProgress = false;
+	
+			this._el.style[L.DomUtil.TRANSITION] = '';
+	
+			// jshint camelcase: false
+			// make sure L.DomUtil.getPosition returns the final position value after animation
+			this._el._leaflet_pos = this._newPos;
+	
+			clearInterval(this._stepTimer);
+	
+			this.fire('step').fire('end');
+		}
+	
+	});
+	
+	
+	/*
+	 * Extends L.Map to handle panning animations.
+	 */
+	
+	L.Map.include({
+	
+		setView: function (center, zoom, options) {
+	
+			zoom = zoom === undefined ? this._zoom : this._limitZoom(zoom);
+			center = this._limitCenter(L.latLng(center), zoom, this.options.maxBounds);
+			options = options || {};
+	
+			if (this._panAnim) {
+				this._panAnim.stop();
+			}
+	
+			if (this._loaded && !options.reset && options !== true) {
+	
+				if (options.animate !== undefined) {
+					options.zoom = L.extend({animate: options.animate}, options.zoom);
+					options.pan = L.extend({animate: options.animate}, options.pan);
+				}
+	
+				// try animating pan or zoom
+				var animated = (this._zoom !== zoom) ?
+					this._tryAnimatedZoom && this._tryAnimatedZoom(center, zoom, options.zoom) :
+					this._tryAnimatedPan(center, options.pan);
+	
+				if (animated) {
+					// prevent resize handler call, the view will refresh after animation anyway
+					clearTimeout(this._sizeTimer);
+					return this;
+				}
+			}
+	
+			// animation didn't start, just reset the map view
+			this._resetView(center, zoom);
+	
+			return this;
+		},
+	
+		panBy: function (offset, options) {
+			offset = L.point(offset).round();
+			options = options || {};
+	
+			if (!offset.x && !offset.y) {
+				return this;
+			}
+	
+			if (!this._panAnim) {
+				this._panAnim = new L.PosAnimation();
+	
+				this._panAnim.on({
+					'step': this._onPanTransitionStep,
+					'end': this._onPanTransitionEnd
+				}, this);
+			}
+	
+			// don't fire movestart if animating inertia
+			if (!options.noMoveStart) {
+				this.fire('movestart');
+			}
+	
+			// animate pan unless animate: false specified
+			if (options.animate !== false) {
+				L.DomUtil.addClass(this._mapPane, 'leaflet-pan-anim');
+	
+				var newPos = this._getMapPanePos().subtract(offset);
+				this._panAnim.run(this._mapPane, newPos, options.duration || 0.25, options.easeLinearity);
+			} else {
+				this._rawPanBy(offset);
+				this.fire('move').fire('moveend');
+			}
+	
+			return this;
+		},
+	
+		_onPanTransitionStep: function () {
+			this.fire('move');
+		},
+	
+		_onPanTransitionEnd: function () {
+			L.DomUtil.removeClass(this._mapPane, 'leaflet-pan-anim');
+			this.fire('moveend');
+		},
+	
+		_tryAnimatedPan: function (center, options) {
+			// difference between the new and current centers in pixels
+			var offset = this._getCenterOffset(center)._floor();
+	
+			// don't animate too far unless animate: true specified in options
+			if ((options && options.animate) !== true && !this.getSize().contains(offset)) { return false; }
+	
+			this.panBy(offset, options);
+	
+			return true;
+		}
+	});
+	
+	
+	/*
+	 * L.PosAnimation fallback implementation that powers Leaflet pan animations
+	 * in browsers that don't support CSS3 Transitions.
+	 */
+	
+	L.PosAnimation = L.DomUtil.TRANSITION ? L.PosAnimation : L.PosAnimation.extend({
+	
+		run: function (el, newPos, duration, easeLinearity) { // (HTMLElement, Point[, Number, Number])
+			this.stop();
+	
+			this._el = el;
+			this._inProgress = true;
+			this._duration = duration || 0.25;
+			this._easeOutPower = 1 / Math.max(easeLinearity || 0.5, 0.2);
+	
+			this._startPos = L.DomUtil.getPosition(el);
+			this._offset = newPos.subtract(this._startPos);
+			this._startTime = +new Date();
+	
+			this.fire('start');
+	
+			this._animate();
+		},
+	
+		stop: function () {
+			if (!this._inProgress) { return; }
+	
+			this._step();
+			this._complete();
+		},
+	
+		_animate: function () {
+			// animation loop
+			this._animId = L.Util.requestAnimFrame(this._animate, this);
+			this._step();
+		},
+	
+		_step: function () {
+			var elapsed = (+new Date()) - this._startTime,
+			    duration = this._duration * 1000;
+	
+			if (elapsed < duration) {
+				this._runFrame(this._easeOut(elapsed / duration));
+			} else {
+				this._runFrame(1);
+				this._complete();
+			}
+		},
+	
+		_runFrame: function (progress) {
+			var pos = this._startPos.add(this._offset.multiplyBy(progress));
+			L.DomUtil.setPosition(this._el, pos);
+	
+			this.fire('step');
+		},
+	
+		_complete: function () {
+			L.Util.cancelAnimFrame(this._animId);
+	
+			this._inProgress = false;
+			this.fire('end');
+		},
+	
+		_easeOut: function (t) {
+			return 1 - Math.pow(1 - t, this._easeOutPower);
+		}
+	});
+	
+	
+	/*
+	 * Extends L.Map to handle zoom animations.
+	 */
+	
+	L.Map.mergeOptions({
+		zoomAnimation: true,
+		zoomAnimationThreshold: 4
+	});
+	
+	if (L.DomUtil.TRANSITION) {
+	
+		L.Map.addInitHook(function () {
+			// don't animate on browsers without hardware-accelerated transitions or old Android/Opera
+			this._zoomAnimated = this.options.zoomAnimation && L.DomUtil.TRANSITION &&
+					L.Browser.any3d && !L.Browser.android23 && !L.Browser.mobileOpera;
+	
+			// zoom transitions run with the same duration for all layers, so if one of transitionend events
+			// happens after starting zoom animation (propagating to the map pane), we know that it ended globally
+			if (this._zoomAnimated) {
+				L.DomEvent.on(this._mapPane, L.DomUtil.TRANSITION_END, this._catchTransitionEnd, this);
+			}
+		});
+	}
+	
+	L.Map.include(!L.DomUtil.TRANSITION ? {} : {
+	
+		_catchTransitionEnd: function (e) {
+			if (this._animatingZoom && e.propertyName.indexOf('transform') >= 0) {
+				this._onZoomTransitionEnd();
+			}
+		},
+	
+		_nothingToAnimate: function () {
+			return !this._container.getElementsByClassName('leaflet-zoom-animated').length;
+		},
+	
+		_tryAnimatedZoom: function (center, zoom, options) {
+	
+			if (this._animatingZoom) { return true; }
+	
+			options = options || {};
+	
+			// don't animate if disabled, not supported or zoom difference is too large
+			if (!this._zoomAnimated || options.animate === false || this._nothingToAnimate() ||
+			        Math.abs(zoom - this._zoom) > this.options.zoomAnimationThreshold) { return false; }
+	
+			// offset is the pixel coords of the zoom origin relative to the current center
+			var scale = this.getZoomScale(zoom),
+			    offset = this._getCenterOffset(center)._divideBy(1 - 1 / scale),
+				origin = this._getCenterLayerPoint()._add(offset);
+	
+			// don't animate if the zoom origin isn't within one screen from the current center, unless forced
+			if (options.animate !== true && !this.getSize().contains(offset)) { return false; }
+	
+			this
+			    .fire('movestart')
+			    .fire('zoomstart');
+	
+			this._animateZoom(center, zoom, origin, scale, null, true);
+	
+			return true;
+		},
+	
+		_animateZoom: function (center, zoom, origin, scale, delta, backwards, forTouchZoom) {
+	
+			if (!forTouchZoom) {
+				this._animatingZoom = true;
+			}
+	
+			// put transform transition on all layers with leaflet-zoom-animated class
+			L.DomUtil.addClass(this._mapPane, 'leaflet-zoom-anim');
+	
+			// remember what center/zoom to set after animation
+			this._animateToCenter = center;
+			this._animateToZoom = zoom;
+	
+			// disable any dragging during animation
+			if (L.Draggable) {
+				L.Draggable._disabled = true;
+			}
+	
+			L.Util.requestAnimFrame(function () {
+				this.fire('zoomanim', {
+					center: center,
+					zoom: zoom,
+					origin: origin,
+					scale: scale,
+					delta: delta,
+					backwards: backwards
+				});
+				// horrible hack to work around a Chrome bug https://github.com/Leaflet/Leaflet/issues/3689
+				setTimeout(L.bind(this._onZoomTransitionEnd, this), 250);
+			}, this);
+		},
+	
+		_onZoomTransitionEnd: function () {
+			if (!this._animatingZoom) { return; }
+	
+			this._animatingZoom = false;
+	
+			L.DomUtil.removeClass(this._mapPane, 'leaflet-zoom-anim');
+	
+			L.Util.requestAnimFrame(function () {
+				this._resetView(this._animateToCenter, this._animateToZoom, true, true);
+	
+				if (L.Draggable) {
+					L.Draggable._disabled = false;
+				}
+			}, this);
+		}
+	});
+	
+	
+	/*
+		Zoom animation logic for L.TileLayer.
+	*/
+	
+	L.TileLayer.include({
+		_animateZoom: function (e) {
+			if (!this._animating) {
+				this._animating = true;
+				this._prepareBgBuffer();
+			}
+	
+			var bg = this._bgBuffer,
+			    transform = L.DomUtil.TRANSFORM,
+			    initialTransform = e.delta ? L.DomUtil.getTranslateString(e.delta) : bg.style[transform],
+			    scaleStr = L.DomUtil.getScaleString(e.scale, e.origin);
+	
+			bg.style[transform] = e.backwards ?
+					scaleStr + ' ' + initialTransform :
+					initialTransform + ' ' + scaleStr;
+		},
+	
+		_endZoomAnim: function () {
+			var front = this._tileContainer,
+			    bg = this._bgBuffer;
+	
+			front.style.visibility = '';
+			front.parentNode.appendChild(front); // Bring to fore
+	
+			// force reflow
+			L.Util.falseFn(bg.offsetWidth);
+	
+			var zoom = this._map.getZoom();
+			if (zoom > this.options.maxZoom || zoom < this.options.minZoom) {
+				this._clearBgBuffer();
+			}
+	
+			this._animating = false;
+		},
+	
+		_clearBgBuffer: function () {
+			var map = this._map;
+	
+			if (map && !map._animatingZoom && !map.touchZoom._zooming) {
+				this._bgBuffer.innerHTML = '';
+				this._bgBuffer.style[L.DomUtil.TRANSFORM] = '';
+			}
+		},
+	
+		_prepareBgBuffer: function () {
+	
+			var front = this._tileContainer,
+			    bg = this._bgBuffer;
+	
+			// if foreground layer doesn't have many tiles but bg layer does,
+			// keep the existing bg layer and just zoom it some more
+	
+			var bgLoaded = this._getLoadedTilesPercentage(bg),
+			    frontLoaded = this._getLoadedTilesPercentage(front);
+	
+			if (bg && bgLoaded > 0.5 && frontLoaded < 0.5) {
+	
+				front.style.visibility = 'hidden';
+				this._stopLoadingImages(front);
+				return;
+			}
+	
+			// prepare the buffer to become the front tile pane
+			bg.style.visibility = 'hidden';
+			bg.style[L.DomUtil.TRANSFORM] = '';
+	
+			// switch out the current layer to be the new bg layer (and vice-versa)
+			this._tileContainer = bg;
+			bg = this._bgBuffer = front;
+	
+			this._stopLoadingImages(bg);
+	
+			//prevent bg buffer from clearing right after zoom
+			clearTimeout(this._clearBgBufferTimer);
+		},
+	
+		_getLoadedTilesPercentage: function (container) {
+			var tiles = container.getElementsByTagName('img'),
+			    i, len, count = 0;
+	
+			for (i = 0, len = tiles.length; i < len; i++) {
+				if (tiles[i].complete) {
+					count++;
+				}
+			}
+			return count / len;
+		},
+	
+		// stops loading all tiles in the background layer
+		_stopLoadingImages: function (container) {
+			var tiles = Array.prototype.slice.call(container.getElementsByTagName('img')),
+			    i, len, tile;
+	
+			for (i = 0, len = tiles.length; i < len; i++) {
+				tile = tiles[i];
+	
+				if (!tile.complete) {
+					tile.onload = L.Util.falseFn;
+					tile.onerror = L.Util.falseFn;
+					tile.src = L.Util.emptyImageUrl;
+	
+					tile.parentNode.removeChild(tile);
+				}
+			}
+		}
+	});
+	
+	
+	/*
+	 * Provides L.Map with convenient shortcuts for using browser geolocation features.
+	 */
+	
+	L.Map.include({
+		_defaultLocateOptions: {
+			watch: false,
+			setView: false,
+			maxZoom: Infinity,
+			timeout: 10000,
+			maximumAge: 0,
+			enableHighAccuracy: false
+		},
+	
+		locate: function (/*Object*/ options) {
+	
+			options = this._locateOptions = L.extend(this._defaultLocateOptions, options);
+	
+			if (!navigator.geolocation) {
+				this._handleGeolocationError({
+					code: 0,
+					message: 'Geolocation not supported.'
+				});
+				return this;
+			}
+	
+			var onResponse = L.bind(this._handleGeolocationResponse, this),
+				onError = L.bind(this._handleGeolocationError, this);
+	
+			if (options.watch) {
+				this._locationWatchId =
+				        navigator.geolocation.watchPosition(onResponse, onError, options);
+			} else {
+				navigator.geolocation.getCurrentPosition(onResponse, onError, options);
+			}
+			return this;
+		},
+	
+		stopLocate: function () {
+			if (navigator.geolocation) {
+				navigator.geolocation.clearWatch(this._locationWatchId);
+			}
+			if (this._locateOptions) {
+				this._locateOptions.setView = false;
+			}
+			return this;
+		},
+	
+		_handleGeolocationError: function (error) {
+			var c = error.code,
+			    message = error.message ||
+			            (c === 1 ? 'permission denied' :
+			            (c === 2 ? 'position unavailable' : 'timeout'));
+	
+			if (this._locateOptions.setView && !this._loaded) {
+				this.fitWorld();
+			}
+	
+			this.fire('locationerror', {
+				code: c,
+				message: 'Geolocation error: ' + message + '.'
+			});
+		},
+	
+		_handleGeolocationResponse: function (pos) {
+			var lat = pos.coords.latitude,
+			    lng = pos.coords.longitude,
+			    latlng = new L.LatLng(lat, lng),
+	
+			    latAccuracy = 180 * pos.coords.accuracy / 40075017,
+			    lngAccuracy = latAccuracy / Math.cos(L.LatLng.DEG_TO_RAD * lat),
+	
+			    bounds = L.latLngBounds(
+			            [lat - latAccuracy, lng - lngAccuracy],
+			            [lat + latAccuracy, lng + lngAccuracy]),
+	
+			    options = this._locateOptions;
+	
+			if (options.setView) {
+				var zoom = Math.min(this.getBoundsZoom(bounds), options.maxZoom);
+				this.setView(latlng, zoom);
+			}
+	
+			var data = {
+				latlng: latlng,
+				bounds: bounds,
+				timestamp: pos.timestamp
+			};
+	
+			for (var i in pos.coords) {
+				if (typeof pos.coords[i] === 'number') {
+					data[i] = pos.coords[i];
+				}
+			}
+	
+			this.fire('locationfound', data);
+		}
+	});
+	
+	
+	}(window, document));
+
+/***/ },
+
+/***/ 284:
+/***/ function(module, exports) {
+
+	/**
 	 @license
 	Copyright 2014-2015 Google, Inc. http://angularjs.org
 	
@@ -15,16 +9249,3296 @@
 	limitations under the License.
 	
 	 */
-!function n(t,e,i){function o(r,a){if(!e[r]){if(!t[r]){var h="function"==typeof require&&require;if(!a&&h)return h(r,!0);if(s)return s(r,!0);var l=new Error("Cannot find module '"+r+"'");throw l.code="MODULE_NOT_FOUND",l}var u=e[r]={exports:{}};t[r][0].call(u.exports,function(e){var i=t[r][1][e];return o(i?i:e)},u,u.exports,n,t,e,i)}return e[r].exports}for(var s="function"==typeof require&&require,r=0;r<i.length;r++)o(i[r]);return o}({1:[function(t,e,i){(function(e){"use strict";var i=t("../core"),n=t("../microtask"),o=t("../patch/browser"),s=t("es6-promise");e.Zone&&console.warn("Zone already exported on window the object!"),e.Zone=n.addMicrotaskSupport(i.Zone),e.zone=new e.Zone,e.Promise=s.Promise,o.apply()}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"../core":2,"../microtask":4,"../patch/browser":5,"es6-promise":17}],2:[function(t,e,i){(function(i){"use strict";function n(t,e){var i=arguments.length?Object.create(t):this;return i.parent=t||null,Object.keys(e||{}).forEach(function(n){var o=n.substr(1);"$"===n[0]?i[o]=e[n](t[o]||function(){}):"+"===n[0]?t[o]?i[o]=function(){var i=t[o].apply(this,arguments);return e[n].apply(this,arguments),i}:i[o]=e[n]:"-"===n[0]?t[o]?i[o]=function(){return e[n].apply(this,arguments),t[o].apply(this,arguments)}:i[o]=e[n]:i[n]="object"==typeof e[n]?JSON.parse(JSON.stringify(e[n])):e[n]}),i.$id=n.nextId++,i}var o=t("./keys");n.prototype={constructor:n,fork:function(t){return this.onZoneCreated(),new n(this,t)},bind:function(t,e){if("function"!=typeof t)throw new Error("Expecting function got: "+t);e||this.enqueueTask(t);var i=this.isRootZone()?this:this.fork();return function(){return i.run(t,this,arguments)}},bindOnce:function(t){var e=this;return this.bind(function(){var i=t.apply(this,arguments);return e.dequeueTask(t),i})},isRootZone:function(){return null===this.parent},run:function(t,e,n){n=n||[];var o=i.zone;i.zone=this;try{return this.beforeTask(),t.apply(e,n)}catch(s){if(!this.onError)throw s;this.onError(s)}finally{this.afterTask(),i.zone=o}},onError:null,beforeTask:function(){},onZoneCreated:function(){},afterTask:function(){},enqueueTask:function(){},dequeueTask:function(){},addEventListener:function(){return this[o.common.addEventListener].apply(this,arguments)},removeEventListener:function(){return this[o.common.removeEventListener].apply(this,arguments)}},n.nextId=1,n.bindPromiseFn=t("./patch/promise").bindPromiseFn,e.exports={Zone:n}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"./keys":3,"./patch/promise":12}],3:[function(t,e,i){function n(t){return"_zone$"+t}var o={addEventListener:n("addEventListener"),removeEventListener:n("removeEventListener")};e.exports={create:n,common:o}},{}],4:[function(t,e,i){(function(i){"use strict";function n(t){h._asap(this.bind(t))}function o(t){return t.prototype.scheduleMicrotask=n,t}var s,r="undefined"!=typeof Promise&&-1!==Promise.toString().indexOf("[native code]"),a=i.navigator&&i.navigator.userAgent.toLowerCase().indexOf("firefox")>-1;r&&!a&&(s=Promise.resolve());var h=t("es6-promise").Promise;s&&h._setScheduler(function(t){s.then(t)}),h._setAsap(function(t,e){i.zone.scheduleMicrotask(function(){t(e)})}),e.exports={addMicrotaskSupport:o}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"es6-promise":17}],5:[function(t,e,i){(function(i){"use strict";function n(){o.patchSetClearFunction(i,["timeout","interval","immediate"]),o.patchRequestAnimationFrame(i,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame"]),o.patchFunction(i,["alert","prompt"]),l.apply(),u.apply(),s.apply(),r.patchClass("MutationObserver"),r.patchClass("WebKitMutationObserver"),a.apply(),h.apply(),c.apply(),p.apply()}var o=t("./functions"),s=t("./promise"),r=t("./mutation-observer"),a=t("./define-property"),h=t("./register-element"),l=(t("./websocket"),t("./event-target")),u=t("./property-descriptor"),c=t("./geolocation"),p=t("./file-reader");e.exports={apply:n}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"./define-property":6,"./event-target":7,"./file-reader":8,"./functions":9,"./geolocation":10,"./mutation-observer":11,"./promise":12,"./property-descriptor":13,"./register-element":14,"./websocket":15}],6:[function(t,e,i){"use strict";function n(){Object.defineProperty=function(t,e,i){if(s(t,e))throw new TypeError("Cannot assign to read only property '"+e+"' of "+t);return"prototype"!==e&&(i=r(t,e,i)),h(t,e,i)},Object.defineProperties=function(t,e){return Object.keys(e).forEach(function(i){Object.defineProperty(t,i,e[i])}),t},Object.create=function(t,e){return"object"==typeof e&&Object.keys(e).forEach(function(i){e[i]=r(t,i,e[i])}),u(t,e)},Object.getOwnPropertyDescriptor=function(t,e){var i=l(t,e);return s(t,e)&&(i.configurable=!1),i}}function o(t,e,i){return i=r(t,e,i),h(t,e,i)}function s(t,e){return t&&t[c]&&t[c][e]}function r(t,e,i){return i.configurable=!0,i.configurable||(t[c]||h(t,c,{writable:!0,value:{}}),t[c][e]=!0),i}var a=t("../keys"),h=Object.defineProperty,l=Object.getOwnPropertyDescriptor,u=Object.create,c=a.create("unconfigurables");e.exports={apply:n,_redefineProperty:o}},{"../keys":3}],7:[function(t,e,i){(function(i){"use strict";function n(){if(i.EventTarget)o.patchEventTargetMethods(i.EventTarget.prototype);else{var t=["ApplicationCache","EventSource","FileReader","InputMethodContext","MediaController","MessagePort","Node","Performance","SVGElementInstance","SharedWorker","TextTrack","TextTrackCue","TextTrackList","WebKitNamedFlow","Worker","WorkerGlobalScope","XMLHttpRequest","XMLHttpRequestEventTarget","XMLHttpRequestUpload"];t.forEach(function(t){var e=i[t]&&i[t].prototype;e&&e.addEventListener&&o.patchEventTargetMethods(e)}),"undefined"!=typeof window&&o.patchEventTargetMethods(window)}}var o=t("../utils");e.exports={apply:n}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"../utils":16}],8:[function(t,e,i){"use strict";function n(){o.patchClass("FileReader")}var o=t("../utils");e.exports={apply:n}},{"../utils":16}],9:[function(t,e,i){(function(i){"use strict";function n(t,e){e.map(function(t){return t[0].toUpperCase()+t.substr(1)}).forEach(function(e){var n="set"+e,o=t[n];if(o){var s="clear"+e,r={},h="setInterval"===n?a.bindArguments:a.bindArgumentsOnce;i.zone[n]=function(e){var i,n=e;arguments[0]=function(){return delete r[i],n.apply(this,arguments)};var s=h(arguments);return i=o.apply(t,s),r[i]=!0,i},t[n]=function(){return i.zone[n].apply(this,arguments)};var l=t[s];i.zone[s]=function(t){return r[t]&&(delete r[t],i.zone.dequeueTask()),l.apply(this,arguments)},t[s]=function(){return i.zone[s].apply(this,arguments)}}})}function o(t,e){e.forEach(function(e){var n=t[e];n&&(i.zone[e]=function(e){var o=i.zone.isRootZone()?i.zone.fork():i.zone;return e&&(arguments[0]=function(){return o.run(e,this,arguments)}),n.apply(t,arguments)},t[e]=function(){return i.zone[e].apply(this,arguments)})})}function s(t,e){e.forEach(function(e){var n=t[e];n&&(i.zone[e]=function(e){arguments[0]=function(){return e.apply(this,arguments)};var i=a.bindArgumentsOnce(arguments);return n.apply(t,i)},t[e]=function(){return zone[e].apply(this,arguments)})})}function r(t,e){e.forEach(function(e){var n=t[e];i.zone[e]=function(){return n.apply(t,arguments)},t[e]=function(){return i.zone[e].apply(this,arguments)}})}var a=t("../utils");e.exports={patchSetClearFunction:n,patchSetFunction:s,patchRequestAnimationFrame:o,patchFunction:r}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"../utils":16}],10:[function(t,e,i){(function(i){"use strict";function n(){i.navigator&&i.navigator.geolocation&&o.patchPrototype(i.navigator.geolocation,["getCurrentPosition","watchPosition"])}var o=t("../utils");e.exports={apply:n}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"../utils":16}],11:[function(t,e,i){(function(i){"use strict";function n(t){var e=i[t];if(e){i[t]=function(t){this[s]=new e(i.zone.bind(t,!0)),this[r]=i.zone};var n=new e(function(){});i[t].prototype.disconnect=function(){var t=this[s].disconnect.apply(this[s],arguments);return this[a]&&(this[r].dequeueTask(),this[a]=!1),t},i[t].prototype.observe=function(){return this[a]||(this[r].enqueueTask(),this[a]=!0),this[s].observe.apply(this[s],arguments)};var o;for(o in n)!function(e){"undefined"==typeof i[t].prototype&&("function"==typeof n[e]?i[t].prototype[e]=function(){return this[s][e].apply(this[s],arguments)}:Object.defineProperty(i[t].prototype,e,{set:function(t){"function"==typeof t?this[s][e]=i.zone.bind(t):this[s][e]=t},get:function(){return this[s][e]}}))}(o)}}var o=t("../keys"),s=o.create("originalInstance"),r=o.create("creationZone"),a=o.create("isActive");e.exports={patchClass:n}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"../keys":3}],12:[function(t,e,i){(function(i){"use strict";function n(t,e){var n=i,o=t.every(function(t){return n=n[t]});o&&e.forEach(function(t){var e=n[t];e&&(n[t]=r(e))})}function o(t){var e=t.then;t.then=function(){var i=a.bindArguments(arguments),n=e.apply(t,i);return o(n)};var i=t["catch"];return t["catch"]=function(){var e=a.bindArguments(arguments),n=i.apply(t,e);return o(n)},t}function s(){if(i.Promise){a.patchPrototype(Promise.prototype,["then","catch"]);var t=[[[],["fetch"]],[["Response","prototype"],["arrayBuffer","blob","json","text"]]];t.forEach(function(t){n(t[0],t[1])})}}var r,a=t("../utils");r=i.Promise?function(t){return function(){var e=t.apply(this,arguments);return e instanceof Promise?e:new Promise(function(t,i){e.then(t,i)})}}:function(t){return function(){return o(t.apply(this,arguments))}},e.exports={apply:s,bindPromiseFn:r}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"../utils":16}],13:[function(t,e,i){(function(i){"use strict";function n(){if(!a.isWebWorker()){var t="undefined"!=typeof WebSocket;if(o()){var e=l.map(function(t){return"on"+t});a.patchProperties(HTMLElement.prototype,e),a.patchProperties(XMLHttpRequest.prototype),t&&a.patchProperties(WebSocket.prototype)}else s(),a.patchClass("XMLHttpRequest"),t&&r.apply()}}function o(){if(!Object.getOwnPropertyDescriptor(HTMLElement.prototype,"onclick")&&"undefined"!=typeof Element){var t=Object.getOwnPropertyDescriptor(Element.prototype,"onclick");if(t&&!t.configurable)return!1}Object.defineProperty(HTMLElement.prototype,"onclick",{get:function(){return!0}});var e=document.createElement("div"),i=!!e.onclick;return Object.defineProperty(HTMLElement.prototype,"onclick",{}),i}function s(){l.forEach(function(t){var e="on"+t;document.addEventListener(t,function(t){for(var n,o=t.target;o;)o[e]&&!o[e][u]&&(n=i.zone.bind(o[e]),n[u]=o[e],o[e]=n),o=o.parentElement},!0)})}var r=t("./websocket"),a=t("../utils"),h=t("../keys"),l="copy cut paste abort blur focus canplay canplaythrough change click contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop durationchange emptied ended input invalid keydown keypress keyup load loadeddata loadedmetadata loadstart message mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup pause play playing progress ratechange reset scroll seeked seeking select show stalled submit suspend timeupdate volumechange waiting mozfullscreenchange mozfullscreenerror mozpointerlockchange mozpointerlockerror error webglcontextrestored webglcontextlost webglcontextcreationerror".split(" "),u=h.create("unbound");e.exports={apply:n}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"../keys":3,"../utils":16,"./websocket":15}],14:[function(t,e,i){(function(i){"use strict";function n(){if(!s.isWebWorker()&&"registerElement"in i.document){var t=document.registerElement,e=["createdCallback","attachedCallback","detachedCallback","attributeChangedCallback"];document.registerElement=function(n,s){return s&&s.prototype&&e.forEach(function(t){if(s.prototype.hasOwnProperty(t)){var e=Object.getOwnPropertyDescriptor(s.prototype,t);e&&e.value?(e.value=i.zone.bind(e.value),o(s.prototype,t,e)):s.prototype[t]=i.zone.bind(s.prototype[t])}else s.prototype[t]&&(s.prototype[t]=i.zone.bind(s.prototype[t]))}),t.apply(document,[n,s])}}}var o=t("./define-property")._redefineProperty,s=t("../utils");e.exports={apply:n}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"../utils":16,"./define-property":6}],15:[function(t,e,i){(function(i){"use strict";function n(){var t=i.WebSocket;o.patchEventTargetMethods(t.prototype),i.WebSocket=function(e,i){var n,s=arguments.length>1?new t(e,i):new t(e),r=Object.getOwnPropertyDescriptor(s,"onmessage");return r&&r.configurable===!1?(n=Object.create(s),["addEventListener","removeEventListener","send","close"].forEach(function(t){n[t]=function(){return s[t].apply(s,arguments)}})):n=s,o.patchProperties(n,["onclose","onerror","onmessage","onopen"]),n}}var o=t("../utils");e.exports={apply:n}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"../utils":16}],16:[function(t,e,i){(function(i){"use strict";function n(t){for(var e=t.length-1;e>=0;e--)"function"==typeof t[e]&&(t[e]=i.zone.bind(t[e]));return t}function o(t){for(var e=t.length-1;e>=0;e--)"function"==typeof t[e]&&(t[e]=i.zone.bindOnce(t[e]));return t}function s(t,e){e.forEach(function(e){var i=t[e];i&&(t[e]=function(){return i.apply(this,n(arguments))})})}function r(){return"undefined"==typeof document}function a(t,e){var i=Object.getOwnPropertyDescriptor(t,e)||{enumerable:!0,configurable:!0};delete i.writable,delete i.value;var n=e.substr(2),o="_"+e;i.set=function(t){this[o]&&this.removeEventListener(n,this[o]),"function"==typeof t?(this[o]=t,this.addEventListener(n,t,!1)):this[o]=null},i.get=function(){return this[o]},Object.defineProperty(t,e,i)}function h(t,e){(e||function(){var e=[];for(var i in t)e.push(i);return e}().filter(function(t){return"on"===t.substr(0,2)})).forEach(function(e){a(t,e)})}function l(t){t[c.common.addEventListener]=t.addEventListener,t.addEventListener=function(t,e,n){if(e&&"[object FunctionWrapper]"!==e.toString()){var o,s=t+(n?"$capturing":"$bubbling");o=e.handleEvent?function(t){return function(){t.handleEvent.apply(t,arguments)}}(e):e,e[p]=o,e[d]=e[d]||{},e[d][s]=e[d][s]||zone.bind(o),arguments[1]=e[d][s]}var r=this||i;return i.zone.addEventListener.apply(r,arguments)},t[c.common.removeEventListener]=t.removeEventListener,t.removeEventListener=function(t,e,n){var o=t+(n?"$capturing":"$bubbling");if(e&&e[d]&&e[d][o]){var s=e[d];arguments[1]=s[o],delete s[o],i.zone.dequeueTask(e[p])}var r=this||i,a=i.zone.removeEventListener.apply(r,arguments);return a}}function u(t){var e=i[t];if(e){i[t]=function(){var t=n(arguments);switch(t.length){case 0:this[f]=new e;break;case 1:this[f]=new e(t[0]);break;case 2:this[f]=new e(t[0],t[1]);break;case 3:this[f]=new e(t[0],t[1],t[2]);break;case 4:this[f]=new e(t[0],t[1],t[2],t[3]);break;default:throw new Error("what are you even doing?")}};var o,s=new e;for(o in s)!function(e){"function"==typeof s[e]?i[t].prototype[e]=function(){return this[f][e].apply(this[f],arguments)}:Object.defineProperty(i[t].prototype,e,{set:function(t){"function"==typeof t?this[f][e]=i.zone.bind(t):this[f][e]=t},get:function(){return this[f][e]}})}(o);for(o in e)"prototype"!==o&&e.hasOwnProperty(o)&&(i[t][o]=e[o])}}var c=t("./keys"),p=c.create("originalFn"),d=c.create("boundFns"),f=c.create("originalInstance");e.exports={bindArguments:n,bindArgumentsOnce:o,patchPrototype:s,patchProperty:a,patchProperties:h,patchEventTargetMethods:l,patchClass:u,isWebWorker:r}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"./keys":3}],17:[function(t,e,i){(function(i,n){/*!
+	
+	(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var core = require('../core');
+	var microtask = require('../microtask');
+	var browserPatch = require('../patch/browser');
+	var es6Promise = require('es6-promise');
+	
+	if (global.Zone) {
+	  console.warn('Zone already exported on window the object!');
+	}
+	
+	global.Zone = microtask.addMicrotaskSupport(core.Zone);
+	global.zone = new global.Zone();
+	
+	// Monkey patch the Promise implementation to add support for microtasks
+	global.Promise = es6Promise.Promise;
+	
+	browserPatch.apply();
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"../core":2,"../microtask":4,"../patch/browser":5,"es6-promise":17}],2:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var keys = require('./keys');
+	
+	function Zone(parentZone, data) {
+	  var zone = (arguments.length) ? Object.create(parentZone) : this;
+	
+	  zone.parent = parentZone || null;
+	
+	  Object.keys(data || {}).forEach(function(property) {
+	
+	    var _property = property.substr(1);
+	
+	    // augment the new zone with a hook decorates the parent's hook
+	    if (property[0] === '$') {
+	      zone[_property] = data[property](parentZone[_property] || function () {});
+	
+	    // augment the new zone with a hook that runs after the parent's hook
+	    } else if (property[0] === '+') {
+	      if (parentZone[_property]) {
+	        zone[_property] = function () {
+	          var result = parentZone[_property].apply(this, arguments);
+	          data[property].apply(this, arguments);
+	          return result;
+	        };
+	      } else {
+	        zone[_property] = data[property];
+	      }
+	
+	    // augment the new zone with a hook that runs before the parent's hook
+	    } else if (property[0] === '-') {
+	      if (parentZone[_property]) {
+	        zone[_property] = function () {
+	          data[property].apply(this, arguments);
+	          return parentZone[_property].apply(this, arguments);
+	        };
+	      } else {
+	        zone[_property] = data[property];
+	      }
+	
+	    // set the new zone's hook (replacing the parent zone's)
+	    } else {
+	      zone[property] = (typeof data[property] === 'object') ?
+	                        JSON.parse(JSON.stringify(data[property])) :
+	                        data[property];
+	    }
+	  });
+	
+	  zone.$id = Zone.nextId++;
+	
+	  return zone;
+	}
+	
+	Zone.prototype = {
+	  constructor: Zone,
+	
+	  fork: function (locals) {
+	    this.onZoneCreated();
+	    return new Zone(this, locals);
+	  },
+	
+	  bind: function (fn, skipEnqueue) {
+	    if (typeof fn !== 'function') {
+	      throw new Error('Expecting function got: ' + fn);
+	    }
+	    skipEnqueue || this.enqueueTask(fn);
+	    var zone = this.isRootZone() ? this : this.fork();
+	    return function zoneBoundFn() {
+	      return zone.run(fn, this, arguments);
+	    };
+	  },
+	
+	  bindOnce: function (fn) {
+	    var boundZone = this;
+	    return this.bind(function () {
+	      var result = fn.apply(this, arguments);
+	      boundZone.dequeueTask(fn);
+	      return result;
+	    });
+	  },
+	
+	  isRootZone: function() {
+	    return this.parent === null;
+	  },
+	
+	  run: function run (fn, applyTo, applyWith) {
+	    applyWith = applyWith || [];
+	
+	    var oldZone = global.zone;
+	
+	    // MAKE THIS ZONE THE CURRENT ZONE
+	    global.zone = this;
+	
+	    try {
+	      this.beforeTask();
+	      return fn.apply(applyTo, applyWith);
+	    } catch (e) {
+	      if (this.onError) {
+	        this.onError(e);
+	      } else {
+	        throw e;
+	      }
+	    } finally {
+	      this.afterTask();
+	      // REVERT THE CURRENT ZONE BACK TO THE ORIGINAL ZONE
+	      global.zone = oldZone;
+	    }
+	  },
+	
+	  // onError is used to override error handling.
+	  // When a custom error handler is provided, it should most probably rethrow the exception
+	  // not to break the expected control flow:
+	  //
+	  // `promise.then(fnThatThrows).catch(fn);`
+	  //
+	  // When this code is executed in a zone with a custom onError handler that doesn't rethrow, the
+	  // `.catch()` branch will not be taken as the `fnThatThrows` exception will be swallowed by the
+	  // handler.
+	  onError: null,
+	  beforeTask: function () {},
+	  onZoneCreated: function () {},
+	  afterTask: function () {},
+	  enqueueTask: function () {},
+	  dequeueTask: function () {},
+	  addEventListener: function () {
+	    return this[keys.common.addEventListener].apply(this, arguments);
+	  },
+	  removeEventListener: function () {
+	    return this[keys.common.removeEventListener].apply(this, arguments);
+	  }
+	};
+	
+	// Root zone ID === 1
+	Zone.nextId = 1;
+	
+	Zone.bindPromiseFn = require('./patch/promise').bindPromiseFn;
+	
+	module.exports = {
+	  Zone: Zone
+	};
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"./keys":3,"./patch/promise":12}],3:[function(require,module,exports){
+	/**
+	 * Creates keys for `private` properties on exposed objects to minimize interactions with other codebases.
+	 */
+	
+	function create(name) {
+	  // `Symbol` implementation is broken in Chrome 39.0.2171, do not use them even if they are available
+	  return '_zone$' + name;
+	}
+	
+	var commonKeys = {
+	  addEventListener: create('addEventListener'),
+	  removeEventListener: create('removeEventListener')
+	};
+	
+	module.exports = {
+	  create: create,
+	  common: commonKeys
+	};
+	
+	},{}],4:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	// TODO(vicb): Create a benchmark for the different methods & the usage of the queue
+	// see https://github.com/angular/zone.js/issues/97
+	
+	// It is required to initialize hasNativePromise before requiring es6-promise otherwise es6-promise would
+	// overwrite the native Promise implementation on v8 and the check would always return false.
+	// see https://github.com/jakearchibald/es6-promise/issues/140
+	var hasNativePromise = typeof Promise !== "undefined" &&
+	    Promise.toString().indexOf("[native code]") !== -1;
+	
+	var isFirefox = global.navigator &&
+	    global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+	
+	var resolvedPromise;
+	
+	// TODO(vicb): remove '!isFirefox' when the bug gets fixed:
+	// https://bugzilla.mozilla.org/show_bug.cgi?id=1162013
+	if (hasNativePromise && !isFirefox) {
+	  // When available use a native Promise to schedule microtasks.
+	  // When not available, es6-promise fallback will be used
+	  resolvedPromise = Promise.resolve();
+	}
+	
+	var es6Promise = require('es6-promise').Promise;
+	
+	if (resolvedPromise) {
+	  es6Promise._setScheduler(function(fn) {
+	    resolvedPromise.then(fn);
+	  });
+	}
+	
+	// es6-promise asap should schedule microtasks via zone.scheduleMicrotask so that any
+	// user defined hooks are triggered
+	es6Promise._setAsap(function(fn, arg) {
+	  global.zone.scheduleMicrotask(function() {
+	    fn(arg);
+	  });
+	});
+	
+	// The default implementation of scheduleMicrotask use the original es6-promise implementation
+	// to schedule a microtask
+	function scheduleMicrotask(fn) {
+	  es6Promise._asap(this.bind(fn));
+	}
+	
+	function addMicrotaskSupport(zoneClass) {
+	  zoneClass.prototype.scheduleMicrotask = scheduleMicrotask;
+	  return zoneClass;
+	}
+	
+	module.exports = {
+	  addMicrotaskSupport: addMicrotaskSupport
+	};
+	
+	
+	
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"es6-promise":17}],5:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var fnPatch = require('./functions');
+	var promisePatch = require('./promise');
+	var mutationObserverPatch = require('./mutation-observer');
+	var definePropertyPatch = require('./define-property');
+	var registerElementPatch = require('./register-element');
+	var webSocketPatch = require('./websocket');
+	var eventTargetPatch = require('./event-target');
+	var propertyDescriptorPatch = require('./property-descriptor');
+	var geolocationPatch = require('./geolocation');
+	var fileReaderPatch = require('./file-reader');
+	
+	function apply() {
+	  fnPatch.patchSetClearFunction(global, [
+	    'timeout',
+	    'interval',
+	    'immediate'
+	  ]);
+	
+	  fnPatch.patchRequestAnimationFrame(global, [
+	    'requestAnimationFrame',
+	    'mozRequestAnimationFrame',
+	    'webkitRequestAnimationFrame'
+	  ]);
+	
+	  fnPatch.patchFunction(global, [
+	    'alert',
+	    'prompt'
+	  ]);
+	
+	  eventTargetPatch.apply();
+	
+	  propertyDescriptorPatch.apply();
+	
+	  promisePatch.apply();
+	
+	  mutationObserverPatch.patchClass('MutationObserver');
+	  mutationObserverPatch.patchClass('WebKitMutationObserver');
+	
+	  definePropertyPatch.apply();
+	
+	  registerElementPatch.apply();
+	
+	  geolocationPatch.apply();
+	
+	  fileReaderPatch.apply();
+	}
+	
+	module.exports = {
+	  apply: apply
+	};
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"./define-property":6,"./event-target":7,"./file-reader":8,"./functions":9,"./geolocation":10,"./mutation-observer":11,"./promise":12,"./property-descriptor":13,"./register-element":14,"./websocket":15}],6:[function(require,module,exports){
+	'use strict';
+	
+	var keys = require('../keys');
+	
+	// might need similar for object.freeze
+	// i regret nothing
+	
+	var _defineProperty = Object.defineProperty;
+	var _getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+	var _create = Object.create;
+	var unconfigurablesKey = keys.create('unconfigurables');
+	
+	function apply() {
+	  Object.defineProperty = function (obj, prop, desc) {
+	    if (isUnconfigurable(obj, prop)) {
+	      throw new TypeError('Cannot assign to read only property \'' + prop + '\' of ' + obj);
+	    }
+	    if (prop !== 'prototype') {
+	      desc = rewriteDescriptor(obj, prop, desc);
+	    }
+	    return _defineProperty(obj, prop, desc);
+	  };
+	
+	  Object.defineProperties = function (obj, props) {
+	    Object.keys(props).forEach(function (prop) {
+	      Object.defineProperty(obj, prop, props[prop]);
+	    });
+	    return obj;
+	  };
+	
+	  Object.create = function (obj, proto) {
+	    if (typeof proto === 'object') {
+	      Object.keys(proto).forEach(function (prop) {
+	        proto[prop] = rewriteDescriptor(obj, prop, proto[prop]);
+	      });
+	    }
+	    return _create(obj, proto);
+	  };
+	
+	  Object.getOwnPropertyDescriptor = function (obj, prop) {
+	    var desc = _getOwnPropertyDescriptor(obj, prop);
+	    if (isUnconfigurable(obj, prop)) {
+	      desc.configurable = false;
+	    }
+	    return desc;
+	  };
+	};
+	
+	function _redefineProperty(obj, prop, desc) {
+	  desc = rewriteDescriptor(obj, prop, desc);
+	  return _defineProperty(obj, prop, desc);
+	};
+	
+	function isUnconfigurable (obj, prop) {
+	  return obj && obj[unconfigurablesKey] && obj[unconfigurablesKey][prop];
+	}
+	
+	function rewriteDescriptor (obj, prop, desc) {
+	  desc.configurable = true;
+	  if (!desc.configurable) {
+	    if (!obj[unconfigurablesKey]) {
+	      _defineProperty(obj, unconfigurablesKey, { writable: true, value: {} });
+	    }
+	    obj[unconfigurablesKey][prop] = true;
+	  }
+	  return desc;
+	}
+	
+	module.exports = {
+	  apply: apply,
+	  _redefineProperty: _redefineProperty
+	};
+	
+	
+	
+	},{"../keys":3}],7:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var utils = require('../utils');
+	
+	function apply() {
+	  // patched properties depend on addEventListener, so this needs to come first
+	  if (global.EventTarget) {
+	    utils.patchEventTargetMethods(global.EventTarget.prototype);
+	
+	  // Note: EventTarget is not available in all browsers,
+	  // if it's not available, we instead patch the APIs in the IDL that inherit from EventTarget
+	  } else {
+	    var apis = [
+	      'ApplicationCache',
+	      'EventSource',
+	      'FileReader',
+	      'InputMethodContext',
+	      'MediaController',
+	      'MessagePort',
+	      'Node',
+	      'Performance',
+	      'SVGElementInstance',
+	      'SharedWorker',
+	      'TextTrack',
+	      'TextTrackCue',
+	      'TextTrackList',
+	      'WebKitNamedFlow',
+	      'Worker',
+	      'WorkerGlobalScope',
+	      'XMLHttpRequest',
+	      'XMLHttpRequestEventTarget',
+	      'XMLHttpRequestUpload'
+	    ];
+	
+	    apis.forEach(function(api) {
+	      var proto = global[api] && global[api].prototype;
+	
+	      // Some browsers e.g. Android 4.3's don't actually implement
+	      // the EventTarget methods for all of these e.g. FileReader.
+	      // In this case, there is nothing to patch.
+	      if (proto && proto.addEventListener) {
+	        utils.patchEventTargetMethods(proto);
+	      }
+	    });
+	
+	    // Patch the methods on `window` instead of `Window.prototype`
+	    // `Window` is not accessible on Android 4.3
+	    if (typeof(window) !== 'undefined') {
+	      utils.patchEventTargetMethods(window);
+	    }
+	  }
+	}
+	
+	module.exports = {
+	  apply: apply
+	};
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"../utils":16}],8:[function(require,module,exports){
+	'use strict';
+	
+	var utils = require('../utils');
+	
+	function apply() {
+	  utils.patchClass('FileReader');
+	}
+	
+	module.exports = {
+	  apply: apply
+	};
+	},{"../utils":16}],9:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var utils = require('../utils');
+	
+	function patchSetClearFunction(obj, fnNames) {
+	  fnNames.map(function (name) {
+	    return name[0].toUpperCase() + name.substr(1);
+	  }).forEach(function (name) {
+	    var setName = 'set' + name;
+	    var delegate = obj[setName];
+	
+	    if (delegate) {
+	      var clearName = 'clear' + name;
+	      var ids = {};
+	
+	      var bindArgs = setName === 'setInterval' ? utils.bindArguments : utils.bindArgumentsOnce;
+	
+	      global.zone[setName] = function (fn) {
+	        var id, fnRef = fn;
+	        arguments[0] = function () {
+	          delete ids[id];
+	          return fnRef.apply(this, arguments);
+	        };
+	        var args = bindArgs(arguments);
+	        id = delegate.apply(obj, args);
+	        ids[id] = true;
+	        return id;
+	      };
+	
+	      obj[setName] = function () {
+	        return global.zone[setName].apply(this, arguments);
+	      };
+	
+	      var clearDelegate = obj[clearName];
+	
+	      global.zone[clearName] = function (id) {
+	        if (ids[id]) {
+	          delete ids[id];
+	          global.zone.dequeueTask();
+	        }
+	        return clearDelegate.apply(this, arguments);
+	      };
+	
+	      obj[clearName] = function () {
+	        return global.zone[clearName].apply(this, arguments);
+	      };
+	    }
+	  });
+	};
+	
+	
+	/**
+	 * requestAnimationFrame is typically recursively called from within the callback function
+	 * that it executes.  To handle this case, only fork a zone if this is executed
+	 * within the root zone.
+	 */
+	function patchRequestAnimationFrame(obj, fnNames) {
+	  fnNames.forEach(function (name) {
+	    var delegate = obj[name];
+	    if (delegate) {
+	      global.zone[name] = function (fn) {
+	        var callZone = global.zone.isRootZone() ? global.zone.fork() : global.zone;
+	        if (fn) {
+	          arguments[0] = function () {
+	            return callZone.run(fn, this, arguments);
+	          };
+	        }
+	        return delegate.apply(obj, arguments);
+	      };
+	
+	      obj[name] = function () {
+	        return global.zone[name].apply(this, arguments);
+	      };
+	    }
+	  });
+	};
+	
+	function patchSetFunction(obj, fnNames) {
+	  fnNames.forEach(function (name) {
+	    var delegate = obj[name];
+	
+	    if (delegate) {
+	      global.zone[name] = function (fn) {
+	        arguments[0] = function () {
+	          return fn.apply(this, arguments);
+	        };
+	        var args = utils.bindArgumentsOnce(arguments);
+	        return delegate.apply(obj, args);
+	      };
+	
+	      obj[name] = function () {
+	        return zone[name].apply(this, arguments);
+	      };
+	    }
+	  });
+	};
+	
+	function patchFunction(obj, fnNames) {
+	  fnNames.forEach(function (name) {
+	    var delegate = obj[name];
+	    global.zone[name] = function () {
+	      return delegate.apply(obj, arguments);
+	    };
+	
+	    obj[name] = function () {
+	      return global.zone[name].apply(this, arguments);
+	    };
+	  });
+	};
+	
+	
+	module.exports = {
+	  patchSetClearFunction: patchSetClearFunction,
+	  patchSetFunction: patchSetFunction,
+	  patchRequestAnimationFrame: patchRequestAnimationFrame,
+	  patchFunction: patchFunction
+	};
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"../utils":16}],10:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var utils = require('../utils');
+	
+	function apply() {
+	  if (global.navigator && global.navigator.geolocation) {
+	    utils.patchPrototype(global.navigator.geolocation, [
+	      'getCurrentPosition',
+	      'watchPosition'
+	    ]);
+	  }
+	}
+	
+	module.exports = {
+	  apply: apply
+	}
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"../utils":16}],11:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var keys = require('../keys');
+	
+	var originalInstanceKey = keys.create('originalInstance');
+	var creationZoneKey = keys.create('creationZone');
+	var isActiveKey = keys.create('isActive');
+	
+	// wrap some native API on `window`
+	function patchClass(className) {
+	  var OriginalClass = global[className];
+	  if (!OriginalClass) return;
+	
+	  global[className] = function (fn) {
+	    this[originalInstanceKey] = new OriginalClass(global.zone.bind(fn, true));
+	    // Remember where the class was instantiate to execute the enqueueTask and dequeueTask hooks
+	    this[creationZoneKey] = global.zone;
+	  };
+	
+	  var instance = new OriginalClass(function () {});
+	
+	  global[className].prototype.disconnect = function () {
+	    var result = this[originalInstanceKey].disconnect.apply(this[originalInstanceKey], arguments);
+	    if (this[isActiveKey]) {
+	      this[creationZoneKey].dequeueTask();
+	      this[isActiveKey] = false;
+	    }
+	    return result;
+	  };
+	
+	  global[className].prototype.observe = function () {
+	    if (!this[isActiveKey]) {
+	      this[creationZoneKey].enqueueTask();
+	      this[isActiveKey] = true;
+	    }
+	    return this[originalInstanceKey].observe.apply(this[originalInstanceKey], arguments);
+	  };
+	
+	  var prop;
+	  for (prop in instance) {
+	    (function (prop) {
+	      if (typeof global[className].prototype !== 'undefined') {
+	        return;
+	      }
+	      if (typeof instance[prop] === 'function') {
+	        global[className].prototype[prop] = function () {
+	          return this[originalInstanceKey][prop].apply(this[originalInstanceKey], arguments);
+	        };
+	      } else {
+	        Object.defineProperty(global[className].prototype, prop, {
+	          set: function (fn) {
+	            if (typeof fn === 'function') {
+	              this[originalInstanceKey][prop] = global.zone.bind(fn);
+	            } else {
+	              this[originalInstanceKey][prop] = fn;
+	            }
+	          },
+	          get: function () {
+	            return this[originalInstanceKey][prop];
+	          }
+	        });
+	      }
+	    }(prop));
+	  }
+	};
+	
+	module.exports = {
+	  patchClass: patchClass
+	};
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"../keys":3}],12:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var utils = require('../utils');
+	
+	/*
+	 * Patches a function that returns a Promise-like instance.
+	 *
+	 * This function must be used when either:
+	 * - Native Promises are not available,
+	 * - The function returns a Promise-like object.
+	 *
+	 * This is required because zones rely on a Promise monkey patch that could not be applied when
+	 * Promise is not natively available or when the returned object is not an instance of Promise.
+	 *
+	 * Note that calling `bindPromiseFn` on a function that returns a native Promise will also work
+	 * with minimal overhead.
+	 *
+	 * ```
+	 * var boundFunction = bindPromiseFn(FunctionReturningAPromise);
+	 *
+	 * boundFunction.then(successHandler, errorHandler);
+	 * ```
+	 */
+	var bindPromiseFn;
+	
+	if (global.Promise) {
+	  bindPromiseFn = function (delegate) {
+	    return function() {
+	      var delegatePromise = delegate.apply(this, arguments);
+	
+	      // if the delegate returned an instance of Promise, forward it.
+	      if (delegatePromise instanceof Promise) {
+	        return delegatePromise;
+	      }
+	
+	      // Otherwise wrap the Promise-like in a global Promise
+	      return new Promise(function(resolve, reject) {
+	        delegatePromise.then(resolve, reject);
+	      });
+	    };
+	  };
+	} else {
+	  bindPromiseFn = function (delegate) {
+	    return function () {
+	      return _patchThenable(delegate.apply(this, arguments));
+	    };
+	  };
+	}
+	
+	
+	function _patchPromiseFnsOnObject(objectPath, fnNames) {
+	  var obj = global;
+	
+	  var exists = objectPath.every(function (segment) {
+	    obj = obj[segment];
+	    return obj;
+	  });
+	
+	  if (!exists) {
+	    return;
+	  }
+	
+	  fnNames.forEach(function (name) {
+	    var fn = obj[name];
+	    if (fn) {
+	      obj[name] = bindPromiseFn(fn);
+	    }
+	  });
+	}
+	
+	function _patchThenable(thenable) {
+	  var then = thenable.then;
+	  thenable.then = function () {
+	    var args = utils.bindArguments(arguments);
+	    var nextThenable = then.apply(thenable, args);
+	    return _patchThenable(nextThenable);
+	  };
+	
+	  var ocatch = thenable.catch;
+	  thenable.catch = function () {
+	    var args = utils.bindArguments(arguments);
+	    var nextThenable = ocatch.apply(thenable, args);
+	    return _patchThenable(nextThenable);
+	  };
+	
+	  return thenable;
+	}
+	
+	
+	function apply() {
+	  // Patch .then() and .catch() on native Promises to execute callbacks in the zone where
+	  // those functions are called.
+	  if (global.Promise) {
+	    utils.patchPrototype(Promise.prototype, [
+	      'then',
+	      'catch'
+	    ]);
+	
+	    // Patch browser APIs that return a Promise
+	    var patchFns = [
+	      // fetch
+	      [[], ['fetch']],
+	      [['Response', 'prototype'], ['arrayBuffer', 'blob', 'json', 'text']]
+	    ];
+	
+	    patchFns.forEach(function(objPathAndFns) {
+	      _patchPromiseFnsOnObject(objPathAndFns[0], objPathAndFns[1]);
+	    });
+	  }
+	}
+	
+	module.exports = {
+	  apply: apply,
+	  bindPromiseFn: bindPromiseFn
+	};
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"../utils":16}],13:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var webSocketPatch = require('./websocket');
+	var utils = require('../utils');
+	var keys = require('../keys');
+	
+	var eventNames = 'copy cut paste abort blur focus canplay canplaythrough change click contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop durationchange emptied ended input invalid keydown keypress keyup load loadeddata loadedmetadata loadstart message mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup pause play playing progress ratechange reset scroll seeked seeking select show stalled submit suspend timeupdate volumechange waiting mozfullscreenchange mozfullscreenerror mozpointerlockchange mozpointerlockerror error webglcontextrestored webglcontextlost webglcontextcreationerror'.split(' ');
+	
+	function apply() {
+	  if (utils.isWebWorker()){
+	    // on WebWorker so don't apply patch
+	    return;
+	  }
+	
+	  var supportsWebSocket = typeof WebSocket !== 'undefined';
+	  if (canPatchViaPropertyDescriptor()) {
+	    // for browsers that we can patch the descriptor:  Chrome & Firefox
+	    var onEventNames = eventNames.map(function (property) {
+	      return 'on' + property;
+	    });
+	    utils.patchProperties(HTMLElement.prototype, onEventNames);
+	    utils.patchProperties(XMLHttpRequest.prototype);
+	    if (supportsWebSocket) {
+	      utils.patchProperties(WebSocket.prototype);
+	    }
+	  } else {
+	    // Safari, Android browsers (Jelly Bean)
+	    patchViaCapturingAllTheEvents();
+	    utils.patchClass('XMLHttpRequest');
+	    if (supportsWebSocket) {
+	      webSocketPatch.apply();
+	    }
+	  }
+	}
+	
+	function canPatchViaPropertyDescriptor() {
+	  if (!Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'onclick') && typeof Element !== 'undefined') {
+	    // WebKit https://bugs.webkit.org/show_bug.cgi?id=134364
+	    // IDL interface attributes are not configurable
+	    var desc = Object.getOwnPropertyDescriptor(Element.prototype, 'onclick');
+	    if (desc && !desc.configurable) return false;
+	  }
+	
+	  Object.defineProperty(HTMLElement.prototype, 'onclick', {
+	    get: function () {
+	      return true;
+	    }
+	  });
+	  var elt = document.createElement('div');
+	  var result = !!elt.onclick;
+	  Object.defineProperty(HTMLElement.prototype, 'onclick', {});
+	  return result;
+	};
+	
+	var unboundKey = keys.create('unbound');
+	
+	// Whenever any event fires, we check the event target and all parents
+	// for `onwhatever` properties and replace them with zone-bound functions
+	// - Chrome (for now)
+	function patchViaCapturingAllTheEvents() {
+	  eventNames.forEach(function (property) {
+	    var onproperty = 'on' + property;
+	    document.addEventListener(property, function (event) {
+	      var elt = event.target, bound;
+	      while (elt) {
+	        if (elt[onproperty] && !elt[onproperty][unboundKey]) {
+	          bound = global.zone.bind(elt[onproperty]);
+	          bound[unboundKey] = elt[onproperty];
+	          elt[onproperty] = bound;
+	        }
+	        elt = elt.parentElement;
+	      }
+	    }, true);
+	  });
+	};
+	
+	module.exports = {
+	  apply: apply
+	};
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"../keys":3,"../utils":16,"./websocket":15}],14:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var _redefineProperty = require('./define-property')._redefineProperty;
+	var utils = require("../utils");
+	
+	function apply() {
+	  if (utils.isWebWorker() || !('registerElement' in global.document)) {
+	    return;
+	  }
+	
+	  var _registerElement = document.registerElement;
+	  var callbacks = [
+	    'createdCallback',
+	    'attachedCallback',
+	    'detachedCallback',
+	    'attributeChangedCallback'
+	  ];
+	
+	  document.registerElement = function (name, opts) {
+	    if (opts && opts.prototype) {
+	      callbacks.forEach(function (callback) {
+	        if (opts.prototype.hasOwnProperty(callback)) {
+	          var descriptor = Object.getOwnPropertyDescriptor(opts.prototype, callback);
+	          if (descriptor && descriptor.value) {
+	            descriptor.value = global.zone.bind(descriptor.value);
+	            _redefineProperty(opts.prototype, callback, descriptor);
+	          } else {
+	            opts.prototype[callback] = global.zone.bind(opts.prototype[callback]);
+	          }
+	        } else if (opts.prototype[callback]) {
+	          opts.prototype[callback] = global.zone.bind(opts.prototype[callback]);
+	        }
+	      });
+	    }
+	
+	    return _registerElement.apply(document, [name, opts]);
+	  };
+	}
+	
+	module.exports = {
+	  apply: apply
+	};
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"../utils":16,"./define-property":6}],15:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var utils = require('../utils');
+	
+	// we have to patch the instance since the proto is non-configurable
+	function apply() {
+	  var WS = global.WebSocket;
+	  utils.patchEventTargetMethods(WS.prototype);
+	  global.WebSocket = function(a, b) {
+	    var socket = arguments.length > 1 ? new WS(a, b) : new WS(a);
+	    var proxySocket;
+	
+	    // Safari 7.0 has non-configurable own 'onmessage' and friends properties on the socket instance
+	    var onmessageDesc = Object.getOwnPropertyDescriptor(socket, 'onmessage');
+	    if (onmessageDesc && onmessageDesc.configurable === false) {
+	      proxySocket = Object.create(socket);
+	      ['addEventListener', 'removeEventListener', 'send', 'close'].forEach(function(propName) {
+	        proxySocket[propName] = function() {
+	          return socket[propName].apply(socket, arguments);
+	        };
+	      });
+	    } else {
+	      // we can patch the real socket
+	      proxySocket = socket;
+	    }
+	
+	    utils.patchProperties(proxySocket, ['onclose', 'onerror', 'onmessage', 'onopen']);
+	
+	    return proxySocket;
+	  };
+	}
+	
+	module.exports = {
+	  apply: apply
+	};
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"../utils":16}],16:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	var keys = require('./keys');
+	
+	function bindArguments(args) {
+	  for (var i = args.length - 1; i >= 0; i--) {
+	    if (typeof args[i] === 'function') {
+	      args[i] = global.zone.bind(args[i]);
+	    }
+	  }
+	  return args;
+	};
+	
+	function bindArgumentsOnce(args) {
+	  for (var i = args.length - 1; i >= 0; i--) {
+	    if (typeof args[i] === 'function') {
+	      args[i] = global.zone.bindOnce(args[i]);
+	    }
+	  }
+	  return args;
+	};
+	
+	function patchPrototype(obj, fnNames) {
+	  fnNames.forEach(function (name) {
+	    var delegate = obj[name];
+	    if (delegate) {
+	      obj[name] = function () {
+	        return delegate.apply(this, bindArguments(arguments));
+	      };
+	    }
+	  });
+	};
+	
+	function isWebWorker() {
+	  return (typeof document === "undefined");
+	}
+	
+	function patchProperty(obj, prop) {
+	  var desc = Object.getOwnPropertyDescriptor(obj, prop) || {
+	    enumerable: true,
+	    configurable: true
+	  };
+	
+	  // A property descriptor cannot have getter/setter and be writable
+	  // deleting the writable and value properties avoids this error:
+	  //
+	  // TypeError: property descriptors must not specify a value or be writable when a
+	  // getter or setter has been specified
+	  delete desc.writable;
+	  delete desc.value;
+	
+	  // substr(2) cuz 'onclick' -> 'click', etc
+	  var eventName = prop.substr(2);
+	  var _prop = '_' + prop;
+	
+	  desc.set = function (fn) {
+	    if (this[_prop]) {
+	      this.removeEventListener(eventName, this[_prop]);
+	    }
+	
+	    if (typeof fn === 'function') {
+	      this[_prop] = fn;
+	      this.addEventListener(eventName, fn, false);
+	    } else {
+	      this[_prop] = null;
+	    }
+	  };
+	
+	  desc.get = function () {
+	    return this[_prop];
+	  };
+	
+	  Object.defineProperty(obj, prop, desc);
+	};
+	
+	function patchProperties(obj, properties) {
+	  (properties || (function () {
+	      var props = [];
+	      for (var prop in obj) {
+	        props.push(prop);
+	      }
+	      return props;
+	    }()).
+	    filter(function (propertyName) {
+	      return propertyName.substr(0,2) === 'on';
+	    })).
+	    forEach(function (eventName) {
+	      patchProperty(obj, eventName);
+	    });
+	};
+	
+	var originalFnKey = keys.create('originalFn');
+	var boundFnsKey = keys.create('boundFns');
+	
+	function patchEventTargetMethods(obj) {
+	  // This is required for the addEventListener hook on the root zone.
+	  obj[keys.common.addEventListener] = obj.addEventListener;
+	  obj.addEventListener = function (eventName, handler, useCapturing) {
+	    //Ignore special listeners of IE11 & Edge dev tools, see https://github.com/angular/zone.js/issues/150
+	    if (handler && handler.toString() !== "[object FunctionWrapper]") {
+	      var eventType = eventName + (useCapturing ? '$capturing' : '$bubbling');
+	      var fn;
+	      if (handler.handleEvent) {
+	        // Have to pass in 'handler' reference as an argument here, otherwise it gets clobbered in
+	        // IE9 by the arguments[1] assignment at end of this function.
+	        fn = (function(handler) {
+	          return function() {
+	            handler.handleEvent.apply(handler, arguments);
+	          };
+	        })(handler);
+	      } else {
+	        fn = handler;
+	      }
+	
+	      handler[originalFnKey] = fn;
+	      handler[boundFnsKey] = handler[boundFnsKey] || {};
+	      handler[boundFnsKey][eventType] = handler[boundFnsKey][eventType] || zone.bind(fn);
+	      arguments[1] = handler[boundFnsKey][eventType];
+	    }
+	
+	    // - Inside a Web Worker, `this` is undefined, the context is `global` (= `self`)
+	    // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
+	    // see https://github.com/angular/zone.js/issues/190
+	    var target = this || global;
+	    return global.zone.addEventListener.apply(target, arguments);
+	  };
+	
+	  // This is required for the removeEventListener hook on the root zone.
+	  obj[keys.common.removeEventListener] = obj.removeEventListener;
+	  obj.removeEventListener = function (eventName, handler, useCapturing) {
+	    var eventType = eventName + (useCapturing ? '$capturing' : '$bubbling');
+	    if (handler && handler[boundFnsKey] && handler[boundFnsKey][eventType]) {
+	      var _bound = handler[boundFnsKey];
+	      arguments[1] = _bound[eventType];
+	      delete _bound[eventType];
+	      global.zone.dequeueTask(handler[originalFnKey]);
+	    }
+	
+	    // - Inside a Web Worker, `this` is undefined, the context is `global`
+	    // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
+	    // see https://github.com/angular/zone.js/issues/190
+	    var target = this || global;
+	    var result = global.zone.removeEventListener.apply(target, arguments);
+	    return result;
+	  };
+	};
+	
+	var originalInstanceKey = keys.create('originalInstance');
+	
+	// wrap some native API on `window`
+	function patchClass(className) {
+	  var OriginalClass = global[className];
+	  if (!OriginalClass) return;
+	
+	  global[className] = function () {
+	    var a = bindArguments(arguments);
+	    switch (a.length) {
+	      case 0: this[originalInstanceKey] = new OriginalClass(); break;
+	      case 1: this[originalInstanceKey] = new OriginalClass(a[0]); break;
+	      case 2: this[originalInstanceKey] = new OriginalClass(a[0], a[1]); break;
+	      case 3: this[originalInstanceKey] = new OriginalClass(a[0], a[1], a[2]); break;
+	      case 4: this[originalInstanceKey] = new OriginalClass(a[0], a[1], a[2], a[3]); break;
+	      default: throw new Error('what are you even doing?');
+	    }
+	  };
+	
+	  var instance = new OriginalClass();
+	
+	  var prop;
+	  for (prop in instance) {
+	    (function (prop) {
+	      if (typeof instance[prop] === 'function') {
+	        global[className].prototype[prop] = function () {
+	          return this[originalInstanceKey][prop].apply(this[originalInstanceKey], arguments);
+	        };
+	      } else {
+	        Object.defineProperty(global[className].prototype, prop, {
+	          set: function (fn) {
+	            if (typeof fn === 'function') {
+	              this[originalInstanceKey][prop] = global.zone.bind(fn);
+	            } else {
+	              this[originalInstanceKey][prop] = fn;
+	            }
+	          },
+	          get: function () {
+	            return this[originalInstanceKey][prop];
+	          }
+	        });
+	      }
+	    }(prop));
+	  }
+	
+	  for (prop in OriginalClass) {
+	    if (prop !== 'prototype' && OriginalClass.hasOwnProperty(prop)) {
+	      global[className][prop] = OriginalClass[prop];
+	    }
+	  }
+	};
+	
+	module.exports = {
+	  bindArguments: bindArguments,
+	  bindArgumentsOnce: bindArgumentsOnce,
+	  patchPrototype: patchPrototype,
+	  patchProperty: patchProperty,
+	  patchProperties: patchProperties,
+	  patchEventTargetMethods: patchEventTargetMethods,
+	  patchClass: patchClass,
+	  isWebWorker: isWebWorker
+	};
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"./keys":3}],17:[function(require,module,exports){
+	(function (process,global){
+	/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
 	 *            See https://raw.githubusercontent.com/jakearchibald/es6-promise/master/LICENSE
 	 * @version   3.0.2
 	 */
-(function(){"use strict";function o(t){return"function"==typeof t||"object"==typeof t&&null!==t}function s(t){return"function"==typeof t}function r(t){return"object"==typeof t&&null!==t}function a(t){G=t}function h(t){K=t}function l(){return function(){i.nextTick(f)}}function u(){return function(){H(f)}}function c(){var t=0,e=new $(f),i=document.createTextNode("");return e.observe(i,{characterData:!0}),function(){i.data=t=++t%2}}function p(){var t=new MessageChannel;return t.port1.onmessage=f,function(){t.port2.postMessage(0)}}function d(){return function(){setTimeout(f,1)}}function f(){for(var t=0;J>t;t+=2){var e=et[t],i=et[t+1];e(i),et[t]=void 0,et[t+1]=void 0}J=0}function m(){try{var e=t,i=e("vertx");return H=i.runOnLoop||i.runOnContext,u()}catch(n){return d()}}function _(){}function g(){return new TypeError("You cannot resolve a promise with itself")}function v(){return new TypeError("A promises callback cannot return that same promise.")}function y(t){try{return t.then}catch(e){return st.error=e,st}}function P(t,e,i,n){try{t.call(e,i,n)}catch(o){return o}}function L(t,e,i){K(function(t){var n=!1,o=P(i,e,function(i){n||(n=!0,e!==i?x(t,i):T(t,i))},function(e){n||(n=!0,D(t,e))},"Settle: "+(t._label||" unknown promise"));!n&&o&&(n=!0,D(t,o))},t)}function w(t,e){e._state===nt?T(t,e._result):e._state===ot?D(t,e._result):M(e,void 0,function(e){x(t,e)},function(e){D(t,e)})}function b(t,e){if(e.constructor===t.constructor)w(t,e);else{var i=y(e);i===st?D(t,st.error):void 0===i?T(t,e):s(i)?L(t,e,i):T(t,e)}}function x(t,e){t===e?D(t,g()):o(e)?b(t,e):T(t,e)}function E(t){t._onerror&&t._onerror(t._result),C(t)}function T(t,e){t._state===it&&(t._result=e,t._state=nt,0!==t._subscribers.length&&K(C,t))}function D(t,e){t._state===it&&(t._state=ot,t._result=e,K(E,t))}function M(t,e,i,n){var o=t._subscribers,s=o.length;t._onerror=null,o[s]=e,o[s+nt]=i,o[s+ot]=n,0===s&&t._state&&K(C,t)}function C(t){var e=t._subscribers,i=t._state;if(0!==e.length){for(var n,o,s=t._result,r=0;r<e.length;r+=3)n=e[r],o=e[r+i],n?O(i,n,o,s):o(s);t._subscribers.length=0}}function k(){this.error=null}function S(t,e){try{return t(e)}catch(i){return rt.error=i,rt}}function O(t,e,i,n){var o,r,a,h,l=s(i);if(l){if(o=S(i,n),o===rt?(h=!0,r=o.error,o=null):a=!0,e===o)return void D(e,v())}else o=n,a=!0;e._state!==it||(l&&a?x(e,o):h?D(e,r):t===nt?T(e,o):t===ot&&D(e,o))}function A(t,e){try{e(function(e){x(t,e)},function(e){D(t,e)})}catch(i){D(t,i)}}function z(t,e){var i=this;i._instanceConstructor=t,i.promise=new t(_),i._validateInput(e)?(i._input=e,i.length=e.length,i._remaining=e.length,i._init(),0===i.length?T(i.promise,i._result):(i.length=i.length||0,i._enumerate(),0===i._remaining&&T(i.promise,i._result))):D(i.promise,i._validationError())}function U(t){return new at(this,t).promise}function B(t){function e(t){x(o,t)}function i(t){D(o,t)}var n=this,o=new n(_);if(!q(t))return D(o,new TypeError("You must pass an array to race.")),o;for(var s=t.length,r=0;o._state===it&&s>r;r++)M(n.resolve(t[r]),void 0,e,i);return o}function I(t){var e=this;if(t&&"object"==typeof t&&t.constructor===e)return t;var i=new e(_);return x(i,t),i}function N(t){var e=this,i=new e(_);return D(i,t),i}function R(){throw new TypeError("You must pass a resolver function as the first argument to the promise constructor")}function Z(){throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.")}function j(t){this._id=pt++,this._state=void 0,this._result=void 0,this._subscribers=[],_!==t&&(s(t)||R(),this instanceof j||Z(),A(this,t))}function W(){var t;if("undefined"!=typeof n)t=n;else if("undefined"!=typeof self)t=self;else try{t=Function("return this")()}catch(e){throw new Error("polyfill failed because global object is unavailable in this environment")}var i=t.Promise;(!i||"[object Promise]"!==Object.prototype.toString.call(i.resolve())||i.cast)&&(t.Promise=dt)}var F;F=Array.isArray?Array.isArray:function(t){return"[object Array]"===Object.prototype.toString.call(t)};var H,G,V,q=F,J=0,K=({}.toString,function(t,e){et[J]=t,et[J+1]=e,J+=2,2===J&&(G?G(f):V())}),X="undefined"!=typeof window?window:void 0,Y=X||{},$=Y.MutationObserver||Y.WebKitMutationObserver,Q="undefined"!=typeof i&&"[object process]"==={}.toString.call(i),tt="undefined"!=typeof Uint8ClampedArray&&"undefined"!=typeof importScripts&&"undefined"!=typeof MessageChannel,et=new Array(1e3);V=Q?l():$?c():tt?p():void 0===X&&"function"==typeof t?m():d();var it=void 0,nt=1,ot=2,st=new k,rt=new k;z.prototype._validateInput=function(t){return q(t)},z.prototype._validationError=function(){return new Error("Array Methods must be provided an Array")},z.prototype._init=function(){this._result=new Array(this.length)};var at=z;z.prototype._enumerate=function(){for(var t=this,e=t.length,i=t.promise,n=t._input,o=0;i._state===it&&e>o;o++)t._eachEntry(n[o],o)},z.prototype._eachEntry=function(t,e){var i=this,n=i._instanceConstructor;r(t)?t.constructor===n&&t._state!==it?(t._onerror=null,i._settledAt(t._state,e,t._result)):i._willSettleAt(n.resolve(t),e):(i._remaining--,i._result[e]=t)},z.prototype._settledAt=function(t,e,i){var n=this,o=n.promise;o._state===it&&(n._remaining--,t===ot?D(o,i):n._result[e]=i),0===n._remaining&&T(o,n._result)},z.prototype._willSettleAt=function(t,e){var i=this;M(t,void 0,function(t){i._settledAt(nt,e,t)},function(t){i._settledAt(ot,e,t)})};var ht=U,lt=B,ut=I,ct=N,pt=0,dt=j;j.all=ht,j.race=lt,j.resolve=ut,j.reject=ct,j._setScheduler=a,j._setAsap=h,j._asap=K,j.prototype={constructor:j,then:function(t,e){var i=this,n=i._state;if(n===nt&&!t||n===ot&&!e)return this;var o=new this.constructor(_),s=i._result;if(n){var r=arguments[n-1];K(function(){O(n,o,r,s)})}else M(i,o,t,e);return o},"catch":function(t){return this.then(null,t)}};var ft=W,mt={Promise:dt,polyfill:ft};"function"==typeof define&&define.amd?define(function(){return mt}):"undefined"!=typeof e&&e.exports?e.exports=mt:"undefined"!=typeof this&&(this.ES6Promise=mt),ft()}).call(this)}).call(this,{},"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{}]},{},[1]),function o(t,e,i){function n(r,a){if(!e[r]){if(!t[r]){var h="function"==typeof require&&require;if(!a&&h)return h(r,!0);if(s)return s(r,!0);var l=new Error("Cannot find module '"+r+"'");throw l.code="MODULE_NOT_FOUND",l}var u=e[r]={exports:{}};t[r][0].call(u.exports,function(e){var i=t[r][1][e];return n(i?i:e)},u,u.exports,o,t,e,i)}return e[r].exports}for(var s="function"==typeof require&&require,r=0;r<i.length;r++)n(i[r]);return n}({1:[function(t,e,i){(function(e){"use strict";if(!e.Zone)throw new Error("zone.js should be installed before loading the long stack trace zone");e.Zone.longStackTraceZone=t("../zones/long-stack-trace.js")}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{"../zones/long-stack-trace.js":2}],2:[function(t,e,i){(function(t){"use strict";function i(t){this._e=t}function n(){return new i(new Error)}function o(){try{throw new Error}catch(t){return new i(t)}}i.prototype.get=function(){return t.zone.stackFramesFilter&&this._e.stack?this._e.stack.split("\n").filter(t.zone.stackFramesFilter).join("\n"):this._e.stack};var s=n(),r=s&&s._e.stack?n:o;e.exports={getLongStacktrace:function(t){var e=[],i=this;t&&(i.stackFramesFilter&&t.stack?e.push(t.stack.split("\n").filter(i.stackFramesFilter).join("\n")):e.push(t.stack));for(var n=Date.now();i&&i.constructedAtException;)e.push("--- "+Date(i.constructedAtTime).toString()+" - "+(n-i.constructedAtTime)+"ms ago",i.constructedAtException.get()),i=i.parent;return e.join("\n")},stackFramesFilter:function(t){return!/zone(-microtask)?(\.min)?\.js/.test(t)},onError:function(t){var e=this.reporter||console.log.bind(console);e(t.toString()),e(this.getLongStacktrace(t))},$fork:function(t){return function(){var e=t.apply(this,arguments);return e.constructedAtException=r(),e.constructedAtTime=Date.now(),e}}}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{}]},{},[1]);var i;!function(t){function e(t,e,i,n){if(w(n)){if(w(i)){if(!b(t))throw new TypeError;if(!E(e))throw new TypeError;return c(t,e)}if(!b(t))throw new TypeError;if(!x(e))throw new TypeError;return i=D(i),d(t,e,i)}if(!b(t))throw new TypeError;if(!x(e))throw new TypeError;if(w(i))throw new TypeError;if(!x(n))throw new TypeError;return i=D(i),p(t,e,i,n)}function i(t,e){function i(i,n){if(w(n)){if(!E(i))throw new TypeError;y(t,e,i,void 0)}else{if(!x(i))throw new TypeError;n=D(n),y(t,e,i,n)}}return i}function n(t,e,i,n){if(!x(i))throw new TypeError;return w(n)||(n=D(n)),y(t,e,i,n)}function o(t,e,i){if(!x(e))throw new TypeError;return w(i)||(i=D(i)),m(t,e,i)}function s(t,e,i){if(!x(e))throw new TypeError;return w(i)||(i=D(i)),_(t,e,i)}function r(t,e,i){if(!x(e))throw new TypeError;return w(i)||(i=D(i)),g(t,e,i)}function a(t,e,i){if(!x(e))throw new TypeError;return w(i)||(i=D(i)),v(t,e,i)}function h(t,e){if(!x(t))throw new TypeError;return w(e)||(e=D(e)),P(t,e)}function l(t,e){if(!x(t))throw new TypeError;return w(e)||(e=D(e)),L(t,e)}function u(t,e,i){if(!x(e))throw new TypeError;w(i)||(i=D(i));var n=f(e,i,!1);if(w(n))return!1;if(!n["delete"](t))return!1;if(n.size>0)return!0;var o=B.get(e);return o["delete"](i),o.size>0?!0:(B["delete"](e),!0)}function c(t,e){for(var i=t.length-1;i>=0;--i){var n=t[i],o=n(e);if(!w(o)){if(!E(o))throw new TypeError;e=o}}return e}function p(t,e,i,n){for(var o=t.length-1;o>=0;--o){var s=t[o],r=s(e,i,n);if(!w(r)){if(!x(r))throw new TypeError;n=r}}return n}function d(t,e,i){for(var n=t.length-1;n>=0;--n){var o=t[n];o(e,i)}}function f(t,e,i){var n=B.get(t);if(!n){if(!i)return;n=new A,B.set(t,n)}var o=n.get(e);if(!o){if(!i)return;o=new A,n.set(e,o)}return o}function m(t,e,i){var n=_(t,e,i);if(n)return!0;var o=M(e);return null!==o?m(t,o,i):!1}function _(t,e,i){var n=f(e,i,!1);return void 0===n?!1:Boolean(n.has(t))}function g(t,e,i){var n=_(t,e,i);if(n)return v(t,e,i);var o=M(e);return null!==o?g(t,o,i):void 0}function v(t,e,i){var n=f(e,i,!1);if(void 0!==n)return n.get(t)}function y(t,e,i,n){var o=f(i,n,!0);o.set(t,e)}function P(t,e){var i=L(t,e),n=M(t);if(null===n)return i;var o=P(n,e);if(o.length<=0)return i;if(i.length<=0)return o;for(var s=new z,r=[],a=0;a<i.length;a++){var h=i[a],l=s.has(h);l||(s.add(h),r.push(h))}for(var u=0;u<o.length;u++){var h=o[u],l=s.has(h);l||(s.add(h),r.push(h))}return r}function L(t,e){var i=f(t,e,!1),n=[];return i&&i.forEach(function(t,e){return n.push(e)}),n}function w(t){return void 0===t}function b(t){return Array.isArray(t)}function x(t){return"object"==typeof t?null!==t:"function"==typeof t}function E(t){return"function"==typeof t}function T(t){return"symbol"==typeof t}function D(t){return T(t)?t:String(t)}function M(t){var e=Object.getPrototypeOf(t);if("function"!=typeof t||t===O)return e;if(e!==O)return e;var i=t.prototype,n=Object.getPrototypeOf(i);if(null==n||n===Object.prototype)return e;var o=n.constructor;return"function"!=typeof o?e:o===t?e:o}function C(){function t(){this._keys=[],this._values=[],this._cache=e}var e={};return t.prototype={get size(){return this._keys.length},has:function(t){return t===this._cache?!0:this._find(t)>=0?(this._cache=t,!0):!1},get:function(t){var e=this._find(t);return e>=0?(this._cache=t,this._values[e]):void 0},set:function(t,e){return this["delete"](t),this._keys.push(t),this._values.push(e),this._cache=t,this},"delete":function(t){var i=this._find(t);return i>=0?(this._keys.splice(i,1),this._values.splice(i,1),this._cache=e,!0):!1},clear:function(){this._keys.length=0,this._values.length=0,this._cache=e},forEach:function(t,e){for(var i=this.size,n=0;i>n;++n){var o=this._keys[n],s=this._values[n];this._cache=o,t.call(this,s,o,this)}},_find:function(t){for(var e=this._keys,i=e.length,n=0;i>n;++n)if(e[n]===t)return n;return-1}},t}function k(){function t(){this._map=new A}return t.prototype={get size(){return this._map.length},has:function(t){return this._map.has(t)},add:function(t){return this._map.set(t,t),this},"delete":function(t){return this._map["delete"](t)},clear:function(){this._map.clear()},forEach:function(t,e){this._map.forEach(t,e)}},t}function S(){function t(){this._key=o()}function e(t,e){for(var i=0;e>i;++i)t[i]=255*Math.random()|0}function i(t){if(h){var i=h.randomBytes(t);return i}if("function"==typeof Uint8Array){var i=new Uint8Array(t);return"undefined"!=typeof crypto?crypto.getRandomValues(i):"undefined"!=typeof msCrypto?msCrypto.getRandomValues(i):e(i,t),i}var i=new Array(t);return e(i,t),i}function n(){var t=i(r);t[6]=79&t[6]|64,t[8]=191&t[8]|128;for(var e="",n=0;r>n;++n){var o=t[n];(4===n||6===n||8===n)&&(e+="-"),16>o&&(e+="0"),e+=o.toString(16).toLowerCase()}return e}function o(){var t;do t="@@WeakMap@@"+n();while(l.call(u,t));return u[t]=!0,t}function s(t,e){if(!l.call(t,c)){if(!e)return;Object.defineProperty(t,c,{value:Object.create(null)})}return t[c]}var r=16,a="undefined"!=typeof global&&"[object process]"===Object.prototype.toString.call(global.process),h=a&&require("crypto"),l=Object.prototype.hasOwnProperty,u={},c=o();return t.prototype={has:function(t){var e=s(t,!1);return e?this._key in e:!1},get:function(t){var e=s(t,!1);return e?e[this._key]:void 0},set:function(t,e){var i=s(t,!0);return i[this._key]=e,this},"delete":function(t){var e=s(t,!1);return e&&this._key in e?delete e[this._key]:!1},clear:function(){this._key=o()}},t}var O=Object.getPrototypeOf(Function),A="function"==typeof Map?Map:C(),z="function"==typeof Set?Set:k(),U="function"==typeof WeakMap?WeakMap:S(),B=new U;t.decorate=e,t.metadata=i,t.defineMetadata=n,t.hasMetadata=o,t.hasOwnMetadata=s,t.getMetadata=r,t.getOwnMetadata=a,t.getMetadataKeys=h,t.getOwnMetadataKeys=l,t.deleteMetadata=u,function(e){if("undefined"!=typeof e.Reflect){if(e.Reflect!==t)for(var i in t)e.Reflect[i]=t[i]}else e.Reflect=t}("undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope?self:"undefined"!=typeof global?global:Function("return this;")())}(i||(i={}))},238:function(t,e){},239:function(t,e){},240:function(t,e){},243:function(t,e,i){var n,o;!function(s,r,a){var h=s.L,l={};l.version="0.7.7","object"==typeof t&&"object"==typeof t.exports?t.exports=l:(n=l,o="function"==typeof n?n.call(e,i,e,t):n,!(o!==a&&(t.exports=o))),l.noConflict=function(){return s.L=h,this},s.L=l,l.Util={extend:function(t){var e,i,n,o,s=Array.prototype.slice.call(arguments,1);for(i=0,n=s.length;n>i;i++){o=s[i]||{};for(e in o)o.hasOwnProperty(e)&&(t[e]=o[e])}return t},bind:function(t,e){var i=arguments.length>2?Array.prototype.slice.call(arguments,2):null;return function(){return t.apply(e,i||arguments)}},stamp:function(){var t=0,e="_leaflet_id";return function(i){return i[e]=i[e]||++t,i[e]}}(),invokeEach:function(t,e,i){var n,o;if("object"==typeof t){o=Array.prototype.slice.call(arguments,3);for(n in t)e.apply(i,[n,t[n]].concat(o));return!0}return!1},limitExecByInterval:function(t,e,i){var n,o;return function s(){var r=arguments;return n?void(o=!0):(n=!0,setTimeout(function(){n=!1,o&&(s.apply(i,r),o=!1)},e),void t.apply(i,r))}},falseFn:function(){return!1},formatNum:function(t,e){var i=Math.pow(10,e||5);return Math.round(t*i)/i},trim:function(t){return t.trim?t.trim():t.replace(/^\s+|\s+$/g,"")},splitWords:function(t){return l.Util.trim(t).split(/\s+/)},setOptions:function(t,e){return t.options=l.extend({},t.options,e),t.options},getParamString:function(t,e,i){var n=[];for(var o in t)n.push(encodeURIComponent(i?o.toUpperCase():o)+"="+encodeURIComponent(t[o]));return(e&&-1!==e.indexOf("?")?"&":"?")+n.join("&")},template:function(t,e){return t.replace(/\{ *([\w_]+) *\}/g,function(t,i){var n=e[i];if(n===a)throw new Error("No value provided for variable "+t);return"function"==typeof n&&(n=n(e)),n})},isArray:Array.isArray||function(t){return"[object Array]"===Object.prototype.toString.call(t)},emptyImageUrl:"data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="},function(){function t(t){var e,i,n=["webkit","moz","o","ms"];for(e=0;e<n.length&&!i;e++)i=s[n[e]+t];return i}function e(t){var e=+new Date,n=Math.max(0,16-(e-i));return i=e+n,s.setTimeout(t,n)}var i=0,n=s.requestAnimationFrame||t("RequestAnimationFrame")||e,o=s.cancelAnimationFrame||t("CancelAnimationFrame")||t("CancelRequestAnimationFrame")||function(t){s.clearTimeout(t)};l.Util.requestAnimFrame=function(t,i,o,r){return t=l.bind(t,i),o&&n===e?void t():n.call(s,t,r)},l.Util.cancelAnimFrame=function(t){t&&o.call(s,t)}}(),l.extend=l.Util.extend,l.bind=l.Util.bind,l.stamp=l.Util.stamp,l.setOptions=l.Util.setOptions,l.Class=function(){},l.Class.extend=function(t){var e=function(){this.initialize&&this.initialize.apply(this,arguments),this._initHooks&&this.callInitHooks()},i=function(){};i.prototype=this.prototype;var n=new i;n.constructor=e,e.prototype=n;for(var o in this)this.hasOwnProperty(o)&&"prototype"!==o&&(e[o]=this[o]);t.statics&&(l.extend(e,t.statics),delete t.statics),t.includes&&(l.Util.extend.apply(null,[n].concat(t.includes)),delete t.includes),t.options&&n.options&&(t.options=l.extend({},n.options,t.options)),l.extend(n,t),n._initHooks=[];var s=this;return e.__super__=s.prototype,n.callInitHooks=function(){if(!this._initHooksCalled){s.prototype.callInitHooks&&s.prototype.callInitHooks.call(this),this._initHooksCalled=!0;for(var t=0,e=n._initHooks.length;e>t;t++)n._initHooks[t].call(this)}},e},l.Class.include=function(t){l.extend(this.prototype,t)},l.Class.mergeOptions=function(t){l.extend(this.prototype.options,t)},l.Class.addInitHook=function(t){var e=Array.prototype.slice.call(arguments,1),i="function"==typeof t?t:function(){this[t].apply(this,e)};this.prototype._initHooks=this.prototype._initHooks||[],this.prototype._initHooks.push(i)};var u="_leaflet_events";l.Mixin={},l.Mixin.Events={addEventListener:function(t,e,i){if(l.Util.invokeEach(t,this.addEventListener,this,e,i))return this;var n,o,s,r,a,h,c,p=this[u]=this[u]||{},d=i&&i!==this&&l.stamp(i);for(t=l.Util.splitWords(t),n=0,o=t.length;o>n;n++)s={action:e,context:i||this},r=t[n],d?(a=r+"_idx",h=a+"_len",c=p[a]=p[a]||{},c[d]||(c[d]=[],p[h]=(p[h]||0)+1),c[d].push(s)):(p[r]=p[r]||[],p[r].push(s));return this},hasEventListeners:function(t){var e=this[u];return!!e&&(t in e&&e[t].length>0||t+"_idx"in e&&e[t+"_idx_len"]>0)},removeEventListener:function(t,e,i){if(!this[u])return this;if(!t)return this.clearAllEventListeners();if(l.Util.invokeEach(t,this.removeEventListener,this,e,i))return this;var n,o,s,r,a,h,c,p,d,f=this[u],m=i&&i!==this&&l.stamp(i);for(t=l.Util.splitWords(t),n=0,o=t.length;o>n;n++)if(s=t[n],h=s+"_idx",c=h+"_len",p=f[h],e){if(r=m&&p?p[m]:f[s]){for(a=r.length-1;a>=0;a--)r[a].action!==e||i&&r[a].context!==i||(d=r.splice(a,1),d[0].action=l.Util.falseFn);i&&p&&0===r.length&&(delete p[m],f[c]--)}}else delete f[s],delete f[h],delete f[c];return this},clearAllEventListeners:function(){return delete this[u],this},fireEvent:function(t,e){if(!this.hasEventListeners(t))return this;var i,n,o,s,r,a=l.Util.extend({},e,{type:t,target:this}),h=this[u];if(h[t])for(i=h[t].slice(),n=0,o=i.length;o>n;n++)i[n].action.call(i[n].context,a);s=h[t+"_idx"];for(r in s)if(i=s[r].slice())for(n=0,o=i.length;o>n;n++)i[n].action.call(i[n].context,a);return this},addOneTimeEventListener:function(t,e,i){if(l.Util.invokeEach(t,this.addOneTimeEventListener,this,e,i))return this;var n=l.bind(function(){this.removeEventListener(t,e,i).removeEventListener(t,n,i)},this);return this.addEventListener(t,e,i).addEventListener(t,n,i)}},l.Mixin.Events.on=l.Mixin.Events.addEventListener,l.Mixin.Events.off=l.Mixin.Events.removeEventListener,l.Mixin.Events.once=l.Mixin.Events.addOneTimeEventListener,l.Mixin.Events.fire=l.Mixin.Events.fireEvent,function(){var t="ActiveXObject"in s,e=t&&!r.addEventListener,i=navigator.userAgent.toLowerCase(),n=-1!==i.indexOf("webkit"),o=-1!==i.indexOf("chrome"),h=-1!==i.indexOf("phantom"),u=-1!==i.indexOf("android"),c=-1!==i.search("android [23]"),p=-1!==i.indexOf("gecko"),d=typeof orientation!=a+"",f=!s.PointerEvent&&s.MSPointerEvent,m=s.PointerEvent&&s.navigator.pointerEnabled||f,_="devicePixelRatio"in s&&s.devicePixelRatio>1||"matchMedia"in s&&s.matchMedia("(min-resolution:144dpi)")&&s.matchMedia("(min-resolution:144dpi)").matches,g=r.documentElement,v=t&&"transition"in g.style,y="WebKitCSSMatrix"in s&&"m11"in new s.WebKitCSSMatrix&&!c,P="MozPerspective"in g.style,L="OTransition"in g.style,w=!s.L_DISABLE_3D&&(v||y||P||L)&&!h,b=!s.L_NO_TOUCH&&!h&&(m||"ontouchstart"in s||s.DocumentTouch&&r instanceof s.DocumentTouch);l.Browser={ie:t,ielt9:e,webkit:n,gecko:p&&!n&&!s.opera&&!t,android:u,android23:c,chrome:o,ie3d:v,webkit3d:y,gecko3d:P,opera3d:L,any3d:w,mobile:d,mobileWebkit:d&&n,mobileWebkit3d:d&&y,mobileOpera:d&&s.opera,touch:b,msPointer:f,pointer:m,retina:_}}(),l.Point=function(t,e,i){this.x=i?Math.round(t):t,this.y=i?Math.round(e):e},l.Point.prototype={clone:function(){return new l.Point(this.x,this.y)},add:function(t){return this.clone()._add(l.point(t))},_add:function(t){return this.x+=t.x,this.y+=t.y,this},subtract:function(t){return this.clone()._subtract(l.point(t))},_subtract:function(t){return this.x-=t.x,this.y-=t.y,this},divideBy:function(t){return this.clone()._divideBy(t)},_divideBy:function(t){return this.x/=t,this.y/=t,this},multiplyBy:function(t){return this.clone()._multiplyBy(t)},_multiplyBy:function(t){return this.x*=t,this.y*=t,this},round:function(){return this.clone()._round()},_round:function(){return this.x=Math.round(this.x),this.y=Math.round(this.y),this},floor:function(){return this.clone()._floor()},_floor:function(){return this.x=Math.floor(this.x),this.y=Math.floor(this.y),this},distanceTo:function(t){t=l.point(t);var e=t.x-this.x,i=t.y-this.y;return Math.sqrt(e*e+i*i)},equals:function(t){return t=l.point(t),t.x===this.x&&t.y===this.y},contains:function(t){return t=l.point(t),Math.abs(t.x)<=Math.abs(this.x)&&Math.abs(t.y)<=Math.abs(this.y)},toString:function(){return"Point("+l.Util.formatNum(this.x)+", "+l.Util.formatNum(this.y)+")"}},l.point=function(t,e,i){return t instanceof l.Point?t:l.Util.isArray(t)?new l.Point(t[0],t[1]):t===a||null===t?t:new l.Point(t,e,i)},l.Bounds=function(t,e){if(t)for(var i=e?[t,e]:t,n=0,o=i.length;o>n;n++)this.extend(i[n])},l.Bounds.prototype={extend:function(t){return t=l.point(t),this.min||this.max?(this.min.x=Math.min(t.x,this.min.x),this.max.x=Math.max(t.x,this.max.x),this.min.y=Math.min(t.y,this.min.y),this.max.y=Math.max(t.y,this.max.y)):(this.min=t.clone(),this.max=t.clone()),this},getCenter:function(t){return new l.Point((this.min.x+this.max.x)/2,(this.min.y+this.max.y)/2,t)},getBottomLeft:function(){return new l.Point(this.min.x,this.max.y)},getTopRight:function(){return new l.Point(this.max.x,this.min.y)},getSize:function(){return this.max.subtract(this.min)},contains:function(t){var e,i;return t="number"==typeof t[0]||t instanceof l.Point?l.point(t):l.bounds(t),t instanceof l.Bounds?(e=t.min,i=t.max):e=i=t,e.x>=this.min.x&&i.x<=this.max.x&&e.y>=this.min.y&&i.y<=this.max.y},intersects:function(t){t=l.bounds(t);var e=this.min,i=this.max,n=t.min,o=t.max,s=o.x>=e.x&&n.x<=i.x,r=o.y>=e.y&&n.y<=i.y;return s&&r},isValid:function(){return!(!this.min||!this.max)}},l.bounds=function(t,e){return!t||t instanceof l.Bounds?t:new l.Bounds(t,e)},l.Transformation=function(t,e,i,n){this._a=t,this._b=e,this._c=i,this._d=n},l.Transformation.prototype={transform:function(t,e){return this._transform(t.clone(),e)},_transform:function(t,e){return e=e||1,t.x=e*(this._a*t.x+this._b),t.y=e*(this._c*t.y+this._d),t},untransform:function(t,e){return e=e||1,new l.Point((t.x/e-this._b)/this._a,(t.y/e-this._d)/this._c)}},l.DomUtil={get:function(t){return"string"==typeof t?r.getElementById(t):t},getStyle:function(t,e){var i=t.style[e];if(!i&&t.currentStyle&&(i=t.currentStyle[e]),(!i||"auto"===i)&&r.defaultView){var n=r.defaultView.getComputedStyle(t,null);i=n?n[e]:null}return"auto"===i?null:i},getViewportOffset:function(t){var e,i=0,n=0,o=t,s=r.body,a=r.documentElement;do{if(i+=o.offsetTop||0,n+=o.offsetLeft||0,i+=parseInt(l.DomUtil.getStyle(o,"borderTopWidth"),10)||0,n+=parseInt(l.DomUtil.getStyle(o,"borderLeftWidth"),10)||0,e=l.DomUtil.getStyle(o,"position"),o.offsetParent===s&&"absolute"===e)break;if("fixed"===e){i+=s.scrollTop||a.scrollTop||0,n+=s.scrollLeft||a.scrollLeft||0;break}if("relative"===e&&!o.offsetLeft){var h=l.DomUtil.getStyle(o,"width"),u=l.DomUtil.getStyle(o,"max-width"),c=o.getBoundingClientRect();("none"!==h||"none"!==u)&&(n+=c.left+o.clientLeft),i+=c.top+(s.scrollTop||a.scrollTop||0);break}o=o.offsetParent}while(o);o=t;do{if(o===s)break;i-=o.scrollTop||0,n-=o.scrollLeft||0,o=o.parentNode}while(o);return new l.Point(n,i)},documentIsLtr:function(){return l.DomUtil._docIsLtrCached||(l.DomUtil._docIsLtrCached=!0,l.DomUtil._docIsLtr="ltr"===l.DomUtil.getStyle(r.body,"direction")),l.DomUtil._docIsLtr},create:function(t,e,i){var n=r.createElement(t);return n.className=e,i&&i.appendChild(n),n},hasClass:function(t,e){if(t.classList!==a)return t.classList.contains(e);var i=l.DomUtil._getClass(t);return i.length>0&&new RegExp("(^|\\s)"+e+"(\\s|$)").test(i)},addClass:function(t,e){if(t.classList!==a)for(var i=l.Util.splitWords(e),n=0,o=i.length;o>n;n++)t.classList.add(i[n]);else if(!l.DomUtil.hasClass(t,e)){var s=l.DomUtil._getClass(t);l.DomUtil._setClass(t,(s?s+" ":"")+e)}},removeClass:function(t,e){t.classList!==a?t.classList.remove(e):l.DomUtil._setClass(t,l.Util.trim((" "+l.DomUtil._getClass(t)+" ").replace(" "+e+" "," ")))},_setClass:function(t,e){t.className.baseVal===a?t.className=e:t.className.baseVal=e},_getClass:function(t){return t.className.baseVal===a?t.className:t.className.baseVal},setOpacity:function(t,e){if("opacity"in t.style)t.style.opacity=e;else if("filter"in t.style){var i=!1,n="DXImageTransform.Microsoft.Alpha";try{i=t.filters.item(n)}catch(o){if(1===e)return}e=Math.round(100*e),i?(i.Enabled=100!==e,i.Opacity=e):t.style.filter+=" progid:"+n+"(opacity="+e+")"}},testProp:function(t){for(var e=r.documentElement.style,i=0;i<t.length;i++)if(t[i]in e)return t[i];return!1},getTranslateString:function(t){var e=l.Browser.webkit3d,i="translate"+(e?"3d":"")+"(",n=(e?",0":"")+")";return i+t.x+"px,"+t.y+"px"+n},getScaleString:function(t,e){var i=l.DomUtil.getTranslateString(e.add(e.multiplyBy(-1*t))),n=" scale("+t+") ";return i+n},setPosition:function(t,e,i){t._leaflet_pos=e,!i&&l.Browser.any3d?t.style[l.DomUtil.TRANSFORM]=l.DomUtil.getTranslateString(e):(t.style.left=e.x+"px",t.style.top=e.y+"px")},getPosition:function(t){return t._leaflet_pos}},l.DomUtil.TRANSFORM=l.DomUtil.testProp(["transform","WebkitTransform","OTransform","MozTransform","msTransform"]),l.DomUtil.TRANSITION=l.DomUtil.testProp(["webkitTransition","transition","OTransition","MozTransition","msTransition"]),l.DomUtil.TRANSITION_END="webkitTransition"===l.DomUtil.TRANSITION||"OTransition"===l.DomUtil.TRANSITION?l.DomUtil.TRANSITION+"End":"transitionend",function(){if("onselectstart"in r)l.extend(l.DomUtil,{disableTextSelection:function(){l.DomEvent.on(s,"selectstart",l.DomEvent.preventDefault)},enableTextSelection:function(){l.DomEvent.off(s,"selectstart",l.DomEvent.preventDefault)}});else{var t=l.DomUtil.testProp(["userSelect","WebkitUserSelect","OUserSelect","MozUserSelect","msUserSelect"]);l.extend(l.DomUtil,{disableTextSelection:function(){if(t){var e=r.documentElement.style;this._userSelect=e[t],e[t]="none"}},enableTextSelection:function(){t&&(r.documentElement.style[t]=this._userSelect,delete this._userSelect)}})}l.extend(l.DomUtil,{disableImageDrag:function(){l.DomEvent.on(s,"dragstart",l.DomEvent.preventDefault)},enableImageDrag:function(){l.DomEvent.off(s,"dragstart",l.DomEvent.preventDefault)}})}(),l.LatLng=function(t,e,i){if(t=parseFloat(t),e=parseFloat(e),isNaN(t)||isNaN(e))throw new Error("Invalid LatLng object: ("+t+", "+e+")");this.lat=t,this.lng=e,i!==a&&(this.alt=parseFloat(i))},l.extend(l.LatLng,{DEG_TO_RAD:Math.PI/180,RAD_TO_DEG:180/Math.PI,MAX_MARGIN:1e-9}),l.LatLng.prototype={equals:function(t){if(!t)return!1;t=l.latLng(t);var e=Math.max(Math.abs(this.lat-t.lat),Math.abs(this.lng-t.lng));return e<=l.LatLng.MAX_MARGIN},toString:function(t){return"LatLng("+l.Util.formatNum(this.lat,t)+", "+l.Util.formatNum(this.lng,t)+")"},distanceTo:function(t){t=l.latLng(t);var e=6378137,i=l.LatLng.DEG_TO_RAD,n=(t.lat-this.lat)*i,o=(t.lng-this.lng)*i,s=this.lat*i,r=t.lat*i,a=Math.sin(n/2),h=Math.sin(o/2),u=a*a+h*h*Math.cos(s)*Math.cos(r);return 2*e*Math.atan2(Math.sqrt(u),Math.sqrt(1-u))},wrap:function(t,e){var i=this.lng;return t=t||-180,e=e||180,i=(i+e)%(e-t)+(t>i||i===e?e:t),new l.LatLng(this.lat,i)}},l.latLng=function(t,e){return t instanceof l.LatLng?t:l.Util.isArray(t)?"number"==typeof t[0]||"string"==typeof t[0]?new l.LatLng(t[0],t[1],t[2]):null:t===a||null===t?t:"object"==typeof t&&"lat"in t?new l.LatLng(t.lat,"lng"in t?t.lng:t.lon):e===a?null:new l.LatLng(t,e)},l.LatLngBounds=function(t,e){if(t)for(var i=e?[t,e]:t,n=0,o=i.length;o>n;n++)this.extend(i[n])},l.LatLngBounds.prototype={extend:function(t){if(!t)return this;var e=l.latLng(t);return t=null!==e?e:l.latLngBounds(t),t instanceof l.LatLng?this._southWest||this._northEast?(this._southWest.lat=Math.min(t.lat,this._southWest.lat),this._southWest.lng=Math.min(t.lng,this._southWest.lng),this._northEast.lat=Math.max(t.lat,this._northEast.lat),this._northEast.lng=Math.max(t.lng,this._northEast.lng)):(this._southWest=new l.LatLng(t.lat,t.lng),this._northEast=new l.LatLng(t.lat,t.lng)):t instanceof l.LatLngBounds&&(this.extend(t._southWest),this.extend(t._northEast)),this},pad:function(t){var e=this._southWest,i=this._northEast,n=Math.abs(e.lat-i.lat)*t,o=Math.abs(e.lng-i.lng)*t;return new l.LatLngBounds(new l.LatLng(e.lat-n,e.lng-o),new l.LatLng(i.lat+n,i.lng+o))},getCenter:function(){return new l.LatLng((this._southWest.lat+this._northEast.lat)/2,(this._southWest.lng+this._northEast.lng)/2)},getSouthWest:function(){return this._southWest},getNorthEast:function(){return this._northEast},getNorthWest:function(){return new l.LatLng(this.getNorth(),this.getWest())},getSouthEast:function(){return new l.LatLng(this.getSouth(),this.getEast())},getWest:function(){return this._southWest.lng},getSouth:function(){return this._southWest.lat},getEast:function(){return this._northEast.lng},getNorth:function(){return this._northEast.lat},contains:function(t){t="number"==typeof t[0]||t instanceof l.LatLng?l.latLng(t):l.latLngBounds(t);var e,i,n=this._southWest,o=this._northEast;return t instanceof l.LatLngBounds?(e=t.getSouthWest(),i=t.getNorthEast()):e=i=t,e.lat>=n.lat&&i.lat<=o.lat&&e.lng>=n.lng&&i.lng<=o.lng},intersects:function(t){t=l.latLngBounds(t);var e=this._southWest,i=this._northEast,n=t.getSouthWest(),o=t.getNorthEast(),s=o.lat>=e.lat&&n.lat<=i.lat,r=o.lng>=e.lng&&n.lng<=i.lng;return s&&r},toBBoxString:function(){return[this.getWest(),this.getSouth(),this.getEast(),this.getNorth()].join(",")},equals:function(t){return t?(t=l.latLngBounds(t),this._southWest.equals(t.getSouthWest())&&this._northEast.equals(t.getNorthEast())):!1},isValid:function(){return!(!this._southWest||!this._northEast)}},l.latLngBounds=function(t,e){return!t||t instanceof l.LatLngBounds?t:new l.LatLngBounds(t,e)},l.Projection={},l.Projection.SphericalMercator={MAX_LATITUDE:85.0511287798,project:function(t){var e=l.LatLng.DEG_TO_RAD,i=this.MAX_LATITUDE,n=Math.max(Math.min(i,t.lat),-i),o=t.lng*e,s=n*e;return s=Math.log(Math.tan(Math.PI/4+s/2)),new l.Point(o,s)},unproject:function(t){var e=l.LatLng.RAD_TO_DEG,i=t.x*e,n=(2*Math.atan(Math.exp(t.y))-Math.PI/2)*e;return new l.LatLng(n,i)}},l.Projection.LonLat={project:function(t){return new l.Point(t.lng,t.lat)},unproject:function(t){return new l.LatLng(t.y,t.x)}},l.CRS={latLngToPoint:function(t,e){var i=this.projection.project(t),n=this.scale(e);return this.transformation._transform(i,n)},pointToLatLng:function(t,e){var i=this.scale(e),n=this.transformation.untransform(t,i);return this.projection.unproject(n)},project:function(t){return this.projection.project(t);
-},scale:function(t){return 256*Math.pow(2,t)},getSize:function(t){var e=this.scale(t);return l.point(e,e)}},l.CRS.Simple=l.extend({},l.CRS,{projection:l.Projection.LonLat,transformation:new l.Transformation(1,0,-1,0),scale:function(t){return Math.pow(2,t)}}),l.CRS.EPSG3857=l.extend({},l.CRS,{code:"EPSG:3857",projection:l.Projection.SphericalMercator,transformation:new l.Transformation(.5/Math.PI,.5,-.5/Math.PI,.5),project:function(t){var e=this.projection.project(t),i=6378137;return e.multiplyBy(i)}}),l.CRS.EPSG900913=l.extend({},l.CRS.EPSG3857,{code:"EPSG:900913"}),l.CRS.EPSG4326=l.extend({},l.CRS,{code:"EPSG:4326",projection:l.Projection.LonLat,transformation:new l.Transformation(1/360,.5,-1/360,.5)}),l.Map=l.Class.extend({includes:l.Mixin.Events,options:{crs:l.CRS.EPSG3857,fadeAnimation:l.DomUtil.TRANSITION&&!l.Browser.android23,trackResize:!0,markerZoomAnimation:l.DomUtil.TRANSITION&&l.Browser.any3d},initialize:function(t,e){e=l.setOptions(this,e),this._initContainer(t),this._initLayout(),this._onResize=l.bind(this._onResize,this),this._initEvents(),e.maxBounds&&this.setMaxBounds(e.maxBounds),e.center&&e.zoom!==a&&this.setView(l.latLng(e.center),e.zoom,{reset:!0}),this._handlers=[],this._layers={},this._zoomBoundLayers={},this._tileLayersNum=0,this.callInitHooks(),this._addLayers(e.layers)},setView:function(t,e){return e=e===a?this.getZoom():e,this._resetView(l.latLng(t),this._limitZoom(e)),this},setZoom:function(t,e){return this._loaded?this.setView(this.getCenter(),t,{zoom:e}):(this._zoom=this._limitZoom(t),this)},zoomIn:function(t,e){return this.setZoom(this._zoom+(t||1),e)},zoomOut:function(t,e){return this.setZoom(this._zoom-(t||1),e)},setZoomAround:function(t,e,i){var n=this.getZoomScale(e),o=this.getSize().divideBy(2),s=t instanceof l.Point?t:this.latLngToContainerPoint(t),r=s.subtract(o).multiplyBy(1-1/n),a=this.containerPointToLatLng(o.add(r));return this.setView(a,e,{zoom:i})},fitBounds:function(t,e){e=e||{},t=t.getBounds?t.getBounds():l.latLngBounds(t);var i=l.point(e.paddingTopLeft||e.padding||[0,0]),n=l.point(e.paddingBottomRight||e.padding||[0,0]),o=this.getBoundsZoom(t,!1,i.add(n));o=e.maxZoom?Math.min(e.maxZoom,o):o;var s=n.subtract(i).divideBy(2),r=this.project(t.getSouthWest(),o),a=this.project(t.getNorthEast(),o),h=this.unproject(r.add(a).divideBy(2).add(s),o);return this.setView(h,o,e)},fitWorld:function(t){return this.fitBounds([[-90,-180],[90,180]],t)},panTo:function(t,e){return this.setView(t,this._zoom,{pan:e})},panBy:function(t){return this.fire("movestart"),this._rawPanBy(l.point(t)),this.fire("move"),this.fire("moveend")},setMaxBounds:function(t){return t=l.latLngBounds(t),this.options.maxBounds=t,t?(this._loaded&&this._panInsideMaxBounds(),this.on("moveend",this._panInsideMaxBounds,this)):this.off("moveend",this._panInsideMaxBounds,this)},panInsideBounds:function(t,e){var i=this.getCenter(),n=this._limitCenter(i,this._zoom,t);return i.equals(n)?this:this.panTo(n,e)},addLayer:function(t){var e=l.stamp(t);return this._layers[e]?this:(this._layers[e]=t,!t.options||isNaN(t.options.maxZoom)&&isNaN(t.options.minZoom)||(this._zoomBoundLayers[e]=t,this._updateZoomLevels()),this.options.zoomAnimation&&l.TileLayer&&t instanceof l.TileLayer&&(this._tileLayersNum++,this._tileLayersToLoad++,t.on("load",this._onTileLayerLoad,this)),this._loaded&&this._layerAdd(t),this)},removeLayer:function(t){var e=l.stamp(t);return this._layers[e]?(this._loaded&&t.onRemove(this),delete this._layers[e],this._loaded&&this.fire("layerremove",{layer:t}),this._zoomBoundLayers[e]&&(delete this._zoomBoundLayers[e],this._updateZoomLevels()),this.options.zoomAnimation&&l.TileLayer&&t instanceof l.TileLayer&&(this._tileLayersNum--,this._tileLayersToLoad--,t.off("load",this._onTileLayerLoad,this)),this):this},hasLayer:function(t){return t?l.stamp(t)in this._layers:!1},eachLayer:function(t,e){for(var i in this._layers)t.call(e,this._layers[i]);return this},invalidateSize:function(t){if(!this._loaded)return this;t=l.extend({animate:!1,pan:!0},t===!0?{animate:!0}:t);var e=this.getSize();this._sizeChanged=!0,this._initialCenter=null;var i=this.getSize(),n=e.divideBy(2).round(),o=i.divideBy(2).round(),s=n.subtract(o);return s.x||s.y?(t.animate&&t.pan?this.panBy(s):(t.pan&&this._rawPanBy(s),this.fire("move"),t.debounceMoveend?(clearTimeout(this._sizeTimer),this._sizeTimer=setTimeout(l.bind(this.fire,this,"moveend"),200)):this.fire("moveend")),this.fire("resize",{oldSize:e,newSize:i})):this},addHandler:function(t,e){if(!e)return this;var i=this[t]=new e(this);return this._handlers.push(i),this.options[t]&&i.enable(),this},remove:function(){this._loaded&&this.fire("unload"),this._initEvents("off");try{delete this._container._leaflet}catch(t){this._container._leaflet=a}return this._clearPanes(),this._clearControlPos&&this._clearControlPos(),this._clearHandlers(),this},getCenter:function(){return this._checkIfLoaded(),this._initialCenter&&!this._moved()?this._initialCenter:this.layerPointToLatLng(this._getCenterLayerPoint())},getZoom:function(){return this._zoom},getBounds:function(){var t=this.getPixelBounds(),e=this.unproject(t.getBottomLeft()),i=this.unproject(t.getTopRight());return new l.LatLngBounds(e,i)},getMinZoom:function(){return this.options.minZoom===a?this._layersMinZoom===a?0:this._layersMinZoom:this.options.minZoom},getMaxZoom:function(){return this.options.maxZoom===a?this._layersMaxZoom===a?1/0:this._layersMaxZoom:this.options.maxZoom},getBoundsZoom:function(t,e,i){t=l.latLngBounds(t);var n,o=this.getMinZoom()-(e?1:0),s=this.getMaxZoom(),r=this.getSize(),a=t.getNorthWest(),h=t.getSouthEast(),u=!0;i=l.point(i||[0,0]);do o++,n=this.project(h,o).subtract(this.project(a,o)).add(i),u=e?n.x<r.x||n.y<r.y:r.contains(n);while(u&&s>=o);return u&&e?null:e?o:o-1},getSize:function(){return(!this._size||this._sizeChanged)&&(this._size=new l.Point(this._container.clientWidth,this._container.clientHeight),this._sizeChanged=!1),this._size.clone()},getPixelBounds:function(){var t=this._getTopLeftPoint();return new l.Bounds(t,t.add(this.getSize()))},getPixelOrigin:function(){return this._checkIfLoaded(),this._initialTopLeftPoint},getPanes:function(){return this._panes},getContainer:function(){return this._container},getZoomScale:function(t){var e=this.options.crs;return e.scale(t)/e.scale(this._zoom)},getScaleZoom:function(t){return this._zoom+Math.log(t)/Math.LN2},project:function(t,e){return e=e===a?this._zoom:e,this.options.crs.latLngToPoint(l.latLng(t),e)},unproject:function(t,e){return e=e===a?this._zoom:e,this.options.crs.pointToLatLng(l.point(t),e)},layerPointToLatLng:function(t){var e=l.point(t).add(this.getPixelOrigin());return this.unproject(e)},latLngToLayerPoint:function(t){var e=this.project(l.latLng(t))._round();return e._subtract(this.getPixelOrigin())},containerPointToLayerPoint:function(t){return l.point(t).subtract(this._getMapPanePos())},layerPointToContainerPoint:function(t){return l.point(t).add(this._getMapPanePos())},containerPointToLatLng:function(t){var e=this.containerPointToLayerPoint(l.point(t));return this.layerPointToLatLng(e)},latLngToContainerPoint:function(t){return this.layerPointToContainerPoint(this.latLngToLayerPoint(l.latLng(t)))},mouseEventToContainerPoint:function(t){return l.DomEvent.getMousePosition(t,this._container)},mouseEventToLayerPoint:function(t){return this.containerPointToLayerPoint(this.mouseEventToContainerPoint(t))},mouseEventToLatLng:function(t){return this.layerPointToLatLng(this.mouseEventToLayerPoint(t))},_initContainer:function(t){var e=this._container=l.DomUtil.get(t);if(!e)throw new Error("Map container not found.");if(e._leaflet)throw new Error("Map container is already initialized.");e._leaflet=!0},_initLayout:function(){var t=this._container;l.DomUtil.addClass(t,"leaflet-container"+(l.Browser.touch?" leaflet-touch":"")+(l.Browser.retina?" leaflet-retina":"")+(l.Browser.ielt9?" leaflet-oldie":"")+(this.options.fadeAnimation?" leaflet-fade-anim":""));var e=l.DomUtil.getStyle(t,"position");"absolute"!==e&&"relative"!==e&&"fixed"!==e&&(t.style.position="relative"),this._initPanes(),this._initControlPos&&this._initControlPos()},_initPanes:function(){var t=this._panes={};this._mapPane=t.mapPane=this._createPane("leaflet-map-pane",this._container),this._tilePane=t.tilePane=this._createPane("leaflet-tile-pane",this._mapPane),t.objectsPane=this._createPane("leaflet-objects-pane",this._mapPane),t.shadowPane=this._createPane("leaflet-shadow-pane"),t.overlayPane=this._createPane("leaflet-overlay-pane"),t.markerPane=this._createPane("leaflet-marker-pane"),t.popupPane=this._createPane("leaflet-popup-pane");var e=" leaflet-zoom-hide";this.options.markerZoomAnimation||(l.DomUtil.addClass(t.markerPane,e),l.DomUtil.addClass(t.shadowPane,e),l.DomUtil.addClass(t.popupPane,e))},_createPane:function(t,e){return l.DomUtil.create("div",t,e||this._panes.objectsPane)},_clearPanes:function(){this._container.removeChild(this._mapPane)},_addLayers:function(t){t=t?l.Util.isArray(t)?t:[t]:[];for(var e=0,i=t.length;i>e;e++)this.addLayer(t[e])},_resetView:function(t,e,i,n){var o=this._zoom!==e;n||(this.fire("movestart"),o&&this.fire("zoomstart")),this._zoom=e,this._initialCenter=t,this._initialTopLeftPoint=this._getNewTopLeftPoint(t),i?this._initialTopLeftPoint._add(this._getMapPanePos()):l.DomUtil.setPosition(this._mapPane,new l.Point(0,0)),this._tileLayersToLoad=this._tileLayersNum;var s=!this._loaded;this._loaded=!0,this.fire("viewreset",{hard:!i}),s&&(this.fire("load"),this.eachLayer(this._layerAdd,this)),this.fire("move"),(o||n)&&this.fire("zoomend"),this.fire("moveend",{hard:!i})},_rawPanBy:function(t){l.DomUtil.setPosition(this._mapPane,this._getMapPanePos().subtract(t))},_getZoomSpan:function(){return this.getMaxZoom()-this.getMinZoom()},_updateZoomLevels:function(){var t,e=1/0,i=-(1/0),n=this._getZoomSpan();for(t in this._zoomBoundLayers){var o=this._zoomBoundLayers[t];isNaN(o.options.minZoom)||(e=Math.min(e,o.options.minZoom)),isNaN(o.options.maxZoom)||(i=Math.max(i,o.options.maxZoom))}t===a?this._layersMaxZoom=this._layersMinZoom=a:(this._layersMaxZoom=i,this._layersMinZoom=e),n!==this._getZoomSpan()&&this.fire("zoomlevelschange")},_panInsideMaxBounds:function(){this.panInsideBounds(this.options.maxBounds)},_checkIfLoaded:function(){if(!this._loaded)throw new Error("Set map center and zoom first.")},_initEvents:function(t){if(l.DomEvent){t=t||"on",l.DomEvent[t](this._container,"click",this._onMouseClick,this);var e,i,n=["dblclick","mousedown","mouseup","mouseenter","mouseleave","mousemove","contextmenu"];for(e=0,i=n.length;i>e;e++)l.DomEvent[t](this._container,n[e],this._fireMouseEvent,this);this.options.trackResize&&l.DomEvent[t](s,"resize",this._onResize,this)}},_onResize:function(){l.Util.cancelAnimFrame(this._resizeRequest),this._resizeRequest=l.Util.requestAnimFrame(function(){this.invalidateSize({debounceMoveend:!0})},this,!1,this._container)},_onMouseClick:function(t){!this._loaded||!t._simulated&&(this.dragging&&this.dragging.moved()||this.boxZoom&&this.boxZoom.moved())||l.DomEvent._skipped(t)||(this.fire("preclick"),this._fireMouseEvent(t))},_fireMouseEvent:function(t){if(this._loaded&&!l.DomEvent._skipped(t)){var e=t.type;if(e="mouseenter"===e?"mouseover":"mouseleave"===e?"mouseout":e,this.hasEventListeners(e)){"contextmenu"===e&&l.DomEvent.preventDefault(t);var i=this.mouseEventToContainerPoint(t),n=this.containerPointToLayerPoint(i),o=this.layerPointToLatLng(n);this.fire(e,{latlng:o,layerPoint:n,containerPoint:i,originalEvent:t})}}},_onTileLayerLoad:function(){this._tileLayersToLoad--,this._tileLayersNum&&!this._tileLayersToLoad&&this.fire("tilelayersload")},_clearHandlers:function(){for(var t=0,e=this._handlers.length;e>t;t++)this._handlers[t].disable()},whenReady:function(t,e){return this._loaded?t.call(e||this,this):this.on("load",t,e),this},_layerAdd:function(t){t.onAdd(this),this.fire("layeradd",{layer:t})},_getMapPanePos:function(){return l.DomUtil.getPosition(this._mapPane)},_moved:function(){var t=this._getMapPanePos();return t&&!t.equals([0,0])},_getTopLeftPoint:function(){return this.getPixelOrigin().subtract(this._getMapPanePos())},_getNewTopLeftPoint:function(t,e){var i=this.getSize()._divideBy(2);return this.project(t,e)._subtract(i)._round()},_latLngToNewLayerPoint:function(t,e,i){var n=this._getNewTopLeftPoint(i,e).add(this._getMapPanePos());return this.project(t,e)._subtract(n)},_getCenterLayerPoint:function(){return this.containerPointToLayerPoint(this.getSize()._divideBy(2))},_getCenterOffset:function(t){return this.latLngToLayerPoint(t).subtract(this._getCenterLayerPoint())},_limitCenter:function(t,e,i){if(!i)return t;var n=this.project(t,e),o=this.getSize().divideBy(2),s=new l.Bounds(n.subtract(o),n.add(o)),r=this._getBoundsOffset(s,i,e);return this.unproject(n.add(r),e)},_limitOffset:function(t,e){if(!e)return t;var i=this.getPixelBounds(),n=new l.Bounds(i.min.add(t),i.max.add(t));return t.add(this._getBoundsOffset(n,e))},_getBoundsOffset:function(t,e,i){var n=this.project(e.getNorthWest(),i).subtract(t.min),o=this.project(e.getSouthEast(),i).subtract(t.max),s=this._rebound(n.x,-o.x),r=this._rebound(n.y,-o.y);return new l.Point(s,r)},_rebound:function(t,e){return t+e>0?Math.round(t-e)/2:Math.max(0,Math.ceil(t))-Math.max(0,Math.floor(e))},_limitZoom:function(t){var e=this.getMinZoom(),i=this.getMaxZoom();return Math.max(e,Math.min(i,t))}}),l.map=function(t,e){return new l.Map(t,e)},l.Projection.Mercator={MAX_LATITUDE:85.0840591556,R_MINOR:6356752.314245179,R_MAJOR:6378137,project:function(t){var e=l.LatLng.DEG_TO_RAD,i=this.MAX_LATITUDE,n=Math.max(Math.min(i,t.lat),-i),o=this.R_MAJOR,s=this.R_MINOR,r=t.lng*e*o,a=n*e,h=s/o,u=Math.sqrt(1-h*h),c=u*Math.sin(a);c=Math.pow((1-c)/(1+c),.5*u);var p=Math.tan(.5*(.5*Math.PI-a))/c;return a=-o*Math.log(p),new l.Point(r,a)},unproject:function(t){for(var e,i=l.LatLng.RAD_TO_DEG,n=this.R_MAJOR,o=this.R_MINOR,s=t.x*i/n,r=o/n,a=Math.sqrt(1-r*r),h=Math.exp(-t.y/n),u=Math.PI/2-2*Math.atan(h),c=15,p=1e-7,d=c,f=.1;Math.abs(f)>p&&--d>0;)e=a*Math.sin(u),f=Math.PI/2-2*Math.atan(h*Math.pow((1-e)/(1+e),.5*a))-u,u+=f;return new l.LatLng(u*i,s)}},l.CRS.EPSG3395=l.extend({},l.CRS,{code:"EPSG:3395",projection:l.Projection.Mercator,transformation:function(){var t=l.Projection.Mercator,e=t.R_MAJOR,i=.5/(Math.PI*e);return new l.Transformation(i,.5,-i,.5)}()}),l.TileLayer=l.Class.extend({includes:l.Mixin.Events,options:{minZoom:0,maxZoom:18,tileSize:256,subdomains:"abc",errorTileUrl:"",attribution:"",zoomOffset:0,opacity:1,unloadInvisibleTiles:l.Browser.mobile,updateWhenIdle:l.Browser.mobile},initialize:function(t,e){e=l.setOptions(this,e),e.detectRetina&&l.Browser.retina&&e.maxZoom>0&&(e.tileSize=Math.floor(e.tileSize/2),e.zoomOffset++,e.minZoom>0&&e.minZoom--,this.options.maxZoom--),e.bounds&&(e.bounds=l.latLngBounds(e.bounds)),this._url=t;var i=this.options.subdomains;"string"==typeof i&&(this.options.subdomains=i.split(""))},onAdd:function(t){this._map=t,this._animated=t._zoomAnimated,this._initContainer(),t.on({viewreset:this._reset,moveend:this._update},this),this._animated&&t.on({zoomanim:this._animateZoom,zoomend:this._endZoomAnim},this),this.options.updateWhenIdle||(this._limitedUpdate=l.Util.limitExecByInterval(this._update,150,this),t.on("move",this._limitedUpdate,this)),this._reset(),this._update()},addTo:function(t){return t.addLayer(this),this},onRemove:function(t){this._container.parentNode.removeChild(this._container),t.off({viewreset:this._reset,moveend:this._update},this),this._animated&&t.off({zoomanim:this._animateZoom,zoomend:this._endZoomAnim},this),this.options.updateWhenIdle||t.off("move",this._limitedUpdate,this),this._container=null,this._map=null},bringToFront:function(){var t=this._map._panes.tilePane;return this._container&&(t.appendChild(this._container),this._setAutoZIndex(t,Math.max)),this},bringToBack:function(){var t=this._map._panes.tilePane;return this._container&&(t.insertBefore(this._container,t.firstChild),this._setAutoZIndex(t,Math.min)),this},getAttribution:function(){return this.options.attribution},getContainer:function(){return this._container},setOpacity:function(t){return this.options.opacity=t,this._map&&this._updateOpacity(),this},setZIndex:function(t){return this.options.zIndex=t,this._updateZIndex(),this},setUrl:function(t,e){return this._url=t,e||this.redraw(),this},redraw:function(){return this._map&&(this._reset({hard:!0}),this._update()),this},_updateZIndex:function(){this._container&&this.options.zIndex!==a&&(this._container.style.zIndex=this.options.zIndex)},_setAutoZIndex:function(t,e){var i,n,o,s=t.children,r=-e(1/0,-(1/0));for(n=0,o=s.length;o>n;n++)s[n]!==this._container&&(i=parseInt(s[n].style.zIndex,10),isNaN(i)||(r=e(r,i)));this.options.zIndex=this._container.style.zIndex=(isFinite(r)?r:0)+e(1,-1)},_updateOpacity:function(){var t,e=this._tiles;if(l.Browser.ielt9)for(t in e)l.DomUtil.setOpacity(e[t],this.options.opacity);else l.DomUtil.setOpacity(this._container,this.options.opacity)},_initContainer:function(){var t=this._map._panes.tilePane;if(!this._container){if(this._container=l.DomUtil.create("div","leaflet-layer"),this._updateZIndex(),this._animated){var e="leaflet-tile-container";this._bgBuffer=l.DomUtil.create("div",e,this._container),this._tileContainer=l.DomUtil.create("div",e,this._container)}else this._tileContainer=this._container;t.appendChild(this._container),this.options.opacity<1&&this._updateOpacity()}},_reset:function(t){for(var e in this._tiles)this.fire("tileunload",{tile:this._tiles[e]});this._tiles={},this._tilesToLoad=0,this.options.reuseTiles&&(this._unusedTiles=[]),this._tileContainer.innerHTML="",this._animated&&t&&t.hard&&this._clearBgBuffer(),this._initContainer()},_getTileSize:function(){var t=this._map,e=t.getZoom()+this.options.zoomOffset,i=this.options.maxNativeZoom,n=this.options.tileSize;return i&&e>i&&(n=Math.round(t.getZoomScale(e)/t.getZoomScale(i)*n)),n},_update:function(){if(this._map){var t=this._map,e=t.getPixelBounds(),i=t.getZoom(),n=this._getTileSize();if(!(i>this.options.maxZoom||i<this.options.minZoom)){var o=l.bounds(e.min.divideBy(n)._floor(),e.max.divideBy(n)._floor());this._addTilesFromCenterOut(o),(this.options.unloadInvisibleTiles||this.options.reuseTiles)&&this._removeOtherTiles(o)}}},_addTilesFromCenterOut:function(t){var e,i,n,o=[],s=t.getCenter();for(e=t.min.y;e<=t.max.y;e++)for(i=t.min.x;i<=t.max.x;i++)n=new l.Point(i,e),this._tileShouldBeLoaded(n)&&o.push(n);var a=o.length;if(0!==a){o.sort(function(t,e){return t.distanceTo(s)-e.distanceTo(s)});var h=r.createDocumentFragment();for(this._tilesToLoad||this.fire("loading"),this._tilesToLoad+=a,i=0;a>i;i++)this._addTile(o[i],h);this._tileContainer.appendChild(h)}},_tileShouldBeLoaded:function(t){if(t.x+":"+t.y in this._tiles)return!1;var e=this.options;if(!e.continuousWorld){var i=this._getWrapTileNum();if(e.noWrap&&(t.x<0||t.x>=i.x)||t.y<0||t.y>=i.y)return!1}if(e.bounds){var n=this._getTileSize(),o=t.multiplyBy(n),s=o.add([n,n]),r=this._map.unproject(o),a=this._map.unproject(s);if(e.continuousWorld||e.noWrap||(r=r.wrap(),a=a.wrap()),!e.bounds.intersects([r,a]))return!1}return!0},_removeOtherTiles:function(t){var e,i,n,o;for(o in this._tiles)e=o.split(":"),i=parseInt(e[0],10),n=parseInt(e[1],10),(i<t.min.x||i>t.max.x||n<t.min.y||n>t.max.y)&&this._removeTile(o)},_removeTile:function(t){var e=this._tiles[t];this.fire("tileunload",{tile:e,url:e.src}),this.options.reuseTiles?(l.DomUtil.removeClass(e,"leaflet-tile-loaded"),this._unusedTiles.push(e)):e.parentNode===this._tileContainer&&this._tileContainer.removeChild(e),l.Browser.android||(e.onload=null,e.src=l.Util.emptyImageUrl),delete this._tiles[t]},_addTile:function(t,e){var i=this._getTilePos(t),n=this._getTile();l.DomUtil.setPosition(n,i,l.Browser.chrome),this._tiles[t.x+":"+t.y]=n,this._loadTile(n,t),n.parentNode!==this._tileContainer&&e.appendChild(n)},_getZoomForUrl:function(){var t=this.options,e=this._map.getZoom();return t.zoomReverse&&(e=t.maxZoom-e),e+=t.zoomOffset,t.maxNativeZoom?Math.min(e,t.maxNativeZoom):e},_getTilePos:function(t){var e=this._map.getPixelOrigin(),i=this._getTileSize();return t.multiplyBy(i).subtract(e)},getTileUrl:function(t){return l.Util.template(this._url,l.extend({s:this._getSubdomain(t),z:t.z,x:t.x,y:t.y},this.options))},_getWrapTileNum:function(){var t=this._map.options.crs,e=t.getSize(this._map.getZoom());return e.divideBy(this._getTileSize())._floor()},_adjustTilePoint:function(t){var e=this._getWrapTileNum();this.options.continuousWorld||this.options.noWrap||(t.x=(t.x%e.x+e.x)%e.x),this.options.tms&&(t.y=e.y-t.y-1),t.z=this._getZoomForUrl()},_getSubdomain:function(t){var e=Math.abs(t.x+t.y)%this.options.subdomains.length;return this.options.subdomains[e]},_getTile:function(){if(this.options.reuseTiles&&this._unusedTiles.length>0){var t=this._unusedTiles.pop();return this._resetTile(t),t}return this._createTile()},_resetTile:function(){},_createTile:function(){var t=l.DomUtil.create("img","leaflet-tile");return t.style.width=t.style.height=this._getTileSize()+"px",t.galleryimg="no",t.onselectstart=t.onmousemove=l.Util.falseFn,l.Browser.ielt9&&this.options.opacity!==a&&l.DomUtil.setOpacity(t,this.options.opacity),l.Browser.mobileWebkit3d&&(t.style.WebkitBackfaceVisibility="hidden"),t},_loadTile:function(t,e){t._layer=this,t.onload=this._tileOnLoad,t.onerror=this._tileOnError,this._adjustTilePoint(e),t.src=this.getTileUrl(e),this.fire("tileloadstart",{tile:t,url:t.src})},_tileLoaded:function(){this._tilesToLoad--,this._animated&&l.DomUtil.addClass(this._tileContainer,"leaflet-zoom-animated"),this._tilesToLoad||(this.fire("load"),this._animated&&(clearTimeout(this._clearBgBufferTimer),this._clearBgBufferTimer=setTimeout(l.bind(this._clearBgBuffer,this),500)))},_tileOnLoad:function(){var t=this._layer;this.src!==l.Util.emptyImageUrl&&(l.DomUtil.addClass(this,"leaflet-tile-loaded"),t.fire("tileload",{tile:this,url:this.src})),t._tileLoaded()},_tileOnError:function(){var t=this._layer;t.fire("tileerror",{tile:this,url:this.src});var e=t.options.errorTileUrl;e&&(this.src=e),t._tileLoaded()}}),l.tileLayer=function(t,e){return new l.TileLayer(t,e)},l.TileLayer.WMS=l.TileLayer.extend({defaultWmsParams:{service:"WMS",request:"GetMap",version:"1.1.1",layers:"",styles:"",format:"image/jpeg",transparent:!1},initialize:function(t,e){this._url=t;var i=l.extend({},this.defaultWmsParams),n=e.tileSize||this.options.tileSize;e.detectRetina&&l.Browser.retina?i.width=i.height=2*n:i.width=i.height=n;for(var o in e)this.options.hasOwnProperty(o)||"crs"===o||(i[o]=e[o]);this.wmsParams=i,l.setOptions(this,e)},onAdd:function(t){this._crs=this.options.crs||t.options.crs,this._wmsVersion=parseFloat(this.wmsParams.version);var e=this._wmsVersion>=1.3?"crs":"srs";this.wmsParams[e]=this._crs.code,l.TileLayer.prototype.onAdd.call(this,t)},getTileUrl:function(t){var e=this._map,i=this.options.tileSize,n=t.multiplyBy(i),o=n.add([i,i]),s=this._crs.project(e.unproject(n,t.z)),r=this._crs.project(e.unproject(o,t.z)),a=this._wmsVersion>=1.3&&this._crs===l.CRS.EPSG4326?[r.y,s.x,s.y,r.x].join(","):[s.x,r.y,r.x,s.y].join(","),h=l.Util.template(this._url,{s:this._getSubdomain(t)});return h+l.Util.getParamString(this.wmsParams,h,!0)+"&BBOX="+a},setParams:function(t,e){return l.extend(this.wmsParams,t),e||this.redraw(),this}}),l.tileLayer.wms=function(t,e){return new l.TileLayer.WMS(t,e)},l.TileLayer.Canvas=l.TileLayer.extend({options:{async:!1},initialize:function(t){l.setOptions(this,t)},redraw:function(){this._map&&(this._reset({hard:!0}),this._update());for(var t in this._tiles)this._redrawTile(this._tiles[t]);return this},_redrawTile:function(t){this.drawTile(t,t._tilePoint,this._map._zoom)},_createTile:function(){var t=l.DomUtil.create("canvas","leaflet-tile");return t.width=t.height=this.options.tileSize,t.onselectstart=t.onmousemove=l.Util.falseFn,t},_loadTile:function(t,e){t._layer=this,t._tilePoint=e,this._redrawTile(t),this.options.async||this.tileDrawn(t)},drawTile:function(){},tileDrawn:function(t){this._tileOnLoad.call(t)}}),l.tileLayer.canvas=function(t){return new l.TileLayer.Canvas(t)},l.ImageOverlay=l.Class.extend({includes:l.Mixin.Events,options:{opacity:1},initialize:function(t,e,i){this._url=t,this._bounds=l.latLngBounds(e),l.setOptions(this,i)},onAdd:function(t){this._map=t,this._image||this._initImage(),t._panes.overlayPane.appendChild(this._image),t.on("viewreset",this._reset,this),t.options.zoomAnimation&&l.Browser.any3d&&t.on("zoomanim",this._animateZoom,this),this._reset()},onRemove:function(t){t.getPanes().overlayPane.removeChild(this._image),t.off("viewreset",this._reset,this),t.options.zoomAnimation&&t.off("zoomanim",this._animateZoom,this)},addTo:function(t){return t.addLayer(this),this},setOpacity:function(t){return this.options.opacity=t,this._updateOpacity(),this},bringToFront:function(){return this._image&&this._map._panes.overlayPane.appendChild(this._image),this},bringToBack:function(){var t=this._map._panes.overlayPane;return this._image&&t.insertBefore(this._image,t.firstChild),this},setUrl:function(t){this._url=t,this._image.src=this._url},getAttribution:function(){return this.options.attribution},_initImage:function(){this._image=l.DomUtil.create("img","leaflet-image-layer"),this._map.options.zoomAnimation&&l.Browser.any3d?l.DomUtil.addClass(this._image,"leaflet-zoom-animated"):l.DomUtil.addClass(this._image,"leaflet-zoom-hide"),this._updateOpacity(),l.extend(this._image,{galleryimg:"no",onselectstart:l.Util.falseFn,onmousemove:l.Util.falseFn,onload:l.bind(this._onImageLoad,this),src:this._url})},_animateZoom:function(t){var e=this._map,i=this._image,n=e.getZoomScale(t.zoom),o=this._bounds.getNorthWest(),s=this._bounds.getSouthEast(),r=e._latLngToNewLayerPoint(o,t.zoom,t.center),a=e._latLngToNewLayerPoint(s,t.zoom,t.center)._subtract(r),h=r._add(a._multiplyBy(.5*(1-1/n)));i.style[l.DomUtil.TRANSFORM]=l.DomUtil.getTranslateString(h)+" scale("+n+") "},_reset:function(){var t=this._image,e=this._map.latLngToLayerPoint(this._bounds.getNorthWest()),i=this._map.latLngToLayerPoint(this._bounds.getSouthEast())._subtract(e);l.DomUtil.setPosition(t,e),t.style.width=i.x+"px",t.style.height=i.y+"px"},_onImageLoad:function(){this.fire("load")},_updateOpacity:function(){l.DomUtil.setOpacity(this._image,this.options.opacity)}}),l.imageOverlay=function(t,e,i){return new l.ImageOverlay(t,e,i)},l.Icon=l.Class.extend({options:{className:""},initialize:function(t){l.setOptions(this,t)},createIcon:function(t){return this._createIcon("icon",t)},createShadow:function(t){return this._createIcon("shadow",t)},_createIcon:function(t,e){var i=this._getIconUrl(t);if(!i){if("icon"===t)throw new Error("iconUrl not set in Icon options (see the docs).");return null}var n;return n=e&&"IMG"===e.tagName?this._createImg(i,e):this._createImg(i),this._setIconStyles(n,t),n},_setIconStyles:function(t,e){var i,n=this.options,o=l.point(n[e+"Size"]);i="shadow"===e?l.point(n.shadowAnchor||n.iconAnchor):l.point(n.iconAnchor),!i&&o&&(i=o.divideBy(2,!0)),t.className="leaflet-marker-"+e+" "+n.className,i&&(t.style.marginLeft=-i.x+"px",t.style.marginTop=-i.y+"px"),o&&(t.style.width=o.x+"px",t.style.height=o.y+"px")},_createImg:function(t,e){return e=e||r.createElement("img"),e.src=t,e},_getIconUrl:function(t){return l.Browser.retina&&this.options[t+"RetinaUrl"]?this.options[t+"RetinaUrl"]:this.options[t+"Url"]}}),l.icon=function(t){return new l.Icon(t)},l.Icon.Default=l.Icon.extend({options:{iconSize:[25,41],iconAnchor:[12,41],popupAnchor:[1,-34],shadowSize:[41,41]},_getIconUrl:function(t){var e=t+"Url";if(this.options[e])return this.options[e];l.Browser.retina&&"icon"===t&&(t+="-2x");var i=l.Icon.Default.imagePath;if(!i)throw new Error("Couldn't autodetect L.Icon.Default.imagePath, set it manually.");return i+"/marker-"+t+".png"}}),l.Icon.Default.imagePath=function(){var t,e,i,n,o,s=r.getElementsByTagName("script"),a=/[\/^]leaflet[\-\._]?([\w\-\._]*)\.js\??/;for(t=0,e=s.length;e>t;t++)if(i=s[t].src,n=i.match(a))return o=i.split(a)[0],(o?o+"/":"")+"images"}(),l.Marker=l.Class.extend({includes:l.Mixin.Events,options:{icon:new l.Icon.Default,title:"",alt:"",clickable:!0,draggable:!1,keyboard:!0,zIndexOffset:0,opacity:1,riseOnHover:!1,riseOffset:250},initialize:function(t,e){l.setOptions(this,e),this._latlng=l.latLng(t)},onAdd:function(t){this._map=t,t.on("viewreset",this.update,this),this._initIcon(),this.update(),this.fire("add"),t.options.zoomAnimation&&t.options.markerZoomAnimation&&t.on("zoomanim",this._animateZoom,this)},addTo:function(t){return t.addLayer(this),this},onRemove:function(t){this.dragging&&this.dragging.disable(),this._removeIcon(),this._removeShadow(),this.fire("remove"),t.off({viewreset:this.update,zoomanim:this._animateZoom},this),this._map=null},getLatLng:function(){return this._latlng},setLatLng:function(t){return this._latlng=l.latLng(t),this.update(),this.fire("move",{latlng:this._latlng})},setZIndexOffset:function(t){return this.options.zIndexOffset=t,this.update(),this},setIcon:function(t){return this.options.icon=t,this._map&&(this._initIcon(),this.update()),this._popup&&this.bindPopup(this._popup),this},update:function(){return this._icon&&this._setPos(this._map.latLngToLayerPoint(this._latlng).round()),this},_initIcon:function(){var t=this.options,e=this._map,i=e.options.zoomAnimation&&e.options.markerZoomAnimation,n=i?"leaflet-zoom-animated":"leaflet-zoom-hide",o=t.icon.createIcon(this._icon),s=!1;o!==this._icon&&(this._icon&&this._removeIcon(),s=!0,t.title&&(o.title=t.title),t.alt&&(o.alt=t.alt)),l.DomUtil.addClass(o,n),t.keyboard&&(o.tabIndex="0"),this._icon=o,this._initInteraction(),t.riseOnHover&&l.DomEvent.on(o,"mouseover",this._bringToFront,this).on(o,"mouseout",this._resetZIndex,this);var r=t.icon.createShadow(this._shadow),a=!1;r!==this._shadow&&(this._removeShadow(),a=!0),r&&l.DomUtil.addClass(r,n),this._shadow=r,t.opacity<1&&this._updateOpacity();var h=this._map._panes;s&&h.markerPane.appendChild(this._icon),r&&a&&h.shadowPane.appendChild(this._shadow)},_removeIcon:function(){this.options.riseOnHover&&l.DomEvent.off(this._icon,"mouseover",this._bringToFront).off(this._icon,"mouseout",this._resetZIndex),this._map._panes.markerPane.removeChild(this._icon),this._icon=null},_removeShadow:function(){this._shadow&&this._map._panes.shadowPane.removeChild(this._shadow),this._shadow=null},_setPos:function(t){l.DomUtil.setPosition(this._icon,t),this._shadow&&l.DomUtil.setPosition(this._shadow,t),this._zIndex=t.y+this.options.zIndexOffset,this._resetZIndex()},_updateZIndex:function(t){this._icon.style.zIndex=this._zIndex+t},_animateZoom:function(t){var e=this._map._latLngToNewLayerPoint(this._latlng,t.zoom,t.center).round();this._setPos(e)},_initInteraction:function(){if(this.options.clickable){var t=this._icon,e=["dblclick","mousedown","mouseover","mouseout","contextmenu"];l.DomUtil.addClass(t,"leaflet-clickable"),l.DomEvent.on(t,"click",this._onMouseClick,this),l.DomEvent.on(t,"keypress",this._onKeyPress,this);for(var i=0;i<e.length;i++)l.DomEvent.on(t,e[i],this._fireMouseEvent,this);l.Handler.MarkerDrag&&(this.dragging=new l.Handler.MarkerDrag(this),this.options.draggable&&this.dragging.enable())}},_onMouseClick:function(t){var e=this.dragging&&this.dragging.moved();(this.hasEventListeners(t.type)||e)&&l.DomEvent.stopPropagation(t),e||(this.dragging&&this.dragging._enabled||!this._map.dragging||!this._map.dragging.moved())&&this.fire(t.type,{originalEvent:t,latlng:this._latlng})},_onKeyPress:function(t){13===t.keyCode&&this.fire("click",{originalEvent:t,latlng:this._latlng})},_fireMouseEvent:function(t){this.fire(t.type,{originalEvent:t,latlng:this._latlng}),"contextmenu"===t.type&&this.hasEventListeners(t.type)&&l.DomEvent.preventDefault(t),"mousedown"!==t.type?l.DomEvent.stopPropagation(t):l.DomEvent.preventDefault(t)},setOpacity:function(t){return this.options.opacity=t,this._map&&this._updateOpacity(),this},_updateOpacity:function(){l.DomUtil.setOpacity(this._icon,this.options.opacity),this._shadow&&l.DomUtil.setOpacity(this._shadow,this.options.opacity)},_bringToFront:function(){
-this._updateZIndex(this.options.riseOffset)},_resetZIndex:function(){this._updateZIndex(0)}}),l.marker=function(t,e){return new l.Marker(t,e)},l.DivIcon=l.Icon.extend({options:{iconSize:[12,12],className:"leaflet-div-icon",html:!1},createIcon:function(t){var e=t&&"DIV"===t.tagName?t:r.createElement("div"),i=this.options;return i.html!==!1?e.innerHTML=i.html:e.innerHTML="",i.bgPos&&(e.style.backgroundPosition=-i.bgPos.x+"px "+-i.bgPos.y+"px"),this._setIconStyles(e,"icon"),e},createShadow:function(){return null}}),l.divIcon=function(t){return new l.DivIcon(t)},l.Map.mergeOptions({closePopupOnClick:!0}),l.Popup=l.Class.extend({includes:l.Mixin.Events,options:{minWidth:50,maxWidth:300,autoPan:!0,closeButton:!0,offset:[0,7],autoPanPadding:[5,5],keepInView:!1,className:"",zoomAnimation:!0},initialize:function(t,e){l.setOptions(this,t),this._source=e,this._animated=l.Browser.any3d&&this.options.zoomAnimation,this._isOpen=!1},onAdd:function(t){this._map=t,this._container||this._initLayout();var e=t.options.fadeAnimation;e&&l.DomUtil.setOpacity(this._container,0),t._panes.popupPane.appendChild(this._container),t.on(this._getEvents(),this),this.update(),e&&l.DomUtil.setOpacity(this._container,1),this.fire("open"),t.fire("popupopen",{popup:this}),this._source&&this._source.fire("popupopen",{popup:this})},addTo:function(t){return t.addLayer(this),this},openOn:function(t){return t.openPopup(this),this},onRemove:function(t){t._panes.popupPane.removeChild(this._container),l.Util.falseFn(this._container.offsetWidth),t.off(this._getEvents(),this),t.options.fadeAnimation&&l.DomUtil.setOpacity(this._container,0),this._map=null,this.fire("close"),t.fire("popupclose",{popup:this}),this._source&&this._source.fire("popupclose",{popup:this})},getLatLng:function(){return this._latlng},setLatLng:function(t){return this._latlng=l.latLng(t),this._map&&(this._updatePosition(),this._adjustPan()),this},getContent:function(){return this._content},setContent:function(t){return this._content=t,this.update(),this},update:function(){this._map&&(this._container.style.visibility="hidden",this._updateContent(),this._updateLayout(),this._updatePosition(),this._container.style.visibility="",this._adjustPan())},_getEvents:function(){var t={viewreset:this._updatePosition};return this._animated&&(t.zoomanim=this._zoomAnimation),("closeOnClick"in this.options?this.options.closeOnClick:this._map.options.closePopupOnClick)&&(t.preclick=this._close),this.options.keepInView&&(t.moveend=this._adjustPan),t},_close:function(){this._map&&this._map.closePopup(this)},_initLayout:function(){var t,e="leaflet-popup",i=e+" "+this.options.className+" leaflet-zoom-"+(this._animated?"animated":"hide"),n=this._container=l.DomUtil.create("div",i);this.options.closeButton&&(t=this._closeButton=l.DomUtil.create("a",e+"-close-button",n),t.href="#close",t.innerHTML="&#215;",l.DomEvent.disableClickPropagation(t),l.DomEvent.on(t,"click",this._onCloseButtonClick,this));var o=this._wrapper=l.DomUtil.create("div",e+"-content-wrapper",n);l.DomEvent.disableClickPropagation(o),this._contentNode=l.DomUtil.create("div",e+"-content",o),l.DomEvent.disableScrollPropagation(this._contentNode),l.DomEvent.on(o,"contextmenu",l.DomEvent.stopPropagation),this._tipContainer=l.DomUtil.create("div",e+"-tip-container",n),this._tip=l.DomUtil.create("div",e+"-tip",this._tipContainer)},_updateContent:function(){if(this._content){if("string"==typeof this._content)this._contentNode.innerHTML=this._content;else{for(;this._contentNode.hasChildNodes();)this._contentNode.removeChild(this._contentNode.firstChild);this._contentNode.appendChild(this._content)}this.fire("contentupdate")}},_updateLayout:function(){var t=this._contentNode,e=t.style;e.width="",e.whiteSpace="nowrap";var i=t.offsetWidth;i=Math.min(i,this.options.maxWidth),i=Math.max(i,this.options.minWidth),e.width=i+1+"px",e.whiteSpace="",e.height="";var n=t.offsetHeight,o=this.options.maxHeight,s="leaflet-popup-scrolled";o&&n>o?(e.height=o+"px",l.DomUtil.addClass(t,s)):l.DomUtil.removeClass(t,s),this._containerWidth=this._container.offsetWidth},_updatePosition:function(){if(this._map){var t=this._map.latLngToLayerPoint(this._latlng),e=this._animated,i=l.point(this.options.offset);e&&l.DomUtil.setPosition(this._container,t),this._containerBottom=-i.y-(e?0:t.y),this._containerLeft=-Math.round(this._containerWidth/2)+i.x+(e?0:t.x),this._container.style.bottom=this._containerBottom+"px",this._container.style.left=this._containerLeft+"px"}},_zoomAnimation:function(t){var e=this._map._latLngToNewLayerPoint(this._latlng,t.zoom,t.center);l.DomUtil.setPosition(this._container,e)},_adjustPan:function(){if(this.options.autoPan){var t=this._map,e=this._container.offsetHeight,i=this._containerWidth,n=new l.Point(this._containerLeft,-e-this._containerBottom);this._animated&&n._add(l.DomUtil.getPosition(this._container));var o=t.layerPointToContainerPoint(n),s=l.point(this.options.autoPanPadding),r=l.point(this.options.autoPanPaddingTopLeft||s),a=l.point(this.options.autoPanPaddingBottomRight||s),h=t.getSize(),u=0,c=0;o.x+i+a.x>h.x&&(u=o.x+i-h.x+a.x),o.x-u-r.x<0&&(u=o.x-r.x),o.y+e+a.y>h.y&&(c=o.y+e-h.y+a.y),o.y-c-r.y<0&&(c=o.y-r.y),(u||c)&&t.fire("autopanstart").panBy([u,c])}},_onCloseButtonClick:function(t){this._close(),l.DomEvent.stop(t)}}),l.popup=function(t,e){return new l.Popup(t,e)},l.Map.include({openPopup:function(t,e,i){if(this.closePopup(),!(t instanceof l.Popup)){var n=t;t=new l.Popup(i).setLatLng(e).setContent(n)}return t._isOpen=!0,this._popup=t,this.addLayer(t)},closePopup:function(t){return t&&t!==this._popup||(t=this._popup,this._popup=null),t&&(this.removeLayer(t),t._isOpen=!1),this}}),l.Marker.include({openPopup:function(){return this._popup&&this._map&&!this._map.hasLayer(this._popup)&&(this._popup.setLatLng(this._latlng),this._map.openPopup(this._popup)),this},closePopup:function(){return this._popup&&this._popup._close(),this},togglePopup:function(){return this._popup&&(this._popup._isOpen?this.closePopup():this.openPopup()),this},bindPopup:function(t,e){var i=l.point(this.options.icon.options.popupAnchor||[0,0]);return i=i.add(l.Popup.prototype.options.offset),e&&e.offset&&(i=i.add(e.offset)),e=l.extend({offset:i},e),this._popupHandlersAdded||(this.on("click",this.togglePopup,this).on("remove",this.closePopup,this).on("move",this._movePopup,this),this._popupHandlersAdded=!0),t instanceof l.Popup?(l.setOptions(t,e),this._popup=t,t._source=this):this._popup=new l.Popup(e,this).setContent(t),this},setPopupContent:function(t){return this._popup&&this._popup.setContent(t),this},unbindPopup:function(){return this._popup&&(this._popup=null,this.off("click",this.togglePopup,this).off("remove",this.closePopup,this).off("move",this._movePopup,this),this._popupHandlersAdded=!1),this},getPopup:function(){return this._popup},_movePopup:function(t){this._popup.setLatLng(t.latlng)}}),l.LayerGroup=l.Class.extend({initialize:function(t){this._layers={};var e,i;if(t)for(e=0,i=t.length;i>e;e++)this.addLayer(t[e])},addLayer:function(t){var e=this.getLayerId(t);return this._layers[e]=t,this._map&&this._map.addLayer(t),this},removeLayer:function(t){var e=t in this._layers?t:this.getLayerId(t);return this._map&&this._layers[e]&&this._map.removeLayer(this._layers[e]),delete this._layers[e],this},hasLayer:function(t){return t?t in this._layers||this.getLayerId(t)in this._layers:!1},clearLayers:function(){return this.eachLayer(this.removeLayer,this),this},invoke:function(t){var e,i,n=Array.prototype.slice.call(arguments,1);for(e in this._layers)i=this._layers[e],i[t]&&i[t].apply(i,n);return this},onAdd:function(t){this._map=t,this.eachLayer(t.addLayer,t)},onRemove:function(t){this.eachLayer(t.removeLayer,t),this._map=null},addTo:function(t){return t.addLayer(this),this},eachLayer:function(t,e){for(var i in this._layers)t.call(e,this._layers[i]);return this},getLayer:function(t){return this._layers[t]},getLayers:function(){var t=[];for(var e in this._layers)t.push(this._layers[e]);return t},setZIndex:function(t){return this.invoke("setZIndex",t)},getLayerId:function(t){return l.stamp(t)}}),l.layerGroup=function(t){return new l.LayerGroup(t)},l.FeatureGroup=l.LayerGroup.extend({includes:l.Mixin.Events,statics:{EVENTS:"click dblclick mouseover mouseout mousemove contextmenu popupopen popupclose"},addLayer:function(t){return this.hasLayer(t)?this:("on"in t&&t.on(l.FeatureGroup.EVENTS,this._propagateEvent,this),l.LayerGroup.prototype.addLayer.call(this,t),this._popupContent&&t.bindPopup&&t.bindPopup(this._popupContent,this._popupOptions),this.fire("layeradd",{layer:t}))},removeLayer:function(t){return this.hasLayer(t)?(t in this._layers&&(t=this._layers[t]),"off"in t&&t.off(l.FeatureGroup.EVENTS,this._propagateEvent,this),l.LayerGroup.prototype.removeLayer.call(this,t),this._popupContent&&this.invoke("unbindPopup"),this.fire("layerremove",{layer:t})):this},bindPopup:function(t,e){return this._popupContent=t,this._popupOptions=e,this.invoke("bindPopup",t,e)},openPopup:function(t){for(var e in this._layers){this._layers[e].openPopup(t);break}return this},setStyle:function(t){return this.invoke("setStyle",t)},bringToFront:function(){return this.invoke("bringToFront")},bringToBack:function(){return this.invoke("bringToBack")},getBounds:function(){var t=new l.LatLngBounds;return this.eachLayer(function(e){t.extend(e instanceof l.Marker?e.getLatLng():e.getBounds())}),t},_propagateEvent:function(t){t=l.extend({layer:t.target,target:this},t),this.fire(t.type,t)}}),l.featureGroup=function(t){return new l.FeatureGroup(t)},l.Path=l.Class.extend({includes:[l.Mixin.Events],statics:{CLIP_PADDING:function(){var t=l.Browser.mobile?1280:2e3,e=(t/Math.max(s.outerWidth,s.outerHeight)-1)/2;return Math.max(0,Math.min(.5,e))}()},options:{stroke:!0,color:"#0033ff",dashArray:null,lineCap:null,lineJoin:null,weight:5,opacity:.5,fill:!1,fillColor:null,fillOpacity:.2,clickable:!0},initialize:function(t){l.setOptions(this,t)},onAdd:function(t){this._map=t,this._container||(this._initElements(),this._initEvents()),this.projectLatlngs(),this._updatePath(),this._container&&this._map._pathRoot.appendChild(this._container),this.fire("add"),t.on({viewreset:this.projectLatlngs,moveend:this._updatePath},this)},addTo:function(t){return t.addLayer(this),this},onRemove:function(t){t._pathRoot.removeChild(this._container),this.fire("remove"),this._map=null,l.Browser.vml&&(this._container=null,this._stroke=null,this._fill=null),t.off({viewreset:this.projectLatlngs,moveend:this._updatePath},this)},projectLatlngs:function(){},setStyle:function(t){return l.setOptions(this,t),this._container&&this._updateStyle(),this},redraw:function(){return this._map&&(this.projectLatlngs(),this._updatePath()),this}}),l.Map.include({_updatePathViewport:function(){var t=l.Path.CLIP_PADDING,e=this.getSize(),i=l.DomUtil.getPosition(this._mapPane),n=i.multiplyBy(-1)._subtract(e.multiplyBy(t)._round()),o=n.add(e.multiplyBy(1+2*t)._round());this._pathViewport=new l.Bounds(n,o)}}),l.Path.SVG_NS="http://www.w3.org/2000/svg",l.Browser.svg=!(!r.createElementNS||!r.createElementNS(l.Path.SVG_NS,"svg").createSVGRect),l.Path=l.Path.extend({statics:{SVG:l.Browser.svg},bringToFront:function(){var t=this._map._pathRoot,e=this._container;return e&&t.lastChild!==e&&t.appendChild(e),this},bringToBack:function(){var t=this._map._pathRoot,e=this._container,i=t.firstChild;return e&&i!==e&&t.insertBefore(e,i),this},getPathString:function(){},_createElement:function(t){return r.createElementNS(l.Path.SVG_NS,t)},_initElements:function(){this._map._initPathRoot(),this._initPath(),this._initStyle()},_initPath:function(){this._container=this._createElement("g"),this._path=this._createElement("path"),this.options.className&&l.DomUtil.addClass(this._path,this.options.className),this._container.appendChild(this._path)},_initStyle:function(){this.options.stroke&&(this._path.setAttribute("stroke-linejoin","round"),this._path.setAttribute("stroke-linecap","round")),this.options.fill&&this._path.setAttribute("fill-rule","evenodd"),this.options.pointerEvents&&this._path.setAttribute("pointer-events",this.options.pointerEvents),this.options.clickable||this.options.pointerEvents||this._path.setAttribute("pointer-events","none"),this._updateStyle()},_updateStyle:function(){this.options.stroke?(this._path.setAttribute("stroke",this.options.color),this._path.setAttribute("stroke-opacity",this.options.opacity),this._path.setAttribute("stroke-width",this.options.weight),this.options.dashArray?this._path.setAttribute("stroke-dasharray",this.options.dashArray):this._path.removeAttribute("stroke-dasharray"),this.options.lineCap&&this._path.setAttribute("stroke-linecap",this.options.lineCap),this.options.lineJoin&&this._path.setAttribute("stroke-linejoin",this.options.lineJoin)):this._path.setAttribute("stroke","none"),this.options.fill?(this._path.setAttribute("fill",this.options.fillColor||this.options.color),this._path.setAttribute("fill-opacity",this.options.fillOpacity)):this._path.setAttribute("fill","none")},_updatePath:function(){var t=this.getPathString();t||(t="M0 0"),this._path.setAttribute("d",t)},_initEvents:function(){if(this.options.clickable){(l.Browser.svg||!l.Browser.vml)&&l.DomUtil.addClass(this._path,"leaflet-clickable"),l.DomEvent.on(this._container,"click",this._onMouseClick,this);for(var t=["dblclick","mousedown","mouseover","mouseout","mousemove","contextmenu"],e=0;e<t.length;e++)l.DomEvent.on(this._container,t[e],this._fireMouseEvent,this)}},_onMouseClick:function(t){this._map.dragging&&this._map.dragging.moved()||this._fireMouseEvent(t)},_fireMouseEvent:function(t){if(this._map&&this.hasEventListeners(t.type)){var e=this._map,i=e.mouseEventToContainerPoint(t),n=e.containerPointToLayerPoint(i),o=e.layerPointToLatLng(n);this.fire(t.type,{latlng:o,layerPoint:n,containerPoint:i,originalEvent:t}),"contextmenu"===t.type&&l.DomEvent.preventDefault(t),"mousemove"!==t.type&&l.DomEvent.stopPropagation(t)}}}),l.Map.include({_initPathRoot:function(){this._pathRoot||(this._pathRoot=l.Path.prototype._createElement("svg"),this._panes.overlayPane.appendChild(this._pathRoot),this.options.zoomAnimation&&l.Browser.any3d?(l.DomUtil.addClass(this._pathRoot,"leaflet-zoom-animated"),this.on({zoomanim:this._animatePathZoom,zoomend:this._endPathZoom})):l.DomUtil.addClass(this._pathRoot,"leaflet-zoom-hide"),this.on("moveend",this._updateSvgViewport),this._updateSvgViewport())},_animatePathZoom:function(t){var e=this.getZoomScale(t.zoom),i=this._getCenterOffset(t.center)._multiplyBy(-e)._add(this._pathViewport.min);this._pathRoot.style[l.DomUtil.TRANSFORM]=l.DomUtil.getTranslateString(i)+" scale("+e+") ",this._pathZooming=!0},_endPathZoom:function(){this._pathZooming=!1},_updateSvgViewport:function(){if(!this._pathZooming){this._updatePathViewport();var t=this._pathViewport,e=t.min,i=t.max,n=i.x-e.x,o=i.y-e.y,s=this._pathRoot,r=this._panes.overlayPane;l.Browser.mobileWebkit&&r.removeChild(s),l.DomUtil.setPosition(s,e),s.setAttribute("width",n),s.setAttribute("height",o),s.setAttribute("viewBox",[e.x,e.y,n,o].join(" ")),l.Browser.mobileWebkit&&r.appendChild(s)}}}),l.Path.include({bindPopup:function(t,e){return t instanceof l.Popup?this._popup=t:((!this._popup||e)&&(this._popup=new l.Popup(e,this)),this._popup.setContent(t)),this._popupHandlersAdded||(this.on("click",this._openPopup,this).on("remove",this.closePopup,this),this._popupHandlersAdded=!0),this},unbindPopup:function(){return this._popup&&(this._popup=null,this.off("click",this._openPopup).off("remove",this.closePopup),this._popupHandlersAdded=!1),this},openPopup:function(t){return this._popup&&(t=t||this._latlng||this._latlngs[Math.floor(this._latlngs.length/2)],this._openPopup({latlng:t})),this},closePopup:function(){return this._popup&&this._popup._close(),this},_openPopup:function(t){this._popup.setLatLng(t.latlng),this._map.openPopup(this._popup)}}),l.Browser.vml=!l.Browser.svg&&function(){try{var t=r.createElement("div");t.innerHTML='<v:shape adj="1"/>';var e=t.firstChild;return e.style.behavior="url(#default#VML)",e&&"object"==typeof e.adj}catch(i){return!1}}(),l.Path=l.Browser.svg||!l.Browser.vml?l.Path:l.Path.extend({statics:{VML:!0,CLIP_PADDING:.02},_createElement:function(){try{return r.namespaces.add("lvml","urn:schemas-microsoft-com:vml"),function(t){return r.createElement("<lvml:"+t+' class="lvml">')}}catch(t){return function(t){return r.createElement("<"+t+' xmlns="urn:schemas-microsoft.com:vml" class="lvml">')}}}(),_initPath:function(){var t=this._container=this._createElement("shape");l.DomUtil.addClass(t,"leaflet-vml-shape"+(this.options.className?" "+this.options.className:"")),this.options.clickable&&l.DomUtil.addClass(t,"leaflet-clickable"),t.coordsize="1 1",this._path=this._createElement("path"),t.appendChild(this._path),this._map._pathRoot.appendChild(t)},_initStyle:function(){this._updateStyle()},_updateStyle:function(){var t=this._stroke,e=this._fill,i=this.options,n=this._container;n.stroked=i.stroke,n.filled=i.fill,i.stroke?(t||(t=this._stroke=this._createElement("stroke"),t.endcap="round",n.appendChild(t)),t.weight=i.weight+"px",t.color=i.color,t.opacity=i.opacity,i.dashArray?t.dashStyle=l.Util.isArray(i.dashArray)?i.dashArray.join(" "):i.dashArray.replace(/( *, *)/g," "):t.dashStyle="",i.lineCap&&(t.endcap=i.lineCap.replace("butt","flat")),i.lineJoin&&(t.joinstyle=i.lineJoin)):t&&(n.removeChild(t),this._stroke=null),i.fill?(e||(e=this._fill=this._createElement("fill"),n.appendChild(e)),e.color=i.fillColor||i.color,e.opacity=i.fillOpacity):e&&(n.removeChild(e),this._fill=null)},_updatePath:function(){var t=this._container.style;t.display="none",this._path.v=this.getPathString()+" ",t.display=""}}),l.Map.include(l.Browser.svg||!l.Browser.vml?{}:{_initPathRoot:function(){if(!this._pathRoot){var t=this._pathRoot=r.createElement("div");t.className="leaflet-vml-container",this._panes.overlayPane.appendChild(t),this.on("moveend",this._updatePathViewport),this._updatePathViewport()}}}),l.Browser.canvas=function(){return!!r.createElement("canvas").getContext}(),l.Path=l.Path.SVG&&!s.L_PREFER_CANVAS||!l.Browser.canvas?l.Path:l.Path.extend({statics:{CANVAS:!0,SVG:!1},redraw:function(){return this._map&&(this.projectLatlngs(),this._requestUpdate()),this},setStyle:function(t){return l.setOptions(this,t),this._map&&(this._updateStyle(),this._requestUpdate()),this},onRemove:function(t){t.off("viewreset",this.projectLatlngs,this).off("moveend",this._updatePath,this),this.options.clickable&&(this._map.off("click",this._onClick,this),this._map.off("mousemove",this._onMouseMove,this)),this._requestUpdate(),this.fire("remove"),this._map=null},_requestUpdate:function(){this._map&&!l.Path._updateRequest&&(l.Path._updateRequest=l.Util.requestAnimFrame(this._fireMapMoveEnd,this._map))},_fireMapMoveEnd:function(){l.Path._updateRequest=null,this.fire("moveend")},_initElements:function(){this._map._initPathRoot(),this._ctx=this._map._canvasCtx},_updateStyle:function(){var t=this.options;t.stroke&&(this._ctx.lineWidth=t.weight,this._ctx.strokeStyle=t.color),t.fill&&(this._ctx.fillStyle=t.fillColor||t.color),t.lineCap&&(this._ctx.lineCap=t.lineCap),t.lineJoin&&(this._ctx.lineJoin=t.lineJoin)},_drawPath:function(){var t,e,i,n,o,s;for(this._ctx.beginPath(),t=0,i=this._parts.length;i>t;t++){for(e=0,n=this._parts[t].length;n>e;e++)o=this._parts[t][e],s=(0===e?"move":"line")+"To",this._ctx[s](o.x,o.y);this instanceof l.Polygon&&this._ctx.closePath()}},_checkIfEmpty:function(){return!this._parts.length},_updatePath:function(){if(!this._checkIfEmpty()){var t=this._ctx,e=this.options;this._drawPath(),t.save(),this._updateStyle(),e.fill&&(t.globalAlpha=e.fillOpacity,t.fill(e.fillRule||"evenodd")),e.stroke&&(t.globalAlpha=e.opacity,t.stroke()),t.restore()}},_initEvents:function(){this.options.clickable&&(this._map.on("mousemove",this._onMouseMove,this),this._map.on("click dblclick contextmenu",this._fireMouseEvent,this))},_fireMouseEvent:function(t){this._containsPoint(t.layerPoint)&&this.fire(t.type,t)},_onMouseMove:function(t){this._map&&!this._map._animatingZoom&&(this._containsPoint(t.layerPoint)?(this._ctx.canvas.style.cursor="pointer",this._mouseInside=!0,this.fire("mouseover",t)):this._mouseInside&&(this._ctx.canvas.style.cursor="",this._mouseInside=!1,this.fire("mouseout",t)))}}),l.Map.include(l.Path.SVG&&!s.L_PREFER_CANVAS||!l.Browser.canvas?{}:{_initPathRoot:function(){var t,e=this._pathRoot;e||(e=this._pathRoot=r.createElement("canvas"),e.style.position="absolute",t=this._canvasCtx=e.getContext("2d"),t.lineCap="round",t.lineJoin="round",this._panes.overlayPane.appendChild(e),this.options.zoomAnimation&&(this._pathRoot.className="leaflet-zoom-animated",this.on("zoomanim",this._animatePathZoom),this.on("zoomend",this._endPathZoom)),this.on("moveend",this._updateCanvasViewport),this._updateCanvasViewport())},_updateCanvasViewport:function(){if(!this._pathZooming){this._updatePathViewport();var t=this._pathViewport,e=t.min,i=t.max.subtract(e),n=this._pathRoot;l.DomUtil.setPosition(n,e),n.width=i.x,n.height=i.y,n.getContext("2d").translate(-e.x,-e.y)}}}),l.LineUtil={simplify:function(t,e){if(!e||!t.length)return t.slice();var i=e*e;return t=this._reducePoints(t,i),t=this._simplifyDP(t,i)},pointToSegmentDistance:function(t,e,i){return Math.sqrt(this._sqClosestPointOnSegment(t,e,i,!0))},closestPointOnSegment:function(t,e,i){return this._sqClosestPointOnSegment(t,e,i)},_simplifyDP:function(t,e){var i=t.length,n=typeof Uint8Array!=a+""?Uint8Array:Array,o=new n(i);o[0]=o[i-1]=1,this._simplifyDPStep(t,o,e,0,i-1);var s,r=[];for(s=0;i>s;s++)o[s]&&r.push(t[s]);return r},_simplifyDPStep:function(t,e,i,n,o){var s,r,a,h=0;for(r=n+1;o-1>=r;r++)a=this._sqClosestPointOnSegment(t[r],t[n],t[o],!0),a>h&&(s=r,h=a);h>i&&(e[s]=1,this._simplifyDPStep(t,e,i,n,s),this._simplifyDPStep(t,e,i,s,o))},_reducePoints:function(t,e){for(var i=[t[0]],n=1,o=0,s=t.length;s>n;n++)this._sqDist(t[n],t[o])>e&&(i.push(t[n]),o=n);return s-1>o&&i.push(t[s-1]),i},clipSegment:function(t,e,i,n){var o,s,r,a=n?this._lastCode:this._getBitCode(t,i),h=this._getBitCode(e,i);for(this._lastCode=h;;){if(!(a|h))return[t,e];if(a&h)return!1;o=a||h,s=this._getEdgeIntersection(t,e,o,i),r=this._getBitCode(s,i),o===a?(t=s,a=r):(e=s,h=r)}},_getEdgeIntersection:function(t,e,i,n){var o=e.x-t.x,s=e.y-t.y,r=n.min,a=n.max;return 8&i?new l.Point(t.x+o*(a.y-t.y)/s,a.y):4&i?new l.Point(t.x+o*(r.y-t.y)/s,r.y):2&i?new l.Point(a.x,t.y+s*(a.x-t.x)/o):1&i?new l.Point(r.x,t.y+s*(r.x-t.x)/o):void 0},_getBitCode:function(t,e){var i=0;return t.x<e.min.x?i|=1:t.x>e.max.x&&(i|=2),t.y<e.min.y?i|=4:t.y>e.max.y&&(i|=8),i},_sqDist:function(t,e){var i=e.x-t.x,n=e.y-t.y;return i*i+n*n},_sqClosestPointOnSegment:function(t,e,i,n){var o,s=e.x,r=e.y,a=i.x-s,h=i.y-r,u=a*a+h*h;return u>0&&(o=((t.x-s)*a+(t.y-r)*h)/u,o>1?(s=i.x,r=i.y):o>0&&(s+=a*o,r+=h*o)),a=t.x-s,h=t.y-r,n?a*a+h*h:new l.Point(s,r)}},l.Polyline=l.Path.extend({initialize:function(t,e){l.Path.prototype.initialize.call(this,e),this._latlngs=this._convertLatLngs(t)},options:{smoothFactor:1,noClip:!1},projectLatlngs:function(){this._originalPoints=[];for(var t=0,e=this._latlngs.length;e>t;t++)this._originalPoints[t]=this._map.latLngToLayerPoint(this._latlngs[t])},getPathString:function(){for(var t=0,e=this._parts.length,i="";e>t;t++)i+=this._getPathPartStr(this._parts[t]);return i},getLatLngs:function(){return this._latlngs},setLatLngs:function(t){return this._latlngs=this._convertLatLngs(t),this.redraw()},addLatLng:function(t){return this._latlngs.push(l.latLng(t)),this.redraw()},spliceLatLngs:function(){var t=[].splice.apply(this._latlngs,arguments);return this._convertLatLngs(this._latlngs,!0),this.redraw(),t},closestLayerPoint:function(t){for(var e,i,n=1/0,o=this._parts,s=null,r=0,a=o.length;a>r;r++)for(var h=o[r],u=1,c=h.length;c>u;u++){e=h[u-1],i=h[u];var p=l.LineUtil._sqClosestPointOnSegment(t,e,i,!0);n>p&&(n=p,s=l.LineUtil._sqClosestPointOnSegment(t,e,i))}return s&&(s.distance=Math.sqrt(n)),s},getBounds:function(){return new l.LatLngBounds(this.getLatLngs())},_convertLatLngs:function(t,e){var i,n,o=e?t:[];for(i=0,n=t.length;n>i;i++){if(l.Util.isArray(t[i])&&"number"!=typeof t[i][0])return;o[i]=l.latLng(t[i])}return o},_initEvents:function(){l.Path.prototype._initEvents.call(this)},_getPathPartStr:function(t){for(var e,i=l.Path.VML,n=0,o=t.length,s="";o>n;n++)e=t[n],i&&e._round(),s+=(n?"L":"M")+e.x+" "+e.y;return s},_clipPoints:function(){var t,e,i,n=this._originalPoints,o=n.length;if(this.options.noClip)return void(this._parts=[n]);this._parts=[];var s=this._parts,r=this._map._pathViewport,a=l.LineUtil;for(t=0,e=0;o-1>t;t++)i=a.clipSegment(n[t],n[t+1],r,t),i&&(s[e]=s[e]||[],s[e].push(i[0]),(i[1]!==n[t+1]||t===o-2)&&(s[e].push(i[1]),e++))},_simplifyPoints:function(){for(var t=this._parts,e=l.LineUtil,i=0,n=t.length;n>i;i++)t[i]=e.simplify(t[i],this.options.smoothFactor)},_updatePath:function(){this._map&&(this._clipPoints(),this._simplifyPoints(),l.Path.prototype._updatePath.call(this))}}),l.polyline=function(t,e){return new l.Polyline(t,e)},l.PolyUtil={},l.PolyUtil.clipPolygon=function(t,e){var i,n,o,s,r,a,h,u,c,p=[1,4,2,8],d=l.LineUtil;for(n=0,h=t.length;h>n;n++)t[n]._code=d._getBitCode(t[n],e);for(s=0;4>s;s++){for(u=p[s],i=[],n=0,h=t.length,o=h-1;h>n;o=n++)r=t[n],a=t[o],r._code&u?a._code&u||(c=d._getEdgeIntersection(a,r,u,e),c._code=d._getBitCode(c,e),i.push(c)):(a._code&u&&(c=d._getEdgeIntersection(a,r,u,e),c._code=d._getBitCode(c,e),i.push(c)),i.push(r));t=i}return t},l.Polygon=l.Polyline.extend({options:{fill:!0},initialize:function(t,e){l.Polyline.prototype.initialize.call(this,t,e),this._initWithHoles(t)},_initWithHoles:function(t){var e,i,n;if(t&&l.Util.isArray(t[0])&&"number"!=typeof t[0][0])for(this._latlngs=this._convertLatLngs(t[0]),this._holes=t.slice(1),e=0,i=this._holes.length;i>e;e++)n=this._holes[e]=this._convertLatLngs(this._holes[e]),n[0].equals(n[n.length-1])&&n.pop();t=this._latlngs,t.length>=2&&t[0].equals(t[t.length-1])&&t.pop()},projectLatlngs:function(){if(l.Polyline.prototype.projectLatlngs.call(this),this._holePoints=[],this._holes){var t,e,i,n;for(t=0,i=this._holes.length;i>t;t++)for(this._holePoints[t]=[],e=0,n=this._holes[t].length;n>e;e++)this._holePoints[t][e]=this._map.latLngToLayerPoint(this._holes[t][e])}},setLatLngs:function(t){return t&&l.Util.isArray(t[0])&&"number"!=typeof t[0][0]?(this._initWithHoles(t),this.redraw()):l.Polyline.prototype.setLatLngs.call(this,t)},_clipPoints:function(){var t=this._originalPoints,e=[];if(this._parts=[t].concat(this._holePoints),!this.options.noClip){for(var i=0,n=this._parts.length;n>i;i++){var o=l.PolyUtil.clipPolygon(this._parts[i],this._map._pathViewport);o.length&&e.push(o)}this._parts=e}},_getPathPartStr:function(t){var e=l.Polyline.prototype._getPathPartStr.call(this,t);return e+(l.Browser.svg?"z":"x")}}),l.polygon=function(t,e){return new l.Polygon(t,e)},function(){function t(t){return l.FeatureGroup.extend({initialize:function(t,e){this._layers={},this._options=e,this.setLatLngs(t)},setLatLngs:function(e){var i=0,n=e.length;for(this.eachLayer(function(t){n>i?t.setLatLngs(e[i++]):this.removeLayer(t)},this);n>i;)this.addLayer(new t(e[i++],this._options));return this},getLatLngs:function(){var t=[];return this.eachLayer(function(e){t.push(e.getLatLngs())}),t}})}l.MultiPolyline=t(l.Polyline),l.MultiPolygon=t(l.Polygon),l.multiPolyline=function(t,e){return new l.MultiPolyline(t,e)},l.multiPolygon=function(t,e){return new l.MultiPolygon(t,e)}}(),l.Rectangle=l.Polygon.extend({initialize:function(t,e){l.Polygon.prototype.initialize.call(this,this._boundsToLatLngs(t),e)},setBounds:function(t){this.setLatLngs(this._boundsToLatLngs(t))},_boundsToLatLngs:function(t){return t=l.latLngBounds(t),[t.getSouthWest(),t.getNorthWest(),t.getNorthEast(),t.getSouthEast()]}}),l.rectangle=function(t,e){return new l.Rectangle(t,e)},l.Circle=l.Path.extend({initialize:function(t,e,i){l.Path.prototype.initialize.call(this,i),this._latlng=l.latLng(t),this._mRadius=e},options:{fill:!0},setLatLng:function(t){return this._latlng=l.latLng(t),this.redraw()},setRadius:function(t){return this._mRadius=t,this.redraw()},projectLatlngs:function(){var t=this._getLngRadius(),e=this._latlng,i=this._map.latLngToLayerPoint([e.lat,e.lng-t]);this._point=this._map.latLngToLayerPoint(e),this._radius=Math.max(this._point.x-i.x,1)},getBounds:function(){var t=this._getLngRadius(),e=this._mRadius/40075017*360,i=this._latlng;return new l.LatLngBounds([i.lat-e,i.lng-t],[i.lat+e,i.lng+t])},getLatLng:function(){return this._latlng},getPathString:function(){var t=this._point,e=this._radius;return this._checkIfEmpty()?"":l.Browser.svg?"M"+t.x+","+(t.y-e)+"A"+e+","+e+",0,1,1,"+(t.x-.1)+","+(t.y-e)+" z":(t._round(),e=Math.round(e),"AL "+t.x+","+t.y+" "+e+","+e+" 0,23592600")},getRadius:function(){return this._mRadius},_getLatRadius:function(){return this._mRadius/40075017*360},_getLngRadius:function(){return this._getLatRadius()/Math.cos(l.LatLng.DEG_TO_RAD*this._latlng.lat)},_checkIfEmpty:function(){if(!this._map)return!1;var t=this._map._pathViewport,e=this._radius,i=this._point;return i.x-e>t.max.x||i.y-e>t.max.y||i.x+e<t.min.x||i.y+e<t.min.y}}),l.circle=function(t,e,i){return new l.Circle(t,e,i)},l.CircleMarker=l.Circle.extend({options:{radius:10,weight:2},initialize:function(t,e){l.Circle.prototype.initialize.call(this,t,null,e),this._radius=this.options.radius},projectLatlngs:function(){this._point=this._map.latLngToLayerPoint(this._latlng)},_updateStyle:function(){l.Circle.prototype._updateStyle.call(this),this.setRadius(this.options.radius)},setLatLng:function(t){return l.Circle.prototype.setLatLng.call(this,t),this._popup&&this._popup._isOpen&&this._popup.setLatLng(t),this},setRadius:function(t){return this.options.radius=this._radius=t,this.redraw()},getRadius:function(){return this._radius}}),l.circleMarker=function(t,e){return new l.CircleMarker(t,e)},l.Polyline.include(l.Path.CANVAS?{_containsPoint:function(t,e){var i,n,o,s,r,a,h,u=this.options.weight/2;for(l.Browser.touch&&(u+=10),i=0,s=this._parts.length;s>i;i++)for(h=this._parts[i],n=0,r=h.length,o=r-1;r>n;o=n++)if((e||0!==n)&&(a=l.LineUtil.pointToSegmentDistance(t,h[o],h[n]),u>=a))return!0;return!1}}:{}),l.Polygon.include(l.Path.CANVAS?{_containsPoint:function(t){var e,i,n,o,s,r,a,h,u=!1;if(l.Polyline.prototype._containsPoint.call(this,t,!0))return!0;for(o=0,a=this._parts.length;a>o;o++)for(e=this._parts[o],s=0,h=e.length,r=h-1;h>s;r=s++)i=e[s],n=e[r],i.y>t.y!=n.y>t.y&&t.x<(n.x-i.x)*(t.y-i.y)/(n.y-i.y)+i.x&&(u=!u);return u}}:{}),l.Circle.include(l.Path.CANVAS?{_drawPath:function(){var t=this._point;this._ctx.beginPath(),this._ctx.arc(t.x,t.y,this._radius,0,2*Math.PI,!1)},_containsPoint:function(t){var e=this._point,i=this.options.stroke?this.options.weight/2:0;return t.distanceTo(e)<=this._radius+i}}:{}),l.CircleMarker.include(l.Path.CANVAS?{_updateStyle:function(){l.Path.prototype._updateStyle.call(this)}}:{}),l.GeoJSON=l.FeatureGroup.extend({initialize:function(t,e){l.setOptions(this,e),this._layers={},t&&this.addData(t)},addData:function(t){var e,i,n,o=l.Util.isArray(t)?t:t.features;if(o){for(e=0,i=o.length;i>e;e++)n=o[e],(n.geometries||n.geometry||n.features||n.coordinates)&&this.addData(o[e]);return this}var s=this.options;if(!s.filter||s.filter(t)){var r=l.GeoJSON.geometryToLayer(t,s.pointToLayer,s.coordsToLatLng,s);return r.feature=l.GeoJSON.asFeature(t),r.defaultOptions=r.options,this.resetStyle(r),s.onEachFeature&&s.onEachFeature(t,r),this.addLayer(r)}},resetStyle:function(t){var e=this.options.style;e&&(l.Util.extend(t.options,t.defaultOptions),this._setLayerStyle(t,e))},setStyle:function(t){this.eachLayer(function(e){this._setLayerStyle(e,t)},this)},_setLayerStyle:function(t,e){"function"==typeof e&&(e=e(t.feature)),t.setStyle&&t.setStyle(e)}}),l.extend(l.GeoJSON,{geometryToLayer:function(t,e,i,n){var o,s,r,a,h="Feature"===t.type?t.geometry:t,u=h.coordinates,c=[];switch(i=i||this.coordsToLatLng,h.type){case"Point":return o=i(u),e?e(t,o):new l.Marker(o);case"MultiPoint":for(r=0,a=u.length;a>r;r++)o=i(u[r]),c.push(e?e(t,o):new l.Marker(o));
-return new l.FeatureGroup(c);case"LineString":return s=this.coordsToLatLngs(u,0,i),new l.Polyline(s,n);case"Polygon":if(2===u.length&&!u[1].length)throw new Error("Invalid GeoJSON object.");return s=this.coordsToLatLngs(u,1,i),new l.Polygon(s,n);case"MultiLineString":return s=this.coordsToLatLngs(u,1,i),new l.MultiPolyline(s,n);case"MultiPolygon":return s=this.coordsToLatLngs(u,2,i),new l.MultiPolygon(s,n);case"GeometryCollection":for(r=0,a=h.geometries.length;a>r;r++)c.push(this.geometryToLayer({geometry:h.geometries[r],type:"Feature",properties:t.properties},e,i,n));return new l.FeatureGroup(c);default:throw new Error("Invalid GeoJSON object.")}},coordsToLatLng:function(t){return new l.LatLng(t[1],t[0],t[2])},coordsToLatLngs:function(t,e,i){var n,o,s,r=[];for(o=0,s=t.length;s>o;o++)n=e?this.coordsToLatLngs(t[o],e-1,i):(i||this.coordsToLatLng)(t[o]),r.push(n);return r},latLngToCoords:function(t){var e=[t.lng,t.lat];return t.alt!==a&&e.push(t.alt),e},latLngsToCoords:function(t){for(var e=[],i=0,n=t.length;n>i;i++)e.push(l.GeoJSON.latLngToCoords(t[i]));return e},getFeature:function(t,e){return t.feature?l.extend({},t.feature,{geometry:e}):l.GeoJSON.asFeature(e)},asFeature:function(t){return"Feature"===t.type?t:{type:"Feature",properties:{},geometry:t}}});var c={toGeoJSON:function(){return l.GeoJSON.getFeature(this,{type:"Point",coordinates:l.GeoJSON.latLngToCoords(this.getLatLng())})}};l.Marker.include(c),l.Circle.include(c),l.CircleMarker.include(c),l.Polyline.include({toGeoJSON:function(){return l.GeoJSON.getFeature(this,{type:"LineString",coordinates:l.GeoJSON.latLngsToCoords(this.getLatLngs())})}}),l.Polygon.include({toGeoJSON:function(){var t,e,i,n=[l.GeoJSON.latLngsToCoords(this.getLatLngs())];if(n[0].push(n[0][0]),this._holes)for(t=0,e=this._holes.length;e>t;t++)i=l.GeoJSON.latLngsToCoords(this._holes[t]),i.push(i[0]),n.push(i);return l.GeoJSON.getFeature(this,{type:"Polygon",coordinates:n})}}),function(){function t(t){return function(){var e=[];return this.eachLayer(function(t){e.push(t.toGeoJSON().geometry.coordinates)}),l.GeoJSON.getFeature(this,{type:t,coordinates:e})}}l.MultiPolyline.include({toGeoJSON:t("MultiLineString")}),l.MultiPolygon.include({toGeoJSON:t("MultiPolygon")}),l.LayerGroup.include({toGeoJSON:function(){var e,i=this.feature&&this.feature.geometry,n=[];if(i&&"MultiPoint"===i.type)return t("MultiPoint").call(this);var o=i&&"GeometryCollection"===i.type;return this.eachLayer(function(t){t.toGeoJSON&&(e=t.toGeoJSON(),n.push(o?e.geometry:l.GeoJSON.asFeature(e)))}),o?l.GeoJSON.getFeature(this,{geometries:n,type:"GeometryCollection"}):{type:"FeatureCollection",features:n}}})}(),l.geoJson=function(t,e){return new l.GeoJSON(t,e)},l.DomEvent={addListener:function(t,e,i,n){var o,s,r,a=l.stamp(i),h="_leaflet_"+e+a;return t[h]?this:(o=function(e){return i.call(n||t,e||l.DomEvent._getEvent())},l.Browser.pointer&&0===e.indexOf("touch")?this.addPointerListener(t,e,o,a):(l.Browser.touch&&"dblclick"===e&&this.addDoubleTapListener&&this.addDoubleTapListener(t,o,a),"addEventListener"in t?"mousewheel"===e?(t.addEventListener("DOMMouseScroll",o,!1),t.addEventListener(e,o,!1)):"mouseenter"===e||"mouseleave"===e?(s=o,r="mouseenter"===e?"mouseover":"mouseout",o=function(e){return l.DomEvent._checkMouse(t,e)?s(e):void 0},t.addEventListener(r,o,!1)):"click"===e&&l.Browser.android?(s=o,o=function(t){return l.DomEvent._filterClick(t,s)},t.addEventListener(e,o,!1)):t.addEventListener(e,o,!1):"attachEvent"in t&&t.attachEvent("on"+e,o),t[h]=o,this))},removeListener:function(t,e,i){var n=l.stamp(i),o="_leaflet_"+e+n,s=t[o];return s?(l.Browser.pointer&&0===e.indexOf("touch")?this.removePointerListener(t,e,n):l.Browser.touch&&"dblclick"===e&&this.removeDoubleTapListener?this.removeDoubleTapListener(t,n):"removeEventListener"in t?"mousewheel"===e?(t.removeEventListener("DOMMouseScroll",s,!1),t.removeEventListener(e,s,!1)):"mouseenter"===e||"mouseleave"===e?t.removeEventListener("mouseenter"===e?"mouseover":"mouseout",s,!1):t.removeEventListener(e,s,!1):"detachEvent"in t&&t.detachEvent("on"+e,s),t[o]=null,this):this},stopPropagation:function(t){return t.stopPropagation?t.stopPropagation():t.cancelBubble=!0,l.DomEvent._skipped(t),this},disableScrollPropagation:function(t){var e=l.DomEvent.stopPropagation;return l.DomEvent.on(t,"mousewheel",e).on(t,"MozMousePixelScroll",e)},disableClickPropagation:function(t){for(var e=l.DomEvent.stopPropagation,i=l.Draggable.START.length-1;i>=0;i--)l.DomEvent.on(t,l.Draggable.START[i],e);return l.DomEvent.on(t,"click",l.DomEvent._fakeStop).on(t,"dblclick",e)},preventDefault:function(t){return t.preventDefault?t.preventDefault():t.returnValue=!1,this},stop:function(t){return l.DomEvent.preventDefault(t).stopPropagation(t)},getMousePosition:function(t,e){if(!e)return new l.Point(t.clientX,t.clientY);var i=e.getBoundingClientRect();return new l.Point(t.clientX-i.left-e.clientLeft,t.clientY-i.top-e.clientTop)},getWheelDelta:function(t){var e=0;return t.wheelDelta&&(e=t.wheelDelta/120),t.detail&&(e=-t.detail/3),e},_skipEvents:{},_fakeStop:function(t){l.DomEvent._skipEvents[t.type]=!0},_skipped:function(t){var e=this._skipEvents[t.type];return this._skipEvents[t.type]=!1,e},_checkMouse:function(t,e){var i=e.relatedTarget;if(!i)return!0;try{for(;i&&i!==t;)i=i.parentNode}catch(n){return!1}return i!==t},_getEvent:function(){var t=s.event;if(!t)for(var e=arguments.callee.caller;e&&(t=e.arguments[0],!t||s.Event!==t.constructor);)e=e.caller;return t},_filterClick:function(t,e){var i=t.timeStamp||t.originalEvent.timeStamp,n=l.DomEvent._lastClick&&i-l.DomEvent._lastClick;return n&&n>100&&500>n||t.target._simulatedClick&&!t._simulated?void l.DomEvent.stop(t):(l.DomEvent._lastClick=i,e(t))}},l.DomEvent.on=l.DomEvent.addListener,l.DomEvent.off=l.DomEvent.removeListener,l.Draggable=l.Class.extend({includes:l.Mixin.Events,statics:{START:l.Browser.touch?["touchstart","mousedown"]:["mousedown"],END:{mousedown:"mouseup",touchstart:"touchend",pointerdown:"touchend",MSPointerDown:"touchend"},MOVE:{mousedown:"mousemove",touchstart:"touchmove",pointerdown:"touchmove",MSPointerDown:"touchmove"}},initialize:function(t,e){this._element=t,this._dragStartTarget=e||t},enable:function(){if(!this._enabled){for(var t=l.Draggable.START.length-1;t>=0;t--)l.DomEvent.on(this._dragStartTarget,l.Draggable.START[t],this._onDown,this);this._enabled=!0}},disable:function(){if(this._enabled){for(var t=l.Draggable.START.length-1;t>=0;t--)l.DomEvent.off(this._dragStartTarget,l.Draggable.START[t],this._onDown,this);this._enabled=!1,this._moved=!1}},_onDown:function(t){if(this._moved=!1,!t.shiftKey&&(1===t.which||1===t.button||t.touches)&&(l.DomEvent.stopPropagation(t),!l.Draggable._disabled&&(l.DomUtil.disableImageDrag(),l.DomUtil.disableTextSelection(),!this._moving))){var e=t.touches?t.touches[0]:t;this._startPoint=new l.Point(e.clientX,e.clientY),this._startPos=this._newPos=l.DomUtil.getPosition(this._element),l.DomEvent.on(r,l.Draggable.MOVE[t.type],this._onMove,this).on(r,l.Draggable.END[t.type],this._onUp,this)}},_onMove:function(t){if(t.touches&&t.touches.length>1)return void(this._moved=!0);var e=t.touches&&1===t.touches.length?t.touches[0]:t,i=new l.Point(e.clientX,e.clientY),n=i.subtract(this._startPoint);(n.x||n.y)&&(l.Browser.touch&&Math.abs(n.x)+Math.abs(n.y)<3||(l.DomEvent.preventDefault(t),this._moved||(this.fire("dragstart"),this._moved=!0,this._startPos=l.DomUtil.getPosition(this._element).subtract(n),l.DomUtil.addClass(r.body,"leaflet-dragging"),this._lastTarget=t.target||t.srcElement,l.DomUtil.addClass(this._lastTarget,"leaflet-drag-target")),this._newPos=this._startPos.add(n),this._moving=!0,l.Util.cancelAnimFrame(this._animRequest),this._animRequest=l.Util.requestAnimFrame(this._updatePosition,this,!0,this._dragStartTarget)))},_updatePosition:function(){this.fire("predrag"),l.DomUtil.setPosition(this._element,this._newPos),this.fire("drag")},_onUp:function(){l.DomUtil.removeClass(r.body,"leaflet-dragging"),this._lastTarget&&(l.DomUtil.removeClass(this._lastTarget,"leaflet-drag-target"),this._lastTarget=null);for(var t in l.Draggable.MOVE)l.DomEvent.off(r,l.Draggable.MOVE[t],this._onMove).off(r,l.Draggable.END[t],this._onUp);l.DomUtil.enableImageDrag(),l.DomUtil.enableTextSelection(),this._moved&&this._moving&&(l.Util.cancelAnimFrame(this._animRequest),this.fire("dragend",{distance:this._newPos.distanceTo(this._startPos)})),this._moving=!1}}),l.Handler=l.Class.extend({initialize:function(t){this._map=t},enable:function(){this._enabled||(this._enabled=!0,this.addHooks())},disable:function(){this._enabled&&(this._enabled=!1,this.removeHooks())},enabled:function(){return!!this._enabled}}),l.Map.mergeOptions({dragging:!0,inertia:!l.Browser.android23,inertiaDeceleration:3400,inertiaMaxSpeed:1/0,inertiaThreshold:l.Browser.touch?32:18,easeLinearity:.25,worldCopyJump:!1}),l.Map.Drag=l.Handler.extend({addHooks:function(){if(!this._draggable){var t=this._map;this._draggable=new l.Draggable(t._mapPane,t._container),this._draggable.on({dragstart:this._onDragStart,drag:this._onDrag,dragend:this._onDragEnd},this),t.options.worldCopyJump&&(this._draggable.on("predrag",this._onPreDrag,this),t.on("viewreset",this._onViewReset,this),t.whenReady(this._onViewReset,this))}this._draggable.enable()},removeHooks:function(){this._draggable.disable()},moved:function(){return this._draggable&&this._draggable._moved},_onDragStart:function(){var t=this._map;t._panAnim&&t._panAnim.stop(),t.fire("movestart").fire("dragstart"),t.options.inertia&&(this._positions=[],this._times=[])},_onDrag:function(){if(this._map.options.inertia){var t=this._lastTime=+new Date,e=this._lastPos=this._draggable._newPos;this._positions.push(e),this._times.push(t),t-this._times[0]>200&&(this._positions.shift(),this._times.shift())}this._map.fire("move").fire("drag")},_onViewReset:function(){var t=this._map.getSize()._divideBy(2),e=this._map.latLngToLayerPoint([0,0]);this._initialWorldOffset=e.subtract(t).x,this._worldWidth=this._map.project([0,180]).x},_onPreDrag:function(){var t=this._worldWidth,e=Math.round(t/2),i=this._initialWorldOffset,n=this._draggable._newPos.x,o=(n-e+i)%t+e-i,s=(n+e+i)%t-e-i,r=Math.abs(o+i)<Math.abs(s+i)?o:s;this._draggable._newPos.x=r},_onDragEnd:function(t){var e=this._map,i=e.options,n=+new Date-this._lastTime,o=!i.inertia||n>i.inertiaThreshold||!this._positions[0];if(e.fire("dragend",t),o)e.fire("moveend");else{var s=this._lastPos.subtract(this._positions[0]),r=(this._lastTime+n-this._times[0])/1e3,a=i.easeLinearity,h=s.multiplyBy(a/r),u=h.distanceTo([0,0]),c=Math.min(i.inertiaMaxSpeed,u),p=h.multiplyBy(c/u),d=c/(i.inertiaDeceleration*a),f=p.multiplyBy(-d/2).round();f.x&&f.y?(f=e._limitOffset(f,e.options.maxBounds),l.Util.requestAnimFrame(function(){e.panBy(f,{duration:d,easeLinearity:a,noMoveStart:!0})})):e.fire("moveend")}}}),l.Map.addInitHook("addHandler","dragging",l.Map.Drag),l.Map.mergeOptions({doubleClickZoom:!0}),l.Map.DoubleClickZoom=l.Handler.extend({addHooks:function(){this._map.on("dblclick",this._onDoubleClick,this)},removeHooks:function(){this._map.off("dblclick",this._onDoubleClick,this)},_onDoubleClick:function(t){var e=this._map,i=e.getZoom()+(t.originalEvent.shiftKey?-1:1);"center"===e.options.doubleClickZoom?e.setZoom(i):e.setZoomAround(t.containerPoint,i)}}),l.Map.addInitHook("addHandler","doubleClickZoom",l.Map.DoubleClickZoom),l.Map.mergeOptions({scrollWheelZoom:!0}),l.Map.ScrollWheelZoom=l.Handler.extend({addHooks:function(){l.DomEvent.on(this._map._container,"mousewheel",this._onWheelScroll,this),l.DomEvent.on(this._map._container,"MozMousePixelScroll",l.DomEvent.preventDefault),this._delta=0},removeHooks:function(){l.DomEvent.off(this._map._container,"mousewheel",this._onWheelScroll),l.DomEvent.off(this._map._container,"MozMousePixelScroll",l.DomEvent.preventDefault)},_onWheelScroll:function(t){var e=l.DomEvent.getWheelDelta(t);this._delta+=e,this._lastMousePos=this._map.mouseEventToContainerPoint(t),this._startTime||(this._startTime=+new Date);var i=Math.max(40-(+new Date-this._startTime),0);clearTimeout(this._timer),this._timer=setTimeout(l.bind(this._performZoom,this),i),l.DomEvent.preventDefault(t),l.DomEvent.stopPropagation(t)},_performZoom:function(){var t=this._map,e=this._delta,i=t.getZoom();e=e>0?Math.ceil(e):Math.floor(e),e=Math.max(Math.min(e,4),-4),e=t._limitZoom(i+e)-i,this._delta=0,this._startTime=null,e&&("center"===t.options.scrollWheelZoom?t.setZoom(i+e):t.setZoomAround(this._lastMousePos,i+e))}}),l.Map.addInitHook("addHandler","scrollWheelZoom",l.Map.ScrollWheelZoom),l.extend(l.DomEvent,{_touchstart:l.Browser.msPointer?"MSPointerDown":l.Browser.pointer?"pointerdown":"touchstart",_touchend:l.Browser.msPointer?"MSPointerUp":l.Browser.pointer?"pointerup":"touchend",addDoubleTapListener:function(t,e,i){function n(t){var e;if(l.Browser.pointer?(f.push(t.pointerId),e=f.length):e=t.touches.length,!(e>1)){var i=Date.now(),n=i-(s||i);a=t.touches?t.touches[0]:t,h=n>0&&u>=n,s=i}}function o(t){if(l.Browser.pointer){var i=f.indexOf(t.pointerId);if(-1===i)return;f.splice(i,1)}if(h){if(l.Browser.pointer){var n,o={};for(var r in a)n=a[r],"function"==typeof n?o[r]=n.bind(a):o[r]=n;a=o}a.type="dblclick",e(a),s=null}}var s,a,h=!1,u=250,c="_leaflet_",p=this._touchstart,d=this._touchend,f=[];t[c+p+i]=n,t[c+d+i]=o;var m=l.Browser.pointer?r.documentElement:t;return t.addEventListener(p,n,!1),m.addEventListener(d,o,!1),l.Browser.pointer&&m.addEventListener(l.DomEvent.POINTER_CANCEL,o,!1),this},removeDoubleTapListener:function(t,e){var i="_leaflet_";return t.removeEventListener(this._touchstart,t[i+this._touchstart+e],!1),(l.Browser.pointer?r.documentElement:t).removeEventListener(this._touchend,t[i+this._touchend+e],!1),l.Browser.pointer&&r.documentElement.removeEventListener(l.DomEvent.POINTER_CANCEL,t[i+this._touchend+e],!1),this}}),l.extend(l.DomEvent,{POINTER_DOWN:l.Browser.msPointer?"MSPointerDown":"pointerdown",POINTER_MOVE:l.Browser.msPointer?"MSPointerMove":"pointermove",POINTER_UP:l.Browser.msPointer?"MSPointerUp":"pointerup",POINTER_CANCEL:l.Browser.msPointer?"MSPointerCancel":"pointercancel",_pointers:[],_pointerDocumentListener:!1,addPointerListener:function(t,e,i,n){switch(e){case"touchstart":return this.addPointerListenerStart(t,e,i,n);case"touchend":return this.addPointerListenerEnd(t,e,i,n);case"touchmove":return this.addPointerListenerMove(t,e,i,n);default:throw"Unknown touch event type"}},addPointerListenerStart:function(t,e,i,n){var o="_leaflet_",s=this._pointers,a=function(t){"mouse"!==t.pointerType&&t.pointerType!==t.MSPOINTER_TYPE_MOUSE&&l.DomEvent.preventDefault(t);for(var e=!1,n=0;n<s.length;n++)if(s[n].pointerId===t.pointerId){e=!0;break}e||s.push(t),t.touches=s.slice(),t.changedTouches=[t],i(t)};if(t[o+"touchstart"+n]=a,t.addEventListener(this.POINTER_DOWN,a,!1),!this._pointerDocumentListener){var h=function(t){for(var e=0;e<s.length;e++)if(s[e].pointerId===t.pointerId){s.splice(e,1);break}};r.documentElement.addEventListener(this.POINTER_UP,h,!1),r.documentElement.addEventListener(this.POINTER_CANCEL,h,!1),this._pointerDocumentListener=!0}return this},addPointerListenerMove:function(t,e,i,n){function o(t){if(t.pointerType!==t.MSPOINTER_TYPE_MOUSE&&"mouse"!==t.pointerType||0!==t.buttons){for(var e=0;e<r.length;e++)if(r[e].pointerId===t.pointerId){r[e]=t;break}t.touches=r.slice(),t.changedTouches=[t],i(t)}}var s="_leaflet_",r=this._pointers;return t[s+"touchmove"+n]=o,t.addEventListener(this.POINTER_MOVE,o,!1),this},addPointerListenerEnd:function(t,e,i,n){var o="_leaflet_",s=this._pointers,r=function(t){for(var e=0;e<s.length;e++)if(s[e].pointerId===t.pointerId){s.splice(e,1);break}t.touches=s.slice(),t.changedTouches=[t],i(t)};return t[o+"touchend"+n]=r,t.addEventListener(this.POINTER_UP,r,!1),t.addEventListener(this.POINTER_CANCEL,r,!1),this},removePointerListener:function(t,e,i){var n="_leaflet_",o=t[n+e+i];switch(e){case"touchstart":t.removeEventListener(this.POINTER_DOWN,o,!1);break;case"touchmove":t.removeEventListener(this.POINTER_MOVE,o,!1);break;case"touchend":t.removeEventListener(this.POINTER_UP,o,!1),t.removeEventListener(this.POINTER_CANCEL,o,!1)}return this}}),l.Map.mergeOptions({touchZoom:l.Browser.touch&&!l.Browser.android23,bounceAtZoomLimits:!0}),l.Map.TouchZoom=l.Handler.extend({addHooks:function(){l.DomEvent.on(this._map._container,"touchstart",this._onTouchStart,this)},removeHooks:function(){l.DomEvent.off(this._map._container,"touchstart",this._onTouchStart,this)},_onTouchStart:function(t){var e=this._map;if(t.touches&&2===t.touches.length&&!e._animatingZoom&&!this._zooming){var i=e.mouseEventToLayerPoint(t.touches[0]),n=e.mouseEventToLayerPoint(t.touches[1]),o=e._getCenterLayerPoint();this._startCenter=i.add(n)._divideBy(2),this._startDist=i.distanceTo(n),this._moved=!1,this._zooming=!0,this._centerOffset=o.subtract(this._startCenter),e._panAnim&&e._panAnim.stop(),l.DomEvent.on(r,"touchmove",this._onTouchMove,this).on(r,"touchend",this._onTouchEnd,this),l.DomEvent.preventDefault(t)}},_onTouchMove:function(t){var e=this._map;if(t.touches&&2===t.touches.length&&this._zooming){var i=e.mouseEventToLayerPoint(t.touches[0]),n=e.mouseEventToLayerPoint(t.touches[1]);this._scale=i.distanceTo(n)/this._startDist,this._delta=i._add(n)._divideBy(2)._subtract(this._startCenter),1!==this._scale&&(e.options.bounceAtZoomLimits||!(e.getZoom()===e.getMinZoom()&&this._scale<1||e.getZoom()===e.getMaxZoom()&&this._scale>1))&&(this._moved||(l.DomUtil.addClass(e._mapPane,"leaflet-touching"),e.fire("movestart").fire("zoomstart"),this._moved=!0),l.Util.cancelAnimFrame(this._animRequest),this._animRequest=l.Util.requestAnimFrame(this._updateOnMove,this,!0,this._map._container),l.DomEvent.preventDefault(t))}},_updateOnMove:function(){var t=this._map,e=this._getScaleOrigin(),i=t.layerPointToLatLng(e),n=t.getScaleZoom(this._scale);t._animateZoom(i,n,this._startCenter,this._scale,this._delta,!1,!0)},_onTouchEnd:function(){if(!this._moved||!this._zooming)return void(this._zooming=!1);var t=this._map;this._zooming=!1,l.DomUtil.removeClass(t._mapPane,"leaflet-touching"),l.Util.cancelAnimFrame(this._animRequest),l.DomEvent.off(r,"touchmove",this._onTouchMove).off(r,"touchend",this._onTouchEnd);var e=this._getScaleOrigin(),i=t.layerPointToLatLng(e),n=t.getZoom(),o=t.getScaleZoom(this._scale)-n,s=o>0?Math.ceil(o):Math.floor(o),a=t._limitZoom(n+s),h=t.getZoomScale(a)/this._scale;t._animateZoom(i,a,e,h)},_getScaleOrigin:function(){var t=this._centerOffset.subtract(this._delta).divideBy(this._scale);return this._startCenter.add(t)}}),l.Map.addInitHook("addHandler","touchZoom",l.Map.TouchZoom),l.Map.mergeOptions({tap:!0,tapTolerance:15}),l.Map.Tap=l.Handler.extend({addHooks:function(){l.DomEvent.on(this._map._container,"touchstart",this._onDown,this)},removeHooks:function(){l.DomEvent.off(this._map._container,"touchstart",this._onDown,this)},_onDown:function(t){if(t.touches){if(l.DomEvent.preventDefault(t),this._fireClick=!0,t.touches.length>1)return this._fireClick=!1,void clearTimeout(this._holdTimeout);var e=t.touches[0],i=e.target;this._startPos=this._newPos=new l.Point(e.clientX,e.clientY),i.tagName&&"a"===i.tagName.toLowerCase()&&l.DomUtil.addClass(i,"leaflet-active"),this._holdTimeout=setTimeout(l.bind(function(){this._isTapValid()&&(this._fireClick=!1,this._onUp(),this._simulateEvent("contextmenu",e))},this),1e3),l.DomEvent.on(r,"touchmove",this._onMove,this).on(r,"touchend",this._onUp,this)}},_onUp:function(t){if(clearTimeout(this._holdTimeout),l.DomEvent.off(r,"touchmove",this._onMove,this).off(r,"touchend",this._onUp,this),this._fireClick&&t&&t.changedTouches){var e=t.changedTouches[0],i=e.target;i&&i.tagName&&"a"===i.tagName.toLowerCase()&&l.DomUtil.removeClass(i,"leaflet-active"),this._isTapValid()&&this._simulateEvent("click",e)}},_isTapValid:function(){return this._newPos.distanceTo(this._startPos)<=this._map.options.tapTolerance},_onMove:function(t){var e=t.touches[0];this._newPos=new l.Point(e.clientX,e.clientY)},_simulateEvent:function(t,e){var i=r.createEvent("MouseEvents");i._simulated=!0,e.target._simulatedClick=!0,i.initMouseEvent(t,!0,!0,s,1,e.screenX,e.screenY,e.clientX,e.clientY,!1,!1,!1,!1,0,null),e.target.dispatchEvent(i)}}),l.Browser.touch&&!l.Browser.pointer&&l.Map.addInitHook("addHandler","tap",l.Map.Tap),l.Map.mergeOptions({boxZoom:!0}),l.Map.BoxZoom=l.Handler.extend({initialize:function(t){this._map=t,this._container=t._container,this._pane=t._panes.overlayPane,this._moved=!1},addHooks:function(){l.DomEvent.on(this._container,"mousedown",this._onMouseDown,this)},removeHooks:function(){l.DomEvent.off(this._container,"mousedown",this._onMouseDown),this._moved=!1},moved:function(){return this._moved},_onMouseDown:function(t){return this._moved=!1,!t.shiftKey||1!==t.which&&1!==t.button?!1:(l.DomUtil.disableTextSelection(),l.DomUtil.disableImageDrag(),this._startLayerPoint=this._map.mouseEventToLayerPoint(t),void l.DomEvent.on(r,"mousemove",this._onMouseMove,this).on(r,"mouseup",this._onMouseUp,this).on(r,"keydown",this._onKeyDown,this))},_onMouseMove:function(t){this._moved||(this._box=l.DomUtil.create("div","leaflet-zoom-box",this._pane),l.DomUtil.setPosition(this._box,this._startLayerPoint),this._container.style.cursor="crosshair",this._map.fire("boxzoomstart"));var e=this._startLayerPoint,i=this._box,n=this._map.mouseEventToLayerPoint(t),o=n.subtract(e),s=new l.Point(Math.min(n.x,e.x),Math.min(n.y,e.y));l.DomUtil.setPosition(i,s),this._moved=!0,i.style.width=Math.max(0,Math.abs(o.x)-4)+"px",i.style.height=Math.max(0,Math.abs(o.y)-4)+"px"},_finish:function(){this._moved&&(this._pane.removeChild(this._box),this._container.style.cursor=""),l.DomUtil.enableTextSelection(),l.DomUtil.enableImageDrag(),l.DomEvent.off(r,"mousemove",this._onMouseMove).off(r,"mouseup",this._onMouseUp).off(r,"keydown",this._onKeyDown)},_onMouseUp:function(t){this._finish();var e=this._map,i=e.mouseEventToLayerPoint(t);if(!this._startLayerPoint.equals(i)){var n=new l.LatLngBounds(e.layerPointToLatLng(this._startLayerPoint),e.layerPointToLatLng(i));e.fitBounds(n),e.fire("boxzoomend",{boxZoomBounds:n})}},_onKeyDown:function(t){27===t.keyCode&&this._finish()}}),l.Map.addInitHook("addHandler","boxZoom",l.Map.BoxZoom),l.Map.mergeOptions({keyboard:!0,keyboardPanOffset:80,keyboardZoomOffset:1}),l.Map.Keyboard=l.Handler.extend({keyCodes:{left:[37],right:[39],down:[40],up:[38],zoomIn:[187,107,61,171],zoomOut:[189,109,173]},initialize:function(t){this._map=t,this._setPanOffset(t.options.keyboardPanOffset),this._setZoomOffset(t.options.keyboardZoomOffset)},addHooks:function(){var t=this._map._container;-1===t.tabIndex&&(t.tabIndex="0"),l.DomEvent.on(t,"focus",this._onFocus,this).on(t,"blur",this._onBlur,this).on(t,"mousedown",this._onMouseDown,this),this._map.on("focus",this._addHooks,this).on("blur",this._removeHooks,this)},removeHooks:function(){this._removeHooks();var t=this._map._container;l.DomEvent.off(t,"focus",this._onFocus,this).off(t,"blur",this._onBlur,this).off(t,"mousedown",this._onMouseDown,this),this._map.off("focus",this._addHooks,this).off("blur",this._removeHooks,this)},_onMouseDown:function(){if(!this._focused){var t=r.body,e=r.documentElement,i=t.scrollTop||e.scrollTop,n=t.scrollLeft||e.scrollLeft;this._map._container.focus(),s.scrollTo(n,i)}},_onFocus:function(){this._focused=!0,this._map.fire("focus")},_onBlur:function(){this._focused=!1,this._map.fire("blur")},_setPanOffset:function(t){var e,i,n=this._panKeys={},o=this.keyCodes;for(e=0,i=o.left.length;i>e;e++)n[o.left[e]]=[-1*t,0];for(e=0,i=o.right.length;i>e;e++)n[o.right[e]]=[t,0];for(e=0,i=o.down.length;i>e;e++)n[o.down[e]]=[0,t];for(e=0,i=o.up.length;i>e;e++)n[o.up[e]]=[0,-1*t]},_setZoomOffset:function(t){var e,i,n=this._zoomKeys={},o=this.keyCodes;for(e=0,i=o.zoomIn.length;i>e;e++)n[o.zoomIn[e]]=t;for(e=0,i=o.zoomOut.length;i>e;e++)n[o.zoomOut[e]]=-t},_addHooks:function(){l.DomEvent.on(r,"keydown",this._onKeyDown,this)},_removeHooks:function(){l.DomEvent.off(r,"keydown",this._onKeyDown,this)},_onKeyDown:function(t){var e=t.keyCode,i=this._map;if(e in this._panKeys){if(i._panAnim&&i._panAnim._inProgress)return;i.panBy(this._panKeys[e]),i.options.maxBounds&&i.panInsideBounds(i.options.maxBounds)}else{if(!(e in this._zoomKeys))return;i.setZoom(i.getZoom()+this._zoomKeys[e])}l.DomEvent.stop(t)}}),l.Map.addInitHook("addHandler","keyboard",l.Map.Keyboard),l.Handler.MarkerDrag=l.Handler.extend({initialize:function(t){this._marker=t},addHooks:function(){var t=this._marker._icon;this._draggable||(this._draggable=new l.Draggable(t,t)),this._draggable.on("dragstart",this._onDragStart,this).on("drag",this._onDrag,this).on("dragend",this._onDragEnd,this),this._draggable.enable(),l.DomUtil.addClass(this._marker._icon,"leaflet-marker-draggable")},removeHooks:function(){this._draggable.off("dragstart",this._onDragStart,this).off("drag",this._onDrag,this).off("dragend",this._onDragEnd,this),this._draggable.disable(),l.DomUtil.removeClass(this._marker._icon,"leaflet-marker-draggable")},moved:function(){return this._draggable&&this._draggable._moved},_onDragStart:function(){this._marker.closePopup().fire("movestart").fire("dragstart")},_onDrag:function(){var t=this._marker,e=t._shadow,i=l.DomUtil.getPosition(t._icon),n=t._map.layerPointToLatLng(i);e&&l.DomUtil.setPosition(e,i),t._latlng=n,t.fire("move",{latlng:n}).fire("drag")},_onDragEnd:function(t){this._marker.fire("moveend").fire("dragend",t)}}),l.Control=l.Class.extend({options:{position:"topright"},initialize:function(t){l.setOptions(this,t)},getPosition:function(){return this.options.position},setPosition:function(t){var e=this._map;return e&&e.removeControl(this),this.options.position=t,e&&e.addControl(this),this},getContainer:function(){return this._container},addTo:function(t){this._map=t;var e=this._container=this.onAdd(t),i=this.getPosition(),n=t._controlCorners[i];return l.DomUtil.addClass(e,"leaflet-control"),-1!==i.indexOf("bottom")?n.insertBefore(e,n.firstChild):n.appendChild(e),this},removeFrom:function(t){var e=this.getPosition(),i=t._controlCorners[e];return i.removeChild(this._container),this._map=null,this.onRemove&&this.onRemove(t),this},_refocusOnMap:function(){this._map&&this._map.getContainer().focus()}}),l.control=function(t){return new l.Control(t)},l.Map.include({addControl:function(t){return t.addTo(this),this},removeControl:function(t){return t.removeFrom(this),this},_initControlPos:function(){function t(t,o){var s=i+t+" "+i+o;e[t+o]=l.DomUtil.create("div",s,n)}var e=this._controlCorners={},i="leaflet-",n=this._controlContainer=l.DomUtil.create("div",i+"control-container",this._container);t("top","left"),t("top","right"),t("bottom","left"),t("bottom","right")},_clearControlPos:function(){this._container.removeChild(this._controlContainer)}}),l.Control.Zoom=l.Control.extend({options:{position:"topleft",zoomInText:"+",zoomInTitle:"Zoom in",zoomOutText:"-",zoomOutTitle:"Zoom out"},onAdd:function(t){var e="leaflet-control-zoom",i=l.DomUtil.create("div",e+" leaflet-bar");return this._map=t,this._zoomInButton=this._createButton(this.options.zoomInText,this.options.zoomInTitle,e+"-in",i,this._zoomIn,this),this._zoomOutButton=this._createButton(this.options.zoomOutText,this.options.zoomOutTitle,e+"-out",i,this._zoomOut,this),this._updateDisabled(),t.on("zoomend zoomlevelschange",this._updateDisabled,this),i},onRemove:function(t){t.off("zoomend zoomlevelschange",this._updateDisabled,this)},_zoomIn:function(t){this._map.zoomIn(t.shiftKey?3:1)},_zoomOut:function(t){this._map.zoomOut(t.shiftKey?3:1)},_createButton:function(t,e,i,n,o,s){var r=l.DomUtil.create("a",i,n);r.innerHTML=t,r.href="#",r.title=e;var a=l.DomEvent.stopPropagation;return l.DomEvent.on(r,"click",a).on(r,"mousedown",a).on(r,"dblclick",a).on(r,"click",l.DomEvent.preventDefault).on(r,"click",o,s).on(r,"click",this._refocusOnMap,s),r},_updateDisabled:function(){var t=this._map,e="leaflet-disabled";l.DomUtil.removeClass(this._zoomInButton,e),l.DomUtil.removeClass(this._zoomOutButton,e),t._zoom===t.getMinZoom()&&l.DomUtil.addClass(this._zoomOutButton,e),t._zoom===t.getMaxZoom()&&l.DomUtil.addClass(this._zoomInButton,e)}}),l.Map.mergeOptions({zoomControl:!0}),l.Map.addInitHook(function(){this.options.zoomControl&&(this.zoomControl=new l.Control.Zoom,this.addControl(this.zoomControl))}),l.control.zoom=function(t){return new l.Control.Zoom(t)},l.Control.Attribution=l.Control.extend({options:{position:"bottomright",prefix:'<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>'},initialize:function(t){l.setOptions(this,t),this._attributions={}},onAdd:function(t){this._container=l.DomUtil.create("div","leaflet-control-attribution"),l.DomEvent.disableClickPropagation(this._container);for(var e in t._layers)t._layers[e].getAttribution&&this.addAttribution(t._layers[e].getAttribution());return t.on("layeradd",this._onLayerAdd,this).on("layerremove",this._onLayerRemove,this),this._update(),this._container},onRemove:function(t){t.off("layeradd",this._onLayerAdd).off("layerremove",this._onLayerRemove)},setPrefix:function(t){return this.options.prefix=t,this._update(),this},addAttribution:function(t){return t?(this._attributions[t]||(this._attributions[t]=0),this._attributions[t]++,this._update(),this):void 0},removeAttribution:function(t){return t?(this._attributions[t]&&(this._attributions[t]--,this._update()),this):void 0},_update:function(){if(this._map){var t=[];for(var e in this._attributions)this._attributions[e]&&t.push(e);var i=[];this.options.prefix&&i.push(this.options.prefix),t.length&&i.push(t.join(", ")),this._container.innerHTML=i.join(" | ")}},_onLayerAdd:function(t){t.layer.getAttribution&&this.addAttribution(t.layer.getAttribution())},_onLayerRemove:function(t){t.layer.getAttribution&&this.removeAttribution(t.layer.getAttribution())}}),l.Map.mergeOptions({attributionControl:!0}),l.Map.addInitHook(function(){this.options.attributionControl&&(this.attributionControl=(new l.Control.Attribution).addTo(this))}),l.control.attribution=function(t){return new l.Control.Attribution(t)},l.Control.Scale=l.Control.extend({options:{position:"bottomleft",maxWidth:100,metric:!0,imperial:!0,updateWhenIdle:!1},onAdd:function(t){this._map=t;var e="leaflet-control-scale",i=l.DomUtil.create("div",e),n=this.options;return this._addScales(n,e,i),t.on(n.updateWhenIdle?"moveend":"move",this._update,this),t.whenReady(this._update,this),i},onRemove:function(t){t.off(this.options.updateWhenIdle?"moveend":"move",this._update,this)},_addScales:function(t,e,i){t.metric&&(this._mScale=l.DomUtil.create("div",e+"-line",i)),t.imperial&&(this._iScale=l.DomUtil.create("div",e+"-line",i))},_update:function(){var t=this._map.getBounds(),e=t.getCenter().lat,i=6378137*Math.PI*Math.cos(e*Math.PI/180),n=i*(t.getNorthEast().lng-t.getSouthWest().lng)/180,o=this._map.getSize(),s=this.options,r=0;o.x>0&&(r=n*(s.maxWidth/o.x)),this._updateScales(s,r)},_updateScales:function(t,e){t.metric&&e&&this._updateMetric(e),t.imperial&&e&&this._updateImperial(e)},_updateMetric:function(t){var e=this._getRoundNum(t);this._mScale.style.width=this._getScaleWidth(e/t)+"px",this._mScale.innerHTML=1e3>e?e+" m":e/1e3+" km"},_updateImperial:function(t){var e,i,n,o=3.2808399*t,s=this._iScale;o>5280?(e=o/5280,i=this._getRoundNum(e),s.style.width=this._getScaleWidth(i/e)+"px",s.innerHTML=i+" mi"):(n=this._getRoundNum(o),s.style.width=this._getScaleWidth(n/o)+"px",s.innerHTML=n+" ft")},_getScaleWidth:function(t){return Math.round(this.options.maxWidth*t)-10},_getRoundNum:function(t){var e=Math.pow(10,(Math.floor(t)+"").length-1),i=t/e;return i=i>=10?10:i>=5?5:i>=3?3:i>=2?2:1,e*i}}),l.control.scale=function(t){return new l.Control.Scale(t)},l.Control.Layers=l.Control.extend({options:{collapsed:!0,position:"topright",autoZIndex:!0},initialize:function(t,e,i){l.setOptions(this,i),this._layers={},this._lastZIndex=0,this._handlingClick=!1;for(var n in t)this._addLayer(t[n],n);for(n in e)this._addLayer(e[n],n,!0)},onAdd:function(t){return this._initLayout(),this._update(),t.on("layeradd",this._onLayerChange,this).on("layerremove",this._onLayerChange,this),
-this._container},onRemove:function(t){t.off("layeradd",this._onLayerChange,this).off("layerremove",this._onLayerChange,this)},addBaseLayer:function(t,e){return this._addLayer(t,e),this._update(),this},addOverlay:function(t,e){return this._addLayer(t,e,!0),this._update(),this},removeLayer:function(t){var e=l.stamp(t);return delete this._layers[e],this._update(),this},_initLayout:function(){var t="leaflet-control-layers",e=this._container=l.DomUtil.create("div",t);e.setAttribute("aria-haspopup",!0),l.Browser.touch?l.DomEvent.on(e,"click",l.DomEvent.stopPropagation):l.DomEvent.disableClickPropagation(e).disableScrollPropagation(e);var i=this._form=l.DomUtil.create("form",t+"-list");if(this.options.collapsed){l.Browser.android||l.DomEvent.on(e,"mouseover",this._expand,this).on(e,"mouseout",this._collapse,this);var n=this._layersLink=l.DomUtil.create("a",t+"-toggle",e);n.href="#",n.title="Layers",l.Browser.touch?l.DomEvent.on(n,"click",l.DomEvent.stop).on(n,"click",this._expand,this):l.DomEvent.on(n,"focus",this._expand,this),l.DomEvent.on(i,"click",function(){setTimeout(l.bind(this._onInputClick,this),0)},this),this._map.on("click",this._collapse,this)}else this._expand();this._baseLayersList=l.DomUtil.create("div",t+"-base",i),this._separator=l.DomUtil.create("div",t+"-separator",i),this._overlaysList=l.DomUtil.create("div",t+"-overlays",i),e.appendChild(i)},_addLayer:function(t,e,i){var n=l.stamp(t);this._layers[n]={layer:t,name:e,overlay:i},this.options.autoZIndex&&t.setZIndex&&(this._lastZIndex++,t.setZIndex(this._lastZIndex))},_update:function(){if(this._container){this._baseLayersList.innerHTML="",this._overlaysList.innerHTML="";var t,e,i=!1,n=!1;for(t in this._layers)e=this._layers[t],this._addItem(e),n=n||e.overlay,i=i||!e.overlay;this._separator.style.display=n&&i?"":"none"}},_onLayerChange:function(t){var e=this._layers[l.stamp(t.layer)];if(e){this._handlingClick||this._update();var i=e.overlay?"layeradd"===t.type?"overlayadd":"overlayremove":"layeradd"===t.type?"baselayerchange":null;i&&this._map.fire(i,e)}},_createRadioElement:function(t,e){var i='<input type="radio" class="leaflet-control-layers-selector" name="'+t+'"';e&&(i+=' checked="checked"'),i+="/>";var n=r.createElement("div");return n.innerHTML=i,n.firstChild},_addItem:function(t){var e,i=r.createElement("label"),n=this._map.hasLayer(t.layer);t.overlay?(e=r.createElement("input"),e.type="checkbox",e.className="leaflet-control-layers-selector",e.defaultChecked=n):e=this._createRadioElement("leaflet-base-layers",n),e.layerId=l.stamp(t.layer),l.DomEvent.on(e,"click",this._onInputClick,this);var o=r.createElement("span");o.innerHTML=" "+t.name,i.appendChild(e),i.appendChild(o);var s=t.overlay?this._overlaysList:this._baseLayersList;return s.appendChild(i),i},_onInputClick:function(){var t,e,i,n=this._form.getElementsByTagName("input"),o=n.length;for(this._handlingClick=!0,t=0;o>t;t++)e=n[t],i=this._layers[e.layerId],e.checked&&!this._map.hasLayer(i.layer)?this._map.addLayer(i.layer):!e.checked&&this._map.hasLayer(i.layer)&&this._map.removeLayer(i.layer);this._handlingClick=!1,this._refocusOnMap()},_expand:function(){l.DomUtil.addClass(this._container,"leaflet-control-layers-expanded")},_collapse:function(){this._container.className=this._container.className.replace(" leaflet-control-layers-expanded","")}}),l.control.layers=function(t,e,i){return new l.Control.Layers(t,e,i)},l.PosAnimation=l.Class.extend({includes:l.Mixin.Events,run:function(t,e,i,n){this.stop(),this._el=t,this._inProgress=!0,this._newPos=e,this.fire("start"),t.style[l.DomUtil.TRANSITION]="all "+(i||.25)+"s cubic-bezier(0,0,"+(n||.5)+",1)",l.DomEvent.on(t,l.DomUtil.TRANSITION_END,this._onTransitionEnd,this),l.DomUtil.setPosition(t,e),l.Util.falseFn(t.offsetWidth),this._stepTimer=setInterval(l.bind(this._onStep,this),50)},stop:function(){this._inProgress&&(l.DomUtil.setPosition(this._el,this._getPos()),this._onTransitionEnd(),l.Util.falseFn(this._el.offsetWidth))},_onStep:function(){var t=this._getPos();return t?(this._el._leaflet_pos=t,void this.fire("step")):void this._onTransitionEnd()},_transformRe:/([-+]?(?:\d*\.)?\d+)\D*, ([-+]?(?:\d*\.)?\d+)\D*\)/,_getPos:function(){var t,e,i,n=this._el,o=s.getComputedStyle(n);if(l.Browser.any3d){if(i=o[l.DomUtil.TRANSFORM].match(this._transformRe),!i)return;t=parseFloat(i[1]),e=parseFloat(i[2])}else t=parseFloat(o.left),e=parseFloat(o.top);return new l.Point(t,e,!0)},_onTransitionEnd:function(){l.DomEvent.off(this._el,l.DomUtil.TRANSITION_END,this._onTransitionEnd,this),this._inProgress&&(this._inProgress=!1,this._el.style[l.DomUtil.TRANSITION]="",this._el._leaflet_pos=this._newPos,clearInterval(this._stepTimer),this.fire("step").fire("end"))}}),l.Map.include({setView:function(t,e,i){if(e=e===a?this._zoom:this._limitZoom(e),t=this._limitCenter(l.latLng(t),e,this.options.maxBounds),i=i||{},this._panAnim&&this._panAnim.stop(),this._loaded&&!i.reset&&i!==!0){i.animate!==a&&(i.zoom=l.extend({animate:i.animate},i.zoom),i.pan=l.extend({animate:i.animate},i.pan));var n=this._zoom!==e?this._tryAnimatedZoom&&this._tryAnimatedZoom(t,e,i.zoom):this._tryAnimatedPan(t,i.pan);if(n)return clearTimeout(this._sizeTimer),this}return this._resetView(t,e),this},panBy:function(t,e){if(t=l.point(t).round(),e=e||{},!t.x&&!t.y)return this;if(this._panAnim||(this._panAnim=new l.PosAnimation,this._panAnim.on({step:this._onPanTransitionStep,end:this._onPanTransitionEnd},this)),e.noMoveStart||this.fire("movestart"),e.animate!==!1){l.DomUtil.addClass(this._mapPane,"leaflet-pan-anim");var i=this._getMapPanePos().subtract(t);this._panAnim.run(this._mapPane,i,e.duration||.25,e.easeLinearity)}else this._rawPanBy(t),this.fire("move").fire("moveend");return this},_onPanTransitionStep:function(){this.fire("move")},_onPanTransitionEnd:function(){l.DomUtil.removeClass(this._mapPane,"leaflet-pan-anim"),this.fire("moveend")},_tryAnimatedPan:function(t,e){var i=this._getCenterOffset(t)._floor();return(e&&e.animate)===!0||this.getSize().contains(i)?(this.panBy(i,e),!0):!1}}),l.PosAnimation=l.DomUtil.TRANSITION?l.PosAnimation:l.PosAnimation.extend({run:function(t,e,i,n){this.stop(),this._el=t,this._inProgress=!0,this._duration=i||.25,this._easeOutPower=1/Math.max(n||.5,.2),this._startPos=l.DomUtil.getPosition(t),this._offset=e.subtract(this._startPos),this._startTime=+new Date,this.fire("start"),this._animate()},stop:function(){this._inProgress&&(this._step(),this._complete())},_animate:function(){this._animId=l.Util.requestAnimFrame(this._animate,this),this._step()},_step:function(){var t=+new Date-this._startTime,e=1e3*this._duration;e>t?this._runFrame(this._easeOut(t/e)):(this._runFrame(1),this._complete())},_runFrame:function(t){var e=this._startPos.add(this._offset.multiplyBy(t));l.DomUtil.setPosition(this._el,e),this.fire("step")},_complete:function(){l.Util.cancelAnimFrame(this._animId),this._inProgress=!1,this.fire("end")},_easeOut:function(t){return 1-Math.pow(1-t,this._easeOutPower)}}),l.Map.mergeOptions({zoomAnimation:!0,zoomAnimationThreshold:4}),l.DomUtil.TRANSITION&&l.Map.addInitHook(function(){this._zoomAnimated=this.options.zoomAnimation&&l.DomUtil.TRANSITION&&l.Browser.any3d&&!l.Browser.android23&&!l.Browser.mobileOpera,this._zoomAnimated&&l.DomEvent.on(this._mapPane,l.DomUtil.TRANSITION_END,this._catchTransitionEnd,this)}),l.Map.include(l.DomUtil.TRANSITION?{_catchTransitionEnd:function(t){this._animatingZoom&&t.propertyName.indexOf("transform")>=0&&this._onZoomTransitionEnd()},_nothingToAnimate:function(){return!this._container.getElementsByClassName("leaflet-zoom-animated").length},_tryAnimatedZoom:function(t,e,i){if(this._animatingZoom)return!0;if(i=i||{},!this._zoomAnimated||i.animate===!1||this._nothingToAnimate()||Math.abs(e-this._zoom)>this.options.zoomAnimationThreshold)return!1;var n=this.getZoomScale(e),o=this._getCenterOffset(t)._divideBy(1-1/n),s=this._getCenterLayerPoint()._add(o);return i.animate===!0||this.getSize().contains(o)?(this.fire("movestart").fire("zoomstart"),this._animateZoom(t,e,s,n,null,!0),!0):!1},_animateZoom:function(t,e,i,n,o,s,r){r||(this._animatingZoom=!0),l.DomUtil.addClass(this._mapPane,"leaflet-zoom-anim"),this._animateToCenter=t,this._animateToZoom=e,l.Draggable&&(l.Draggable._disabled=!0),l.Util.requestAnimFrame(function(){this.fire("zoomanim",{center:t,zoom:e,origin:i,scale:n,delta:o,backwards:s}),setTimeout(l.bind(this._onZoomTransitionEnd,this),250)},this)},_onZoomTransitionEnd:function(){this._animatingZoom&&(this._animatingZoom=!1,l.DomUtil.removeClass(this._mapPane,"leaflet-zoom-anim"),l.Util.requestAnimFrame(function(){this._resetView(this._animateToCenter,this._animateToZoom,!0,!0),l.Draggable&&(l.Draggable._disabled=!1)},this))}}:{}),l.TileLayer.include({_animateZoom:function(t){this._animating||(this._animating=!0,this._prepareBgBuffer());var e=this._bgBuffer,i=l.DomUtil.TRANSFORM,n=t.delta?l.DomUtil.getTranslateString(t.delta):e.style[i],o=l.DomUtil.getScaleString(t.scale,t.origin);e.style[i]=t.backwards?o+" "+n:n+" "+o},_endZoomAnim:function(){var t=this._tileContainer,e=this._bgBuffer;t.style.visibility="",t.parentNode.appendChild(t),l.Util.falseFn(e.offsetWidth);var i=this._map.getZoom();(i>this.options.maxZoom||i<this.options.minZoom)&&this._clearBgBuffer(),this._animating=!1},_clearBgBuffer:function(){var t=this._map;!t||t._animatingZoom||t.touchZoom._zooming||(this._bgBuffer.innerHTML="",this._bgBuffer.style[l.DomUtil.TRANSFORM]="")},_prepareBgBuffer:function(){var t=this._tileContainer,e=this._bgBuffer,i=this._getLoadedTilesPercentage(e),n=this._getLoadedTilesPercentage(t);return e&&i>.5&&.5>n?(t.style.visibility="hidden",void this._stopLoadingImages(t)):(e.style.visibility="hidden",e.style[l.DomUtil.TRANSFORM]="",this._tileContainer=e,e=this._bgBuffer=t,this._stopLoadingImages(e),void clearTimeout(this._clearBgBufferTimer))},_getLoadedTilesPercentage:function(t){var e,i,n=t.getElementsByTagName("img"),o=0;for(e=0,i=n.length;i>e;e++)n[e].complete&&o++;return o/i},_stopLoadingImages:function(t){var e,i,n,o=Array.prototype.slice.call(t.getElementsByTagName("img"));for(e=0,i=o.length;i>e;e++)n=o[e],n.complete||(n.onload=l.Util.falseFn,n.onerror=l.Util.falseFn,n.src=l.Util.emptyImageUrl,n.parentNode.removeChild(n))}}),l.Map.include({_defaultLocateOptions:{watch:!1,setView:!1,maxZoom:1/0,timeout:1e4,maximumAge:0,enableHighAccuracy:!1},locate:function(t){if(t=this._locateOptions=l.extend(this._defaultLocateOptions,t),!navigator.geolocation)return this._handleGeolocationError({code:0,message:"Geolocation not supported."}),this;var e=l.bind(this._handleGeolocationResponse,this),i=l.bind(this._handleGeolocationError,this);return t.watch?this._locationWatchId=navigator.geolocation.watchPosition(e,i,t):navigator.geolocation.getCurrentPosition(e,i,t),this},stopLocate:function(){return navigator.geolocation&&navigator.geolocation.clearWatch(this._locationWatchId),this._locateOptions&&(this._locateOptions.setView=!1),this},_handleGeolocationError:function(t){var e=t.code,i=t.message||(1===e?"permission denied":2===e?"position unavailable":"timeout");this._locateOptions.setView&&!this._loaded&&this.fitWorld(),this.fire("locationerror",{code:e,message:"Geolocation error: "+i+"."})},_handleGeolocationResponse:function(t){var e=t.coords.latitude,i=t.coords.longitude,n=new l.LatLng(e,i),o=180*t.coords.accuracy/40075017,s=o/Math.cos(l.LatLng.DEG_TO_RAD*e),r=l.latLngBounds([e-o,i-s],[e+o,i+s]),a=this._locateOptions;if(a.setView){var h=Math.min(this.getBoundsZoom(r),a.maxZoom);this.setView(n,h)}var u={latlng:n,bounds:r,timestamp:t.timestamp};for(var c in t.coords)"number"==typeof t.coords[c]&&(u[c]=t.coords[c]);this.fire("locationfound",u)}})}(window,document)}});
+	
+	(function() {
+	    "use strict";
+	    function lib$es6$promise$utils$$objectOrFunction(x) {
+	      return typeof x === 'function' || (typeof x === 'object' && x !== null);
+	    }
+	
+	    function lib$es6$promise$utils$$isFunction(x) {
+	      return typeof x === 'function';
+	    }
+	
+	    function lib$es6$promise$utils$$isMaybeThenable(x) {
+	      return typeof x === 'object' && x !== null;
+	    }
+	
+	    var lib$es6$promise$utils$$_isArray;
+	    if (!Array.isArray) {
+	      lib$es6$promise$utils$$_isArray = function (x) {
+	        return Object.prototype.toString.call(x) === '[object Array]';
+	      };
+	    } else {
+	      lib$es6$promise$utils$$_isArray = Array.isArray;
+	    }
+	
+	    var lib$es6$promise$utils$$isArray = lib$es6$promise$utils$$_isArray;
+	    var lib$es6$promise$asap$$len = 0;
+	    var lib$es6$promise$asap$$toString = {}.toString;
+	    var lib$es6$promise$asap$$vertxNext;
+	    var lib$es6$promise$asap$$customSchedulerFn;
+	
+	    var lib$es6$promise$asap$$asap = function asap(callback, arg) {
+	      lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len] = callback;
+	      lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len + 1] = arg;
+	      lib$es6$promise$asap$$len += 2;
+	      if (lib$es6$promise$asap$$len === 2) {
+	        // If len is 2, that means that we need to schedule an async flush.
+	        // If additional callbacks are queued before the queue is flushed, they
+	        // will be processed by this flush that we are scheduling.
+	        if (lib$es6$promise$asap$$customSchedulerFn) {
+	          lib$es6$promise$asap$$customSchedulerFn(lib$es6$promise$asap$$flush);
+	        } else {
+	          lib$es6$promise$asap$$scheduleFlush();
+	        }
+	      }
+	    }
+	
+	    function lib$es6$promise$asap$$setScheduler(scheduleFn) {
+	      lib$es6$promise$asap$$customSchedulerFn = scheduleFn;
+	    }
+	
+	    function lib$es6$promise$asap$$setAsap(asapFn) {
+	      lib$es6$promise$asap$$asap = asapFn;
+	    }
+	
+	    var lib$es6$promise$asap$$browserWindow = (typeof window !== 'undefined') ? window : undefined;
+	    var lib$es6$promise$asap$$browserGlobal = lib$es6$promise$asap$$browserWindow || {};
+	    var lib$es6$promise$asap$$BrowserMutationObserver = lib$es6$promise$asap$$browserGlobal.MutationObserver || lib$es6$promise$asap$$browserGlobal.WebKitMutationObserver;
+	    var lib$es6$promise$asap$$isNode = typeof process !== 'undefined' && {}.toString.call(process) === '[object process]';
+	
+	    // test for web worker but not in IE10
+	    var lib$es6$promise$asap$$isWorker = typeof Uint8ClampedArray !== 'undefined' &&
+	      typeof importScripts !== 'undefined' &&
+	      typeof MessageChannel !== 'undefined';
+	
+	    // node
+	    function lib$es6$promise$asap$$useNextTick() {
+	      // node version 0.10.x displays a deprecation warning when nextTick is used recursively
+	      // see https://github.com/cujojs/when/issues/410 for details
+	      return function() {
+	        process.nextTick(lib$es6$promise$asap$$flush);
+	      };
+	    }
+	
+	    // vertx
+	    function lib$es6$promise$asap$$useVertxTimer() {
+	      return function() {
+	        lib$es6$promise$asap$$vertxNext(lib$es6$promise$asap$$flush);
+	      };
+	    }
+	
+	    function lib$es6$promise$asap$$useMutationObserver() {
+	      var iterations = 0;
+	      var observer = new lib$es6$promise$asap$$BrowserMutationObserver(lib$es6$promise$asap$$flush);
+	      var node = document.createTextNode('');
+	      observer.observe(node, { characterData: true });
+	
+	      return function() {
+	        node.data = (iterations = ++iterations % 2);
+	      };
+	    }
+	
+	    // web worker
+	    function lib$es6$promise$asap$$useMessageChannel() {
+	      var channel = new MessageChannel();
+	      channel.port1.onmessage = lib$es6$promise$asap$$flush;
+	      return function () {
+	        channel.port2.postMessage(0);
+	      };
+	    }
+	
+	    function lib$es6$promise$asap$$useSetTimeout() {
+	      return function() {
+	        setTimeout(lib$es6$promise$asap$$flush, 1);
+	      };
+	    }
+	
+	    var lib$es6$promise$asap$$queue = new Array(1000);
+	    function lib$es6$promise$asap$$flush() {
+	      for (var i = 0; i < lib$es6$promise$asap$$len; i+=2) {
+	        var callback = lib$es6$promise$asap$$queue[i];
+	        var arg = lib$es6$promise$asap$$queue[i+1];
+	
+	        callback(arg);
+	
+	        lib$es6$promise$asap$$queue[i] = undefined;
+	        lib$es6$promise$asap$$queue[i+1] = undefined;
+	      }
+	
+	      lib$es6$promise$asap$$len = 0;
+	    }
+	
+	    function lib$es6$promise$asap$$attemptVertx() {
+	      try {
+	        var r = require;
+	        var vertx = r('vertx');
+	        lib$es6$promise$asap$$vertxNext = vertx.runOnLoop || vertx.runOnContext;
+	        return lib$es6$promise$asap$$useVertxTimer();
+	      } catch(e) {
+	        return lib$es6$promise$asap$$useSetTimeout();
+	      }
+	    }
+	
+	    var lib$es6$promise$asap$$scheduleFlush;
+	    // Decide what async method to use to triggering processing of queued callbacks:
+	    if (lib$es6$promise$asap$$isNode) {
+	      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useNextTick();
+	    } else if (lib$es6$promise$asap$$BrowserMutationObserver) {
+	      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useMutationObserver();
+	    } else if (lib$es6$promise$asap$$isWorker) {
+	      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useMessageChannel();
+	    } else if (lib$es6$promise$asap$$browserWindow === undefined && typeof require === 'function') {
+	      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$attemptVertx();
+	    } else {
+	      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useSetTimeout();
+	    }
+	
+	    function lib$es6$promise$$internal$$noop() {}
+	
+	    var lib$es6$promise$$internal$$PENDING   = void 0;
+	    var lib$es6$promise$$internal$$FULFILLED = 1;
+	    var lib$es6$promise$$internal$$REJECTED  = 2;
+	
+	    var lib$es6$promise$$internal$$GET_THEN_ERROR = new lib$es6$promise$$internal$$ErrorObject();
+	
+	    function lib$es6$promise$$internal$$selfFulfillment() {
+	      return new TypeError("You cannot resolve a promise with itself");
+	    }
+	
+	    function lib$es6$promise$$internal$$cannotReturnOwn() {
+	      return new TypeError('A promises callback cannot return that same promise.');
+	    }
+	
+	    function lib$es6$promise$$internal$$getThen(promise) {
+	      try {
+	        return promise.then;
+	      } catch(error) {
+	        lib$es6$promise$$internal$$GET_THEN_ERROR.error = error;
+	        return lib$es6$promise$$internal$$GET_THEN_ERROR;
+	      }
+	    }
+	
+	    function lib$es6$promise$$internal$$tryThen(then, value, fulfillmentHandler, rejectionHandler) {
+	      try {
+	        then.call(value, fulfillmentHandler, rejectionHandler);
+	      } catch(e) {
+	        return e;
+	      }
+	    }
+	
+	    function lib$es6$promise$$internal$$handleForeignThenable(promise, thenable, then) {
+	       lib$es6$promise$asap$$asap(function(promise) {
+	        var sealed = false;
+	        var error = lib$es6$promise$$internal$$tryThen(then, thenable, function(value) {
+	          if (sealed) { return; }
+	          sealed = true;
+	          if (thenable !== value) {
+	            lib$es6$promise$$internal$$resolve(promise, value);
+	          } else {
+	            lib$es6$promise$$internal$$fulfill(promise, value);
+	          }
+	        }, function(reason) {
+	          if (sealed) { return; }
+	          sealed = true;
+	
+	          lib$es6$promise$$internal$$reject(promise, reason);
+	        }, 'Settle: ' + (promise._label || ' unknown promise'));
+	
+	        if (!sealed && error) {
+	          sealed = true;
+	          lib$es6$promise$$internal$$reject(promise, error);
+	        }
+	      }, promise);
+	    }
+	
+	    function lib$es6$promise$$internal$$handleOwnThenable(promise, thenable) {
+	      if (thenable._state === lib$es6$promise$$internal$$FULFILLED) {
+	        lib$es6$promise$$internal$$fulfill(promise, thenable._result);
+	      } else if (thenable._state === lib$es6$promise$$internal$$REJECTED) {
+	        lib$es6$promise$$internal$$reject(promise, thenable._result);
+	      } else {
+	        lib$es6$promise$$internal$$subscribe(thenable, undefined, function(value) {
+	          lib$es6$promise$$internal$$resolve(promise, value);
+	        }, function(reason) {
+	          lib$es6$promise$$internal$$reject(promise, reason);
+	        });
+	      }
+	    }
+	
+	    function lib$es6$promise$$internal$$handleMaybeThenable(promise, maybeThenable) {
+	      if (maybeThenable.constructor === promise.constructor) {
+	        lib$es6$promise$$internal$$handleOwnThenable(promise, maybeThenable);
+	      } else {
+	        var then = lib$es6$promise$$internal$$getThen(maybeThenable);
+	
+	        if (then === lib$es6$promise$$internal$$GET_THEN_ERROR) {
+	          lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$GET_THEN_ERROR.error);
+	        } else if (then === undefined) {
+	          lib$es6$promise$$internal$$fulfill(promise, maybeThenable);
+	        } else if (lib$es6$promise$utils$$isFunction(then)) {
+	          lib$es6$promise$$internal$$handleForeignThenable(promise, maybeThenable, then);
+	        } else {
+	          lib$es6$promise$$internal$$fulfill(promise, maybeThenable);
+	        }
+	      }
+	    }
+	
+	    function lib$es6$promise$$internal$$resolve(promise, value) {
+	      if (promise === value) {
+	        lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$selfFulfillment());
+	      } else if (lib$es6$promise$utils$$objectOrFunction(value)) {
+	        lib$es6$promise$$internal$$handleMaybeThenable(promise, value);
+	      } else {
+	        lib$es6$promise$$internal$$fulfill(promise, value);
+	      }
+	    }
+	
+	    function lib$es6$promise$$internal$$publishRejection(promise) {
+	      if (promise._onerror) {
+	        promise._onerror(promise._result);
+	      }
+	
+	      lib$es6$promise$$internal$$publish(promise);
+	    }
+	
+	    function lib$es6$promise$$internal$$fulfill(promise, value) {
+	      if (promise._state !== lib$es6$promise$$internal$$PENDING) { return; }
+	
+	      promise._result = value;
+	      promise._state = lib$es6$promise$$internal$$FULFILLED;
+	
+	      if (promise._subscribers.length !== 0) {
+	        lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publish, promise);
+	      }
+	    }
+	
+	    function lib$es6$promise$$internal$$reject(promise, reason) {
+	      if (promise._state !== lib$es6$promise$$internal$$PENDING) { return; }
+	      promise._state = lib$es6$promise$$internal$$REJECTED;
+	      promise._result = reason;
+	
+	      lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publishRejection, promise);
+	    }
+	
+	    function lib$es6$promise$$internal$$subscribe(parent, child, onFulfillment, onRejection) {
+	      var subscribers = parent._subscribers;
+	      var length = subscribers.length;
+	
+	      parent._onerror = null;
+	
+	      subscribers[length] = child;
+	      subscribers[length + lib$es6$promise$$internal$$FULFILLED] = onFulfillment;
+	      subscribers[length + lib$es6$promise$$internal$$REJECTED]  = onRejection;
+	
+	      if (length === 0 && parent._state) {
+	        lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publish, parent);
+	      }
+	    }
+	
+	    function lib$es6$promise$$internal$$publish(promise) {
+	      var subscribers = promise._subscribers;
+	      var settled = promise._state;
+	
+	      if (subscribers.length === 0) { return; }
+	
+	      var child, callback, detail = promise._result;
+	
+	      for (var i = 0; i < subscribers.length; i += 3) {
+	        child = subscribers[i];
+	        callback = subscribers[i + settled];
+	
+	        if (child) {
+	          lib$es6$promise$$internal$$invokeCallback(settled, child, callback, detail);
+	        } else {
+	          callback(detail);
+	        }
+	      }
+	
+	      promise._subscribers.length = 0;
+	    }
+	
+	    function lib$es6$promise$$internal$$ErrorObject() {
+	      this.error = null;
+	    }
+	
+	    var lib$es6$promise$$internal$$TRY_CATCH_ERROR = new lib$es6$promise$$internal$$ErrorObject();
+	
+	    function lib$es6$promise$$internal$$tryCatch(callback, detail) {
+	      try {
+	        return callback(detail);
+	      } catch(e) {
+	        lib$es6$promise$$internal$$TRY_CATCH_ERROR.error = e;
+	        return lib$es6$promise$$internal$$TRY_CATCH_ERROR;
+	      }
+	    }
+	
+	    function lib$es6$promise$$internal$$invokeCallback(settled, promise, callback, detail) {
+	      var hasCallback = lib$es6$promise$utils$$isFunction(callback),
+	          value, error, succeeded, failed;
+	
+	      if (hasCallback) {
+	        value = lib$es6$promise$$internal$$tryCatch(callback, detail);
+	
+	        if (value === lib$es6$promise$$internal$$TRY_CATCH_ERROR) {
+	          failed = true;
+	          error = value.error;
+	          value = null;
+	        } else {
+	          succeeded = true;
+	        }
+	
+	        if (promise === value) {
+	          lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$cannotReturnOwn());
+	          return;
+	        }
+	
+	      } else {
+	        value = detail;
+	        succeeded = true;
+	      }
+	
+	      if (promise._state !== lib$es6$promise$$internal$$PENDING) {
+	        // noop
+	      } else if (hasCallback && succeeded) {
+	        lib$es6$promise$$internal$$resolve(promise, value);
+	      } else if (failed) {
+	        lib$es6$promise$$internal$$reject(promise, error);
+	      } else if (settled === lib$es6$promise$$internal$$FULFILLED) {
+	        lib$es6$promise$$internal$$fulfill(promise, value);
+	      } else if (settled === lib$es6$promise$$internal$$REJECTED) {
+	        lib$es6$promise$$internal$$reject(promise, value);
+	      }
+	    }
+	
+	    function lib$es6$promise$$internal$$initializePromise(promise, resolver) {
+	      try {
+	        resolver(function resolvePromise(value){
+	          lib$es6$promise$$internal$$resolve(promise, value);
+	        }, function rejectPromise(reason) {
+	          lib$es6$promise$$internal$$reject(promise, reason);
+	        });
+	      } catch(e) {
+	        lib$es6$promise$$internal$$reject(promise, e);
+	      }
+	    }
+	
+	    function lib$es6$promise$enumerator$$Enumerator(Constructor, input) {
+	      var enumerator = this;
+	
+	      enumerator._instanceConstructor = Constructor;
+	      enumerator.promise = new Constructor(lib$es6$promise$$internal$$noop);
+	
+	      if (enumerator._validateInput(input)) {
+	        enumerator._input     = input;
+	        enumerator.length     = input.length;
+	        enumerator._remaining = input.length;
+	
+	        enumerator._init();
+	
+	        if (enumerator.length === 0) {
+	          lib$es6$promise$$internal$$fulfill(enumerator.promise, enumerator._result);
+	        } else {
+	          enumerator.length = enumerator.length || 0;
+	          enumerator._enumerate();
+	          if (enumerator._remaining === 0) {
+	            lib$es6$promise$$internal$$fulfill(enumerator.promise, enumerator._result);
+	          }
+	        }
+	      } else {
+	        lib$es6$promise$$internal$$reject(enumerator.promise, enumerator._validationError());
+	      }
+	    }
+	
+	    lib$es6$promise$enumerator$$Enumerator.prototype._validateInput = function(input) {
+	      return lib$es6$promise$utils$$isArray(input);
+	    };
+	
+	    lib$es6$promise$enumerator$$Enumerator.prototype._validationError = function() {
+	      return new Error('Array Methods must be provided an Array');
+	    };
+	
+	    lib$es6$promise$enumerator$$Enumerator.prototype._init = function() {
+	      this._result = new Array(this.length);
+	    };
+	
+	    var lib$es6$promise$enumerator$$default = lib$es6$promise$enumerator$$Enumerator;
+	
+	    lib$es6$promise$enumerator$$Enumerator.prototype._enumerate = function() {
+	      var enumerator = this;
+	
+	      var length  = enumerator.length;
+	      var promise = enumerator.promise;
+	      var input   = enumerator._input;
+	
+	      for (var i = 0; promise._state === lib$es6$promise$$internal$$PENDING && i < length; i++) {
+	        enumerator._eachEntry(input[i], i);
+	      }
+	    };
+	
+	    lib$es6$promise$enumerator$$Enumerator.prototype._eachEntry = function(entry, i) {
+	      var enumerator = this;
+	      var c = enumerator._instanceConstructor;
+	
+	      if (lib$es6$promise$utils$$isMaybeThenable(entry)) {
+	        if (entry.constructor === c && entry._state !== lib$es6$promise$$internal$$PENDING) {
+	          entry._onerror = null;
+	          enumerator._settledAt(entry._state, i, entry._result);
+	        } else {
+	          enumerator._willSettleAt(c.resolve(entry), i);
+	        }
+	      } else {
+	        enumerator._remaining--;
+	        enumerator._result[i] = entry;
+	      }
+	    };
+	
+	    lib$es6$promise$enumerator$$Enumerator.prototype._settledAt = function(state, i, value) {
+	      var enumerator = this;
+	      var promise = enumerator.promise;
+	
+	      if (promise._state === lib$es6$promise$$internal$$PENDING) {
+	        enumerator._remaining--;
+	
+	        if (state === lib$es6$promise$$internal$$REJECTED) {
+	          lib$es6$promise$$internal$$reject(promise, value);
+	        } else {
+	          enumerator._result[i] = value;
+	        }
+	      }
+	
+	      if (enumerator._remaining === 0) {
+	        lib$es6$promise$$internal$$fulfill(promise, enumerator._result);
+	      }
+	    };
+	
+	    lib$es6$promise$enumerator$$Enumerator.prototype._willSettleAt = function(promise, i) {
+	      var enumerator = this;
+	
+	      lib$es6$promise$$internal$$subscribe(promise, undefined, function(value) {
+	        enumerator._settledAt(lib$es6$promise$$internal$$FULFILLED, i, value);
+	      }, function(reason) {
+	        enumerator._settledAt(lib$es6$promise$$internal$$REJECTED, i, reason);
+	      });
+	    };
+	    function lib$es6$promise$promise$all$$all(entries) {
+	      return new lib$es6$promise$enumerator$$default(this, entries).promise;
+	    }
+	    var lib$es6$promise$promise$all$$default = lib$es6$promise$promise$all$$all;
+	    function lib$es6$promise$promise$race$$race(entries) {
+	      /*jshint validthis:true */
+	      var Constructor = this;
+	
+	      var promise = new Constructor(lib$es6$promise$$internal$$noop);
+	
+	      if (!lib$es6$promise$utils$$isArray(entries)) {
+	        lib$es6$promise$$internal$$reject(promise, new TypeError('You must pass an array to race.'));
+	        return promise;
+	      }
+	
+	      var length = entries.length;
+	
+	      function onFulfillment(value) {
+	        lib$es6$promise$$internal$$resolve(promise, value);
+	      }
+	
+	      function onRejection(reason) {
+	        lib$es6$promise$$internal$$reject(promise, reason);
+	      }
+	
+	      for (var i = 0; promise._state === lib$es6$promise$$internal$$PENDING && i < length; i++) {
+	        lib$es6$promise$$internal$$subscribe(Constructor.resolve(entries[i]), undefined, onFulfillment, onRejection);
+	      }
+	
+	      return promise;
+	    }
+	    var lib$es6$promise$promise$race$$default = lib$es6$promise$promise$race$$race;
+	    function lib$es6$promise$promise$resolve$$resolve(object) {
+	      /*jshint validthis:true */
+	      var Constructor = this;
+	
+	      if (object && typeof object === 'object' && object.constructor === Constructor) {
+	        return object;
+	      }
+	
+	      var promise = new Constructor(lib$es6$promise$$internal$$noop);
+	      lib$es6$promise$$internal$$resolve(promise, object);
+	      return promise;
+	    }
+	    var lib$es6$promise$promise$resolve$$default = lib$es6$promise$promise$resolve$$resolve;
+	    function lib$es6$promise$promise$reject$$reject(reason) {
+	      /*jshint validthis:true */
+	      var Constructor = this;
+	      var promise = new Constructor(lib$es6$promise$$internal$$noop);
+	      lib$es6$promise$$internal$$reject(promise, reason);
+	      return promise;
+	    }
+	    var lib$es6$promise$promise$reject$$default = lib$es6$promise$promise$reject$$reject;
+	
+	    var lib$es6$promise$promise$$counter = 0;
+	
+	    function lib$es6$promise$promise$$needsResolver() {
+	      throw new TypeError('You must pass a resolver function as the first argument to the promise constructor');
+	    }
+	
+	    function lib$es6$promise$promise$$needsNew() {
+	      throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");
+	    }
+	
+	    var lib$es6$promise$promise$$default = lib$es6$promise$promise$$Promise;
+	    /**
+	      Promise objects represent the eventual result of an asynchronous operation. The
+	      primary way of interacting with a promise is through its `then` method, which
+	      registers callbacks to receive either a promise's eventual value or the reason
+	      why the promise cannot be fulfilled.
+	
+	      Terminology
+	      -----------
+	
+	      - `promise` is an object or function with a `then` method whose behavior conforms to this specification.
+	      - `thenable` is an object or function that defines a `then` method.
+	      - `value` is any legal JavaScript value (including undefined, a thenable, or a promise).
+	      - `exception` is a value that is thrown using the throw statement.
+	      - `reason` is a value that indicates why a promise was rejected.
+	      - `settled` the final resting state of a promise, fulfilled or rejected.
+	
+	      A promise can be in one of three states: pending, fulfilled, or rejected.
+	
+	      Promises that are fulfilled have a fulfillment value and are in the fulfilled
+	      state.  Promises that are rejected have a rejection reason and are in the
+	      rejected state.  A fulfillment value is never a thenable.
+	
+	      Promises can also be said to *resolve* a value.  If this value is also a
+	      promise, then the original promise's settled state will match the value's
+	      settled state.  So a promise that *resolves* a promise that rejects will
+	      itself reject, and a promise that *resolves* a promise that fulfills will
+	      itself fulfill.
+	
+	
+	      Basic Usage:
+	      ------------
+	
+	      ```js
+	      var promise = new Promise(function(resolve, reject) {
+	        // on success
+	        resolve(value);
+	
+	        // on failure
+	        reject(reason);
+	      });
+	
+	      promise.then(function(value) {
+	        // on fulfillment
+	      }, function(reason) {
+	        // on rejection
+	      });
+	      ```
+	
+	      Advanced Usage:
+	      ---------------
+	
+	      Promises shine when abstracting away asynchronous interactions such as
+	      `XMLHttpRequest`s.
+	
+	      ```js
+	      function getJSON(url) {
+	        return new Promise(function(resolve, reject){
+	          var xhr = new XMLHttpRequest();
+	
+	          xhr.open('GET', url);
+	          xhr.onreadystatechange = handler;
+	          xhr.responseType = 'json';
+	          xhr.setRequestHeader('Accept', 'application/json');
+	          xhr.send();
+	
+	          function handler() {
+	            if (this.readyState === this.DONE) {
+	              if (this.status === 200) {
+	                resolve(this.response);
+	              } else {
+	                reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
+	              }
+	            }
+	          };
+	        });
+	      }
+	
+	      getJSON('/posts.json').then(function(json) {
+	        // on fulfillment
+	      }, function(reason) {
+	        // on rejection
+	      });
+	      ```
+	
+	      Unlike callbacks, promises are great composable primitives.
+	
+	      ```js
+	      Promise.all([
+	        getJSON('/posts'),
+	        getJSON('/comments')
+	      ]).then(function(values){
+	        values[0] // => postsJSON
+	        values[1] // => commentsJSON
+	
+	        return values;
+	      });
+	      ```
+	
+	      @class Promise
+	      @param {function} resolver
+	      Useful for tooling.
+	      @constructor
+	    */
+	    function lib$es6$promise$promise$$Promise(resolver) {
+	      this._id = lib$es6$promise$promise$$counter++;
+	      this._state = undefined;
+	      this._result = undefined;
+	      this._subscribers = [];
+	
+	      if (lib$es6$promise$$internal$$noop !== resolver) {
+	        if (!lib$es6$promise$utils$$isFunction(resolver)) {
+	          lib$es6$promise$promise$$needsResolver();
+	        }
+	
+	        if (!(this instanceof lib$es6$promise$promise$$Promise)) {
+	          lib$es6$promise$promise$$needsNew();
+	        }
+	
+	        lib$es6$promise$$internal$$initializePromise(this, resolver);
+	      }
+	    }
+	
+	    lib$es6$promise$promise$$Promise.all = lib$es6$promise$promise$all$$default;
+	    lib$es6$promise$promise$$Promise.race = lib$es6$promise$promise$race$$default;
+	    lib$es6$promise$promise$$Promise.resolve = lib$es6$promise$promise$resolve$$default;
+	    lib$es6$promise$promise$$Promise.reject = lib$es6$promise$promise$reject$$default;
+	    lib$es6$promise$promise$$Promise._setScheduler = lib$es6$promise$asap$$setScheduler;
+	    lib$es6$promise$promise$$Promise._setAsap = lib$es6$promise$asap$$setAsap;
+	    lib$es6$promise$promise$$Promise._asap = lib$es6$promise$asap$$asap;
+	
+	    lib$es6$promise$promise$$Promise.prototype = {
+	      constructor: lib$es6$promise$promise$$Promise,
+	
+	    /**
+	      The primary way of interacting with a promise is through its `then` method,
+	      which registers callbacks to receive either a promise's eventual value or the
+	      reason why the promise cannot be fulfilled.
+	
+	      ```js
+	      findUser().then(function(user){
+	        // user is available
+	      }, function(reason){
+	        // user is unavailable, and you are given the reason why
+	      });
+	      ```
+	
+	      Chaining
+	      --------
+	
+	      The return value of `then` is itself a promise.  This second, 'downstream'
+	      promise is resolved with the return value of the first promise's fulfillment
+	      or rejection handler, or rejected if the handler throws an exception.
+	
+	      ```js
+	      findUser().then(function (user) {
+	        return user.name;
+	      }, function (reason) {
+	        return 'default name';
+	      }).then(function (userName) {
+	        // If `findUser` fulfilled, `userName` will be the user's name, otherwise it
+	        // will be `'default name'`
+	      });
+	
+	      findUser().then(function (user) {
+	        throw new Error('Found user, but still unhappy');
+	      }, function (reason) {
+	        throw new Error('`findUser` rejected and we're unhappy');
+	      }).then(function (value) {
+	        // never reached
+	      }, function (reason) {
+	        // if `findUser` fulfilled, `reason` will be 'Found user, but still unhappy'.
+	        // If `findUser` rejected, `reason` will be '`findUser` rejected and we're unhappy'.
+	      });
+	      ```
+	      If the downstream promise does not specify a rejection handler, rejection reasons will be propagated further downstream.
+	
+	      ```js
+	      findUser().then(function (user) {
+	        throw new PedagogicalException('Upstream error');
+	      }).then(function (value) {
+	        // never reached
+	      }).then(function (value) {
+	        // never reached
+	      }, function (reason) {
+	        // The `PedgagocialException` is propagated all the way down to here
+	      });
+	      ```
+	
+	      Assimilation
+	      ------------
+	
+	      Sometimes the value you want to propagate to a downstream promise can only be
+	      retrieved asynchronously. This can be achieved by returning a promise in the
+	      fulfillment or rejection handler. The downstream promise will then be pending
+	      until the returned promise is settled. This is called *assimilation*.
+	
+	      ```js
+	      findUser().then(function (user) {
+	        return findCommentsByAuthor(user);
+	      }).then(function (comments) {
+	        // The user's comments are now available
+	      });
+	      ```
+	
+	      If the assimliated promise rejects, then the downstream promise will also reject.
+	
+	      ```js
+	      findUser().then(function (user) {
+	        return findCommentsByAuthor(user);
+	      }).then(function (comments) {
+	        // If `findCommentsByAuthor` fulfills, we'll have the value here
+	      }, function (reason) {
+	        // If `findCommentsByAuthor` rejects, we'll have the reason here
+	      });
+	      ```
+	
+	      Simple Example
+	      --------------
+	
+	      Synchronous Example
+	
+	      ```javascript
+	      var result;
+	
+	      try {
+	        result = findResult();
+	        // success
+	      } catch(reason) {
+	        // failure
+	      }
+	      ```
+	
+	      Errback Example
+	
+	      ```js
+	      findResult(function(result, err){
+	        if (err) {
+	          // failure
+	        } else {
+	          // success
+	        }
+	      });
+	      ```
+	
+	      Promise Example;
+	
+	      ```javascript
+	      findResult().then(function(result){
+	        // success
+	      }, function(reason){
+	        // failure
+	      });
+	      ```
+	
+	      Advanced Example
+	      --------------
+	
+	      Synchronous Example
+	
+	      ```javascript
+	      var author, books;
+	
+	      try {
+	        author = findAuthor();
+	        books  = findBooksByAuthor(author);
+	        // success
+	      } catch(reason) {
+	        // failure
+	      }
+	      ```
+	
+	      Errback Example
+	
+	      ```js
+	
+	      function foundBooks(books) {
+	
+	      }
+	
+	      function failure(reason) {
+	
+	      }
+	
+	      findAuthor(function(author, err){
+	        if (err) {
+	          failure(err);
+	          // failure
+	        } else {
+	          try {
+	            findBoooksByAuthor(author, function(books, err) {
+	              if (err) {
+	                failure(err);
+	              } else {
+	                try {
+	                  foundBooks(books);
+	                } catch(reason) {
+	                  failure(reason);
+	                }
+	              }
+	            });
+	          } catch(error) {
+	            failure(err);
+	          }
+	          // success
+	        }
+	      });
+	      ```
+	
+	      Promise Example;
+	
+	      ```javascript
+	      findAuthor().
+	        then(findBooksByAuthor).
+	        then(function(books){
+	          // found books
+	      }).catch(function(reason){
+	        // something went wrong
+	      });
+	      ```
+	
+	      @method then
+	      @param {Function} onFulfilled
+	      @param {Function} onRejected
+	      Useful for tooling.
+	      @return {Promise}
+	    */
+	      then: function(onFulfillment, onRejection) {
+	        var parent = this;
+	        var state = parent._state;
+	
+	        if (state === lib$es6$promise$$internal$$FULFILLED && !onFulfillment || state === lib$es6$promise$$internal$$REJECTED && !onRejection) {
+	          return this;
+	        }
+	
+	        var child = new this.constructor(lib$es6$promise$$internal$$noop);
+	        var result = parent._result;
+	
+	        if (state) {
+	          var callback = arguments[state - 1];
+	          lib$es6$promise$asap$$asap(function(){
+	            lib$es6$promise$$internal$$invokeCallback(state, child, callback, result);
+	          });
+	        } else {
+	          lib$es6$promise$$internal$$subscribe(parent, child, onFulfillment, onRejection);
+	        }
+	
+	        return child;
+	      },
+	
+	    /**
+	      `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
+	      as the catch block of a try/catch statement.
+	
+	      ```js
+	      function findAuthor(){
+	        throw new Error('couldn't find that author');
+	      }
+	
+	      // synchronous
+	      try {
+	        findAuthor();
+	      } catch(reason) {
+	        // something went wrong
+	      }
+	
+	      // async with promises
+	      findAuthor().catch(function(reason){
+	        // something went wrong
+	      });
+	      ```
+	
+	      @method catch
+	      @param {Function} onRejection
+	      Useful for tooling.
+	      @return {Promise}
+	    */
+	      'catch': function(onRejection) {
+	        return this.then(null, onRejection);
+	      }
+	    };
+	    function lib$es6$promise$polyfill$$polyfill() {
+	      var local;
+	
+	      if (typeof global !== 'undefined') {
+	          local = global;
+	      } else if (typeof self !== 'undefined') {
+	          local = self;
+	      } else {
+	          try {
+	              local = Function('return this')();
+	          } catch (e) {
+	              throw new Error('polyfill failed because global object is unavailable in this environment');
+	          }
+	      }
+	
+	      var P = local.Promise;
+	
+	      if (P && Object.prototype.toString.call(P.resolve()) === '[object Promise]' && !P.cast) {
+	        return;
+	      }
+	
+	      local.Promise = lib$es6$promise$promise$$default;
+	    }
+	    var lib$es6$promise$polyfill$$default = lib$es6$promise$polyfill$$polyfill;
+	
+	    var lib$es6$promise$umd$$ES6Promise = {
+	      'Promise': lib$es6$promise$promise$$default,
+	      'polyfill': lib$es6$promise$polyfill$$default
+	    };
+	
+	    /* global define:true module:true window: true */
+	    if (typeof define === 'function' && define['amd']) {
+	      define(function() { return lib$es6$promise$umd$$ES6Promise; });
+	    } else if (typeof module !== 'undefined' && module['exports']) {
+	      module['exports'] = lib$es6$promise$umd$$ES6Promise;
+	    } else if (typeof this !== 'undefined') {
+	      this['ES6Promise'] = lib$es6$promise$umd$$ES6Promise;
+	    }
+	
+	    lib$es6$promise$polyfill$$default();
+	}).call(this);
+	
+	
+	}).call(this,{},typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{}]},{},[1]);
+	
+	(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+	(function (global){
+	'use strict';
+	
+	if (!global.Zone) {
+	  throw new Error('zone.js should be installed before loading the long stack trace zone');
+	}
+	
+	global.Zone.longStackTraceZone = require('../zones/long-stack-trace.js');
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{"../zones/long-stack-trace.js":2}],2:[function(require,module,exports){
+	(function (global){
+	/*
+	 * Wrapped stacktrace
+	 *
+	 * We need this because in some implementations, constructing a trace is slow
+	 * and so we want to defer accessing the trace for as long as possible
+	 */
+	
+	'use strict';
+	
+	function _Stacktrace(e) {
+	  this._e = e;
+	};
+	
+	_Stacktrace.prototype.get = function () {
+	  if (global.zone.stackFramesFilter && this._e.stack) {
+	    return this._e.stack
+	      .split('\n')
+	      .filter(global.zone.stackFramesFilter)
+	      .join('\n');
+	  }
+	
+	  return this._e.stack;
+	}
+	
+	function _getStacktraceWithUncaughtError () {
+	  return new _Stacktrace(new Error());
+	}
+	
+	function _getStacktraceWithCaughtError () {
+	  try {
+	    throw new Error();
+	  } catch (e) {
+	    return new _Stacktrace(e);
+	  }
+	}
+	
+	// Some implementations of exception handling don't create a stack trace if the exception
+	// isn't thrown, however it's faster not to actually throw the exception.
+	var stack = _getStacktraceWithUncaughtError();
+	
+	var _getStacktrace = stack && stack._e.stack
+	  ? _getStacktraceWithUncaughtError
+	  : _getStacktraceWithCaughtError;
+	
+	module.exports = {
+	  getLongStacktrace: function (exception) {
+	    var traces = [];
+	    var currentZone = this;
+	    if (exception) {
+	      if (currentZone.stackFramesFilter && exception.stack) {
+	        traces.push(exception.stack.split('\n')
+	              .filter(currentZone.stackFramesFilter)
+	              .join('\n'));
+	      } else {
+	        traces.push(exception.stack);
+	      }
+	    }
+	    var now = Date.now();
+	
+	    while (currentZone && currentZone.constructedAtException) {
+	      traces.push(
+	          '--- ' + (Date(currentZone.constructedAtTime)).toString() +
+	          ' - ' + (now - currentZone.constructedAtTime) + 'ms ago',
+	          currentZone.constructedAtException.get());
+	      currentZone = currentZone.parent;
+	    }
+	
+	    return traces.join('\n');
+	  },
+	
+	  stackFramesFilter: function (line) {
+	    return !/zone(-microtask)?(\.min)?\.js/.test(line);
+	  },
+	
+	  onError: function (exception) {
+	    var reporter = this.reporter || console.log.bind(console);
+	    reporter(exception.toString());
+	    reporter(this.getLongStacktrace(exception));
+	  },
+	
+	  '$fork': function (parentFork) {
+	    return function() {
+	      var newZone = parentFork.apply(this, arguments);
+	      newZone.constructedAtException = _getStacktrace();
+	      newZone.constructedAtTime = Date.now();
+	      return newZone;
+	    }
+	  }
+	};
+	
+	
+	}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+	},{}]},{},[1]);
+	
+	/**
+	 @license
+	Apache License
+	
+	Version 2.0, January 2004
+	
+	http://www.apache.org/licenses/ 
+	
+	TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+	
+	1. Definitions.
+	
+	"License" shall mean the terms and conditions for use, reproduction, and distribution as defined by Sections 1 through 9 of this document.
+	
+	"Licensor" shall mean the copyright owner or entity authorized by the copyright owner that is granting the License.
+	
+	"Legal Entity" shall mean the union of the acting entity and all other entities that control, are controlled by, or are under common control with that entity. For the purposes of this definition, "control" means (i) the power, direct or indirect, to cause the direction or management of such entity, whether by contract or otherwise, or (ii) ownership of fifty percent (50%) or more of the outstanding shares, or (iii) beneficial ownership of such entity.
+	
+	"You" (or "Your") shall mean an individual or Legal Entity exercising permissions granted by this License.
+	
+	"Source" form shall mean the preferred form for making modifications, including but not limited to software source code, documentation source, and configuration files.
+	
+	"Object" form shall mean any form resulting from mechanical transformation or translation of a Source form, including but not limited to compiled object code, generated documentation, and conversions to other media types.
+	
+	"Work" shall mean the work of authorship, whether in Source or Object form, made available under the License, as indicated by a copyright notice that is included in or attached to the work (an example is provided in the Appendix below).
+	
+	"Derivative Works" shall mean any work, whether in Source or Object form, that is based on (or derived from) the Work and for which the editorial revisions, annotations, elaborations, or other modifications represent, as a whole, an original work of authorship. For the purposes of this License, Derivative Works shall not include works that remain separable from, or merely link (or bind by name) to the interfaces of, the Work and Derivative Works thereof.
+	
+	"Contribution" shall mean any work of authorship, including the original version of the Work and any modifications or additions to that Work or Derivative Works thereof, that is intentionally submitted to Licensor for inclusion in the Work by the copyright owner or by an individual or Legal Entity authorized to submit on behalf of the copyright owner. For the purposes of this definition, "submitted" means any form of electronic, verbal, or written communication sent to the Licensor or its representatives, including but not limited to communication on electronic mailing lists, source code control systems, and issue tracking systems that are managed by, or on behalf of, the Licensor for the purpose of discussing and improving the Work, but excluding communication that is conspicuously marked or otherwise designated in writing by the copyright owner as "Not a Contribution."
+	
+	"Contributor" shall mean Licensor and any individual or Legal Entity on behalf of whom a Contribution has been received by Licensor and subsequently incorporated within the Work.
+	
+	2. Grant of Copyright License. Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare Derivative Works of, publicly display, publicly perform, sublicense, and distribute the Work and such Derivative Works in Source or Object form.
+	
+	3. Grant of Patent License. Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable (except as stated in this section) patent license to make, have made, use, offer to sell, sell, import, and otherwise transfer the Work, where such license applies only to those patent claims licensable by such Contributor that are necessarily infringed by their Contribution(s) alone or by combination of their Contribution(s) with the Work to which such Contribution(s) was submitted. If You institute patent litigation against any entity (including a cross-claim or counterclaim in a lawsuit) alleging that the Work or a Contribution incorporated within the Work constitutes direct or contributory patent infringement, then any patent licenses granted to You under this License for that Work shall terminate as of the date such litigation is filed.
+	
+	4. Redistribution. You may reproduce and distribute copies of the Work or Derivative Works thereof in any medium, with or without modifications, and in Source or Object form, provided that You meet the following conditions:
+	
+	You must give any other recipients of the Work or Derivative Works a copy of this License; and
+	
+	You must cause any modified files to carry prominent notices stating that You changed the files; and
+	
+	You must retain, in the Source form of any Derivative Works that You distribute, all copyright, patent, trademark, and attribution notices from the Source form of the Work, excluding those notices that do not pertain to any part of the Derivative Works; and
+	
+	If the Work includes a "NOTICE" text file as part of its distribution, then any Derivative Works that You distribute must include a readable copy of the attribution notices contained within such NOTICE file, excluding those notices that do not pertain to any part of the Derivative Works, in at least one of the following places: within a NOTICE text file distributed as part of the Derivative Works; within the Source form or documentation, if provided along with the Derivative Works; or, within a display generated by the Derivative Works, if and wherever such third-party notices normally appear. The contents of the NOTICE file are for informational purposes only and do not modify the License. You may add Your own attribution notices within Derivative Works that You distribute, alongside or as an addendum to the NOTICE text from the Work, provided that such additional attribution notices cannot be construed as modifying the License. You may add Your own copyright statement to Your modifications and may provide additional or different license terms and conditions for use, reproduction, or distribution of Your modifications, or for any such Derivative Works as a whole, provided Your use, reproduction, and distribution of the Work otherwise complies with the conditions stated in this License.
+	
+	5. Submission of Contributions. Unless You explicitly state otherwise, any Contribution intentionally submitted for inclusion in the Work by You to the Licensor shall be under the terms and conditions of this License, without any additional terms or conditions. Notwithstanding the above, nothing herein shall supersede or modify the terms of any separate license agreement you may have executed with Licensor regarding such Contributions.
+	
+	6. Trademarks. This License does not grant permission to use the trade names, trademarks, service marks, or product names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content of the NOTICE file.
+	
+	7. Disclaimer of Warranty. Unless required by applicable law or agreed to in writing, Licensor provides the Work (and each Contributor provides its Contributions) on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied, including, without limitation, any warranties or conditions of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. You are solely responsible for determining the appropriateness of using or redistributing the Work and assume any risks associated with Your exercise of permissions under this License.
+	
+	8. Limitation of Liability. In no event and under no legal theory, whether in tort (including negligence), contract, or otherwise, unless required by applicable law (such as deliberate and grossly negligent acts) or agreed to in writing, shall any Contributor be liable to You for damages, including any direct, indirect, special, incidental, or consequential damages of any character arising as a result of this License or out of the use or inability to use the Work (including but not limited to damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all other commercial damages or losses), even if such Contributor has been advised of the possibility of such damages.
+	
+	9. Accepting Warranty or Additional Liability. While redistributing the Work or Derivative Works thereof, You may choose to offer, and charge a fee for, acceptance of support, warranty, indemnity, or other liability obligations and/or rights consistent with this License. However, in accepting such obligations, You may act only on Your own behalf and on Your sole responsibility, not on behalf of any other Contributor, and only if You agree to indemnify, defend, and hold each Contributor harmless for any liability incurred by, or claims asserted against, such Contributor by reason of your accepting any such warranty or additional liability.
+	
+	END OF TERMS AND CONDITIONS
+	 */
+	
+	/*! *****************************************************************************
+	Copyright (C) Microsoft. All rights reserved.
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+	this file except in compliance with the License. You may obtain a copy of the
+	License at http://www.apache.org/licenses/LICENSE-2.0
+	
+	THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+	KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+	WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+	MERCHANTABLITY OR NON-INFRINGEMENT.
+	
+	See the Apache Version 2.0 License for specific language governing permissions
+	and limitations under the License.
+	***************************************************************************** */
+	"use strict";
+	var Reflect;
+	(function (Reflect) {
+	    // Load global or shim versions of Map, Set, and WeakMap
+	    var functionPrototype = Object.getPrototypeOf(Function);
+	    var _Map = typeof Map === "function" ? Map : CreateMapPolyfill();
+	    var _Set = typeof Set === "function" ? Set : CreateSetPolyfill();
+	    var _WeakMap = typeof WeakMap === "function" ? WeakMap : CreateWeakMapPolyfill();
+	    // [[Metadata]] internal slot
+	    var __Metadata__ = new _WeakMap();
+	    /**
+	      * Applies a set of decorators to a property of a target object.
+	      * @param decorators An array of decorators.
+	      * @param target The target object.
+	      * @param targetKey (Optional) The property key to decorate.
+	      * @param targetDescriptor (Optional) The property descriptor for the target key
+	      * @remarks Decorators are applied in reverse order.
+	      * @example
+	      *
+	      *     class C {
+	      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+	      *         // static staticProperty;
+	      *         // property;
+	      *
+	      *         constructor(p) { }
+	      *         static staticMethod(p) { }
+	      *         method(p) { }
+	      *     }
+	      *
+	      *     // constructor
+	      *     C = Reflect.decorate(decoratorsArray, C);
+	      *
+	      *     // property (on constructor)
+	      *     Reflect.decorate(decoratorsArray, C, "staticProperty");
+	      *
+	      *     // property (on prototype)
+	      *     Reflect.decorate(decoratorsArray, C.prototype, "property");
+	      *
+	      *     // method (on constructor)
+	      *     Object.defineProperty(C, "staticMethod",
+	      *         Reflect.decorate(decoratorsArray, C, "staticMethod",
+	      *             Object.getOwnPropertyDescriptor(C, "staticMethod")));
+	      *
+	      *     // method (on prototype)
+	      *     Object.defineProperty(C.prototype, "method",
+	      *         Reflect.decorate(decoratorsArray, C.prototype, "method",
+	      *             Object.getOwnPropertyDescriptor(C.prototype, "method")));
+	      *
+	      */
+	    function decorate(decorators, target, targetKey, targetDescriptor) {
+	        if (!IsUndefined(targetDescriptor)) {
+	            if (!IsArray(decorators)) {
+	                throw new TypeError();
+	            }
+	            else if (!IsObject(target)) {
+	                throw new TypeError();
+	            }
+	            else if (IsUndefined(targetKey)) {
+	                throw new TypeError();
+	            }
+	            else if (!IsObject(targetDescriptor)) {
+	                throw new TypeError();
+	            }
+	            targetKey = ToPropertyKey(targetKey);
+	            return DecoratePropertyWithDescriptor(decorators, target, targetKey, targetDescriptor);
+	        }
+	        else if (!IsUndefined(targetKey)) {
+	            if (!IsArray(decorators)) {
+	                throw new TypeError();
+	            }
+	            else if (!IsObject(target)) {
+	                throw new TypeError();
+	            }
+	            targetKey = ToPropertyKey(targetKey);
+	            return DecoratePropertyWithoutDescriptor(decorators, target, targetKey);
+	        }
+	        else {
+	            if (!IsArray(decorators)) {
+	                throw new TypeError();
+	            }
+	            else if (!IsConstructor(target)) {
+	                throw new TypeError();
+	            }
+	            return DecorateConstructor(decorators, target);
+	        }
+	    }
+	    Reflect.decorate = decorate;
+	    /**
+	      * A default metadata decorator factory that can be used on a class, class member, or parameter.
+	      * @param metadataKey The key for the metadata entry.
+	      * @param metadataValue The value for the metadata entry.
+	      * @returns A decorator function.
+	      * @remarks
+	      * If `metadataKey` is already defined for the target and target key, the
+	      * metadataValue for that key will be overwritten.
+	      * @example
+	      *
+	      *     // constructor
+	      *     @Reflect.metadata(key, value)
+	      *     class C {
+	      *     }
+	      *
+	      *     // property (on constructor, TypeScript only)
+	      *     class C {
+	      *         @Reflect.metadata(key, value)
+	      *         static staticProperty;
+	      *     }
+	      *
+	      *     // property (on prototype, TypeScript only)
+	      *     class C {
+	      *         @Reflect.metadata(key, value)
+	      *         property;
+	      *     }
+	      *
+	      *     // method (on constructor)
+	      *     class C {
+	      *         @Reflect.metadata(key, value)
+	      *         static staticMethod() { }
+	      *     }
+	      *
+	      *     // method (on prototype)
+	      *     class C {
+	      *         @Reflect.metadata(key, value)
+	      *         method() { }
+	      *     }
+	      *
+	      */
+	    function metadata(metadataKey, metadataValue) {
+	        function decorator(target, targetKey) {
+	            if (!IsUndefined(targetKey)) {
+	                if (!IsObject(target)) {
+	                    throw new TypeError();
+	                }
+	                targetKey = ToPropertyKey(targetKey);
+	                OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, targetKey);
+	            }
+	            else {
+	                if (!IsConstructor(target)) {
+	                    throw new TypeError();
+	                }
+	                OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, undefined);
+	            }
+	        }
+	        return decorator;
+	    }
+	    Reflect.metadata = metadata;
+	    /**
+	      * Define a unique metadata entry on the target.
+	      * @param metadataKey A key used to store and retrieve metadata.
+	      * @param metadataValue A value that contains attached metadata.
+	      * @param target The target object on which to define metadata.
+	      * @param targetKey (Optional) The property key for the target.
+	      * @example
+	      *
+	      *     class C {
+	      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+	      *         // static staticProperty;
+	      *         // property;
+	      *
+	      *         constructor(p) { }
+	      *         static staticMethod(p) { }
+	      *         method(p) { }
+	      *     }
+	      *
+	      *     // constructor
+	      *     Reflect.defineMetadata("custom:annotation", options, C);
+	      *
+	      *     // property (on constructor)
+	      *     Reflect.defineMetadata("custom:annotation", options, C, "staticProperty");
+	      *
+	      *     // property (on prototype)
+	      *     Reflect.defineMetadata("custom:annotation", options, C.prototype, "property");
+	      *
+	      *     // method (on constructor)
+	      *     Reflect.defineMetadata("custom:annotation", options, C, "staticMethod");
+	      *
+	      *     // method (on prototype)
+	      *     Reflect.defineMetadata("custom:annotation", options, C.prototype, "method");
+	      *
+	      *     // decorator factory as metadata-producing annotation.
+	      *     function MyAnnotation(options): Decorator {
+	      *         return (target, key?) => Reflect.defineMetadata("custom:annotation", options, target, key);
+	      *     }
+	      *
+	      */
+	    function defineMetadata(metadataKey, metadataValue, target, targetKey) {
+	        if (!IsObject(target)) {
+	            throw new TypeError();
+	        }
+	        else if (!IsUndefined(targetKey)) {
+	            targetKey = ToPropertyKey(targetKey);
+	        }
+	        return OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, targetKey);
+	    }
+	    Reflect.defineMetadata = defineMetadata;
+	    /**
+	      * Gets a value indicating whether the target object or its prototype chain has the provided metadata key defined.
+	      * @param metadataKey A key used to store and retrieve metadata.
+	      * @param target The target object on which the metadata is defined.
+	      * @param targetKey (Optional) The property key for the target.
+	      * @returns `true` if the metadata key was defined on the target object or its prototype chain; otherwise, `false`.
+	      * @example
+	      *
+	      *     class C {
+	      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+	      *         // static staticProperty;
+	      *         // property;
+	      *
+	      *         constructor(p) { }
+	      *         static staticMethod(p) { }
+	      *         method(p) { }
+	      *     }
+	      *
+	      *     // constructor
+	      *     result = Reflect.hasMetadata("custom:annotation", C);
+	      *
+	      *     // property (on constructor)
+	      *     result = Reflect.hasMetadata("custom:annotation", C, "staticProperty");
+	      *
+	      *     // property (on prototype)
+	      *     result = Reflect.hasMetadata("custom:annotation", C.prototype, "property");
+	      *
+	      *     // method (on constructor)
+	      *     result = Reflect.hasMetadata("custom:annotation", C, "staticMethod");
+	      *
+	      *     // method (on prototype)
+	      *     result = Reflect.hasMetadata("custom:annotation", C.prototype, "method");
+	      *
+	      */
+	    function hasMetadata(metadataKey, target, targetKey) {
+	        if (!IsObject(target)) {
+	            throw new TypeError();
+	        }
+	        else if (!IsUndefined(targetKey)) {
+	            targetKey = ToPropertyKey(targetKey);
+	        }
+	        return OrdinaryHasMetadata(metadataKey, target, targetKey);
+	    }
+	    Reflect.hasMetadata = hasMetadata;
+	    /**
+	      * Gets a value indicating whether the target object has the provided metadata key defined.
+	      * @param metadataKey A key used to store and retrieve metadata.
+	      * @param target The target object on which the metadata is defined.
+	      * @param targetKey (Optional) The property key for the target.
+	      * @returns `true` if the metadata key was defined on the target object; otherwise, `false`.
+	      * @example
+	      *
+	      *     class C {
+	      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+	      *         // static staticProperty;
+	      *         // property;
+	      *
+	      *         constructor(p) { }
+	      *         static staticMethod(p) { }
+	      *         method(p) { }
+	      *     }
+	      *
+	      *     // constructor
+	      *     result = Reflect.hasOwnMetadata("custom:annotation", C);
+	      *
+	      *     // property (on constructor)
+	      *     result = Reflect.hasOwnMetadata("custom:annotation", C, "staticProperty");
+	      *
+	      *     // property (on prototype)
+	      *     result = Reflect.hasOwnMetadata("custom:annotation", C.prototype, "property");
+	      *
+	      *     // method (on constructor)
+	      *     result = Reflect.hasOwnMetadata("custom:annotation", C, "staticMethod");
+	      *
+	      *     // method (on prototype)
+	      *     result = Reflect.hasOwnMetadata("custom:annotation", C.prototype, "method");
+	      *
+	      */
+	    function hasOwnMetadata(metadataKey, target, targetKey) {
+	        if (!IsObject(target)) {
+	            throw new TypeError();
+	        }
+	        else if (!IsUndefined(targetKey)) {
+	            targetKey = ToPropertyKey(targetKey);
+	        }
+	        return OrdinaryHasOwnMetadata(metadataKey, target, targetKey);
+	    }
+	    Reflect.hasOwnMetadata = hasOwnMetadata;
+	    /**
+	      * Gets the metadata value for the provided metadata key on the target object or its prototype chain.
+	      * @param metadataKey A key used to store and retrieve metadata.
+	      * @param target The target object on which the metadata is defined.
+	      * @param targetKey (Optional) The property key for the target.
+	      * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
+	      * @example
+	      *
+	      *     class C {
+	      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+	      *         // static staticProperty;
+	      *         // property;
+	      *
+	      *         constructor(p) { }
+	      *         static staticMethod(p) { }
+	      *         method(p) { }
+	      *     }
+	      *
+	      *     // constructor
+	      *     result = Reflect.getMetadata("custom:annotation", C);
+	      *
+	      *     // property (on constructor)
+	      *     result = Reflect.getMetadata("custom:annotation", C, "staticProperty");
+	      *
+	      *     // property (on prototype)
+	      *     result = Reflect.getMetadata("custom:annotation", C.prototype, "property");
+	      *
+	      *     // method (on constructor)
+	      *     result = Reflect.getMetadata("custom:annotation", C, "staticMethod");
+	      *
+	      *     // method (on prototype)
+	      *     result = Reflect.getMetadata("custom:annotation", C.prototype, "method");
+	      *
+	      */
+	    function getMetadata(metadataKey, target, targetKey) {
+	        if (!IsObject(target)) {
+	            throw new TypeError();
+	        }
+	        else if (!IsUndefined(targetKey)) {
+	            targetKey = ToPropertyKey(targetKey);
+	        }
+	        return OrdinaryGetMetadata(metadataKey, target, targetKey);
+	    }
+	    Reflect.getMetadata = getMetadata;
+	    /**
+	      * Gets the metadata value for the provided metadata key on the target object.
+	      * @param metadataKey A key used to store and retrieve metadata.
+	      * @param target The target object on which the metadata is defined.
+	      * @param targetKey (Optional) The property key for the target.
+	      * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
+	      * @example
+	      *
+	      *     class C {
+	      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+	      *         // static staticProperty;
+	      *         // property;
+	      *
+	      *         constructor(p) { }
+	      *         static staticMethod(p) { }
+	      *         method(p) { }
+	      *     }
+	      *
+	      *     // constructor
+	      *     result = Reflect.getOwnMetadata("custom:annotation", C);
+	      *
+	      *     // property (on constructor)
+	      *     result = Reflect.getOwnMetadata("custom:annotation", C, "staticProperty");
+	      *
+	      *     // property (on prototype)
+	      *     result = Reflect.getOwnMetadata("custom:annotation", C.prototype, "property");
+	      *
+	      *     // method (on constructor)
+	      *     result = Reflect.getOwnMetadata("custom:annotation", C, "staticMethod");
+	      *
+	      *     // method (on prototype)
+	      *     result = Reflect.getOwnMetadata("custom:annotation", C.prototype, "method");
+	      *
+	      */
+	    function getOwnMetadata(metadataKey, target, targetKey) {
+	        if (!IsObject(target)) {
+	            throw new TypeError();
+	        }
+	        else if (!IsUndefined(targetKey)) {
+	            targetKey = ToPropertyKey(targetKey);
+	        }
+	        return OrdinaryGetOwnMetadata(metadataKey, target, targetKey);
+	    }
+	    Reflect.getOwnMetadata = getOwnMetadata;
+	    /**
+	      * Gets the metadata keys defined on the target object or its prototype chain.
+	      * @param target The target object on which the metadata is defined.
+	      * @param targetKey (Optional) The property key for the target.
+	      * @returns An array of unique metadata keys.
+	      * @example
+	      *
+	      *     class C {
+	      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+	      *         // static staticProperty;
+	      *         // property;
+	      *
+	      *         constructor(p) { }
+	      *         static staticMethod(p) { }
+	      *         method(p) { }
+	      *     }
+	      *
+	      *     // constructor
+	      *     result = Reflect.getMetadataKeys(C);
+	      *
+	      *     // property (on constructor)
+	      *     result = Reflect.getMetadataKeys(C, "staticProperty");
+	      *
+	      *     // property (on prototype)
+	      *     result = Reflect.getMetadataKeys(C.prototype, "property");
+	      *
+	      *     // method (on constructor)
+	      *     result = Reflect.getMetadataKeys(C, "staticMethod");
+	      *
+	      *     // method (on prototype)
+	      *     result = Reflect.getMetadataKeys(C.prototype, "method");
+	      *
+	      */
+	    function getMetadataKeys(target, targetKey) {
+	        if (!IsObject(target)) {
+	            throw new TypeError();
+	        }
+	        else if (!IsUndefined(targetKey)) {
+	            targetKey = ToPropertyKey(targetKey);
+	        }
+	        return OrdinaryMetadataKeys(target, targetKey);
+	    }
+	    Reflect.getMetadataKeys = getMetadataKeys;
+	    /**
+	      * Gets the unique metadata keys defined on the target object.
+	      * @param target The target object on which the metadata is defined.
+	      * @param targetKey (Optional) The property key for the target.
+	      * @returns An array of unique metadata keys.
+	      * @example
+	      *
+	      *     class C {
+	      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+	      *         // static staticProperty;
+	      *         // property;
+	      *
+	      *         constructor(p) { }
+	      *         static staticMethod(p) { }
+	      *         method(p) { }
+	      *     }
+	      *
+	      *     // constructor
+	      *     result = Reflect.getOwnMetadataKeys(C);
+	      *
+	      *     // property (on constructor)
+	      *     result = Reflect.getOwnMetadataKeys(C, "staticProperty");
+	      *
+	      *     // property (on prototype)
+	      *     result = Reflect.getOwnMetadataKeys(C.prototype, "property");
+	      *
+	      *     // method (on constructor)
+	      *     result = Reflect.getOwnMetadataKeys(C, "staticMethod");
+	      *
+	      *     // method (on prototype)
+	      *     result = Reflect.getOwnMetadataKeys(C.prototype, "method");
+	      *
+	      */
+	    function getOwnMetadataKeys(target, targetKey) {
+	        if (!IsObject(target)) {
+	            throw new TypeError();
+	        }
+	        else if (!IsUndefined(targetKey)) {
+	            targetKey = ToPropertyKey(targetKey);
+	        }
+	        return OrdinaryOwnMetadataKeys(target, targetKey);
+	    }
+	    Reflect.getOwnMetadataKeys = getOwnMetadataKeys;
+	    /**
+	      * Deletes the metadata entry from the target object with the provided key.
+	      * @param metadataKey A key used to store and retrieve metadata.
+	      * @param target The target object on which the metadata is defined.
+	      * @param targetKey (Optional) The property key for the target.
+	      * @returns `true` if the metadata entry was found and deleted; otherwise, false.
+	      * @example
+	      *
+	      *     class C {
+	      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+	      *         // static staticProperty;
+	      *         // property;
+	      *
+	      *         constructor(p) { }
+	      *         static staticMethod(p) { }
+	      *         method(p) { }
+	      *     }
+	      *
+	      *     // constructor
+	      *     result = Reflect.deleteMetadata("custom:annotation", C);
+	      *
+	      *     // property (on constructor)
+	      *     result = Reflect.deleteMetadata("custom:annotation", C, "staticProperty");
+	      *
+	      *     // property (on prototype)
+	      *     result = Reflect.deleteMetadata("custom:annotation", C.prototype, "property");
+	      *
+	      *     // method (on constructor)
+	      *     result = Reflect.deleteMetadata("custom:annotation", C, "staticMethod");
+	      *
+	      *     // method (on prototype)
+	      *     result = Reflect.deleteMetadata("custom:annotation", C.prototype, "method");
+	      *
+	      */
+	    function deleteMetadata(metadataKey, target, targetKey) {
+	        if (!IsObject(target)) {
+	            throw new TypeError();
+	        }
+	        else if (!IsUndefined(targetKey)) {
+	            targetKey = ToPropertyKey(targetKey);
+	        }
+	        // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#deletemetadata-metadatakey-p-
+	        var metadataMap = GetOrCreateMetadataMap(target, targetKey, false);
+	        if (IsUndefined(metadataMap)) {
+	            return false;
+	        }
+	        if (!metadataMap.delete(metadataKey)) {
+	            return false;
+	        }
+	        if (metadataMap.size > 0) {
+	            return true;
+	        }
+	        var targetMetadata = __Metadata__.get(target);
+	        targetMetadata.delete(targetKey);
+	        if (targetMetadata.size > 0) {
+	            return true;
+	        }
+	        __Metadata__.delete(target);
+	        return true;
+	    }
+	    Reflect.deleteMetadata = deleteMetadata;
+	    function DecorateConstructor(decorators, target) {
+	        for (var i = decorators.length - 1; i >= 0; --i) {
+	            var decorator = decorators[i];
+	            var decorated = decorator(target);
+	            if (!IsUndefined(decorated)) {
+	                if (!IsConstructor(decorated)) {
+	                    throw new TypeError();
+	                }
+	                target = decorated;
+	            }
+	        }
+	        return target;
+	    }
+	    function DecoratePropertyWithDescriptor(decorators, target, propertyKey, descriptor) {
+	        for (var i = decorators.length - 1; i >= 0; --i) {
+	            var decorator = decorators[i];
+	            var decorated = decorator(target, propertyKey, descriptor);
+	            if (!IsUndefined(decorated)) {
+	                if (!IsObject(decorated)) {
+	                    throw new TypeError();
+	                }
+	                descriptor = decorated;
+	            }
+	        }
+	        return descriptor;
+	    }
+	    function DecoratePropertyWithoutDescriptor(decorators, target, propertyKey) {
+	        for (var i = decorators.length - 1; i >= 0; --i) {
+	            var decorator = decorators[i];
+	            decorator(target, propertyKey);
+	        }
+	    }
+	    // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#getorcreatemetadatamap--o-p-create-
+	    function GetOrCreateMetadataMap(target, targetKey, create) {
+	        var targetMetadata = __Metadata__.get(target);
+	        if (!targetMetadata) {
+	            if (!create) {
+	                return undefined;
+	            }
+	            targetMetadata = new _Map();
+	            __Metadata__.set(target, targetMetadata);
+	        }
+	        var keyMetadata = targetMetadata.get(targetKey);
+	        if (!keyMetadata) {
+	            if (!create) {
+	                return undefined;
+	            }
+	            keyMetadata = new _Map();
+	            targetMetadata.set(targetKey, keyMetadata);
+	        }
+	        return keyMetadata;
+	    }
+	    // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinaryhasmetadata--metadatakey-o-p-
+	    function OrdinaryHasMetadata(MetadataKey, O, P) {
+	        var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
+	        if (hasOwn) {
+	            return true;
+	        }
+	        var parent = GetPrototypeOf(O);
+	        if (parent !== null) {
+	            return OrdinaryHasMetadata(MetadataKey, parent, P);
+	        }
+	        return false;
+	    }
+	    // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinaryhasownmetadata--metadatakey-o-p-
+	    function OrdinaryHasOwnMetadata(MetadataKey, O, P) {
+	        var metadataMap = GetOrCreateMetadataMap(O, P, false);
+	        if (metadataMap === undefined) {
+	            return false;
+	        }
+	        return Boolean(metadataMap.has(MetadataKey));
+	    }
+	    // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinarygetmetadata--metadatakey-o-p-
+	    function OrdinaryGetMetadata(MetadataKey, O, P) {
+	        var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
+	        if (hasOwn) {
+	            return OrdinaryGetOwnMetadata(MetadataKey, O, P);
+	        }
+	        var parent = GetPrototypeOf(O);
+	        if (parent !== null) {
+	            return OrdinaryGetMetadata(MetadataKey, parent, P);
+	        }
+	        return undefined;
+	    }
+	    // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinarygetownmetadata--metadatakey-o-p-
+	    function OrdinaryGetOwnMetadata(MetadataKey, O, P) {
+	        var metadataMap = GetOrCreateMetadataMap(O, P, false);
+	        if (metadataMap === undefined) {
+	            return undefined;
+	        }
+	        return metadataMap.get(MetadataKey);
+	    }
+	    // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinarydefineownmetadata--metadatakey-metadatavalue-o-p-
+	    function OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P) {
+	        var metadataMap = GetOrCreateMetadataMap(O, P, true);
+	        metadataMap.set(MetadataKey, MetadataValue);
+	    }
+	    // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinarymetadatakeys--o-p-
+	    function OrdinaryMetadataKeys(O, P) {
+	        var ownKeys = OrdinaryOwnMetadataKeys(O, P);
+	        var parent = GetPrototypeOf(O);
+	        if (parent === null) {
+	            return ownKeys;
+	        }
+	        var parentKeys = OrdinaryMetadataKeys(parent, P);
+	        if (parentKeys.length <= 0) {
+	            return ownKeys;
+	        }
+	        if (ownKeys.length <= 0) {
+	            return parentKeys;
+	        }
+	        var set = new _Set();
+	        var keys = [];
+	        for (var _i = 0; _i < ownKeys.length; _i++) {
+	            var key = ownKeys[_i];
+	            var hasKey = set.has(key);
+	            if (!hasKey) {
+	                set.add(key);
+	                keys.push(key);
+	            }
+	        }
+	        for (var _a = 0; _a < parentKeys.length; _a++) {
+	            var key = parentKeys[_a];
+	            var hasKey = set.has(key);
+	            if (!hasKey) {
+	                set.add(key);
+	                keys.push(key);
+	            }
+	        }
+	        return keys;
+	    }
+	    // https://github.com/jonathandturner/decorators/blob/master/specs/metadata.md#ordinaryownmetadatakeys--o-p-
+	    function OrdinaryOwnMetadataKeys(target, targetKey) {
+	        var metadataMap = GetOrCreateMetadataMap(target, targetKey, false);
+	        var keys = [];
+	        if (metadataMap) {
+	            metadataMap.forEach(function (_, key) { return keys.push(key); });
+	        }
+	        return keys;
+	    }
+	    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-language-types-undefined-type
+	    function IsUndefined(x) {
+	        return x === undefined;
+	    }
+	    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isarray
+	    function IsArray(x) {
+	        return Array.isArray(x);
+	    }
+	    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object-type
+	    function IsObject(x) {
+	        return typeof x === "object" ? x !== null : typeof x === "function";
+	    }
+	    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isconstructor
+	    function IsConstructor(x) {
+	        return typeof x === "function";
+	    }
+	    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-language-types-symbol-type
+	    function IsSymbol(x) {
+	        return typeof x === "symbol";
+	    }
+	    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-topropertykey
+	    function ToPropertyKey(value) {
+	        if (IsSymbol(value)) {
+	            return value;
+	        }
+	        return String(value);
+	    }
+	    function GetPrototypeOf(O) {
+	        var proto = Object.getPrototypeOf(O);
+	        if (typeof O !== "function" || O === functionPrototype) {
+	            return proto;
+	        }
+	        // TypeScript doesn't set __proto__ in ES5, as it's non-standard. 
+	        // Try to determine the superclass constructor. Compatible implementations
+	        // must either set __proto__ on a subclass constructor to the superclass constructor,
+	        // or ensure each class has a valid `constructor` property on its prototype that
+	        // points back to the constructor.
+	        // If this is not the same as Function.[[Prototype]], then this is definately inherited.
+	        // This is the case when in ES6 or when using __proto__ in a compatible browser.
+	        if (proto !== functionPrototype) {
+	            return proto;
+	        }
+	        // If the super prototype is Object.prototype, null, or undefined, then we cannot determine the heritage.
+	        var prototype = O.prototype;
+	        var prototypeProto = Object.getPrototypeOf(prototype);
+	        if (prototypeProto == null || prototypeProto === Object.prototype) {
+	            return proto;
+	        }
+	        // if the constructor was not a function, then we cannot determine the heritage.
+	        var constructor = prototypeProto.constructor;
+	        if (typeof constructor !== "function") {
+	            return proto;
+	        }
+	        // if we have some kind of self-reference, then we cannot determine the heritage.
+	        if (constructor === O) {
+	            return proto;
+	        }
+	        // we have a pretty good guess at the heritage.
+	        return constructor;
+	    }
+	    // naive Map shim
+	    function CreateMapPolyfill() {
+	        var cacheSentinel = {};
+	        function Map() {
+	            this._keys = [];
+	            this._values = [];
+	            this._cache = cacheSentinel;
+	        }
+	        Map.prototype = {
+	            get size() {
+	                return this._keys.length;
+	            },
+	            has: function (key) {
+	                if (key === this._cache) {
+	                    return true;
+	                }
+	                if (this._find(key) >= 0) {
+	                    this._cache = key;
+	                    return true;
+	                }
+	                return false;
+	            },
+	            get: function (key) {
+	                var index = this._find(key);
+	                if (index >= 0) {
+	                    this._cache = key;
+	                    return this._values[index];
+	                }
+	                return undefined;
+	            },
+	            set: function (key, value) {
+	                this.delete(key);
+	                this._keys.push(key);
+	                this._values.push(value);
+	                this._cache = key;
+	                return this;
+	            },
+	            delete: function (key) {
+	                var index = this._find(key);
+	                if (index >= 0) {
+	                    this._keys.splice(index, 1);
+	                    this._values.splice(index, 1);
+	                    this._cache = cacheSentinel;
+	                    return true;
+	                }
+	                return false;
+	            },
+	            clear: function () {
+	                this._keys.length = 0;
+	                this._values.length = 0;
+	                this._cache = cacheSentinel;
+	            },
+	            forEach: function (callback, thisArg) {
+	                var size = this.size;
+	                for (var i = 0; i < size; ++i) {
+	                    var key = this._keys[i];
+	                    var value = this._values[i];
+	                    this._cache = key;
+	                    callback.call(this, value, key, this);
+	                }
+	            },
+	            _find: function (key) {
+	                var keys = this._keys;
+	                var size = keys.length;
+	                for (var i = 0; i < size; ++i) {
+	                    if (keys[i] === key) {
+	                        return i;
+	                    }
+	                }
+	                return -1;
+	            }
+	        };
+	        return Map;
+	    }
+	    // naive Set shim
+	    function CreateSetPolyfill() {
+	        var cacheSentinel = {};
+	        function Set() {
+	            this._map = new _Map();
+	        }
+	        Set.prototype = {
+	            get size() {
+	                return this._map.length;
+	            },
+	            has: function (value) {
+	                return this._map.has(value);
+	            },
+	            add: function (value) {
+	                this._map.set(value, value);
+	                return this;
+	            },
+	            delete: function (value) {
+	                return this._map.delete(value);
+	            },
+	            clear: function () {
+	                this._map.clear();
+	            },
+	            forEach: function (callback, thisArg) {
+	                this._map.forEach(callback, thisArg);
+	            }
+	        };
+	        return Set;
+	    }
+	    // naive WeakMap shim
+	    function CreateWeakMapPolyfill() {
+	        var UUID_SIZE = 16;
+	        var isNode = typeof global !== "undefined" && Object.prototype.toString.call(global.process) === '[object process]';
+	        var nodeCrypto = isNode && require("crypto");
+	        var hasOwn = Object.prototype.hasOwnProperty;
+	        var keys = {};
+	        var rootKey = CreateUniqueKey();
+	        function WeakMap() {
+	            this._key = CreateUniqueKey();
+	        }
+	        WeakMap.prototype = {
+	            has: function (target) {
+	                var table = GetOrCreateWeakMapTable(target, false);
+	                if (table) {
+	                    return this._key in table;
+	                }
+	                return false;
+	            },
+	            get: function (target) {
+	                var table = GetOrCreateWeakMapTable(target, false);
+	                if (table) {
+	                    return table[this._key];
+	                }
+	                return undefined;
+	            },
+	            set: function (target, value) {
+	                var table = GetOrCreateWeakMapTable(target, true);
+	                table[this._key] = value;
+	                return this;
+	            },
+	            delete: function (target) {
+	                var table = GetOrCreateWeakMapTable(target, false);
+	                if (table && this._key in table) {
+	                    return delete table[this._key];
+	                }
+	                return false;
+	            },
+	            clear: function () {
+	                // NOTE: not a real clear, just makes the previous data unreachable
+	                this._key = CreateUniqueKey();
+	            }
+	        };
+	        function FillRandomBytes(buffer, size) {
+	            for (var i = 0; i < size; ++i) {
+	                buffer[i] = Math.random() * 255 | 0;
+	            }
+	        }
+	        function GenRandomBytes(size) {
+	            if (nodeCrypto) {
+	                var data = nodeCrypto.randomBytes(size);
+	                return data;
+	            }
+	            else if (typeof Uint8Array === "function") {
+	                var data = new Uint8Array(size);
+	                if (typeof crypto !== "undefined") {
+	                    crypto.getRandomValues(data);
+	                }
+	                else if (typeof msCrypto !== "undefined") {
+	                    msCrypto.getRandomValues(data);
+	                }
+	                else {
+	                    FillRandomBytes(data, size);
+	                }
+	                return data;
+	            }
+	            else {
+	                var data = new Array(size);
+	                FillRandomBytes(data, size);
+	                return data;
+	            }
+	        }
+	        function CreateUUID() {
+	            var data = GenRandomBytes(UUID_SIZE);
+	            // mark as random - RFC 4122 § 4.4
+	            data[6] = data[6] & 0x4f | 0x40;
+	            data[8] = data[8] & 0xbf | 0x80;
+	            var result = "";
+	            for (var offset = 0; offset < UUID_SIZE; ++offset) {
+	                var byte = data[offset];
+	                if (offset === 4 || offset === 6 || offset === 8) {
+	                    result += "-";
+	                }
+	                if (byte < 16) {
+	                    result += "0";
+	                }
+	                result += byte.toString(16).toLowerCase();
+	            }
+	            return result;
+	        }
+	        function CreateUniqueKey() {
+	            var key;
+	            do {
+	                key = "@@WeakMap@@" + CreateUUID();
+	            } while (hasOwn.call(keys, key));
+	            keys[key] = true;
+	            return key;
+	        }
+	        function GetOrCreateWeakMapTable(target, create) {
+	            if (!hasOwn.call(target, rootKey)) {
+	                if (!create) {
+	                    return undefined;
+	                }
+	                Object.defineProperty(target, rootKey, { value: Object.create(null) });
+	            }
+	            return target[rootKey];
+	        }
+	        return WeakMap;
+	    }
+	    // hook global Reflect
+	    (function (__global) {
+	        if (typeof __global.Reflect !== "undefined") {
+	            if (__global.Reflect !== Reflect) {
+	                for (var p in Reflect) {
+	                    __global.Reflect[p] = Reflect[p];
+	                }
+	            }
+	        }
+	        else {
+	            __global.Reflect = Reflect;
+	        }
+	    })(typeof window !== "undefined" ? window :
+	        typeof WorkerGlobalScope !== "undefined" ? self :
+	            typeof global !== "undefined" ? global :
+	                Function("return this;")());
+	})(Reflect || (Reflect = {}));
+	//# sourceMappingURLDisabled=Reflect.js.map
+
+/***/ },
+
+/***/ 285:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 294:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 302:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }
+
+/******/ });
 //# sourceMappingURL=libs.map
