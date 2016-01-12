@@ -18,16 +18,21 @@ import {Map} from 'leaflet';
 })
 export class NavigatorComponent {
     address: string;
-    geocoder: GeocodingService;
-    map: Map;
+
+    private geocoder: GeocodingService;
+    private map: Map;
+    private mapService: MapService;
 
     constructor(geocoder: GeocodingService, mapService: MapService) {
         this.address = '';
         this.geocoder = geocoder;
         this.map = mapService.map;
+        this.mapService = mapService;
+    }
 
-        mapService.disableMouseEvent('goto');
-        mapService.disableMouseEvent('place-input');
+    ngOnInit() {
+        this.mapService.disableMouseEvent('goto');
+        this.mapService.disableMouseEvent('place-input');
     }
 
     goto() {

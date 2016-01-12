@@ -19,21 +19,26 @@ import {ButtonCheckbox} from '../../../node_modules/ng2-bootstrap/ng2-bootstrap'
     directives: [CORE_DIRECTIVES, ButtonCheckbox]
 })
 export class MarkerComponent {
-    map: Map;
-    markers: Marker[];
     editing: boolean;
     removing: boolean;
+    markerCount: number;
+
+    private mapService: MapService;
 
     constructor(mapService: MapService) {
-        this.map = mapService.map;
         this.editing = false;
         this.removing = false;
-        this.markers = [];
+        this.markerCount = 0;
+        this.mapService = mapService;
+    }
 
-        mapService.disableMouseEvent('add-marker');
-        mapService.disableMouseEvent('remove-marker');
+    ngOnInit() {
+        this.mapService.disableMouseEvent('add-marker');
+        this.mapService.disableMouseEvent('remove-marker');
+    }
 
-        this.map.on('click', (e: LeafletMouseEvent) => {
+    Initialize() {
+        this.mapService.map.on('click', (e: LeafletMouseEvent) => {
             if (this.editing) {
                 let marker = L.marker(e.latlng, {
                     icon: L.icon({
@@ -41,24 +46,21 @@ export class MarkerComponent {
                         shadowUrl: require('../../../node_modules/leaflet/dist/images/marker-shadow.png')
                     }),
                     draggable: true
-                }).addTo(this.map);
-                this.markers.push(marker);
-            }
+                })
+                .bindPopup('Marker #' + (this.markerCount + 1).toString(), {
+                    offset: L.point(12, 6)
+                })
+                .addTo(this.mapService.map)
+                .openPopup();
 
-            if (this.removing && this.markers.length > 0) {
-                let between = Number.MAX_VALUE;
-                let toDelete;
-                for (let marker of this.markers) {
-                    let distance = e.latlng.distanceTo(marker.getLatLng());
-                    if (distance < between) {
-                        between = distance;
-                        toDelete = marker;
+                this.markerCount += 1;
+
+                marker.on('click', (event: MouseEvent) => {
+                    if (this.removing) {
+                        this.mapService.map.removeLayer(marker);
+                        this.markerCount -= 1;
                     }
-                }
-
-                if (toDelete) {
-                    this.map.removeLayer(toDelete);
-                }
+                });
             }
         });
     }

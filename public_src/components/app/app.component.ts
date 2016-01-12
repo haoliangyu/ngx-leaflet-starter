@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/leaflet/leaflet.d.ts"/>
 
-import {Component, View} from 'angular2/core';
+import {Component, View, ViewChild} from 'angular2/core';
 import {NavigatorComponent} from '../navigator/navigator.component';
 import {MarkerComponent} from '../marker/marker.component';
 import {MapService} from '../../services/map.service';
@@ -16,21 +16,34 @@ import {MapService} from '../../services/map.service';
     directives: [NavigatorComponent, MarkerComponent]
 })
 export class AppComponent {
+    private mapService: MapService;
+
+    @ViewChild(MarkerComponent) markerComponent:MarkerComponent;
+
     constructor(mapService: MapService) {
+        this.mapService = mapService;
+    }
+
+    ngOnInit() {
         var map = new L.Map('map', {
-            zoomControl: false,
-            center: new L.LatLng(40.731253, -73.996139),
-            zoom: 12,
-            minZoom: 4,
-            maxZoom: 19,
-            layers: [mapService.baseMaps.OpenStreetMap]
+          zoomControl: false,
+          center: new L.LatLng(40.731253, -73.996139),
+          zoom: 12,
+          minZoom: 4,
+          maxZoom: 19,
+          layers: [this.mapService.baseMaps.OpenStreetMap]
         });
 
         L.control.zoom({ position: 'topright' }).addTo(map);
-        L.control.layers(mapService.baseMaps).addTo(map);
+        L.control.layers(this.mapService.baseMaps).addTo(map);
         L.control.scale().addTo(map);
 
-        mapService.map = map;
+        this.mapService.map = map;
+        // this.markerComponent.Inxitialize();
     }
 
+    ngAfterViewInit() {
+        console.log(this.mapService.map);
+        this.markerComponent.Initialize();
+    }
 }
