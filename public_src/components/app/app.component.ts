@@ -4,6 +4,8 @@ import {Component, View, ViewChild} from 'angular2/core';
 import {NavigatorComponent} from '../navigator/navigator.component';
 import {MarkerComponent} from '../marker/marker.component';
 import {MapService} from '../../services/map.service';
+import {GeocodingService} from '../../services/geocoding.service';
+import {Location} from '../../core/location.class';
 
 @Component({
     selector: 'app'
@@ -17,11 +19,13 @@ import {MapService} from '../../services/map.service';
 })
 export class AppComponent {
     private mapService: MapService;
+    private geocoder: GeocodingService;
 
     @ViewChild(MarkerComponent) markerComponent:MarkerComponent;
 
-    constructor(mapService: MapService) {
+    constructor(mapService: MapService, geocoder: GeocodingService) {
         this.mapService = mapService;
+        this.geocoder = geocoder;
     }
 
     ngOnInit() {
@@ -39,11 +43,15 @@ export class AppComponent {
         L.control.scale().addTo(map);
 
         this.mapService.map = map;
-        // this.markerComponent.Inxitialize();
+
+        this.geocoder.getCurrentLocation()
+        .subscribe(
+            location => map.panTo([location.latitude, location.longitude]),
+            err => console.error(err)
+        );
     }
 
     ngAfterViewInit() {
-        console.log(this.mapService.map);
         this.markerComponent.Initialize();
     }
 }

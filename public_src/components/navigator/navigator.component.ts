@@ -42,8 +42,6 @@ export class NavigatorComponent {
         .subscribe(location => {
             this.map.panTo([location.latitude, location.longitude]);
             this.address = location.address;
-        }, error => {
-            console.error(error);
-        });
+        }, error => console.error(error));
     }
 }
