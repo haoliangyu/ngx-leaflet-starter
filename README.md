@@ -29,3 +29,7 @@ This project requires [npm](https://www.npmjs.com/), [tsd](http://definitelytype
 3. Run ```webpack-dev-server``` to build the project.
 
 5. See the app at ```http://localhost:8080```
+
+## Thanks to these awesome people!
+
+* [Rodolphe Eveilleau](https://github.com/rdphv)
