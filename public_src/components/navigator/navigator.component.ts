@@ -26,13 +26,13 @@ export class NavigatorComponent {
     constructor(geocoder: GeocodingService, mapService: MapService) {
         this.address = '';
         this.geocoder = geocoder;
-        this.map = mapService.map;
         this.mapService = mapService;
     }
 
     ngOnInit() {
         this.mapService.disableMouseEvent('goto');
         this.mapService.disableMouseEvent('place-input');
+        this.map = this.mapService.map;
     }
 
     goto() {
