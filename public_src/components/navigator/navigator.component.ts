@@ -10,10 +10,10 @@ import {Map} from 'leaflet';
     selector: 'navigator'
 })
 @View({
-    template: require('./navigator.component.html'),
+    template: require<any>('./navigator.component.html'),
     styles: [
-        require('./navigator.component.less'),
-        require('../../styles/main.less')
+        require<any>('./navigator.component.less'),
+        require<any>('../../styles/main.less')
     ]
 })
 export class NavigatorComponent {

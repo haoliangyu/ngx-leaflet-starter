@@ -28,6 +28,6 @@ node_modules
 
 public
 
-typings
+/typings
 
 .tscache

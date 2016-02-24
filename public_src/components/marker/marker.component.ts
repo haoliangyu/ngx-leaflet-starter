@@ -11,10 +11,10 @@ import {ButtonCheckbox} from '../../../node_modules/ng2-bootstrap/ng2-bootstrap'
     selector: 'marker'
 })
 @View({
-    template: require('./marker.component.html'),
+    template: require<any>('./marker.component.html'),
     styles: [
-        require('./marker.component.less'),
-        require('../../styles/main.less')
+        require<any>('./marker.component.less'),
+        require<any>('../../styles/main.less')
     ],
     directives: [CORE_DIRECTIVES, ButtonCheckbox]
 })
@@ -42,8 +42,8 @@ export class MarkerComponent {
             if (this.editing) {
                 let marker = L.marker(e.latlng, {
                     icon: L.icon({
-                        iconUrl: require('../../../node_modules/leaflet/dist/images/marker-icon.png'),
-                        shadowUrl: require('../../../node_modules/leaflet/dist/images/marker-shadow.png')
+                        iconUrl: require<any>('../../../node_modules/leaflet/dist/images/marker-icon.png'),
+                        shadowUrl: require<any>('../../../node_modules/leaflet/dist/images/marker-shadow.png')
                     }),
                     draggable: true
                 })

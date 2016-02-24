@@ -11,9 +11,9 @@ import {Location} from '../../core/location.class';
     selector: 'app'
 })
 @View({
-    template: require('./app.component.html'),
+    template: require<any>('./app.component.html'),
     styles: [
-        require('./app.component.less')
+        require<any>('./app.component.less')
     ],
     directives: [NavigatorComponent, MarkerComponent]
 })
