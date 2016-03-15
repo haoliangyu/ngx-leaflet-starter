@@ -1,6 +1,8 @@
 import {Http, Headers, Response} from 'angular2/http';
 import {Location} from '../core/location.class';
 import {Injectable} from 'angular2/core';
+import {LatLngBounds} from 'leaflet';
+
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/mergeMap';
 
@@ -24,6 +26,16 @@ export class GeocodingService {
                 location.latitude = result.results[0].geometry.location.lat;
                 location.longitude = result.results[0].geometry.location.lng;
 
+                var viewPort = result.results[0].geometry.viewport;
+                location.viewBounds = new LatLngBounds(
+                  {
+                    lat: viewPort.southwest.lat,
+                    lng: viewPort.southwest.lng},
+                  {
+                    lat: viewPort.northeast.lat,
+                    lng: viewPort.northeast.lng
+                  });
+
                 return location;
             });
     }
@@ -36,6 +48,7 @@ export class GeocodingService {
             .map((res: Response) => res.json())
             .map(result => {
                 var location = new Location();
+                console.log(result);
                 location.address = result.city + ', ' + result.region_code + ' ' + result.zip_code + ', ' + result.country_code;
                 location.latitude = result.latitude;
                 location.longitude = result.longitude;
