@@ -3,7 +3,7 @@ import {Location} from '../core/location.class';
 import {Injectable} from 'angular2/core';
 import {LatLngBounds} from 'leaflet';
 
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
@@ -48,7 +48,7 @@ export class GeocodingService {
             .map((res: Response) => res.json())
             .map(result => {
                 var location = new Location();
-                console.log(result);
+
                 location.address = result.city + ', ' + result.region_code + ' ' + result.zip_code + ', ' + result.country_code;
                 location.latitude = result.latitude;
                 location.longitude = result.longitude;
