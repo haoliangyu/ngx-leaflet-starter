@@ -22,15 +22,15 @@ See how it works at [demo page](http://haoliangyu.github.io/angular2-leaflet-sta
 How to develop
 --------------
 
-This project requires [npm](https://www.npmjs.com/), [tsd](http://definitelytyped.org/tsd/), and [webpack-dev-server](https://webpack.github.io/).
+This project requires [npm](https://www.npmjs.com/), [tsd](http://definitelytyped.org/tsd/),  [webpack](http://webpack.github.io/docs/installation.html).
 
 1.	Run `npm install` to install all dependencies.
 
 2.	Run `tsd install` to install type definition.
 
-3.	Run `webpack-dev-server` to build the project.
+3.	Run `webpack` to build the project.
 
-4.	See the app at `http://localhost:8080`
+4.	As a more convinient way, run the [webpack-dev-server](http://webpack.github.io/docs/installation.html) to set up the app at `http://localhost:8080`
 
 Thanks to these awesome people!
 -------------------------------
