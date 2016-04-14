@@ -1,15 +1,13 @@
 /// <reference path="../../../typings/leaflet/leaflet.d.ts"/>
 
-import {Component, View} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {GeocodingService} from '../../services/geocoding.service';
 import {MapService} from '../../services/map.service';
 import {Location} from '../../core/location.class';
 import {Map} from 'leaflet';
 
 @Component({
-    selector: 'navigator'
-})
-@View({
+    selector: 'navigator',
     template: require<any>('./navigator.component.html'),
     styles: [
         require<any>('./navigator.component.less'),

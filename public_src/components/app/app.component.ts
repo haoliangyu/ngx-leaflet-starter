@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/leaflet/leaflet.d.ts"/>
 
-import {Component, View, ViewChild} from 'angular2/core';
+import {Component, ViewChild} from 'angular2/core';
 import {NavigatorComponent} from '../navigator/navigator.component';
 import {MarkerComponent} from '../marker/marker.component';
 import {MapService} from '../../services/map.service';
@@ -8,9 +8,7 @@ import {GeocodingService} from '../../services/geocoding.service';
 import {Location} from '../../core/location.class';
 
 @Component({
-    selector: 'app'
-})
-@View({
+    selector: 'app',
     template: require<any>('./app.component.html'),
     styles: [
         require<any>('./app.component.less')

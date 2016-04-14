@@ -1,16 +1,14 @@
 /// <reference path="../../../typings/leaflet/leaflet.d.ts"/>
 /// <reference path="../../../typings/tsd.d.ts" />
 
-import {Component, View} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES, NgClass} from 'angular2/common';
 import {MapService} from '../../services/map.service';
 import {Map, LeafletMouseEvent, Marker} from 'leaflet';
 import {ButtonCheckbox} from '../../../node_modules/ng2-bootstrap/ng2-bootstrap';
 
 @Component({
-    selector: 'marker'
-})
-@View({
+    selector: 'marker',
     template: require<any>('./marker.component.html'),
     styles: [
         require<any>('./marker.component.less'),
