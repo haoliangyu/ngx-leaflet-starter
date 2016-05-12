@@ -5,7 +5,6 @@ import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES, NgClass} from 'angular2/common';
 import {MapService} from '../../services/map.service';
 import {Map, LeafletMouseEvent, Marker} from 'leaflet';
-import {ButtonCheckbox} from '../../../node_modules/ng2-bootstrap/ng2-bootstrap';
 
 @Component({
     selector: 'marker',
@@ -14,7 +13,7 @@ import {ButtonCheckbox} from '../../../node_modules/ng2-bootstrap/ng2-bootstrap'
         require<any>('./marker.component.less'),
         require<any>('../../styles/main.less')
     ],
-    directives: [CORE_DIRECTIVES, ButtonCheckbox]
+    directives: [CORE_DIRECTIVES]
 })
 export class MarkerComponent {
     editing: boolean;
