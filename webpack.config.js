@@ -41,6 +41,11 @@ module.exports = {
         noParse: [ path.join(__dirname, 'node_modules', 'angular2', 'bundles') ]
     },
     plugins: [
+        // uncomment this code for production
+        // new webpack.optimize.UglifyJsPlugin({
+        //     sourceMap: false,
+        //     mangle: false
+        // }),
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             template: path.resolve(srcDir, 'index.html'),
