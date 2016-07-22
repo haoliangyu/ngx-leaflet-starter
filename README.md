@@ -41,7 +41,7 @@ error TS2656: Exported external package typings file '/home/haoliang/Documents/P
 lease contact the package author to update the package definition.
 ```
 
-This is from a bug of zone.js ([#297](https://github.com/angular/zone.js/issues/297)) and the official fix isn't released. This error doesn't stop webpack from bundling the script and the app should work with the generated bundle. If there is any problem, please give me more information at #9. Thanks.
+This is from a bug of zone.js ([#297](https://github.com/angular/zone.js/issues/297)) and the official fix isn't released. This error doesn't stop webpack from bundling the script and the app should work with the generated bundle. If there is any problem, please give me more information at [#9](https://github.com/haoliangyu/angular2-leaflet-starter/issues/9). Thanks.
 
 Thanks to these awesome people!
 -------------------------------
