@@ -15,7 +15,7 @@ A web mapping application starter based on Angular 2 and Leaflet. This project d
 
 -	[ ] Create interactive marker popup
 
-Working with [Angular 2 beta.16](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-beta16-2016-04-26).
+Working with [angular@2.0.0-rc4](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-rc4-2016-06-30).
 
 See how it works at [demo page](http://haoliangyu.github.io/angular2-leaflet-starter/).
 
