@@ -32,6 +32,17 @@ This project requires [npm](https://www.npmjs.com/), [tsd](http://definitelytype
 
 4.	As a more convinient way, run the [webpack-dev-server](http://webpack.github.io/docs/installation.html) to set up the app at `http://localhost:8080`
 
+## Known Issue
+
+Webpack will throw following error:
+
+```
+error TS2656: Exported external package typings file '/home/haoliang/Documents/Projects/angular2-leaflet-starter/node_modules/zone.js/dist/zone.js.d.ts' is not a module. P
+lease contact the package author to update the package definition.
+```
+
+This is from a bug of zone.js ([#297](https://github.com/angular/zone.js/issues/297)) and the official fix isn't released. This error doesn't stop webpack from bundling the script and the app should work with the generated bundle. If there is any problem, please give me more information at #9. Thanks.
+
 Thanks to these awesome people!
 -------------------------------
 
