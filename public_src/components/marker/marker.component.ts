@@ -1,8 +1,8 @@
 /// <reference path="../../../typings/leaflet/leaflet.d.ts"/>
 /// <reference path="../../../typings/tsd.d.ts" />
 
-import {Component} from 'angular2/core';
-import {CORE_DIRECTIVES, NgClass} from 'angular2/common';
+import {Component} from '@angular/core';
+import {CORE_DIRECTIVES, NgClass} from '@angular/common';
 import {MapService} from '../../services/map.service';
 import {Map, LeafletMouseEvent, Marker} from 'leaflet';
 

@@ -1,6 +1,6 @@
 /// <reference path="../../typings/leaflet/leaflet.d.ts"/>
 
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {Location} from '../core/location.class';
 import {Map, TileLayer} from 'leaflet';
 

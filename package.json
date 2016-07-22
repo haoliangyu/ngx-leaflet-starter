@@ -22,17 +22,23 @@
   },
   "homepage": "https://github.com/haoliangyu/angular2-grunt-starter#readme",
   "dependencies": {
-    "angular2": "2.0.0-beta.16",
+    "@angular/common": "2.0.0-rc.4",
+    "@angular/compiler": "2.0.0-rc.4",
+    "@angular/core": "2.0.0-rc.4",
+    "@angular/forms": "0.2.0",
+    "@angular/http": "^2.0.0-rc.4",
+    "@angular/platform-browser": "^2.0.0-rc.4",
+    "@angular/platform-browser-dynamic": "^2.0.0-rc.4",
     "bootstrap": "^3.3.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
     "font-awesome": "^4.5.0",
     "leaflet": "^0.7.7",
-    "ng2-bootstrap": "1.0.15",
+    "ng2-bootstrap": "1.0.24",
     "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.2",
+    "rxjs": "5.0.0-beta.6",
     "systemjs": "^0.19.9",
-    "zone.js": "0.6.12"
+    "zone.js": "^0.6.12"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
