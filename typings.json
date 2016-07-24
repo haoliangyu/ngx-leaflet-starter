@@ -1,0 +1,7 @@
+{
+  "name": "angular2-grunt-starter",
+  "globalDependencies": {
+    "leaflet": "github:DefinitelyTyped/DefinitelyTyped/leaflet/leaflet.d.ts#1da639a106527e0c4010b354a1efe52a3059a291",
+    "es6-shim": "github:DefinitelyTyped/DefinitelyTyped/es6-shim/es6-shim.d.ts#bd269cad4cb2b495f940c7b6afc5825d568029be"
+  }
+}

@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/leaflet/leaflet.d.ts"/>
-
 import {Component, ViewChild} from '@angular/core';
 import {NavigatorComponent} from '../navigator/navigator.component';
 import {MarkerComponent} from '../marker/marker.component';

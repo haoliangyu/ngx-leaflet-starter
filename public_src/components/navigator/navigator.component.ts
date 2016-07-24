@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/leaflet/leaflet.d.ts"/>
-
 import {Component} from '@angular/core';
 import {GeocodingService} from '../../services/geocoding.service';
 import {MapService} from '../../services/map.service';

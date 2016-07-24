@@ -22,11 +22,11 @@ See how it works at [demo page](http://haoliangyu.github.io/angular2-leaflet-sta
 How to develop
 --------------
 
-This project requires [npm](https://www.npmjs.com/), [tsd](http://definitelytyped.org/tsd/),  [webpack](http://webpack.github.io/docs/installation.html).
+This project requires [npm](https://www.npmjs.com/), [typings](https://www.npmjs.com/package/typings),  [webpack](http://webpack.github.io/docs/installation.html).
 
 1.	Run `npm install` to install all dependencies.
 
-2.	Run `tsd install` to install type definition.
+2.	Run `typings install` to install type definition.
 
 3.	Run `webpack` to build the project.
 

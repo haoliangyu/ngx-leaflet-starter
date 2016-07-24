@@ -1,4 +1,3 @@
-/// <reference path="../typings/leaflet/leaflet.d.ts"/>
 /// <reference path="./typings/require.d.ts"/>
 
 import 'leaflet';
