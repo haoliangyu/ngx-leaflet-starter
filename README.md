@@ -38,3 +38,8 @@ Thanks to these awesome people!
 -	[Rodolphe Eveilleau](https://github.com/rdphv)
 
 - [Wolfgang Becker](https://github.com/vimwb)
+
+Looking for another solution?
+-------------------------------
+
+[angular2-mapboxgl-starter](https://github.com/haoliangyu/angular2-mapboxgl-starter) is an Angular 2 project seed with [MapboxGL](https://www.mapbox.com/mapbox-gl-js/api/), a mapping library designed for [vector tile](https://www.mapbox.com/help/define-vector-tiles/).
