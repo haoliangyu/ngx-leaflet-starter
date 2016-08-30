@@ -7,13 +7,11 @@ A web mapping application starter based on Angular 2 and Leaflet. This project d
 
 -	[x] Integrate Font-Awesome
 
--	[x] ~~Initialize map based on client's IP location (currently not working)~~
+-	[x] Initialize map based on user's IP location
 
 -	[x] Geocode address and zoom to result location
 
 -	[x] Add/remove markers on the map
-
--	[ ] Create interactive marker popup
 
 Working with [angular-2.0.0-rc4](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-rc4-2016-06-30).
 
