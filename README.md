@@ -13,7 +13,7 @@ A web mapping application starter based on Angular 2 and Leaflet. This project d
 
 -	[x] Add/remove markers on the map
 
-Working with [angular-2.0.0-rc4](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-rc4-2016-06-30).
+Support the [Angular 2 official release](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-2016-09-14) now!
 
 See how it works at [demo page](http://haoliangyu.github.io/angular2-leaflet-starter/).
 

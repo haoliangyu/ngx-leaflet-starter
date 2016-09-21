@@ -4,8 +4,8 @@ import {Map, TileLayer} from 'leaflet';
 
 @Injectable()
 export class MapService {
-    map: Map;
-    baseMaps: any;
+    public map: Map;
+    public baseMaps: any;
 
     constructor() {
         this.baseMaps = {

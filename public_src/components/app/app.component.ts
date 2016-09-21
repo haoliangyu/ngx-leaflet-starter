@@ -11,27 +11,23 @@ import {Location} from '../../core/location.class';
     styles: [
         require<any>('./app.component.less')
     ],
-    directives: [NavigatorComponent, MarkerComponent]
+    providers: []
 })
 export class AppComponent {
-    private mapService: MapService;
-    private geocoder: GeocodingService;
 
     @ViewChild(MarkerComponent) markerComponent:MarkerComponent;
 
-    constructor(mapService: MapService, geocoder: GeocodingService) {
-        this.mapService = mapService;
-        this.geocoder = geocoder;
+    constructor(private mapService: MapService, private geocoder: GeocodingService) {
     }
 
     ngOnInit() {
         var map = new L.Map('map', {
-          zoomControl: false,
-          center: new L.LatLng(40.731253, -73.996139),
-          zoom: 12,
-          minZoom: 4,
-          maxZoom: 19,
-          layers: [this.mapService.baseMaps.OpenStreetMap]
+            zoomControl: false,
+            center: new L.LatLng(40.731253, -73.996139),
+            zoom: 12,
+            minZoom: 4,
+            maxZoom: 19,
+            layers: [this.mapService.baseMaps.OpenStreetMap]
         });
 
         L.control.zoom({ position: 'topright' }).addTo(map);
@@ -39,12 +35,11 @@ export class AppComponent {
         L.control.scale().addTo(map);
 
         this.mapService.map = map;
-
         this.geocoder.getCurrentLocation()
-        .subscribe(
-            location => map.panTo([location.latitude, location.longitude]),
-            err => console.error(err)
-        );
+            .subscribe(
+                location => map.panTo([location.latitude, location.longitude]),
+                err => console.error(err)
+            );
     }
 
     ngAfterViewInit() {

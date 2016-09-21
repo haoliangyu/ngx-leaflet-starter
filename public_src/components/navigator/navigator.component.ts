@@ -10,19 +10,16 @@ import {Map} from 'leaflet';
     styles: [
         require<any>('./navigator.component.less'),
         require<any>('../../styles/main.less')
-    ]
+    ],
+    providers: []
 })
 export class NavigatorComponent {
     address: string;
 
-    private geocoder: GeocodingService;
     private map: Map;
-    private mapService: MapService;
 
-    constructor(geocoder: GeocodingService, mapService: MapService) {
+    constructor(private geocoder: GeocodingService, private mapService: MapService) {
         this.address = '';
-        this.geocoder = geocoder;
-        this.mapService = mapService;
     }
 
     ngOnInit() {

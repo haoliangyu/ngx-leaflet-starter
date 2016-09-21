@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {CORE_DIRECTIVES, NgClass} from '@angular/common';
 import {MapService} from '../../services/map.service';
 import {Map, LeafletMouseEvent, Marker} from 'leaflet';
 
@@ -10,20 +9,17 @@ import {Map, LeafletMouseEvent, Marker} from 'leaflet';
         require<any>('./marker.component.less'),
         require<any>('../../styles/main.less')
     ],
-    directives: [CORE_DIRECTIVES]
+    providers: []
 })
 export class MarkerComponent {
     editing: boolean;
     removing: boolean;
     markerCount: number;
 
-    private mapService: MapService;
-
-    constructor(mapService: MapService) {
+    constructor(private mapService: MapService) {
         this.editing = false;
         this.removing = false;
         this.markerCount = 0;
-        this.mapService = mapService;
     }
 
     ngOnInit() {
