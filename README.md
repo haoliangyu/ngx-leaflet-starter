@@ -1,7 +1,7 @@
 Angular2-Leaflet-Starter
 ========================
 
-A web mapping application starter based on Angular 2 and Leaflet. This project demo includes basic mapping functions:
+A web mapping application starter based on Angular 2 and Leaflet. This project demo includes basic mapping features:
 
 -	[x] Display base maps from different sources
 
@@ -15,7 +15,18 @@ A web mapping application starter based on Angular 2 and Leaflet. This project d
 
 Support the [Angular 2 official release](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-2016-09-14) now!
 
-See how it works at [demo page](http://haoliangyu.github.io/angular2-leaflet-starter/).
+See how it looks at [demo page](http://haoliangyu.github.io/angular2-leaflet-starter/).
+
+FAQ
+--------------
+
+### How about Leaflet 1.0?
+
+Yeap! As soon as the [type definition](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/leaflet/leaflet.d.ts) for 1.0 is done, I will update the leaflet version used in this project.
+
+### How about new feature?
+
+Since this project has been reached its initial goal to provide a small and clean code base for Angular 2 and Leaflet integration, currently there is no plan for new feature development. However, I am open to suggestions and PRs. If you think it's beneficial for **general developers** to add something new, please feel free to submit an issue for dicussion.
 
 How to develop
 --------------
