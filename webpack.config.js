@@ -3,6 +3,7 @@ var path = require('path');
 
 var HtmlWebpackPlugin  = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var OptimizeJsPlugin = require("optimize-js-plugin");
 
 var srcDir = 'public_src';
 var outputDir = 'public';
@@ -24,6 +25,9 @@ module.exports = {
         extensions: ['', '.ts', '.component.ts', '.service.ts', '.js', '.component.html', '.component.less', '.less', '.css']
     },
     module: {
+        preLoaders: [
+            { test: /\.ts$/, loader: 'tslint' }
+        ],
         loaders: [
             { test: /(\.component|\.service|)\.ts$/, loader: 'ts-loader'},
             { test: /\.component\.html$/, loader: 'raw' },
@@ -50,6 +54,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(srcDir, 'index.html'),
             inject: true
+        }),
+        new OptimizeJsPlugin({
+          sourceMap: false
         })
     ]
 };
