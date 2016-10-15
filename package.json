@@ -1,26 +1,25 @@
 {
-  "name": "angular2-grunt-starter",
-  "version": "0.1.0",
-  "description": "An Angular2 and Grunt minimal project starter",
+  "name": "angular2-leaflet-starter",
+  "version": "1.1.0",
+  "description": "A minimal Angular 2 project with leaflet",
   "main": "index.js",
   "scripts": {
     "start": "lite-server --baseDir './public' --files './public/**/*.html' './public/**/*.css' './public/**/*.js'"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haoliangyu/angular2-grunt-starter.git"
+    "url": "git+https://github.com/haoliangyu/angular2-leaflet-starter.git"
   },
   "keywords": [
     "angular2",
-    "grunt",
     "leaflet"
   ],
   "author": "Haoliang Yu <haholiang.yu@outlook.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/haoliangyu/angular2-grunt-starter/issues"
+    "url": "https://github.com/haoliangyu/angular2-leaflet-starter/issues"
   },
-  "homepage": "https://github.com/haoliangyu/angular2-grunt-starter#readme",
+  "homepage": "https://github.com/haoliangyu/angular2-leaflet-starter#readme",
   "dependencies": {
     "@angular/common": "2.0.0",
     "@angular/compiler": "2.0.0",
