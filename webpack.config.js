@@ -4,6 +4,8 @@ var path = require('path');
 var HtmlWebpackPlugin  = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var OptimizeJsPlugin = require("optimize-js-plugin");
+var ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 
 var srcDir = 'public_src';
 var outputDir = 'public';
@@ -17,9 +19,9 @@ module.exports = {
     },
     output: {
         path: outputDir,
-        filename: '[name].bundle.js',
-        sourceMapFilename: '[name].map',
-        chunkFilename: '[id].chunk.js'
+        filename: '[name].[hash].bundle.js',
+        sourceMapFilename: '[name].[hash].map',
+        chunkFilename: '[id].[hash].chunk.js'
     },
     resolve: {
         extensions: ['', '.ts', '.component.ts', '.service.ts', '.js', '.component.html', '.component.less', '.less', '.css']
@@ -50,10 +52,16 @@ module.exports = {
         //     sourceMap: false,
         //     mangle: false
         // }),
-        new ExtractTextPlugin("[name].css"),
+        new ExtractTextPlugin("[name].[contenthash].css"),
         new HtmlWebpackPlugin({
             template: path.resolve(srcDir, 'index.html'),
             inject: true
+        }),
+        new ScriptExtHtmlWebpackPlugin({
+          defaultAttribute: 'defer'
+        }),
+        new WebpackCleanupPlugin({
+          exclude: 'index.html'
         }),
         new OptimizeJsPlugin({
           sourceMap: false
