@@ -52,7 +52,7 @@ module.exports = {
         //     sourceMap: false,
         //     mangle: false
         // }),
-        new ExtractTextPlugin("[name].css"),
+        new ExtractTextPlugin("[name].[contenthash].css"),
         new HtmlWebpackPlugin({
             template: path.resolve(srcDir, 'index.html'),
             inject: true
