@@ -33,7 +33,7 @@ export class NavigatorComponent {
 
         this.geocoder.geocode(this.address)
         .subscribe(location => {
-            this.map.fitBounds(location.viewBounds);
+            this.map.fitBounds(location.viewBounds, {});
             this.address = location.address;
         }, error => console.error(error));
     }
