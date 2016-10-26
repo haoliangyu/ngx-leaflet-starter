@@ -20,10 +20,6 @@ See how it looks at [demo page](http://haoliangyu.github.io/angular2-leaflet-sta
 FAQ
 --------------
 
-### Why not use the type definition file of leaflet from DefinitelyTyped?
-
-The official [type definition](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/leaflet/leaflet.d.ts) for 1.0 is still at `rc.3` and lacks some necessary function definitions. I will switch to the official one after I submits a PR and it gets merged.
-
 ### How about new feature?
 
 Since this project has been reached its initial goal to provide a small and clean code base for Angular 2 and Leaflet integration, currently there is no plan for new feature development. However, I am open to suggestions and PRs. If you think it's beneficial for **general developers** to add something new, please feel free to submit an issue for dicussion.
