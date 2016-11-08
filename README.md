@@ -27,15 +27,13 @@ Since this project has been reached its initial goal to provide a small and clea
 How to develop
 --------------
 
-This project requires [npm](https://www.npmjs.com/), [typings](https://www.npmjs.com/package/typings),  [webpack](http://webpack.github.io/docs/installation.html). Please install them first!
+This project requires [npm](https://www.npmjs.com/) and [webpack](http://webpack.github.io/docs/installation.html). Please install them first!
 
 1.	Run `npm install` to install all dependencies.
 
-2.	Run `typings install` to install type definition.
+2.	Run `webpack` to build the project.
 
-3.	Run `webpack` to build the project.
-
-4.	As a more convinient way, use the [webpack-dev-server](http://webpack.github.io/docs/installation.html) to run the app at `http://localhost:8080`
+3.	As a more convinient way, use the [webpack-dev-server](http://webpack.github.io/docs/installation.html) to run the app at `http://localhost:8080`
 
 Thanks to these awesome people!
 -------------------------------
