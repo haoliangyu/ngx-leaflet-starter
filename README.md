@@ -20,10 +20,6 @@ See how it looks at [demo page](http://haoliangyu.github.io/angular2-leaflet-sta
 FAQ
 --------------
 
-### How about TypeScript 2.0?
-
-TypeScript has been released at September 2016 and you can use it at branch **[ts-2.0](https://github.com/haoliangyu/angular2-leaflet-starter/tree/ts-2.0)**. As the type declaration files for 2.0 are not completely, the branch won't be merged to `master` shortly.
-
 ### How about new feature?
 
 Since this project has been reached its initial goal to provide a small and clean code base for Angular 2 and Leaflet integration, currently there is no plan for new feature development. However, I am open to suggestions and PRs. If you think it's beneficial for **general developers** to add something new, please feel free to submit an issue for dicussion.
