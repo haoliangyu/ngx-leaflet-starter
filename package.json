@@ -27,7 +27,7 @@
     "@angular/platform-browser-dynamic": "^2.1.0",
     "@types/es6-shim": "^0.31.32",
     "@types/geojson": "0.0.31",
-    "@types/leaflet": "^1.0.36",
+    "@types/leaflet": "^1.0.37",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.7.0",
     "leaflet": "^1.0.1",
