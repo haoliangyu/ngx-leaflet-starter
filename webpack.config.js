@@ -50,7 +50,7 @@ module.exports = {
         // uncomment this code for production
         // new webpack.optimize.UglifyJsPlugin({
         //     sourceMap: false,
-        //     mangle: false
+        //     mangle: true
         // }),
         new ExtractTextPlugin("[name].[contenthash].css"),
         new HtmlWebpackPlugin({
