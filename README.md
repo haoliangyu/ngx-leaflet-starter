@@ -27,9 +27,9 @@ Since this project has been reached its initial goal to provide a small and clea
 How to develop
 --------------
 
-This project requires [npm](https://www.npmjs.com/) and [webpack](http://webpack.github.io/docs/installation.html). Please install them first!
+This project requires [npm](https://www.npmjs.com/) (or [yarn](https://yarnpkg.com/)) and [webpack](http://webpack.github.io/docs/installation.html). Please install them first!
 
-1.	Run `npm install` to install all dependencies.
+1.	Run `npm install` or `yarn install` to install dependencies.
 
 2.	Run `webpack` to build the project.
 
