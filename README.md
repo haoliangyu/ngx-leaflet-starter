@@ -35,7 +35,7 @@ This project requires [npm](https://www.npmjs.com/) (or [yarn](https://yarnpkg.c
 
 2.	Run `webpack` to build the project.
 
-3.	As a more convinient way, use the [webpack-dev-server](http://webpack.github.io/docs/installation.html) to run the app at `http://localhost:8080`
+3.	As a more convinient way, use the [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) to run the app at `http://localhost:8080`
 
 Thanks to these awesome people!
 -------------------------------
