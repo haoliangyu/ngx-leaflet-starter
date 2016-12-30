@@ -13,6 +13,8 @@ A web mapping application starter based on Angular 2 and Leaflet. This project d
 
 -	[x] Add/remove markers on the map
 
+-	[ ] Webpack 2
+
 Support the [Angular 2 official release](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-2016-09-14) and [Leaflet 1.0](https://github.com/Leaflet/Leaflet/blob/master/CHANGELOG.md#101-september-30-2016) now!
 
 See how it looks at [demo page](http://haoliangyu.github.io/angular2-leaflet-starter/).
@@ -20,11 +22,11 @@ See how it looks at [demo page](http://haoliangyu.github.io/angular2-leaflet-sta
 FAQ
 --------------
 
-### How about new feature?
+### How about new features?
 
-Since this project has been reached its initial goal to provide a small and clean code base for Angular 2 and Leaflet integration, currently there is no plan for new feature development. However, I am open to suggestions and PRs. If you think it's beneficial for **general developers** to add something new, please feel free to submit an issue for dicussion.
+Since this project has been fullfile its initial goal to provide a neat code base for Angular 2 mapping project with Leaflet, currently there is no plan for new feature development. However, suggestions and PRs are welcome. If you think it's beneficial to add something new (not in very specific purpose), please feel free to open an issue for dicussion.
 
-How to develop
+How to start?
 --------------
 
 This project requires [npm](https://www.npmjs.com/) (or [yarn](https://yarnpkg.com/)) and [webpack](http://webpack.github.io/docs/installation.html). Please install them first!
