@@ -1,0 +1,232 @@
+.main-nav {
+
+  width: 100%;
+  max-width: @layout-width;
+  margin:0 auto;
+
+  &__items {
+    list-style: none;
+    list-style-type: none;
+    padding-left: 0px;
+    margin:0;
+    float: right;
+  }
+
+  &__item{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 17.5px;
+    padding-left: 17.5px;
+
+    &:last-child{
+      margin-right: 0;
+      padding-right: 0;
+    }
+  }
+
+  &__title{
+    margin-right: 45px;
+    padding-left: 10px;
+  }
+
+  &__logo{
+    float: left;
+    padding: 26.5px 15px;
+    padding-right: 0;
+    font: 600 @font-size-logo / 1 @font-opensans !important;
+    color: @font-color-nav !important;
+    text-decoration: none;
+    letter-spacing: .2px;
+
+    &:hover{
+      color: @color-link-hover !important;
+      text-decoration: underline;
+    }
+
+  }
+
+  &__link {
+    display: block;
+    font: 600 @font-size-nav / 1.7 @font-opensans !important;
+    color: @font-color-nav !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: .2px;
+    padding-top: 28.5px;
+    padding-bottom: 28.5px;
+
+    &:hover{
+      color: @color-link-hover !important;
+      text-decoration: underline;
+    }
+  }
+
+  &__sub-link {
+    display: block;
+    font: 400 ((@font-size-nav + 1px)) / 1.7 @font-opensans !important;
+    color: @font-color-nav !important;
+    text-decoration: none;
+    letter-spacing: .2px;
+    padding: 7px 15px !important;
+
+    &:hover{
+      color: @color-link-hover !important;
+      text-decoration: underline;
+      outline: 0;
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+  }
+
+  &__item:hover:before{
+    color: @color-link-hover !important;
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 0;
+    left: 0;
+    width: 100%;
+    border-top: 2px solid @color-red;
+  }
+
+  &__item:active:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 0;
+    left: 0;
+    width: 100%;
+    border-top: 2px solid @color-red;
+  }
+
+  &__sub-items{
+    position:absolute;
+    display: none;
+    top: 77px;
+    left:0;
+    list-style: none;
+    padding:0;
+    border: 1px solid @color-gray;
+    border-top: 0;
+
+    &--vane{
+      width: 115%;
+      display: none;
+    }
+
+    &--maps{
+      width: 135px;
+      left: -50%;
+      display: none;
+    }
+
+    &:before{
+      content: "";
+      position: absolute;
+      top: -2px;
+      height: 0;
+      left: -1px;
+      right: -1px;
+      border-top: 2px solid #2babcf;
+    }
+  }
+
+  &__sub-items:hover{
+    display: block;
+  }
+
+  &__item:first-child:hover > &__sub-items--vane{
+    display: block;
+    transition: 1s;
+  }
+
+  &__item:nth-child(3):hover > &__sub-items--maps{
+    display: block;
+    transition: 1s;
+  }
+
+  &__item:nth-child(2):hover > &__sub-items{
+    display: block;
+    width: 180px;
+    left: -10px;
+    transition: 1s;
+  }
+
+  &__sub-item{
+    background-color: @color-white;
+    border-bottom: 1px solid #eee;
+    text-transform: none;
+  }
+
+  &__toggle{
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+
+    display: block;
+    width: 100%;
+
+    &__toggle {
+      display: block;
+      float: right;
+      margin-top: 20.5px;
+      margin-bottom: 20.5px;
+      margin-right: 15px;
+    }
+
+    &__items{
+      display: none;
+      position: relative;
+      clear: both;
+      width: 100%;
+      padding-left:0;
+
+      &--enable{
+        display: block;
+      }
+    }
+
+    &__item{
+      display: block;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    &__link{
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      color: @color-gray4;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 17.5px;
+      line-height: 18px;
+    }
+
+    &__sub-items{
+      position: static;
+      width: 100%;
+
+      &:before{
+        border-top: 0;
+      }
+
+      &--enable{
+        display: block !important;
+      }
+    }
+
+    &__item:hover:before,
+    &__item:active:before{
+      border-top: 0;
+    }
+
+    &__sub-items:hover,
+    &__item:first-child:hover > &__sub-items--vane,
+    &__item:nth-child(3):hover > &__sub-items--maps,
+    &__item:nth-child(2):hover > &__sub-items{
+      display: none;
+    }
+
+  }
+
+}
