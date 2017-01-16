@@ -7,8 +7,8 @@ var OptimizeJsPlugin = require("optimize-js-plugin");
 var ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 
-var srcDir = 'public_src';
-var outputDir = 'public';
+var srcDir = 'assets';
+var outputDir = 'build';
 
 module.exports = {
     devtool: "source-map",
