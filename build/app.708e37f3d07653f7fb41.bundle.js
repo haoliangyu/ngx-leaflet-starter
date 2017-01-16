@@ -51,16 +51,16 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var platform_browser_dynamic_1 = __webpack_require__(2);
-	var http_1 = __webpack_require__(24);
-	var core_1 = __webpack_require__(4);
-	var forms_1 = __webpack_require__(25);
-	var platform_browser_1 = __webpack_require__(22);
-	var app_component_1 = __webpack_require__(29);
-	var navigator_component_1 = __webpack_require__(54);
-	var marker_component_1 = __webpack_require__(30);
-	var map_service_1 = __webpack_require__(31);
-	var geocoding_service_1 = __webpack_require__(40);
+	var platform_browser_dynamic_1 = __webpack_require__(7);
+	var http_1 = __webpack_require__(29);
+	var core_1 = __webpack_require__(9);
+	var forms_1 = __webpack_require__(30);
+	var platform_browser_1 = __webpack_require__(27);
+	var app_component_1 = __webpack_require__(34);
+	var navigator_component_1 = __webpack_require__(64);
+	var marker_component_1 = __webpack_require__(35);
+	var map_service_1 = __webpack_require__(36);
+	var geocoding_service_1 = __webpack_require__(50);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
@@ -87,7 +87,12 @@
 
 /***/ }),
 /* 1 */,
-/* 2 */
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -96,7 +101,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(3), __webpack_require__(4), __webpack_require__(22)) :
+	     true ? factory(exports, __webpack_require__(8), __webpack_require__(9), __webpack_require__(27)) :
 	    typeof define === 'function' && define.amd ? define(['exports', '@angular/compiler', '@angular/core', '@angular/platform-browser'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.platformBrowserDynamic = global.ng.platformBrowserDynamic || {}),global.ng.compiler,global.ng.core,global.ng.platformBrowser));
 	}(this, (function (exports,_angular_compiler,_angular_core,_angular_platformBrowser) { 'use strict';
@@ -261,7 +266,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 3 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -270,7 +275,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	   true ? factory(exports, __webpack_require__(4)) :
+	   true ? factory(exports, __webpack_require__(9)) :
 	  typeof define === 'function' && define.amd ? define(['exports', '@angular/core'], factory) :
 	  (factory((global.ng = global.ng || {}, global.ng.compiler = global.ng.compiler || {}),global.ng.core));
 	}(this, (function (exports,_angular_core) { 'use strict';
@@ -28360,7 +28365,7 @@
 	})));
 
 /***/ }),
-/* 4 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -28369,7 +28374,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(5), __webpack_require__(6)) :
+	     true ? factory(exports, __webpack_require__(10), __webpack_require__(11)) :
 	    typeof define === 'function' && define.amd ? define(['exports', 'rxjs/Subject', 'rxjs/Observable'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.core = global.ng.core || {}),global.Rx,global.Rx));
 	}(this, (function (exports,rxjs_Subject,rxjs_Observable) { 'use strict';
@@ -41511,7 +41516,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 5 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -41520,12 +41525,12 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Observable_1 = __webpack_require__(6);
-	var Subscriber_1 = __webpack_require__(9);
-	var Subscription_1 = __webpack_require__(11);
-	var ObjectUnsubscribedError_1 = __webpack_require__(20);
-	var SubjectSubscription_1 = __webpack_require__(21);
-	var rxSubscriber_1 = __webpack_require__(18);
+	var Observable_1 = __webpack_require__(11);
+	var Subscriber_1 = __webpack_require__(14);
+	var Subscription_1 = __webpack_require__(16);
+	var ObjectUnsubscribedError_1 = __webpack_require__(25);
+	var SubjectSubscription_1 = __webpack_require__(26);
+	var rxSubscriber_1 = __webpack_require__(23);
 	/**
 	 * @class SubjectSubscriber<T>
 	 */
@@ -41676,13 +41681,13 @@
 	//# sourceMappingURL=Subject.js.map
 
 /***/ }),
-/* 6 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(7);
-	var toSubscriber_1 = __webpack_require__(8);
-	var observable_1 = __webpack_require__(19);
+	var root_1 = __webpack_require__(12);
+	var toSubscriber_1 = __webpack_require__(13);
+	var observable_1 = __webpack_require__(24);
 	/**
 	 * A representation of any set of values over any amount of time. This the most basic building block
 	 * of RxJS.
@@ -41810,7 +41815,7 @@
 	//# sourceMappingURL=Observable.js.map
 
 /***/ }),
-/* 7 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -41829,13 +41834,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 8 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Subscriber_1 = __webpack_require__(9);
-	var rxSubscriber_1 = __webpack_require__(18);
-	var Observer_1 = __webpack_require__(17);
+	var Subscriber_1 = __webpack_require__(14);
+	var rxSubscriber_1 = __webpack_require__(23);
+	var Observer_1 = __webpack_require__(22);
 	function toSubscriber(nextOrObserver, error, complete) {
 	    if (nextOrObserver) {
 	        if (nextOrObserver instanceof Subscriber_1.Subscriber) {
@@ -41854,7 +41859,7 @@
 	//# sourceMappingURL=toSubscriber.js.map
 
 /***/ }),
-/* 9 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -41863,10 +41868,10 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var isFunction_1 = __webpack_require__(10);
-	var Subscription_1 = __webpack_require__(11);
-	var Observer_1 = __webpack_require__(17);
-	var rxSubscriber_1 = __webpack_require__(18);
+	var isFunction_1 = __webpack_require__(15);
+	var Subscription_1 = __webpack_require__(16);
+	var Observer_1 = __webpack_require__(22);
+	var rxSubscriber_1 = __webpack_require__(23);
 	/**
 	 * Implements the {@link Observer} interface and extends the
 	 * {@link Subscription} class. While the {@link Observer} is the public API for
@@ -42108,7 +42113,7 @@
 	//# sourceMappingURL=Subscriber.js.map
 
 /***/ }),
-/* 10 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42119,16 +42124,16 @@
 	//# sourceMappingURL=isFunction.js.map
 
 /***/ }),
-/* 11 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var isArray_1 = __webpack_require__(12);
-	var isObject_1 = __webpack_require__(13);
-	var isFunction_1 = __webpack_require__(10);
-	var tryCatch_1 = __webpack_require__(14);
-	var errorObject_1 = __webpack_require__(15);
-	var UnsubscriptionError_1 = __webpack_require__(16);
+	var isArray_1 = __webpack_require__(17);
+	var isObject_1 = __webpack_require__(18);
+	var isFunction_1 = __webpack_require__(15);
+	var tryCatch_1 = __webpack_require__(19);
+	var errorObject_1 = __webpack_require__(20);
+	var UnsubscriptionError_1 = __webpack_require__(21);
 	/**
 	 * Represents a disposable resource, such as the execution of an Observable. A
 	 * Subscription has one important method, `unsubscribe`, that takes no argument
@@ -42277,7 +42282,7 @@
 	//# sourceMappingURL=Subscription.js.map
 
 /***/ }),
-/* 12 */
+/* 17 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42285,7 +42290,7 @@
 	//# sourceMappingURL=isArray.js.map
 
 /***/ }),
-/* 13 */
+/* 18 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42296,11 +42301,11 @@
 	//# sourceMappingURL=isObject.js.map
 
 /***/ }),
-/* 14 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var errorObject_1 = __webpack_require__(15);
+	var errorObject_1 = __webpack_require__(20);
 	var tryCatchTarget;
 	function tryCatcher() {
 	    try {
@@ -42320,7 +42325,7 @@
 	//# sourceMappingURL=tryCatch.js.map
 
 /***/ }),
-/* 15 */
+/* 20 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42329,7 +42334,7 @@
 	//# sourceMappingURL=errorObject.js.map
 
 /***/ }),
-/* 16 */
+/* 21 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42359,7 +42364,7 @@
 	//# sourceMappingURL=UnsubscriptionError.js.map
 
 /***/ }),
-/* 17 */
+/* 22 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42372,22 +42377,22 @@
 	//# sourceMappingURL=Observer.js.map
 
 /***/ }),
-/* 18 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(7);
+	var root_1 = __webpack_require__(12);
 	var Symbol = root_1.root.Symbol;
 	exports.$$rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
 	    Symbol.for('rxSubscriber') : '@@rxSubscriber';
 	//# sourceMappingURL=rxSubscriber.js.map
 
 /***/ }),
-/* 19 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(7);
+	var root_1 = __webpack_require__(12);
 	function getSymbolObservable(context) {
 	    var $$observable;
 	    var Symbol = context.Symbol;
@@ -42410,7 +42415,7 @@
 	//# sourceMappingURL=observable.js.map
 
 /***/ }),
-/* 20 */
+/* 25 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42442,7 +42447,7 @@
 	//# sourceMappingURL=ObjectUnsubscribedError.js.map
 
 /***/ }),
-/* 21 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42451,7 +42456,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Subscription_1 = __webpack_require__(11);
+	var Subscription_1 = __webpack_require__(16);
 	/**
 	 * We need this JSDoc comment for affecting ESDoc.
 	 * @ignore
@@ -42487,7 +42492,7 @@
 	//# sourceMappingURL=SubjectSubscription.js.map
 
 /***/ }),
-/* 22 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -42496,7 +42501,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	   true ? factory(exports, __webpack_require__(23), __webpack_require__(4)) :
+	   true ? factory(exports, __webpack_require__(28), __webpack_require__(9)) :
 	  typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core'], factory) :
 	  (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}),global.ng.common,global.ng.core));
 	}(this, (function (exports,_angular_common,core) { 'use strict';
@@ -47171,7 +47176,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 23 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -47180,7 +47185,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(4)) :
+	     true ? factory(exports, __webpack_require__(9)) :
 	    typeof define === 'function' && define.amd ? define(['exports', '@angular/core'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.common = global.ng.common || {}),global.ng.core));
 	}(this, (function (exports,_angular_core) { 'use strict';
@@ -50697,7 +50702,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 24 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -50706,7 +50711,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(4), __webpack_require__(6), __webpack_require__(22)) :
+	     true ? factory(exports, __webpack_require__(9), __webpack_require__(11), __webpack_require__(27)) :
 	    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'rxjs/Observable', '@angular/platform-browser'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.http = global.ng.http || {}),global.ng.core,global.Rx,global.ng.platformBrowser));
 	}(this, (function (exports,_angular_core,rxjs_Observable,_angular_platformBrowser) { 'use strict';
@@ -52730,7 +52735,7 @@
 	})));
 
 /***/ }),
-/* 25 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -52739,7 +52744,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(4), __webpack_require__(26), __webpack_require__(5), __webpack_require__(6), __webpack_require__(27)) :
+	     true ? factory(exports, __webpack_require__(9), __webpack_require__(31), __webpack_require__(10), __webpack_require__(11), __webpack_require__(32)) :
 	    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'rxjs/operator/toPromise', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/observable/fromPromise'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.forms = global.ng.forms || {}),global.ng.core,global.Rx.Observable.prototype,global.Rx,global.Rx,global.Rx.Observable));
 	}(this, (function (exports,_angular_core,rxjs_operator_toPromise,rxjs_Subject,rxjs_Observable,rxjs_observable_fromPromise) { 'use strict';
@@ -58501,11 +58506,11 @@
 	})));
 
 /***/ }),
-/* 26 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(7);
+	var root_1 = __webpack_require__(12);
 	/* tslint:disable:max-line-length */
 	/**
 	 * @param PromiseCtor
@@ -58535,16 +58540,16 @@
 	//# sourceMappingURL=toPromise.js.map
 
 /***/ }),
-/* 27 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PromiseObservable_1 = __webpack_require__(28);
+	var PromiseObservable_1 = __webpack_require__(33);
 	exports.fromPromise = PromiseObservable_1.PromiseObservable.create;
 	//# sourceMappingURL=fromPromise.js.map
 
 /***/ }),
-/* 28 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -58553,8 +58558,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var root_1 = __webpack_require__(7);
-	var Observable_1 = __webpack_require__(6);
+	var root_1 = __webpack_require__(12);
+	var Observable_1 = __webpack_require__(11);
 	/**
 	 * We need this JSDoc comment for affecting ESDoc.
 	 * @extends {Ignored}
@@ -58670,7 +58675,7 @@
 	//# sourceMappingURL=PromiseObservable.js.map
 
 /***/ }),
-/* 29 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -58683,10 +58688,10 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var core_1 = __webpack_require__(4);
-	var marker_component_1 = __webpack_require__(30);
-	var map_service_1 = __webpack_require__(31);
-	var geocoding_service_1 = __webpack_require__(40);
+	var core_1 = __webpack_require__(9);
+	var marker_component_1 = __webpack_require__(35);
+	var map_service_1 = __webpack_require__(36);
+	var geocoding_service_1 = __webpack_require__(50);
 	var AppComponent = (function () {
 	    function AppComponent(mapService, geocoder) {
 	        this.mapService = mapService;
@@ -58720,9 +58725,9 @@
 	AppComponent = __decorate([
 	    core_1.Component({
 	        selector: "app",
-	        template: __webpack_require__(51),
+	        template: __webpack_require__(61),
 	        styles: [
-	            __webpack_require__(52)
+	            __webpack_require__(62)
 	        ],
 	        providers: []
 	    }),
@@ -58732,7 +58737,7 @@
 
 
 /***/ }),
-/* 30 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -58745,8 +58750,8 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var core_1 = __webpack_require__(4);
-	var map_service_1 = __webpack_require__(31);
+	var core_1 = __webpack_require__(9);
+	var map_service_1 = __webpack_require__(36);
 	var MarkerComponent = (function () {
 	    function MarkerComponent(mapService) {
 	        this.mapService = mapService;
@@ -58764,8 +58769,8 @@
 	            if (_this.editing) {
 	                var marker_1 = L.marker(e.latlng, {
 	                    icon: L.icon({
-	                        iconUrl: __webpack_require__(32),
-	                        shadowUrl: __webpack_require__(33)
+	                        iconUrl: __webpack_require__(37),
+	                        shadowUrl: __webpack_require__(38)
 	                    }),
 	                    draggable: true
 	                })
@@ -58801,10 +58806,10 @@
 	MarkerComponent = __decorate([
 	    core_1.Component({
 	        selector: "marker",
-	        template: __webpack_require__(34),
+	        template: __webpack_require__(39),
 	        styles: [
-	            __webpack_require__(35),
-	            __webpack_require__(38)
+	            __webpack_require__(40),
+	            __webpack_require__(48)
 	        ],
 	        providers: []
 	    }),
@@ -58814,7 +58819,7 @@
 
 
 /***/ }),
-/* 31 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -58827,7 +58832,7 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var core_1 = __webpack_require__(4);
+	var core_1 = __webpack_require__(9);
 	var MapService = (function () {
 	    function MapService() {
 	        this.baseMaps = {
@@ -58858,29 +58863,29 @@
 
 
 /***/ }),
-/* 32 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/marker-icon.png";
 
 /***/ }),
-/* 33 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/marker-shadow.png";
 
 /***/ }),
-/* 34 */
+/* 39 */
 /***/ (function(module, exports) {
 
 	module.exports = "<button id=\"add-marker\" class=\"btn btn-default on-map\" [class.btn-primary]=\"editing\"\r\n        title=\"Add Marker\" (click)=\"toggleEditing()\" btnCheckbox>\r\n    <i class=\"fa fa-map-marker fa\"></i>\r\n</button>\r\n\r\n<button id=\"remove-marker\" class=\"btn btn-default on-map\" [class.btn-primary]=\"removing\"\r\n        title=\"Remove Marker\" (click)=\"toggleRemoving()\" btnCheckbox>\r\n    <i class=\"fa fa-trash fa\"></i>\r\n</button>\r\n"
 
 /***/ }),
-/* 35 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	        var result = __webpack_require__(36);
+	        var result = __webpack_require__(41);
 
 	        if (typeof result === "string") {
 	            module.exports = result;
@@ -58890,21 +58895,21 @@
 	    
 
 /***/ }),
-/* 36 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(37)();
+	exports = module.exports = __webpack_require__(42)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".on-map {\n  position: absolute;\n  z-index: 1000;\n}\n.map-button {\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n.leaflet-clickable {\n  cursor: crosshair !important;\n}\n.leaflet-container {\n  cursor: help !important;\n}\n#add-marker {\n  margin: 20px 0 0 370px;\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n#remove-marker {\n  margin: 20px 0 0 410px;\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n", ""]);
+	exports.push([module.id, "/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS text size adjust after orientation change, without disabling\n *    user zoom.\n */\nhtml {\n  font-family: sans-serif;\n  /* 1 */\n  -ms-text-size-adjust: 100%;\n  /* 2 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */\n}\n/**\n * Remove default margin.\n */\nbody {\n  margin: 0;\n}\n/* HTML5 display definitions\n   ========================================================================== */\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block;\n}\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  /* 1 */\n  vertical-align: baseline;\n  /* 2 */\n}\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.\n */\n[hidden],\ntemplate {\n  display: none;\n}\n/* Links\n   ========================================================================== */\n/**\n * Remove the gray background color from active links in IE 10.\n */\na {\n  background-color: transparent;\n}\n/**\n * Improve readability when focused and also mouse hovered in all browsers.\n */\na:active,\na:hover {\n  outline: 0;\n}\n/* Text-level semantics\n   ========================================================================== */\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\nabbr[title] {\n  border-bottom: 1px dotted;\n}\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\nb,\nstrong {\n  font-weight: bold;\n}\n/**\n * Address styling not present in Safari and Chrome.\n */\ndfn {\n  font-style: italic;\n}\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n/**\n * Address styling not present in IE 8/9.\n */\nmark {\n  background: #ff0;\n  color: #000;\n}\n/**\n * Address inconsistent and variable font size in all browsers.\n */\nsmall {\n  font-size: 80%;\n}\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsup {\n  top: -0.5em;\n}\nsub {\n  bottom: -0.25em;\n}\n/* Embedded content\n   ========================================================================== */\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\nimg {\n  border: 0;\n}\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\nsvg:not(:root) {\n  overflow: hidden;\n}\n/* Grouping content\n   ========================================================================== */\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\nfigure {\n  margin: 1em 40px;\n}\n/**\n * Address differences between Firefox and other browsers.\n */\nhr {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n  height: 0;\n}\n/**\n * Contain overflow in all browsers.\n */\npre {\n  overflow: auto;\n}\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\n/* Forms\n   ========================================================================== */\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n  margin: 0;\n  /* 3 */\n}\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\nbutton {\n  overflow: visible;\n}\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\nbutton,\nselect {\n  text-transform: none;\n}\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  /* 2 */\n  cursor: pointer;\n  /* 3 */\n}\n/**\n * Re-set default cursor for disabled elements.\n */\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\n/**\n * Remove inner padding and border in Firefox 4+.\n */\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\ninput {\n  line-height: normal;\n}\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome\n *    (include `-moz` to future-proof).\n */\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  -moz-box-sizing: content-box;\n  -webkit-box-sizing: content-box;\n  /* 2 */\n  box-sizing: content-box;\n}\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n/**\n * Define consistent border, margin, and padding.\n */\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\nlegend {\n  border: 0;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\ntextarea {\n  overflow: auto;\n}\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\noptgroup {\n  font-weight: bold;\n}\n/* Tables\n   ========================================================================== */\n/**\n * Remove most spacing between table cells.\n */\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ntd,\nth {\n  padding: 0;\n}\n@font-face {\n  font-family: 'FontAwesome';\n  src: url(" + __webpack_require__(43) + ");\n  src: url(" + __webpack_require__(44) + "?#iefix&v=4.7.0) format('embedded-opentype'), url(" + __webpack_require__(45) + ") format('woff2'), url(" + __webpack_require__(46) + ") format('woff'), url(" + __webpack_require__(47) + ") format('truetype');\n  font-weight: normal;\n  font-style: normal;\n}\n/* определение цветов */\n/* Текст */\n/* страница */\n/* Фоны */\n/* Кнопки */\n.main-header {\n  background-color: #ffffff;\n  width: 100%;\n  box-shadow: 0px 1px 3px 0px rgba(27, 30, 31, 0.26);\n  position: relative;\n  z-index: 1000;\n}\n.main-header__layout {\n  padding-left: 0;\n  padding-right: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\n.main-header__login {\n  display: block;\n  font: 600 14px + 2px / 1 'Open Sans', sans-serif;\n  color: #000000;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 10px 18px;\n  text-align: center;\n  border: 2px solid #1b1e1f;\n  border-radius: 20px;\n  letter-spacing: .2px;\n}\n@media (max-width: 768px) {\n  .main-header__layout {\n    width: 100%;\n    padding-left: 0;\n  }\n}\n.main-nav {\n  width: 100%;\n  max-width: 1130px;\n  margin: 0 auto;\n}\n.main-nav__items {\n  list-style: none;\n  list-style-type: none;\n  padding-left: 0px;\n  margin: 0;\n  float: right;\n}\n.main-nav__item {\n  position: relative;\n  display: inline-block;\n  vertical-align: top;\n  padding-right: 17.5px;\n  padding-left: 17.5px;\n}\n.main-nav__item:last-child {\n  margin-right: 0;\n  padding-right: 0;\n}\n.main-nav__title {\n  margin-right: 45px;\n  padding-left: 10px;\n}\n.main-nav__logo {\n  float: left;\n  padding: 26.5px 15px;\n  padding-right: 0;\n  font: 600 20px / 1 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n}\n.main-nav__logo:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__link {\n  display: block;\n  font: 600 12px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  text-transform: uppercase;\n  letter-spacing: .2px;\n  padding-top: 28.5px;\n  padding-bottom: 28.5px;\n}\n.main-nav__link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__sub-link {\n  display: block;\n  font: 400 12px + 1px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n  padding: 7px 15px !important;\n}\n.main-nav__sub-link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n  outline: 0;\n  background-color: rgba(0, 0, 0, 0.02);\n}\n.main-nav__item:hover:before {\n  color: #2babcf !important;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__item:active:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__sub-items {\n  position: absolute;\n  display: none;\n  top: 77px;\n  left: 0;\n  list-style: none;\n  padding: 0;\n  border: 1px solid #c8c9ca;\n  border-top: 0;\n}\n.main-nav__sub-items--vane {\n  width: 115%;\n  display: none;\n}\n.main-nav__sub-items--maps {\n  width: 135px;\n  left: -50%;\n  display: none;\n}\n.main-nav__sub-items:before {\n  content: \"\";\n  position: absolute;\n  top: -2px;\n  height: 0;\n  left: -1px;\n  right: -1px;\n  border-top: 2px solid #2babcf;\n}\n.main-nav__sub-items:hover {\n  display: block;\n}\n.main-nav__item:first-child:hover > .main-nav__sub-items--vane {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n  display: block;\n  width: 180px;\n  left: -10px;\n  transition: 1s;\n}\n.main-nav__sub-item {\n  background-color: #ffffff;\n  border-bottom: 1px solid #eee;\n  text-transform: none;\n}\n.main-nav__toggle {\n  display: none;\n}\n@media (max-width: 768px) {\n  .main-nav {\n    display: block;\n    width: 100%;\n  }\n  .main-nav__toggle {\n    display: block;\n    float: right;\n    margin-top: 20.5px;\n    margin-bottom: 20.5px;\n    margin-right: 15px;\n  }\n  .main-nav__items {\n    display: none;\n    position: relative;\n    clear: both;\n    width: 100%;\n    padding-left: 0;\n  }\n  .main-nav__items--enable {\n    display: block;\n  }\n  .main-nav__item {\n    display: block;\n    padding-left: 0;\n    padding-right: 0;\n  }\n  .main-nav__link {\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: #333333;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 17.5px;\n    line-height: 18px;\n  }\n  .main-nav__sub-items {\n    position: static;\n    width: 100%;\n  }\n  .main-nav__sub-items:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items--enable {\n    display: block !important;\n  }\n  .main-nav__item:hover:before,\n  .main-nav__item:active:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items:hover,\n  .main-nav__item:first-child:hover > .main-nav__sub-items--vane,\n  .main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps,\n  .main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n    display: none;\n  }\n}\n.on-map {\n  position: absolute;\n  z-index: 1000;\n}\n.map-button {\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n.leaflet-clickable {\n  cursor: crosshair !important;\n}\n.leaflet-container {\n  cursor: help !important;\n}\n#add-marker {\n  margin: 20px 0 0 370px;\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n#remove-marker {\n  margin: 20px 0 0 410px;\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 37 */
+/* 42 */
 /***/ (function(module, exports) {
 
 	/*
@@ -58960,11 +58965,41 @@
 
 
 /***/ }),
-/* 38 */
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "fonts/fontawesome-webfont.eot";
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "fonts/fontawesome-webfont.eot";
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "fonts/fontawesome-webfont.woff2";
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "fonts/fontawesome-webfont.woff";
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "fonts/fontawesome-webfont.ttf";
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	        var result = __webpack_require__(39);
+	        var result = __webpack_require__(49);
 
 	        if (typeof result === "string") {
 	            module.exports = result;
@@ -58974,21 +59009,21 @@
 	    
 
 /***/ }),
-/* 39 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(37)();
+	exports = module.exports = __webpack_require__(42)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".on-map {\n  position: absolute;\n  z-index: 1000;\n}\n.map-button {\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n.leaflet-clickable {\n  cursor: crosshair !important;\n}\n.leaflet-container {\n  cursor: help !important;\n}\n", ""]);
+	exports.push([module.id, "/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS text size adjust after orientation change, without disabling\n *    user zoom.\n */\nhtml {\n  font-family: sans-serif;\n  /* 1 */\n  -ms-text-size-adjust: 100%;\n  /* 2 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */\n}\n/**\n * Remove default margin.\n */\nbody {\n  margin: 0;\n}\n/* HTML5 display definitions\n   ========================================================================== */\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block;\n}\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  /* 1 */\n  vertical-align: baseline;\n  /* 2 */\n}\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.\n */\n[hidden],\ntemplate {\n  display: none;\n}\n/* Links\n   ========================================================================== */\n/**\n * Remove the gray background color from active links in IE 10.\n */\na {\n  background-color: transparent;\n}\n/**\n * Improve readability when focused and also mouse hovered in all browsers.\n */\na:active,\na:hover {\n  outline: 0;\n}\n/* Text-level semantics\n   ========================================================================== */\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\nabbr[title] {\n  border-bottom: 1px dotted;\n}\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\nb,\nstrong {\n  font-weight: bold;\n}\n/**\n * Address styling not present in Safari and Chrome.\n */\ndfn {\n  font-style: italic;\n}\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n/**\n * Address styling not present in IE 8/9.\n */\nmark {\n  background: #ff0;\n  color: #000;\n}\n/**\n * Address inconsistent and variable font size in all browsers.\n */\nsmall {\n  font-size: 80%;\n}\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsup {\n  top: -0.5em;\n}\nsub {\n  bottom: -0.25em;\n}\n/* Embedded content\n   ========================================================================== */\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\nimg {\n  border: 0;\n}\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\nsvg:not(:root) {\n  overflow: hidden;\n}\n/* Grouping content\n   ========================================================================== */\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\nfigure {\n  margin: 1em 40px;\n}\n/**\n * Address differences between Firefox and other browsers.\n */\nhr {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n  height: 0;\n}\n/**\n * Contain overflow in all browsers.\n */\npre {\n  overflow: auto;\n}\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\n/* Forms\n   ========================================================================== */\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n  margin: 0;\n  /* 3 */\n}\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\nbutton {\n  overflow: visible;\n}\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\nbutton,\nselect {\n  text-transform: none;\n}\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  /* 2 */\n  cursor: pointer;\n  /* 3 */\n}\n/**\n * Re-set default cursor for disabled elements.\n */\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\n/**\n * Remove inner padding and border in Firefox 4+.\n */\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\ninput {\n  line-height: normal;\n}\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome\n *    (include `-moz` to future-proof).\n */\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  -moz-box-sizing: content-box;\n  -webkit-box-sizing: content-box;\n  /* 2 */\n  box-sizing: content-box;\n}\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n/**\n * Define consistent border, margin, and padding.\n */\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\nlegend {\n  border: 0;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\ntextarea {\n  overflow: auto;\n}\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\noptgroup {\n  font-weight: bold;\n}\n/* Tables\n   ========================================================================== */\n/**\n * Remove most spacing between table cells.\n */\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ntd,\nth {\n  padding: 0;\n}\n@font-face {\n  font-family: 'FontAwesome';\n  src: url(" + __webpack_require__(43) + ");\n  src: url(" + __webpack_require__(44) + "?#iefix&v=4.7.0) format('embedded-opentype'), url(" + __webpack_require__(45) + ") format('woff2'), url(" + __webpack_require__(46) + ") format('woff'), url(" + __webpack_require__(47) + ") format('truetype');\n  font-weight: normal;\n  font-style: normal;\n}\n/* определение цветов */\n/* Текст */\n/* страница */\n/* Фоны */\n/* Кнопки */\n.main-header {\n  background-color: #ffffff;\n  width: 100%;\n  box-shadow: 0px 1px 3px 0px rgba(27, 30, 31, 0.26);\n  position: relative;\n  z-index: 1000;\n}\n.main-header__layout {\n  padding-left: 0;\n  padding-right: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\n.main-header__login {\n  display: block;\n  font: 600 14px + 2px / 1 'Open Sans', sans-serif;\n  color: #000000;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 10px 18px;\n  text-align: center;\n  border: 2px solid #1b1e1f;\n  border-radius: 20px;\n  letter-spacing: .2px;\n}\n@media (max-width: 768px) {\n  .main-header__layout {\n    width: 100%;\n    padding-left: 0;\n  }\n}\n.main-nav {\n  width: 100%;\n  max-width: 1130px;\n  margin: 0 auto;\n}\n.main-nav__items {\n  list-style: none;\n  list-style-type: none;\n  padding-left: 0px;\n  margin: 0;\n  float: right;\n}\n.main-nav__item {\n  position: relative;\n  display: inline-block;\n  vertical-align: top;\n  padding-right: 17.5px;\n  padding-left: 17.5px;\n}\n.main-nav__item:last-child {\n  margin-right: 0;\n  padding-right: 0;\n}\n.main-nav__title {\n  margin-right: 45px;\n  padding-left: 10px;\n}\n.main-nav__logo {\n  float: left;\n  padding: 26.5px 15px;\n  padding-right: 0;\n  font: 600 20px / 1 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n}\n.main-nav__logo:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__link {\n  display: block;\n  font: 600 12px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  text-transform: uppercase;\n  letter-spacing: .2px;\n  padding-top: 28.5px;\n  padding-bottom: 28.5px;\n}\n.main-nav__link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__sub-link {\n  display: block;\n  font: 400 12px + 1px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n  padding: 7px 15px !important;\n}\n.main-nav__sub-link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n  outline: 0;\n  background-color: rgba(0, 0, 0, 0.02);\n}\n.main-nav__item:hover:before {\n  color: #2babcf !important;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__item:active:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__sub-items {\n  position: absolute;\n  display: none;\n  top: 77px;\n  left: 0;\n  list-style: none;\n  padding: 0;\n  border: 1px solid #c8c9ca;\n  border-top: 0;\n}\n.main-nav__sub-items--vane {\n  width: 115%;\n  display: none;\n}\n.main-nav__sub-items--maps {\n  width: 135px;\n  left: -50%;\n  display: none;\n}\n.main-nav__sub-items:before {\n  content: \"\";\n  position: absolute;\n  top: -2px;\n  height: 0;\n  left: -1px;\n  right: -1px;\n  border-top: 2px solid #2babcf;\n}\n.main-nav__sub-items:hover {\n  display: block;\n}\n.main-nav__item:first-child:hover > .main-nav__sub-items--vane {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n  display: block;\n  width: 180px;\n  left: -10px;\n  transition: 1s;\n}\n.main-nav__sub-item {\n  background-color: #ffffff;\n  border-bottom: 1px solid #eee;\n  text-transform: none;\n}\n.main-nav__toggle {\n  display: none;\n}\n@media (max-width: 768px) {\n  .main-nav {\n    display: block;\n    width: 100%;\n  }\n  .main-nav__toggle {\n    display: block;\n    float: right;\n    margin-top: 20.5px;\n    margin-bottom: 20.5px;\n    margin-right: 15px;\n  }\n  .main-nav__items {\n    display: none;\n    position: relative;\n    clear: both;\n    width: 100%;\n    padding-left: 0;\n  }\n  .main-nav__items--enable {\n    display: block;\n  }\n  .main-nav__item {\n    display: block;\n    padding-left: 0;\n    padding-right: 0;\n  }\n  .main-nav__link {\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: #333333;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 17.5px;\n    line-height: 18px;\n  }\n  .main-nav__sub-items {\n    position: static;\n    width: 100%;\n  }\n  .main-nav__sub-items:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items--enable {\n    display: block !important;\n  }\n  .main-nav__item:hover:before,\n  .main-nav__item:active:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items:hover,\n  .main-nav__item:first-child:hover > .main-nav__sub-items--vane,\n  .main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps,\n  .main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n    display: none;\n  }\n}\n.on-map {\n  position: absolute;\n  z-index: 1000;\n}\n.map-button {\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n.leaflet-clickable {\n  cursor: crosshair !important;\n}\n.leaflet-container {\n  cursor: help !important;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 40 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -59001,11 +59036,11 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var http_1 = __webpack_require__(24);
-	var location_class_1 = __webpack_require__(41);
-	var core_1 = __webpack_require__(4);
-	__webpack_require__(42);
-	__webpack_require__(44);
+	var http_1 = __webpack_require__(29);
+	var location_class_1 = __webpack_require__(51);
+	var core_1 = __webpack_require__(9);
+	__webpack_require__(52);
+	__webpack_require__(54);
 	var GeocodingService = (function () {
 	    function GeocodingService(http) {
 	        this.http = http;
@@ -59058,7 +59093,7 @@
 
 
 /***/ }),
-/* 41 */
+/* 51 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -59071,17 +59106,17 @@
 
 
 /***/ }),
-/* 42 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Observable_1 = __webpack_require__(6);
-	var map_1 = __webpack_require__(43);
+	var Observable_1 = __webpack_require__(11);
+	var map_1 = __webpack_require__(53);
 	Observable_1.Observable.prototype.map = map_1.map;
 	//# sourceMappingURL=map.js.map
 
 /***/ }),
-/* 43 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -59090,7 +59125,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Subscriber_1 = __webpack_require__(9);
+	var Subscriber_1 = __webpack_require__(14);
 	/**
 	 * Applies a given `project` function to each value emitted by the source
 	 * Observable, and emits the resulting values as an Observable.
@@ -59173,18 +59208,18 @@
 	//# sourceMappingURL=map.js.map
 
 /***/ }),
-/* 44 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Observable_1 = __webpack_require__(6);
-	var mergeMap_1 = __webpack_require__(45);
+	var Observable_1 = __webpack_require__(11);
+	var mergeMap_1 = __webpack_require__(55);
 	Observable_1.Observable.prototype.mergeMap = mergeMap_1.mergeMap;
 	Observable_1.Observable.prototype.flatMap = mergeMap_1.mergeMap;
 	//# sourceMappingURL=mergeMap.js.map
 
 /***/ }),
-/* 45 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -59193,8 +59228,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var subscribeToResult_1 = __webpack_require__(46);
-	var OuterSubscriber_1 = __webpack_require__(50);
+	var subscribeToResult_1 = __webpack_require__(56);
+	var OuterSubscriber_1 = __webpack_require__(60);
 	/* tslint:disable:max-line-length */
 	/**
 	 * Projects each source value to an Observable which is merged in the output
@@ -59351,17 +59386,17 @@
 	//# sourceMappingURL=mergeMap.js.map
 
 /***/ }),
-/* 46 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(7);
-	var isArray_1 = __webpack_require__(12);
-	var isPromise_1 = __webpack_require__(47);
-	var Observable_1 = __webpack_require__(6);
-	var iterator_1 = __webpack_require__(48);
-	var InnerSubscriber_1 = __webpack_require__(49);
-	var observable_1 = __webpack_require__(19);
+	var root_1 = __webpack_require__(12);
+	var isArray_1 = __webpack_require__(17);
+	var isPromise_1 = __webpack_require__(57);
+	var Observable_1 = __webpack_require__(11);
+	var iterator_1 = __webpack_require__(58);
+	var InnerSubscriber_1 = __webpack_require__(59);
+	var observable_1 = __webpack_require__(24);
 	function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
 	    var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
 	    if (destination.closed) {
@@ -59430,7 +59465,7 @@
 	//# sourceMappingURL=subscribeToResult.js.map
 
 /***/ }),
-/* 47 */
+/* 57 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -59441,11 +59476,11 @@
 	//# sourceMappingURL=isPromise.js.map
 
 /***/ }),
-/* 48 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(7);
+	var root_1 = __webpack_require__(12);
 	function symbolIteratorPonyfill(root) {
 	    var Symbol = root.Symbol;
 	    if (typeof Symbol === 'function') {
@@ -59480,7 +59515,7 @@
 	//# sourceMappingURL=iterator.js.map
 
 /***/ }),
-/* 49 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -59489,7 +59524,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Subscriber_1 = __webpack_require__(9);
+	var Subscriber_1 = __webpack_require__(14);
 	/**
 	 * We need this JSDoc comment for affecting ESDoc.
 	 * @ignore
@@ -59521,7 +59556,7 @@
 	//# sourceMappingURL=InnerSubscriber.js.map
 
 /***/ }),
-/* 50 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -59530,7 +59565,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Subscriber_1 = __webpack_require__(9);
+	var Subscriber_1 = __webpack_require__(14);
 	/**
 	 * We need this JSDoc comment for affecting ESDoc.
 	 * @ignore
@@ -59556,17 +59591,17 @@
 	//# sourceMappingURL=OuterSubscriber.js.map
 
 /***/ }),
-/* 51 */
+/* 61 */
 /***/ (function(module, exports) {
 
 	module.exports = "<nav class=\"navbar nav-default navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"navbar-header\">\r\n        <a class=\"navbar-brand\" href=\"#\" scroll-to=\"welcome\" offset=\"50\"><span>Angular2-Leaflet-Starter</span></a>\r\n    </div>\r\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n        <ul class=\"nav navbar-nav navbar-left\">\r\n            <li><a href=\"https://github.com/haoliangyu/angular2-leaflet-starter\" target=\"_blank\">GitHub</a></li>\r\n        </ul>\r\n    </div>\r\n</nav>\r\n\r\n<div id=\"map\">\r\n    <navigator></navigator>\r\n    <marker></marker>\r\n</div>\r\n"
 
 /***/ }),
-/* 52 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	        var result = __webpack_require__(53);
+	        var result = __webpack_require__(63);
 
 	        if (typeof result === "string") {
 	            module.exports = result;
@@ -59576,10 +59611,10 @@
 	    
 
 /***/ }),
-/* 53 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(37)();
+	exports = module.exports = __webpack_require__(42)();
 	// imports
 
 
@@ -59590,7 +59625,7 @@
 
 
 /***/ }),
-/* 54 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -59603,9 +59638,9 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var core_1 = __webpack_require__(4);
-	var geocoding_service_1 = __webpack_require__(40);
-	var map_service_1 = __webpack_require__(31);
+	var core_1 = __webpack_require__(9);
+	var geocoding_service_1 = __webpack_require__(50);
+	var map_service_1 = __webpack_require__(36);
 	var NavigatorComponent = (function () {
 	    function NavigatorComponent(geocoder, mapService) {
 	        this.geocoder = geocoder;
@@ -59633,10 +59668,10 @@
 	NavigatorComponent = __decorate([
 	    core_1.Component({
 	        selector: "navigator",
-	        template: __webpack_require__(55),
+	        template: __webpack_require__(65),
 	        styles: [
-	            __webpack_require__(56),
-	            __webpack_require__(38)
+	            __webpack_require__(66),
+	            __webpack_require__(48)
 	        ],
 	        providers: []
 	    }),
@@ -59646,17 +59681,17 @@
 
 
 /***/ }),
-/* 55 */
+/* 65 */
 /***/ (function(module, exports) {
 
 	module.exports = "<input id=\"place-input\" class=\"on-map\" type=\"text\" placeholder=\"Enter a place to go...\"\r\n [(ngModel)]=\"address\" (keyup.enter)=\"goto()\">\r\n\r\n <button id=\"goto\" class=\"btn btn-primary on-map\" href=\"#\" title=\"Goto Place\" (click)=\"goto()\">\r\n     <i class=\"fa fa-arrow-right fa\">\r\n </i></button>\r\n"
 
 /***/ }),
-/* 56 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	        var result = __webpack_require__(57);
+	        var result = __webpack_require__(67);
 
 	        if (typeof result === "string") {
 	            module.exports = result;
@@ -59666,15 +59701,15 @@
 	    
 
 /***/ }),
-/* 57 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(37)();
+	exports = module.exports = __webpack_require__(42)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".on-map {\n  position: absolute;\n  z-index: 1000;\n}\n.map-button {\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n.leaflet-clickable {\n  cursor: crosshair !important;\n}\n.leaflet-container {\n  cursor: help !important;\n}\ninput {\n  margin: 20px 0 0 20px;\n  width: 300px;\n  height: 35px;\n  border: 2px solid rgba(77, 156, 237, 0.7);\n  font-size: 16px;\n  font: #8e8e8e;\n}\n#goto {\n  margin: 20px 0 0 330px;\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n", ""]);
+	exports.push([module.id, "/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS text size adjust after orientation change, without disabling\n *    user zoom.\n */\nhtml {\n  font-family: sans-serif;\n  /* 1 */\n  -ms-text-size-adjust: 100%;\n  /* 2 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */\n}\n/**\n * Remove default margin.\n */\nbody {\n  margin: 0;\n}\n/* HTML5 display definitions\n   ========================================================================== */\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block;\n}\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  /* 1 */\n  vertical-align: baseline;\n  /* 2 */\n}\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.\n */\n[hidden],\ntemplate {\n  display: none;\n}\n/* Links\n   ========================================================================== */\n/**\n * Remove the gray background color from active links in IE 10.\n */\na {\n  background-color: transparent;\n}\n/**\n * Improve readability when focused and also mouse hovered in all browsers.\n */\na:active,\na:hover {\n  outline: 0;\n}\n/* Text-level semantics\n   ========================================================================== */\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\nabbr[title] {\n  border-bottom: 1px dotted;\n}\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\nb,\nstrong {\n  font-weight: bold;\n}\n/**\n * Address styling not present in Safari and Chrome.\n */\ndfn {\n  font-style: italic;\n}\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n/**\n * Address styling not present in IE 8/9.\n */\nmark {\n  background: #ff0;\n  color: #000;\n}\n/**\n * Address inconsistent and variable font size in all browsers.\n */\nsmall {\n  font-size: 80%;\n}\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsup {\n  top: -0.5em;\n}\nsub {\n  bottom: -0.25em;\n}\n/* Embedded content\n   ========================================================================== */\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\nimg {\n  border: 0;\n}\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\nsvg:not(:root) {\n  overflow: hidden;\n}\n/* Grouping content\n   ========================================================================== */\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\nfigure {\n  margin: 1em 40px;\n}\n/**\n * Address differences between Firefox and other browsers.\n */\nhr {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n  height: 0;\n}\n/**\n * Contain overflow in all browsers.\n */\npre {\n  overflow: auto;\n}\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\n/* Forms\n   ========================================================================== */\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n  margin: 0;\n  /* 3 */\n}\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\nbutton {\n  overflow: visible;\n}\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\nbutton,\nselect {\n  text-transform: none;\n}\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  /* 2 */\n  cursor: pointer;\n  /* 3 */\n}\n/**\n * Re-set default cursor for disabled elements.\n */\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\n/**\n * Remove inner padding and border in Firefox 4+.\n */\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\ninput {\n  line-height: normal;\n}\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome\n *    (include `-moz` to future-proof).\n */\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  -moz-box-sizing: content-box;\n  -webkit-box-sizing: content-box;\n  /* 2 */\n  box-sizing: content-box;\n}\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n/**\n * Define consistent border, margin, and padding.\n */\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\nlegend {\n  border: 0;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\ntextarea {\n  overflow: auto;\n}\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\noptgroup {\n  font-weight: bold;\n}\n/* Tables\n   ========================================================================== */\n/**\n * Remove most spacing between table cells.\n */\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ntd,\nth {\n  padding: 0;\n}\n@font-face {\n  font-family: 'FontAwesome';\n  src: url(" + __webpack_require__(43) + ");\n  src: url(" + __webpack_require__(44) + "?#iefix&v=4.7.0) format('embedded-opentype'), url(" + __webpack_require__(45) + ") format('woff2'), url(" + __webpack_require__(46) + ") format('woff'), url(" + __webpack_require__(47) + ") format('truetype');\n  font-weight: normal;\n  font-style: normal;\n}\n/* определение цветов */\n/* Текст */\n/* страница */\n/* Фоны */\n/* Кнопки */\n.main-header {\n  background-color: #ffffff;\n  width: 100%;\n  box-shadow: 0px 1px 3px 0px rgba(27, 30, 31, 0.26);\n  position: relative;\n  z-index: 1000;\n}\n.main-header__layout {\n  padding-left: 0;\n  padding-right: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\n.main-header__login {\n  display: block;\n  font: 600 14px + 2px / 1 'Open Sans', sans-serif;\n  color: #000000;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 10px 18px;\n  text-align: center;\n  border: 2px solid #1b1e1f;\n  border-radius: 20px;\n  letter-spacing: .2px;\n}\n@media (max-width: 768px) {\n  .main-header__layout {\n    width: 100%;\n    padding-left: 0;\n  }\n}\n.main-nav {\n  width: 100%;\n  max-width: 1130px;\n  margin: 0 auto;\n}\n.main-nav__items {\n  list-style: none;\n  list-style-type: none;\n  padding-left: 0px;\n  margin: 0;\n  float: right;\n}\n.main-nav__item {\n  position: relative;\n  display: inline-block;\n  vertical-align: top;\n  padding-right: 17.5px;\n  padding-left: 17.5px;\n}\n.main-nav__item:last-child {\n  margin-right: 0;\n  padding-right: 0;\n}\n.main-nav__title {\n  margin-right: 45px;\n  padding-left: 10px;\n}\n.main-nav__logo {\n  float: left;\n  padding: 26.5px 15px;\n  padding-right: 0;\n  font: 600 20px / 1 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n}\n.main-nav__logo:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__link {\n  display: block;\n  font: 600 12px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  text-transform: uppercase;\n  letter-spacing: .2px;\n  padding-top: 28.5px;\n  padding-bottom: 28.5px;\n}\n.main-nav__link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__sub-link {\n  display: block;\n  font: 400 12px + 1px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n  padding: 7px 15px !important;\n}\n.main-nav__sub-link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n  outline: 0;\n  background-color: rgba(0, 0, 0, 0.02);\n}\n.main-nav__item:hover:before {\n  color: #2babcf !important;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__item:active:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__sub-items {\n  position: absolute;\n  display: none;\n  top: 77px;\n  left: 0;\n  list-style: none;\n  padding: 0;\n  border: 1px solid #c8c9ca;\n  border-top: 0;\n}\n.main-nav__sub-items--vane {\n  width: 115%;\n  display: none;\n}\n.main-nav__sub-items--maps {\n  width: 135px;\n  left: -50%;\n  display: none;\n}\n.main-nav__sub-items:before {\n  content: \"\";\n  position: absolute;\n  top: -2px;\n  height: 0;\n  left: -1px;\n  right: -1px;\n  border-top: 2px solid #2babcf;\n}\n.main-nav__sub-items:hover {\n  display: block;\n}\n.main-nav__item:first-child:hover > .main-nav__sub-items--vane {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n  display: block;\n  width: 180px;\n  left: -10px;\n  transition: 1s;\n}\n.main-nav__sub-item {\n  background-color: #ffffff;\n  border-bottom: 1px solid #eee;\n  text-transform: none;\n}\n.main-nav__toggle {\n  display: none;\n}\n@media (max-width: 768px) {\n  .main-nav {\n    display: block;\n    width: 100%;\n  }\n  .main-nav__toggle {\n    display: block;\n    float: right;\n    margin-top: 20.5px;\n    margin-bottom: 20.5px;\n    margin-right: 15px;\n  }\n  .main-nav__items {\n    display: none;\n    position: relative;\n    clear: both;\n    width: 100%;\n    padding-left: 0;\n  }\n  .main-nav__items--enable {\n    display: block;\n  }\n  .main-nav__item {\n    display: block;\n    padding-left: 0;\n    padding-right: 0;\n  }\n  .main-nav__link {\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: #333333;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 17.5px;\n    line-height: 18px;\n  }\n  .main-nav__sub-items {\n    position: static;\n    width: 100%;\n  }\n  .main-nav__sub-items:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items--enable {\n    display: block !important;\n  }\n  .main-nav__item:hover:before,\n  .main-nav__item:active:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items:hover,\n  .main-nav__item:first-child:hover > .main-nav__sub-items--vane,\n  .main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps,\n  .main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n    display: none;\n  }\n}\n.on-map {\n  position: absolute;\n  z-index: 1000;\n}\n.map-button {\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n.leaflet-clickable {\n  cursor: crosshair !important;\n}\n.leaflet-container {\n  cursor: help !important;\n}\ninput {\n  margin: 20px 0 0 20px;\n  width: 300px;\n  height: 35px;\n  border: 2px solid rgba(77, 156, 237, 0.7);\n  font-size: 16px;\n  font: #8e8e8e;\n}\n#goto {\n  margin: 20px 0 0 330px;\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n", ""]);
 
 	// exports
 
