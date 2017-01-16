@@ -10,3 +10,4 @@ import "reflect-metadata";
 //import "../node_modules/leaflet/dist/leaflet.css";
 
 import  "./components/main-nav/main-nav.component.less";
+import  "./components/main-footer/main-footer.component.less";

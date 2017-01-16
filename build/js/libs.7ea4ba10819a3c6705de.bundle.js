@@ -48,18 +48,19 @@
 	/// <reference path="./typings/require.d.ts"/>
 	"use strict";
 	//import "leaflet";
-	__webpack_require__(29);
-	__webpack_require__(31);
-	__webpack_require__(32);
+	__webpack_require__(33);
+	__webpack_require__(35);
+	__webpack_require__(36);
 	//import "../node_modules/bootstrap/dist/css/bootstrap.css";
 	//import "../node_modules/font-awesome/css/font-awesome.css";
 	//import "../node_modules/leaflet/dist/leaflet.css";
-	__webpack_require__(33);
+	__webpack_require__(37);
+	__webpack_require__(38);
 
 
 /***/ },
 
-/***/ 29:
+/***/ 33:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {/**
@@ -1844,11 +1845,11 @@
 
 	})));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(30)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(34)))
 
 /***/ },
 
-/***/ 30:
+/***/ 34:
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -2035,7 +2036,7 @@
 
 /***/ },
 
-/***/ 31:
+/***/ 35:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2199,7 +2200,7 @@
 
 /***/ },
 
-/***/ 32:
+/***/ 36:
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*! *****************************************************************************
@@ -3332,7 +3333,14 @@
 
 /***/ },
 
-/***/ 33:
+/***/ 37:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 38:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

@@ -55,7 +55,9 @@
 	var core_1 = __webpack_require__(3);
 	var forms_1 = __webpack_require__(23);
 	var platform_browser_1 = __webpack_require__(21);
-	var main_nav_component_1 = __webpack_require__(27);
+	var app_component_1 = __webpack_require__(27);
+	var main_nav_component_1 = __webpack_require__(29);
+	var main_footer_component_1 = __webpack_require__(31);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
@@ -64,8 +66,8 @@
 	AppModule = __decorate([
 	    core_1.NgModule({
 	        imports: [forms_1.FormsModule, platform_browser_1.BrowserModule],
-	        bootstrap: [main_nav_component_1.MainNavComponent],
-	        declarations: [main_nav_component_1.MainNavComponent]
+	        bootstrap: [app_component_1.AppComponent],
+	        declarations: [main_nav_component_1.MainNavComponent, main_footer_component_1.MainFooterComponent, app_component_1.AppComponent]
 	    })
 	], AppModule);
 	exports.AppModule = AppModule;
@@ -56634,6 +56636,40 @@
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
 	var core_1 = __webpack_require__(3);
+	var AppComponent = (function () {
+	    function AppComponent() {
+	    }
+	    return AppComponent;
+	}());
+	AppComponent = __decorate([
+	    core_1.Component({
+	        selector: "app",
+	        template: __webpack_require__(28),
+	        providers: []
+	    })
+	], AppComponent);
+	exports.AppComponent = AppComponent;
+	;
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports) {
+
+	module.exports = "<main-nav></main-nav>\r\n<main-footer></main-footer>\r\n"
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var core_1 = __webpack_require__(3);
 	var MainNavComponent = (function () {
 	    function MainNavComponent() {
 	    }
@@ -56643,7 +56679,7 @@
 	    core_1.Component({
 	        encapsulation: core_1.ViewEncapsulation.Emulated,
 	        selector: "main-nav",
-	        template: __webpack_require__(28),
+	        template: __webpack_require__(30),
 	        providers: []
 	    })
 	], MainNavComponent);
@@ -56652,10 +56688,44 @@
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports) {
 
 	module.exports = "<header class=\"main-header\">\r\n    <div class=\"main-header__layout\">\r\n        <nav class=\"main-nav\"><a href=\"#\" class=\"main-nav__logo\">VANE Geospatial Platform</a>\r\n            <div id=\"toggle-nav\" class=\"main-nav__toggle toggle\"><span class=\"toggle__line\"></span><span class=\"toggle__line\"></span><span class=\"toggle__line\"></span></div>\r\n            <ul class=\"main-nav__items\">\r\n                <li id=\"menu-vane\" class=\"main-nav__item\"><a href=\"#\" class=\"main-nav__link\">VANE Query Language<span class=\"icon icon__caret-down\"></span></a>\r\n                    <ul class=\"main-nav__sub-items main-nav__sub-items--vane\">\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/vaneLanguage\" class=\"main-nav__sub-link\">VANE Query Language specs</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/beautiful-vane\" class=\"main-nav__sub-link\">Showcase</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/cases/ChangeDetection\" class=\"main-nav__sub-link\">Change Detection</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/sql-viewer?select=b5,b4&amp;where=day=2016-200&amp;op=ndvi&amp;lon=-102.21&amp;lat=34.3264&amp;zoom=12\" class=\"main-nav__sub-link\">Query Viewer</a></li>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"main-nav__item\"><a href=\"/jupyter/start\" class=\"main-nav__link\">Jupyter</a></li>\r\n                <li id=\"menu-maps\" class=\"main-nav__item\"><a href=\"#\" class=\"main-nav__link\">Maps<span class=\"icon icon__caret-down\"></span></a>\r\n                    <ul class=\"main-nav__sub-items main-nav__sub-items--maps\">\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/mosaic\" class=\"main-nav__sub-link\">Mosaic map</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/ndvi\" class=\"main-nav__sub-link\">NDVI maps</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/finder\" class=\"main-nav__sub-link\">Scenes finder</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/weathermap\" class=\"main-nav__sub-link\">Weather maps</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/beautiful_maps\" class=\"main-nav__sub-link\">Beautiful maps</a></li>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"main-nav__item\"><a href=\"/news\" class=\"main-nav__link\">News</a></li>\r\n                <li class=\"main-nav__item\"><a href=\"/about\" class=\"main-nav__link\">About</a></li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n</header>"
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var core_1 = __webpack_require__(3);
+	var MainFooterComponent = (function () {
+	    function MainFooterComponent() {
+	    }
+	    return MainFooterComponent;
+	}());
+	MainFooterComponent = __decorate([
+	    core_1.Component({
+	        selector: "main-footer",
+	        template: __webpack_require__(32),
+	        providers: []
+	    })
+	], MainFooterComponent);
+	exports.MainFooterComponent = MainFooterComponent;
+	;
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+	module.exports = "<footer class=\"main-footer\">\r\n    <div class=\"main-footer__layout\">\r\n        <div class=\"main-footer__items\">\r\n            <div class=\"main-footer__item\">  500.000+  developers<br>  work with our services</div>\r\n            <div class=\"main-footer__item\">  1 billion+ weather forecasts<br>  we produce daily</div>\r\n            <div class=\"main-footer__item\">  500+ Gb of satellite data<br>  we process daily</div>\r\n        </div>\r\n        <div class=\"main-footer__items\">\r\n            <div class=\"main-footer__copyright\">Powered by OpenWeatherMap, Inc</div>\r\n            <div class=\"main-footer__contacts\"><span class=\"main-footer__contact\">Contact us</span><span class=\"main-footer__contact\">Terms of use</span><span class=\"main-footer__socials\"><a href=\"https://www.linkedin.com/company/9816754\" class=\"icon-social icon-social__in\"><img src=\"img/icon-in.png\" width=\"32\" height=\"32\" alt=\"instagram\"></a><a href=\"https://www.facebook.com/groups/270748973021342\" class=\"icon-social icon-social__fb\"><img src=\"img/icon-fb.png\" width=\"32\" height=\"32\" alt=\"facebook\"></a></span></div>\r\n        </div>\r\n    </div>\r\n</footer>"
 
 /***/ })
 /******/ ]);
