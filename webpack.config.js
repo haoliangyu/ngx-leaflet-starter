@@ -20,9 +20,9 @@ module.exports = {
     },
     output: {
         path: outputDir,
-        filename: '[name].[hash].bundle.js',
-        sourceMapFilename: '[name].[hash].map',
-        chunkFilename: '[id].[hash].chunk.js'
+        filename: 'js/[name].[hash].bundle.js',
+        sourceMapFilename: 'js/[name].[hash].map',
+        chunkFilename: 'js/[id].[hash].chunk.js'
     },
     resolve: {
         extensions: ['', '.ts', '.component.ts', '.service.ts', '.js', '.component.html', '.component.less', '.less', '.css', '.jade']
@@ -54,7 +54,7 @@ module.exports = {
         //     sourceMap: false,
         //     mangle: true
         // }),
-        new ExtractTextPlugin("[name].[contenthash].css", {allChunks: true}),
+        new ExtractTextPlugin("css/[name].[contenthash].css", {allChunks: true}),
         new HtmlWebpackPlugin({
             inject: true,
             filename: 'index.html',
