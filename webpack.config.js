@@ -24,13 +24,14 @@ module.exports = {
         chunkFilename: '[id].[hash].chunk.js'
     },
     resolve: {
-        extensions: ['', '.ts', '.component.ts', '.service.ts', '.js', '.component.html', '.component.less', '.less', '.css']
+        extensions: ['', '.ts', '.component.ts', '.service.ts', '.js', '.component.html', '.component.less', '.less', '.css', '.jade']
     },
     module: {
         preLoaders: [
             { test: /\.ts$/, loader: 'tslint' }
         ],
         loaders: [
+            { test: /\.jade$/, loader: "jade-loader", query: {pretty: true} },
             { test: /(\.component|\.service|)\.ts$/, loader: 'ts-loader'},
             { test: /\.component\.html$/, loader: 'raw' },
             { test: /(\.component|)\.less$/, loader: 'to-string!css!less' },
@@ -54,8 +55,13 @@ module.exports = {
         // }),
         new ExtractTextPlugin("[name].[contenthash].css"),
         new HtmlWebpackPlugin({
-            template: path.resolve(srcDir, 'index.html'),
-            inject: true
+            inject: true,
+            filename: 'index.html',
+            template: path.resolve(srcDir+'/jade/', 'index.jade'),
+            title: 'title',
+            minify:{
+              collapseWhitespace: false // Переносить теги на новую строку
+            }
         }),
         new ScriptExtHtmlWebpackPlugin({
           defaultAttribute: 'defer'
