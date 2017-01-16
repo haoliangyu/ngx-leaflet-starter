@@ -4,45 +4,6 @@ html(lang='en')
         title Angular2-Leaflet-Starter
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        link(href='')
     body
-        header.main-header
-            .main-header__layout
-                nav.main-nav
-                    a.main-nav__logo(href="#") VANE Geospatial Platform
-                    div#toggle-nav.main-nav__toggle.toggle
-                        span.toggle__line
-                        span.toggle__line
-                        span.toggle__line
-                    ul.main-nav__items
-                        li#menu-vane.main-nav__item
-                            a.main-nav__link(href="#") VANE Query Language
-                                span.icon.icon__caret-down
-                            ul.main-nav__sub-items.main-nav__sub-items--vane
-                                li.main-nav__sub-item
-                                    a.main-nav__sub-link(href="/vaneLanguage") VANE Query Language specs
-                                li.main-nav__sub-item
-                                    a.main-nav__sub-link(href="/beautiful-vane") Showcase
-                                li.main-nav__sub-item
-                                    a.main-nav__sub-link(href="/cases/ChangeDetection") Change Detection
-                                li.main-nav__sub-item
-                                    a.main-nav__sub-link(href="/sql-viewer?select=b5,b4&where=day=2016-200&op=ndvi&lon=-102.21&lat=34.3264&zoom=12") Query Viewer
-                        li.main-nav__item
-                            a.main-nav__link(href="/jupyter/start") Jupyter
-                        li#menu-maps.main-nav__item
-                            a.main-nav__link(href="#") Maps
-                                span.icon.icon__caret-down
-                            ul.main-nav__sub-items.main-nav__sub-items--maps
-                                li.main-nav__sub-item
-                                    a.main-nav__sub-link(href="/mosaic") Mosaic map
-                                li.main-nav__sub-item
-                                    a.main-nav__sub-link(href="/ndvi") NDVI maps
-                                li.main-nav__sub-item
-                                    a.main-nav__sub-link(href="/finder") Scenes finder
-                                li.main-nav__sub-item
-                                    a.main-nav__sub-link(href="/weathermap") Weather maps
-                                li.main-nav__sub-item
-                                    a.main-nav__sub-link(href="/beautiful_maps") Beautiful maps
-                        li.main-nav__item
-                            a.main-nav__link(href="/news") News
-                        li.main-nav__item
-                            a.main-nav__link(href="/about") About
+        main-nav

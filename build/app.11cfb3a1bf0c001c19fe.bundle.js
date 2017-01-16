@@ -51,16 +51,11 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var platform_browser_dynamic_1 = __webpack_require__(7);
-	var http_1 = __webpack_require__(29);
-	var core_1 = __webpack_require__(9);
-	var forms_1 = __webpack_require__(30);
-	var platform_browser_1 = __webpack_require__(27);
-	var app_component_1 = __webpack_require__(34);
-	var navigator_component_1 = __webpack_require__(64);
-	var marker_component_1 = __webpack_require__(35);
-	var map_service_1 = __webpack_require__(36);
-	var geocoding_service_1 = __webpack_require__(50);
+	var platform_browser_dynamic_1 = __webpack_require__(5);
+	var core_1 = __webpack_require__(7);
+	var forms_1 = __webpack_require__(27);
+	var platform_browser_1 = __webpack_require__(25);
+	var main_nav_component_1 = __webpack_require__(31);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
@@ -68,17 +63,9 @@
 	}());
 	AppModule = __decorate([
 	    core_1.NgModule({
-	        imports: [http_1.HttpModule, forms_1.FormsModule, platform_browser_1.BrowserModule],
-	        bootstrap: [app_component_1.AppComponent],
-	        declarations: [
-	            app_component_1.AppComponent,
-	            navigator_component_1.NavigatorComponent,
-	            marker_component_1.MarkerComponent
-	        ],
-	        providers: [
-	            map_service_1.MapService,
-	            geocoding_service_1.GeocodingService
-	        ]
+	        imports: [forms_1.FormsModule, platform_browser_1.BrowserModule],
+	        bootstrap: [main_nav_component_1.MainNavComponent],
+	        declarations: [main_nav_component_1.MainNavComponent]
 	    })
 	], AppModule);
 	exports.AppModule = AppModule;
@@ -90,9 +77,7 @@
 /* 2 */,
 /* 3 */,
 /* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -101,7 +86,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(8), __webpack_require__(9), __webpack_require__(27)) :
+	     true ? factory(exports, __webpack_require__(6), __webpack_require__(7), __webpack_require__(25)) :
 	    typeof define === 'function' && define.amd ? define(['exports', '@angular/compiler', '@angular/core', '@angular/platform-browser'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.platformBrowserDynamic = global.ng.platformBrowserDynamic || {}),global.ng.compiler,global.ng.core,global.ng.platformBrowser));
 	}(this, (function (exports,_angular_compiler,_angular_core,_angular_platformBrowser) { 'use strict';
@@ -266,7 +251,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 8 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -275,7 +260,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	   true ? factory(exports, __webpack_require__(9)) :
+	   true ? factory(exports, __webpack_require__(7)) :
 	  typeof define === 'function' && define.amd ? define(['exports', '@angular/core'], factory) :
 	  (factory((global.ng = global.ng || {}, global.ng.compiler = global.ng.compiler || {}),global.ng.core));
 	}(this, (function (exports,_angular_core) { 'use strict';
@@ -28365,7 +28350,7 @@
 	})));
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -28374,7 +28359,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(10), __webpack_require__(11)) :
+	     true ? factory(exports, __webpack_require__(8), __webpack_require__(9)) :
 	    typeof define === 'function' && define.amd ? define(['exports', 'rxjs/Subject', 'rxjs/Observable'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.core = global.ng.core || {}),global.Rx,global.Rx));
 	}(this, (function (exports,rxjs_Subject,rxjs_Observable) { 'use strict';
@@ -41516,7 +41501,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -41525,12 +41510,12 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Observable_1 = __webpack_require__(11);
-	var Subscriber_1 = __webpack_require__(14);
-	var Subscription_1 = __webpack_require__(16);
-	var ObjectUnsubscribedError_1 = __webpack_require__(25);
-	var SubjectSubscription_1 = __webpack_require__(26);
-	var rxSubscriber_1 = __webpack_require__(23);
+	var Observable_1 = __webpack_require__(9);
+	var Subscriber_1 = __webpack_require__(12);
+	var Subscription_1 = __webpack_require__(14);
+	var ObjectUnsubscribedError_1 = __webpack_require__(23);
+	var SubjectSubscription_1 = __webpack_require__(24);
+	var rxSubscriber_1 = __webpack_require__(21);
 	/**
 	 * @class SubjectSubscriber<T>
 	 */
@@ -41681,13 +41666,13 @@
 	//# sourceMappingURL=Subject.js.map
 
 /***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(12);
-	var toSubscriber_1 = __webpack_require__(13);
-	var observable_1 = __webpack_require__(24);
+	var root_1 = __webpack_require__(10);
+	var toSubscriber_1 = __webpack_require__(11);
+	var observable_1 = __webpack_require__(22);
 	/**
 	 * A representation of any set of values over any amount of time. This the most basic building block
 	 * of RxJS.
@@ -41815,7 +41800,7 @@
 	//# sourceMappingURL=Observable.js.map
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -41834,13 +41819,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Subscriber_1 = __webpack_require__(14);
-	var rxSubscriber_1 = __webpack_require__(23);
-	var Observer_1 = __webpack_require__(22);
+	var Subscriber_1 = __webpack_require__(12);
+	var rxSubscriber_1 = __webpack_require__(21);
+	var Observer_1 = __webpack_require__(20);
 	function toSubscriber(nextOrObserver, error, complete) {
 	    if (nextOrObserver) {
 	        if (nextOrObserver instanceof Subscriber_1.Subscriber) {
@@ -41859,7 +41844,7 @@
 	//# sourceMappingURL=toSubscriber.js.map
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -41868,10 +41853,10 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var isFunction_1 = __webpack_require__(15);
-	var Subscription_1 = __webpack_require__(16);
-	var Observer_1 = __webpack_require__(22);
-	var rxSubscriber_1 = __webpack_require__(23);
+	var isFunction_1 = __webpack_require__(13);
+	var Subscription_1 = __webpack_require__(14);
+	var Observer_1 = __webpack_require__(20);
+	var rxSubscriber_1 = __webpack_require__(21);
 	/**
 	 * Implements the {@link Observer} interface and extends the
 	 * {@link Subscription} class. While the {@link Observer} is the public API for
@@ -42113,7 +42098,7 @@
 	//# sourceMappingURL=Subscriber.js.map
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42124,16 +42109,16 @@
 	//# sourceMappingURL=isFunction.js.map
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var isArray_1 = __webpack_require__(17);
-	var isObject_1 = __webpack_require__(18);
-	var isFunction_1 = __webpack_require__(15);
-	var tryCatch_1 = __webpack_require__(19);
-	var errorObject_1 = __webpack_require__(20);
-	var UnsubscriptionError_1 = __webpack_require__(21);
+	var isArray_1 = __webpack_require__(15);
+	var isObject_1 = __webpack_require__(16);
+	var isFunction_1 = __webpack_require__(13);
+	var tryCatch_1 = __webpack_require__(17);
+	var errorObject_1 = __webpack_require__(18);
+	var UnsubscriptionError_1 = __webpack_require__(19);
 	/**
 	 * Represents a disposable resource, such as the execution of an Observable. A
 	 * Subscription has one important method, `unsubscribe`, that takes no argument
@@ -42282,7 +42267,7 @@
 	//# sourceMappingURL=Subscription.js.map
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42290,7 +42275,7 @@
 	//# sourceMappingURL=isArray.js.map
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42301,11 +42286,11 @@
 	//# sourceMappingURL=isObject.js.map
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var errorObject_1 = __webpack_require__(20);
+	var errorObject_1 = __webpack_require__(18);
 	var tryCatchTarget;
 	function tryCatcher() {
 	    try {
@@ -42325,7 +42310,7 @@
 	//# sourceMappingURL=tryCatch.js.map
 
 /***/ }),
-/* 20 */
+/* 18 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42334,7 +42319,7 @@
 	//# sourceMappingURL=errorObject.js.map
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42364,7 +42349,7 @@
 	//# sourceMappingURL=UnsubscriptionError.js.map
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42377,22 +42362,22 @@
 	//# sourceMappingURL=Observer.js.map
 
 /***/ }),
-/* 23 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(12);
+	var root_1 = __webpack_require__(10);
 	var Symbol = root_1.root.Symbol;
 	exports.$$rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
 	    Symbol.for('rxSubscriber') : '@@rxSubscriber';
 	//# sourceMappingURL=rxSubscriber.js.map
 
 /***/ }),
-/* 24 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(12);
+	var root_1 = __webpack_require__(10);
 	function getSymbolObservable(context) {
 	    var $$observable;
 	    var Symbol = context.Symbol;
@@ -42415,7 +42400,7 @@
 	//# sourceMappingURL=observable.js.map
 
 /***/ }),
-/* 25 */
+/* 23 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42447,7 +42432,7 @@
 	//# sourceMappingURL=ObjectUnsubscribedError.js.map
 
 /***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42456,7 +42441,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Subscription_1 = __webpack_require__(16);
+	var Subscription_1 = __webpack_require__(14);
 	/**
 	 * We need this JSDoc comment for affecting ESDoc.
 	 * @ignore
@@ -42492,7 +42477,7 @@
 	//# sourceMappingURL=SubjectSubscription.js.map
 
 /***/ }),
-/* 27 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -42501,7 +42486,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	   true ? factory(exports, __webpack_require__(28), __webpack_require__(9)) :
+	   true ? factory(exports, __webpack_require__(26), __webpack_require__(7)) :
 	  typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core'], factory) :
 	  (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}),global.ng.common,global.ng.core));
 	}(this, (function (exports,_angular_common,core) { 'use strict';
@@ -47176,7 +47161,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -47185,7 +47170,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(9)) :
+	     true ? factory(exports, __webpack_require__(7)) :
 	    typeof define === 'function' && define.amd ? define(['exports', '@angular/core'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.common = global.ng.common || {}),global.ng.core));
 	}(this, (function (exports,_angular_core) { 'use strict';
@@ -50702,7 +50687,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -50711,2040 +50696,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(9), __webpack_require__(11), __webpack_require__(27)) :
-	    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'rxjs/Observable', '@angular/platform-browser'], factory) :
-	    (factory((global.ng = global.ng || {}, global.ng.http = global.ng.http || {}),global.ng.core,global.Rx,global.ng.platformBrowser));
-	}(this, (function (exports,_angular_core,rxjs_Observable,_angular_platformBrowser) { 'use strict';
-
-	    /**
-	     *  A backend for http that uses the `XMLHttpRequest` browser API.
-	      * *
-	      * Take care not to evaluate this in non-browser contexts.
-	      * *
-	     */
-	    var BrowserXhr = (function () {
-	        function BrowserXhr() {
-	        }
-	        /**
-	         * @return {?}
-	         */
-	        BrowserXhr.prototype.build = function () { return ((new XMLHttpRequest())); };
-	        BrowserXhr.decorators = [
-	            { type: _angular_core.Injectable },
-	        ];
-	        /** @nocollapse */
-	        BrowserXhr.ctorParameters = function () { return []; };
-	        return BrowserXhr;
-	    }());
-
-	    var RequestMethod = {};
-	    RequestMethod.Get = 0;
-	    RequestMethod.Post = 1;
-	    RequestMethod.Put = 2;
-	    RequestMethod.Delete = 3;
-	    RequestMethod.Options = 4;
-	    RequestMethod.Head = 5;
-	    RequestMethod.Patch = 6;
-	    RequestMethod[RequestMethod.Get] = "Get";
-	    RequestMethod[RequestMethod.Post] = "Post";
-	    RequestMethod[RequestMethod.Put] = "Put";
-	    RequestMethod[RequestMethod.Delete] = "Delete";
-	    RequestMethod[RequestMethod.Options] = "Options";
-	    RequestMethod[RequestMethod.Head] = "Head";
-	    RequestMethod[RequestMethod.Patch] = "Patch";
-	    var ReadyState = {};
-	    ReadyState.Unsent = 0;
-	    ReadyState.Open = 1;
-	    ReadyState.HeadersReceived = 2;
-	    ReadyState.Loading = 3;
-	    ReadyState.Done = 4;
-	    ReadyState.Cancelled = 5;
-	    ReadyState[ReadyState.Unsent] = "Unsent";
-	    ReadyState[ReadyState.Open] = "Open";
-	    ReadyState[ReadyState.HeadersReceived] = "HeadersReceived";
-	    ReadyState[ReadyState.Loading] = "Loading";
-	    ReadyState[ReadyState.Done] = "Done";
-	    ReadyState[ReadyState.Cancelled] = "Cancelled";
-	    var ResponseType = {};
-	    ResponseType.Basic = 0;
-	    ResponseType.Cors = 1;
-	    ResponseType.Default = 2;
-	    ResponseType.Error = 3;
-	    ResponseType.Opaque = 4;
-	    ResponseType[ResponseType.Basic] = "Basic";
-	    ResponseType[ResponseType.Cors] = "Cors";
-	    ResponseType[ResponseType.Default] = "Default";
-	    ResponseType[ResponseType.Error] = "Error";
-	    ResponseType[ResponseType.Opaque] = "Opaque";
-	    var ContentType = {};
-	    ContentType.NONE = 0;
-	    ContentType.JSON = 1;
-	    ContentType.FORM = 2;
-	    ContentType.FORM_DATA = 3;
-	    ContentType.TEXT = 4;
-	    ContentType.BLOB = 5;
-	    ContentType.ARRAY_BUFFER = 6;
-	    ContentType[ContentType.NONE] = "NONE";
-	    ContentType[ContentType.JSON] = "JSON";
-	    ContentType[ContentType.FORM] = "FORM";
-	    ContentType[ContentType.FORM_DATA] = "FORM_DATA";
-	    ContentType[ContentType.TEXT] = "TEXT";
-	    ContentType[ContentType.BLOB] = "BLOB";
-	    ContentType[ContentType.ARRAY_BUFFER] = "ARRAY_BUFFER";
-	    var ResponseContentType = {};
-	    ResponseContentType.Text = 0;
-	    ResponseContentType.Json = 1;
-	    ResponseContentType.ArrayBuffer = 2;
-	    ResponseContentType.Blob = 3;
-	    ResponseContentType[ResponseContentType.Text] = "Text";
-	    ResponseContentType[ResponseContentType.Json] = "Json";
-	    ResponseContentType[ResponseContentType.ArrayBuffer] = "ArrayBuffer";
-	    ResponseContentType[ResponseContentType.Blob] = "Blob";
-
-	    /**
-	     *  Polyfill for [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers/Headers), as
-	      * specified in the [Fetch Spec](https://fetch.spec.whatwg.org/#headers-class).
-	      * *
-	      * The only known difference between this `Headers` implementation and the spec is the
-	      * lack of an `entries` method.
-	      * *
-	      * ### Example
-	      * *
-	      * ```
-	      * import {Headers} from '@angular/http';
-	      * *
-	      * var firstHeaders = new Headers();
-	      * firstHeaders.append('Content-Type', 'image/jpeg');
-	      * console.log(firstHeaders.get('Content-Type')) //'image/jpeg'
-	      * *
-	      * // Create headers from Plain Old JavaScript Object
-	      * var secondHeaders = new Headers({
-	      * 'X-My-Custom-Header': 'Angular'
-	      * });
-	      * console.log(secondHeaders.get('X-My-Custom-Header')); //'Angular'
-	      * *
-	      * var thirdHeaders = new Headers(secondHeaders);
-	      * console.log(thirdHeaders.get('X-My-Custom-Header')); //'Angular'
-	      * ```
-	      * *
-	     */
-	    var Headers = (function () {
-	        /**
-	         * @param {?=} headers
-	         */
-	        function Headers(headers) {
-	            var _this = this;
-	            /** @internal header names are lower case */
-	            this._headers = new Map();
-	            /** @internal map lower case names to actual names */
-	            this._normalizedNames = new Map();
-	            if (!headers) {
-	                return;
-	            }
-	            if (headers instanceof Headers) {
-	                headers.forEach((function (values, name) {
-	                    values.forEach((function (value) { return _this.append(name, value); }));
-	                }));
-	                return;
-	            }
-	            Object.keys(headers).forEach((function (name) {
-	                var values = Array.isArray(headers[name]) ? headers[name] : [headers[name]];
-	                _this.delete(name);
-	                values.forEach((function (value) { return _this.append(name, value); }));
-	            }));
-	        }
-	        /**
-	         *  Returns a new Headers instance from the given DOMString of Response Headers
-	         * @param {?} headersString
-	         * @return {?}
-	         */
-	        Headers.fromResponseHeaderString = function (headersString) {
-	            var /** @type {?} */ headers = new Headers();
-	            headersString.split('\n').forEach((function (line) {
-	                var /** @type {?} */ index = line.indexOf(':');
-	                if (index > 0) {
-	                    var /** @type {?} */ name_1 = line.slice(0, index);
-	                    var /** @type {?} */ value = line.slice(index + 1).trim();
-	                    headers.set(name_1, value);
-	                }
-	            }));
-	            return headers;
-	        };
-	        /**
-	         *  Appends a header to existing list of header values for a given header name.
-	         * @param {?} name
-	         * @param {?} value
-	         * @return {?}
-	         */
-	        Headers.prototype.append = function (name, value) {
-	            var /** @type {?} */ values = this.getAll(name);
-	            if (values === null) {
-	                this.set(name, value);
-	            }
-	            else {
-	                values.push(value);
-	            }
-	        };
-	        /**
-	         *  Deletes all header values for the given name.
-	         * @param {?} name
-	         * @return {?}
-	         */
-	        Headers.prototype.delete = function (name) {
-	            var /** @type {?} */ lcName = name.toLowerCase();
-	            this._normalizedNames.delete(lcName);
-	            this._headers.delete(lcName);
-	        };
-	        /**
-	         * @param {?} fn
-	         * @return {?}
-	         */
-	        Headers.prototype.forEach = function (fn) {
-	            var _this = this;
-	            this._headers.forEach((function (values, lcName) { return fn(values, _this._normalizedNames.get(lcName), _this._headers); }));
-	        };
-	        /**
-	         *  Returns first header that matches given name.
-	         * @param {?} name
-	         * @return {?}
-	         */
-	        Headers.prototype.get = function (name) {
-	            var /** @type {?} */ values = this.getAll(name);
-	            if (values === null) {
-	                return null;
-	            }
-	            return values.length > 0 ? values[0] : null;
-	        };
-	        /**
-	         *  Checks for existence of header by given name.
-	         * @param {?} name
-	         * @return {?}
-	         */
-	        Headers.prototype.has = function (name) { return this._headers.has(name.toLowerCase()); };
-	        /**
-	         *  Returns the names of the headers
-	         * @return {?}
-	         */
-	        Headers.prototype.keys = function () { return Array.from(this._normalizedNames.values()); };
-	        /**
-	         *  Sets or overrides header value for given name.
-	         * @param {?} name
-	         * @param {?} value
-	         * @return {?}
-	         */
-	        Headers.prototype.set = function (name, value) {
-	            if (Array.isArray(value)) {
-	                if (value.length) {
-	                    this._headers.set(name.toLowerCase(), [value.join(',')]);
-	                }
-	            }
-	            else {
-	                this._headers.set(name.toLowerCase(), [value]);
-	            }
-	            this.mayBeSetNormalizedName(name);
-	        };
-	        /**
-	         *  Returns values of all headers.
-	         * @return {?}
-	         */
-	        Headers.prototype.values = function () { return Array.from(this._headers.values()); };
-	        /**
-	         * @return {?}
-	         */
-	        Headers.prototype.toJSON = function () {
-	            var _this = this;
-	            var /** @type {?} */ serialized = {};
-	            this._headers.forEach((function (values, name) {
-	                var /** @type {?} */ split = [];
-	                values.forEach((function (v) { return split.push.apply(split, v.split(',')); }));
-	                serialized[_this._normalizedNames.get(name)] = split;
-	            }));
-	            return serialized;
-	        };
-	        /**
-	         *  Returns list of header values for a given name.
-	         * @param {?} name
-	         * @return {?}
-	         */
-	        Headers.prototype.getAll = function (name) {
-	            return this.has(name) ? this._headers.get(name.toLowerCase()) : null;
-	        };
-	        /**
-	         *  This method is not implemented.
-	         * @return {?}
-	         */
-	        Headers.prototype.entries = function () { throw new Error('"entries" method is not implemented on Headers class'); };
-	        /**
-	         * @param {?} name
-	         * @return {?}
-	         */
-	        Headers.prototype.mayBeSetNormalizedName = function (name) {
-	            var /** @type {?} */ lcName = name.toLowerCase();
-	            if (!this._normalizedNames.has(lcName)) {
-	                this._normalizedNames.set(lcName, name);
-	            }
-	        };
-	        return Headers;
-	    }());
-
-	    /**
-	     * @license
-	     * Copyright Google Inc. All Rights Reserved.
-	     *
-	     * Use of this source code is governed by an MIT-style license that can be
-	     * found in the LICENSE file at https://angular.io/license
-	     */
-	    var __extends$1 = (this && this.__extends) || function (d, b) {
-	        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	    /**
-	     *  Creates a response options object to be optionally provided when instantiating a
-	      * {@link Response}.
-	      * *
-	      * This class is based on the `ResponseInit` description in the [Fetch
-	      * Spec](https://fetch.spec.whatwg.org/#responseinit).
-	      * *
-	      * All values are null by default. Typical defaults can be found in the
-	      * {@link BaseResponseOptions} class, which sub-classes `ResponseOptions`.
-	      * *
-	      * This class may be used in tests to build {@link Response Responses} for
-	      * mock responses (see {@link MockBackend}).
-	      * *
-	      * ### Example ([live demo](http://plnkr.co/edit/P9Jkk8e8cz6NVzbcxEsD?p=preview))
-	      * *
-	      * ```typescript
-	      * import {ResponseOptions, Response} from '@angular/http';
-	      * *
-	      * var options = new ResponseOptions({
-	      * body: '{"name":"Jeff"}'
-	      * });
-	      * var res = new Response(options);
-	      * *
-	      * console.log('res.json():', res.json()); // Object {name: "Jeff"}
-	      * ```
-	      * *
-	     */
-	    var ResponseOptions = (function () {
-	        /**
-	         * @param {?=} __0
-	         */
-	        function ResponseOptions(_a) {
-	            var _b = _a === void 0 ? {} : _a, body = _b.body, status = _b.status, headers = _b.headers, statusText = _b.statusText, type = _b.type, url = _b.url;
-	            this.body = body != null ? body : null;
-	            this.status = status != null ? status : null;
-	            this.headers = headers != null ? headers : null;
-	            this.statusText = statusText != null ? statusText : null;
-	            this.type = type != null ? type : null;
-	            this.url = url != null ? url : null;
-	        }
-	        /**
-	         *  Creates a copy of the `ResponseOptions` instance, using the optional input as values to
-	          * override
-	          * existing values. This method will not change the values of the instance on which it is being
-	          * called.
-	          * *
-	          * This may be useful when sharing a base `ResponseOptions` object inside tests,
-	          * where certain properties may change from test to test.
-	          * *
-	          * ### Example ([live demo](http://plnkr.co/edit/1lXquqFfgduTFBWjNoRE?p=preview))
-	          * *
-	          * ```typescript
-	          * import {ResponseOptions, Response} from '@angular/http';
-	          * *
-	          * var options = new ResponseOptions({
-	          * body: {name: 'Jeff'}
-	          * });
-	          * var res = new Response(options.merge({
-	          * url: 'https://google.com'
-	          * }));
-	          * console.log('options.url:', options.url); // null
-	          * console.log('res.json():', res.json()); // Object {name: "Jeff"}
-	          * console.log('res.url:', res.url); // https://google.com
-	          * ```
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        ResponseOptions.prototype.merge = function (options) {
-	            return new ResponseOptions({
-	                body: options && options.body != null ? options.body : this.body,
-	                status: options && options.status != null ? options.status : this.status,
-	                headers: options && options.headers != null ? options.headers : this.headers,
-	                statusText: options && options.statusText != null ? options.statusText : this.statusText,
-	                type: options && options.type != null ? options.type : this.type,
-	                url: options && options.url != null ? options.url : this.url,
-	            });
-	        };
-	        return ResponseOptions;
-	    }());
-	    /**
-	     *  Subclass of {@link ResponseOptions}, with default values.
-	      * *
-	      * Default values:
-	      * * status: 200
-	      * * headers: empty {@link Headers} object
-	      * *
-	      * This class could be extended and bound to the {@link ResponseOptions} class
-	      * when configuring an {@link Injector}, in order to override the default options
-	      * used by {@link Http} to create {@link Response Responses}.
-	      * *
-	      * ### Example ([live demo](http://plnkr.co/edit/qv8DLT?p=preview))
-	      * *
-	      * ```typescript
-	      * import {provide} from '@angular/core';
-	      * import {bootstrap} from '@angular/platform-browser/browser';
-	      * import {HTTP_PROVIDERS, Headers, Http, BaseResponseOptions, ResponseOptions} from
-	      * '@angular/http';
-	      * import {App} from './myapp';
-	      * *
-	      * class MyOptions extends BaseResponseOptions {
-	      * headers:Headers = new Headers({network: 'github'});
-	      * }
-	      * *
-	      * bootstrap(App, [HTTP_PROVIDERS, {provide: ResponseOptions, useClass: MyOptions}]);
-	      * ```
-	      * *
-	      * The options could also be extended when manually creating a {@link Response}
-	      * object.
-	      * *
-	      * ### Example ([live demo](http://plnkr.co/edit/VngosOWiaExEtbstDoix?p=preview))
-	      * *
-	      * ```
-	      * import {BaseResponseOptions, Response} from '@angular/http';
-	      * *
-	      * var options = new BaseResponseOptions();
-	      * var res = new Response(options.merge({
-	      * body: 'Angular',
-	      * headers: new Headers({framework: 'angular'})
-	      * }));
-	      * console.log('res.headers.get("framework"):', res.headers.get('framework')); // angular
-	      * console.log('res.text():', res.text()); // Angular;
-	      * ```
-	      * *
-	     */
-	    var BaseResponseOptions = (function (_super) {
-	        __extends$1(BaseResponseOptions, _super);
-	        function BaseResponseOptions() {
-	            _super.call(this, { status: 200, statusText: 'Ok', type: ResponseType.Default, headers: new Headers() });
-	        }
-	        BaseResponseOptions.decorators = [
-	            { type: _angular_core.Injectable },
-	        ];
-	        /** @nocollapse */
-	        BaseResponseOptions.ctorParameters = function () { return []; };
-	        return BaseResponseOptions;
-	    }(ResponseOptions));
-
-	    /**
-	     * @license
-	     * Copyright Google Inc. All Rights Reserved.
-	     *
-	     * Use of this source code is governed by an MIT-style license that can be
-	     * found in the LICENSE file at https://angular.io/license
-	     */
-	    /**
-	     *  Abstract class from which real backends are derived.
-	      * *
-	      * The primary purpose of a `ConnectionBackend` is to create new connections to fulfill a given
-	      * {@link Request}.
-	      * *
-	     * @abstract
-	     */
-	    var ConnectionBackend = (function () {
-	        function ConnectionBackend() {
-	        }
-	        /**
-	         * @abstract
-	         * @param {?} request
-	         * @return {?}
-	         */
-	        ConnectionBackend.prototype.createConnection = function (request) { };
-	        return ConnectionBackend;
-	    }());
-	    /**
-	     *  Abstract class from which real connections are derived.
-	      * *
-	     * @abstract
-	     */
-	    var Connection = (function () {
-	        function Connection() {
-	        }
-	        return Connection;
-	    }());
-	    /**
-	     *  An XSRFStrategy configures XSRF protection (e.g. via headers) on an HTTP request.
-	      * *
-	     * @abstract
-	     */
-	    var XSRFStrategy = (function () {
-	        function XSRFStrategy() {
-	        }
-	        /**
-	         * @abstract
-	         * @param {?} req
-	         * @return {?}
-	         */
-	        XSRFStrategy.prototype.configureRequest = function (req) { };
-	        return XSRFStrategy;
-	    }());
-
-	    /**
-	     * @param {?} method
-	     * @return {?}
-	     */
-	    function normalizeMethodName(method) {
-	        if (typeof method !== 'string')
-	            return method;
-	        switch (method.toUpperCase()) {
-	            case 'GET':
-	                return RequestMethod.Get;
-	            case 'POST':
-	                return RequestMethod.Post;
-	            case 'PUT':
-	                return RequestMethod.Put;
-	            case 'DELETE':
-	                return RequestMethod.Delete;
-	            case 'OPTIONS':
-	                return RequestMethod.Options;
-	            case 'HEAD':
-	                return RequestMethod.Head;
-	            case 'PATCH':
-	                return RequestMethod.Patch;
-	        }
-	        throw new Error("Invalid request method. The method \"" + method + "\" is not supported.");
-	    }
-	    var /** @type {?} */ isSuccess = function (status) { return (status >= 200 && status < 300); };
-	    /**
-	     * @param {?} xhr
-	     * @return {?}
-	     */
-	    function getResponseURL(xhr) {
-	        if ('responseURL' in xhr) {
-	            return xhr.responseURL;
-	        }
-	        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
-	            return xhr.getResponseHeader('X-Request-URL');
-	        }
-	        return;
-	    }
-	    /**
-	     * @param {?} input
-	     * @return {?}
-	     */
-	    function stringToArrayBuffer(input) {
-	        var /** @type {?} */ view = new Uint16Array(input.length);
-	        for (var /** @type {?} */ i = 0, /** @type {?} */ strLen = input.length; i < strLen; i++) {
-	            view[i] = input.charCodeAt(i);
-	        }
-	        return view.buffer;
-	    }
-
-	    /**
-	     * @license undefined
-	      * Copyright Google Inc. All Rights Reserved.
-	      * *
-	      * Use of this source code is governed by an MIT-style license that can be
-	      * found in the LICENSE file at https://angular.io/license
-	     * @param {?=} rawParams
-	     * @return {?}
-	     */
-	    function paramParser(rawParams) {
-	        if (rawParams === void 0) { rawParams = ''; }
-	        var /** @type {?} */ map = new Map();
-	        if (rawParams.length > 0) {
-	            var /** @type {?} */ params = rawParams.split('&');
-	            params.forEach((function (param) {
-	                var /** @type {?} */ eqIdx = param.indexOf('=');
-	                var _a = eqIdx == -1 ? [param, ''] : [param.slice(0, eqIdx), param.slice(eqIdx + 1)], key = _a[0], val = _a[1];
-	                var /** @type {?} */ list = map.get(key) || [];
-	                list.push(val);
-	                map.set(key, list);
-	            }));
-	        }
-	        return map;
-	    }
-	    /**
-	     *  *
-	     */
-	    var QueryEncoder = (function () {
-	        function QueryEncoder() {
-	        }
-	        /**
-	         * @param {?} k
-	         * @return {?}
-	         */
-	        QueryEncoder.prototype.encodeKey = function (k) { return standardEncoding(k); };
-	        /**
-	         * @param {?} v
-	         * @return {?}
-	         */
-	        QueryEncoder.prototype.encodeValue = function (v) { return standardEncoding(v); };
-	        return QueryEncoder;
-	    }());
-	    /**
-	     * @param {?} v
-	     * @return {?}
-	     */
-	    function standardEncoding(v) {
-	        return encodeURIComponent(v)
-	            .replace(/%40/gi, '@')
-	            .replace(/%3A/gi, ':')
-	            .replace(/%24/gi, '$')
-	            .replace(/%2C/gi, ',')
-	            .replace(/%3B/gi, ';')
-	            .replace(/%2B/gi, '+')
-	            .replace(/%3D/gi, '=')
-	            .replace(/%3F/gi, '?')
-	            .replace(/%2F/gi, '/');
-	    }
-	    /**
-	     *  Map-like representation of url search parameters, based on
-	      * [URLSearchParams](https://url.spec.whatwg.org/#urlsearchparams) in the url living standard,
-	      * with several extensions for merging URLSearchParams objects:
-	      * - setAll()
-	      * - appendAll()
-	      * - replaceAll()
-	      * *
-	      * This class accepts an optional second parameter of ${@link QueryEncoder},
-	      * which is used to serialize parameters before making a request. By default,
-	      * `QueryEncoder` encodes keys and values of parameters using `encodeURIComponent`,
-	      * and then un-encodes certain characters that are allowed to be part of the query
-	      * according to IETF RFC 3986: https://tools.ietf.org/html/rfc3986.
-	      * *
-	      * These are the characters that are not encoded: `! $ \' ( ) * + , ; A 9 - . _ ~ ? /`
-	      * *
-	      * If the set of allowed query characters is not acceptable for a particular backend,
-	      * `QueryEncoder` can be subclassed and provided as the 2nd argument to URLSearchParams.
-	      * *
-	      * ```
-	      * import {URLSearchParams, QueryEncoder} from '@angular/http';
-	      * class MyQueryEncoder extends QueryEncoder {
-	      * encodeKey(k: string): string {
-	      * return myEncodingFunction(k);
-	      * }
-	      * *
-	      * encodeValue(v: string): string {
-	      * return myEncodingFunction(v);
-	      * }
-	      * }
-	      * *
-	      * let params = new URLSearchParams('', new MyQueryEncoder());
-	      * ```
-	     */
-	    var URLSearchParams = (function () {
-	        /**
-	         * @param {?=} rawParams
-	         * @param {?=} queryEncoder
-	         */
-	        function URLSearchParams(rawParams, queryEncoder) {
-	            if (rawParams === void 0) { rawParams = ''; }
-	            if (queryEncoder === void 0) { queryEncoder = new QueryEncoder(); }
-	            this.rawParams = rawParams;
-	            this.queryEncoder = queryEncoder;
-	            this.paramsMap = paramParser(rawParams);
-	        }
-	        /**
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.clone = function () {
-	            var /** @type {?} */ clone = new URLSearchParams('', this.queryEncoder);
-	            clone.appendAll(this);
-	            return clone;
-	        };
-	        /**
-	         * @param {?} param
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.has = function (param) { return this.paramsMap.has(param); };
-	        /**
-	         * @param {?} param
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.get = function (param) {
-	            var /** @type {?} */ storedParam = this.paramsMap.get(param);
-	            return Array.isArray(storedParam) ? storedParam[0] : null;
-	        };
-	        /**
-	         * @param {?} param
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.getAll = function (param) { return this.paramsMap.get(param) || []; };
-	        /**
-	         * @param {?} param
-	         * @param {?} val
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.set = function (param, val) {
-	            if (val === void 0 || val === null) {
-	                this.delete(param);
-	                return;
-	            }
-	            var /** @type {?} */ list = this.paramsMap.get(param) || [];
-	            list.length = 0;
-	            list.push(val);
-	            this.paramsMap.set(param, list);
-	        };
-	        /**
-	         * @param {?} searchParams
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.setAll = function (searchParams) {
-	            var _this = this;
-	            searchParams.paramsMap.forEach((function (value, param) {
-	                var /** @type {?} */ list = _this.paramsMap.get(param) || [];
-	                list.length = 0;
-	                list.push(value[0]);
-	                _this.paramsMap.set(param, list);
-	            }));
-	        };
-	        /**
-	         * @param {?} param
-	         * @param {?} val
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.append = function (param, val) {
-	            if (val === void 0 || val === null)
-	                return;
-	            var /** @type {?} */ list = this.paramsMap.get(param) || [];
-	            list.push(val);
-	            this.paramsMap.set(param, list);
-	        };
-	        /**
-	         * @param {?} searchParams
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.appendAll = function (searchParams) {
-	            var _this = this;
-	            searchParams.paramsMap.forEach((function (value, param) {
-	                var /** @type {?} */ list = _this.paramsMap.get(param) || [];
-	                for (var /** @type {?} */ i = 0; i < value.length; ++i) {
-	                    list.push(value[i]);
-	                }
-	                _this.paramsMap.set(param, list);
-	            }));
-	        };
-	        /**
-	         * @param {?} searchParams
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.replaceAll = function (searchParams) {
-	            var _this = this;
-	            searchParams.paramsMap.forEach((function (value, param) {
-	                var /** @type {?} */ list = _this.paramsMap.get(param) || [];
-	                list.length = 0;
-	                for (var /** @type {?} */ i = 0; i < value.length; ++i) {
-	                    list.push(value[i]);
-	                }
-	                _this.paramsMap.set(param, list);
-	            }));
-	        };
-	        /**
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.toString = function () {
-	            var _this = this;
-	            var /** @type {?} */ paramsList = [];
-	            this.paramsMap.forEach((function (values, k) {
-	                values.forEach((function (v) { return paramsList.push(_this.queryEncoder.encodeKey(k) + '=' + _this.queryEncoder.encodeValue(v)); }));
-	            }));
-	            return paramsList.join('&');
-	        };
-	        /**
-	         * @param {?} param
-	         * @return {?}
-	         */
-	        URLSearchParams.prototype.delete = function (param) { this.paramsMap.delete(param); };
-	        return URLSearchParams;
-	    }());
-
-	    /**
-	     *  HTTP request body used by both {@link Request} and {@link Response}
-	      * https://fetch.spec.whatwg.org/#body
-	     * @abstract
-	     */
-	    var Body = (function () {
-	        function Body() {
-	        }
-	        /**
-	         *  Attempts to return body as parsed `JSON` object, or raises an exception.
-	         * @return {?}
-	         */
-	        Body.prototype.json = function () {
-	            if (typeof this._body === 'string') {
-	                return JSON.parse(/** @type {?} */ (this._body));
-	            }
-	            if (this._body instanceof ArrayBuffer) {
-	                return JSON.parse(this.text());
-	            }
-	            return this._body;
-	        };
-	        /**
-	         *  Returns the body as a string, presuming `toString()` can be called on the response body.
-	         * @return {?}
-	         */
-	        Body.prototype.text = function () {
-	            if (this._body instanceof URLSearchParams) {
-	                return this._body.toString();
-	            }
-	            if (this._body instanceof ArrayBuffer) {
-	                return String.fromCharCode.apply(null, new Uint16Array(/** @type {?} */ (this._body)));
-	            }
-	            if (this._body == null) {
-	                return '';
-	            }
-	            if (typeof this._body === 'object') {
-	                return JSON.stringify(this._body, null, 2);
-	            }
-	            return this._body.toString();
-	        };
-	        /**
-	         *  Return the body as an ArrayBuffer
-	         * @return {?}
-	         */
-	        Body.prototype.arrayBuffer = function () {
-	            if (this._body instanceof ArrayBuffer) {
-	                return (this._body);
-	            }
-	            return stringToArrayBuffer(this.text());
-	        };
-	        /**
-	         *  Returns the request's body as a Blob, assuming that body exists.
-	         * @return {?}
-	         */
-	        Body.prototype.blob = function () {
-	            if (this._body instanceof Blob) {
-	                return (this._body);
-	            }
-	            if (this._body instanceof ArrayBuffer) {
-	                return new Blob([this._body]);
-	            }
-	            throw new Error('The request body isn\'t either a blob or an array buffer');
-	        };
-	        return Body;
-	    }());
-
-	    /**
-	     * @license
-	     * Copyright Google Inc. All Rights Reserved.
-	     *
-	     * Use of this source code is governed by an MIT-style license that can be
-	     * found in the LICENSE file at https://angular.io/license
-	     */
-	    var __extends$2 = (this && this.__extends) || function (d, b) {
-	        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	    /**
-	     *  Creates `Response` instances from provided values.
-	      * *
-	      * Though this object isn't
-	      * usually instantiated by end-users, it is the primary object interacted with when it comes time to
-	      * add data to a view.
-	      * *
-	      * ### Example
-	      * *
-	      * ```
-	      * http.request('my-friends.txt').subscribe(response => this.friends = response.text());
-	      * ```
-	      * *
-	      * The Response's interface is inspired by the Response constructor defined in the [Fetch
-	      * Spec](https://fetch.spec.whatwg.org/#response-class), but is considered a static value whose body
-	      * can be accessed many times. There are other differences in the implementation, but this is the
-	      * most significant.
-	      * *
-	     */
-	    var Response = (function (_super) {
-	        __extends$2(Response, _super);
-	        /**
-	         * @param {?} responseOptions
-	         */
-	        function Response(responseOptions) {
-	            _super.call(this);
-	            this._body = responseOptions.body;
-	            this.status = responseOptions.status;
-	            this.ok = (this.status >= 200 && this.status <= 299);
-	            this.statusText = responseOptions.statusText;
-	            this.headers = responseOptions.headers;
-	            this.type = responseOptions.type;
-	            this.url = responseOptions.url;
-	        }
-	        /**
-	         * @return {?}
-	         */
-	        Response.prototype.toString = function () {
-	            return "Response with status: " + this.status + " " + this.statusText + " for URL: " + this.url;
-	        };
-	        return Response;
-	    }(Body));
-
-	    var /** @type {?} */ _nextRequestId = 0;
-	    var /** @type {?} */ JSONP_HOME = '__ng_jsonp__';
-	    var /** @type {?} */ _jsonpConnections = null;
-	    /**
-	     * @return {?}
-	     */
-	    function _getJsonpConnections() {
-	        var /** @type {?} */ w = typeof window == 'object' ? window : {};
-	        if (_jsonpConnections === null) {
-	            _jsonpConnections = w[JSONP_HOME] = {};
-	        }
-	        return _jsonpConnections;
-	    }
-	    // Make sure not to evaluate this in a non-browser environment!
-	    var BrowserJsonp = (function () {
-	        function BrowserJsonp() {
-	        }
-	        /**
-	         * @param {?} url
-	         * @return {?}
-	         */
-	        BrowserJsonp.prototype.build = function (url) {
-	            var /** @type {?} */ node = document.createElement('script');
-	            node.src = url;
-	            return node;
-	        };
-	        /**
-	         * @return {?}
-	         */
-	        BrowserJsonp.prototype.nextRequestID = function () { return "__req" + _nextRequestId++; };
-	        /**
-	         * @param {?} id
-	         * @return {?}
-	         */
-	        BrowserJsonp.prototype.requestCallback = function (id) { return JSONP_HOME + "." + id + ".finished"; };
-	        /**
-	         * @param {?} id
-	         * @param {?} connection
-	         * @return {?}
-	         */
-	        BrowserJsonp.prototype.exposeConnection = function (id, connection) {
-	            var /** @type {?} */ connections = _getJsonpConnections();
-	            connections[id] = connection;
-	        };
-	        /**
-	         * @param {?} id
-	         * @return {?}
-	         */
-	        BrowserJsonp.prototype.removeConnection = function (id) {
-	            var /** @type {?} */ connections = _getJsonpConnections();
-	            connections[id] = null;
-	        };
-	        /**
-	         * @param {?} node
-	         * @return {?}
-	         */
-	        BrowserJsonp.prototype.send = function (node) { document.body.appendChild(/** @type {?} */ ((node))); };
-	        /**
-	         * @param {?} node
-	         * @return {?}
-	         */
-	        BrowserJsonp.prototype.cleanup = function (node) {
-	            if (node.parentNode) {
-	                node.parentNode.removeChild(/** @type {?} */ ((node)));
-	            }
-	        };
-	        BrowserJsonp.decorators = [
-	            { type: _angular_core.Injectable },
-	        ];
-	        /** @nocollapse */
-	        BrowserJsonp.ctorParameters = function () { return []; };
-	        return BrowserJsonp;
-	    }());
-
-	    /**
-	     * @license
-	     * Copyright Google Inc. All Rights Reserved.
-	     *
-	     * Use of this source code is governed by an MIT-style license that can be
-	     * found in the LICENSE file at https://angular.io/license
-	     */
-	    var __extends = (this && this.__extends) || function (d, b) {
-	        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	    var /** @type {?} */ JSONP_ERR_NO_CALLBACK = 'JSONP injected script did not invoke callback.';
-	    var /** @type {?} */ JSONP_ERR_WRONG_METHOD = 'JSONP requests must use GET request method.';
-	    /**
-	     *  Abstract base class for an in-flight JSONP request.
-	      * *
-	     * @abstract
-	     */
-	    var JSONPConnection = (function () {
-	        function JSONPConnection() {
-	        }
-	        /**
-	         *  Callback called when the JSONP request completes, to notify the application
-	          * of the new data.
-	         * @abstract
-	         * @param {?=} data
-	         * @return {?}
-	         */
-	        JSONPConnection.prototype.finished = function (data) { };
-	        return JSONPConnection;
-	    }());
-	    var JSONPConnection_ = (function (_super) {
-	        __extends(JSONPConnection_, _super);
-	        /**
-	         * @param {?} req
-	         * @param {?} _dom
-	         * @param {?=} baseResponseOptions
-	         */
-	        function JSONPConnection_(req, _dom, baseResponseOptions) {
-	            var _this = this;
-	            _super.call(this);
-	            this._dom = _dom;
-	            this.baseResponseOptions = baseResponseOptions;
-	            this._finished = false;
-	            if (req.method !== RequestMethod.Get) {
-	                throw new TypeError(JSONP_ERR_WRONG_METHOD);
-	            }
-	            this.request = req;
-	            this.response = new rxjs_Observable.Observable(function (responseObserver) {
-	                _this.readyState = ReadyState.Loading;
-	                var id = _this._id = _dom.nextRequestID();
-	                _dom.exposeConnection(id, _this);
-	                // Workaround Dart
-	                // url = url.replace(/=JSONP_CALLBACK(&|$)/, `generated method`);
-	                var callback = _dom.requestCallback(_this._id);
-	                var url = req.url;
-	                if (url.indexOf('=JSONP_CALLBACK&') > -1) {
-	                    url = url.replace('=JSONP_CALLBACK&', "=" + callback + "&");
-	                }
-	                else if (url.lastIndexOf('=JSONP_CALLBACK') === url.length - '=JSONP_CALLBACK'.length) {
-	                    url = url.substring(0, url.length - '=JSONP_CALLBACK'.length) + ("=" + callback);
-	                }
-	                var script = _this._script = _dom.build(url);
-	                var onLoad = function (event) {
-	                    if (_this.readyState === ReadyState.Cancelled)
-	                        return;
-	                    _this.readyState = ReadyState.Done;
-	                    _dom.cleanup(script);
-	                    if (!_this._finished) {
-	                        var responseOptions_1 = new ResponseOptions({ body: JSONP_ERR_NO_CALLBACK, type: ResponseType.Error, url: url });
-	                        if (baseResponseOptions) {
-	                            responseOptions_1 = baseResponseOptions.merge(responseOptions_1);
-	                        }
-	                        responseObserver.error(new Response(responseOptions_1));
-	                        return;
-	                    }
-	                    var responseOptions = new ResponseOptions({ body: _this._responseData, url: url });
-	                    if (_this.baseResponseOptions) {
-	                        responseOptions = _this.baseResponseOptions.merge(responseOptions);
-	                    }
-	                    responseObserver.next(new Response(responseOptions));
-	                    responseObserver.complete();
-	                };
-	                var onError = function (error) {
-	                    if (_this.readyState === ReadyState.Cancelled)
-	                        return;
-	                    _this.readyState = ReadyState.Done;
-	                    _dom.cleanup(script);
-	                    var responseOptions = new ResponseOptions({ body: error.message, type: ResponseType.Error });
-	                    if (baseResponseOptions) {
-	                        responseOptions = baseResponseOptions.merge(responseOptions);
-	                    }
-	                    responseObserver.error(new Response(responseOptions));
-	                };
-	                script.addEventListener('load', onLoad);
-	                script.addEventListener('error', onError);
-	                _dom.send(script);
-	                return function () {
-	                    _this.readyState = ReadyState.Cancelled;
-	                    script.removeEventListener('load', onLoad);
-	                    script.removeEventListener('error', onError);
-	                    _this._dom.cleanup(script);
-	                };
-	            });
-	        }
-	        /**
-	         * @param {?=} data
-	         * @return {?}
-	         */
-	        JSONPConnection_.prototype.finished = function (data) {
-	            // Don't leak connections
-	            this._finished = true;
-	            this._dom.removeConnection(this._id);
-	            if (this.readyState === ReadyState.Cancelled)
-	                return;
-	            this._responseData = data;
-	        };
-	        return JSONPConnection_;
-	    }(JSONPConnection));
-	    /**
-	     *  A {@link ConnectionBackend} that uses the JSONP strategy of making requests.
-	      * *
-	     * @abstract
-	     */
-	    var JSONPBackend = (function (_super) {
-	        __extends(JSONPBackend, _super);
-	        function JSONPBackend() {
-	            _super.apply(this, arguments);
-	        }
-	        return JSONPBackend;
-	    }(ConnectionBackend));
-	    var JSONPBackend_ = (function (_super) {
-	        __extends(JSONPBackend_, _super);
-	        /**
-	         * @param {?} _browserJSONP
-	         * @param {?} _baseResponseOptions
-	         */
-	        function JSONPBackend_(_browserJSONP, _baseResponseOptions) {
-	            _super.call(this);
-	            this._browserJSONP = _browserJSONP;
-	            this._baseResponseOptions = _baseResponseOptions;
-	        }
-	        /**
-	         * @param {?} request
-	         * @return {?}
-	         */
-	        JSONPBackend_.prototype.createConnection = function (request) {
-	            return new JSONPConnection_(request, this._browserJSONP, this._baseResponseOptions);
-	        };
-	        JSONPBackend_.decorators = [
-	            { type: _angular_core.Injectable },
-	        ];
-	        /** @nocollapse */
-	        JSONPBackend_.ctorParameters = function () { return [
-	            { type: BrowserJsonp, },
-	            { type: ResponseOptions, },
-	        ]; };
-	        return JSONPBackend_;
-	    }(JSONPBackend));
-
-	    var /** @type {?} */ XSSI_PREFIX = /^\)\]\}',?\n/;
-	    /**
-	     *  Creates connections using `XMLHttpRequest`. Given a fully-qualified
-	      * request, an `XHRConnection` will immediately create an `XMLHttpRequest` object and send the
-	      * request.
-	      * *
-	      * This class would typically not be created or interacted with directly inside applications, though
-	      * the {@link MockConnection} may be interacted with in tests.
-	      * *
-	     */
-	    var XHRConnection = (function () {
-	        /**
-	         * @param {?} req
-	         * @param {?} browserXHR
-	         * @param {?=} baseResponseOptions
-	         */
-	        function XHRConnection(req, browserXHR, baseResponseOptions) {
-	            var _this = this;
-	            this.request = req;
-	            this.response = new rxjs_Observable.Observable(function (responseObserver) {
-	                var _xhr = browserXHR.build();
-	                _xhr.open(RequestMethod[req.method].toUpperCase(), req.url);
-	                if (req.withCredentials != null) {
-	                    _xhr.withCredentials = req.withCredentials;
-	                }
-	                // load event handler
-	                var onLoad = function () {
-	                    // normalize IE9 bug (http://bugs.jquery.com/ticket/1450)
-	                    var status = _xhr.status === 1223 ? 204 : _xhr.status;
-	                    var body = null;
-	                    // HTTP 204 means no content
-	                    if (status !== 204) {
-	                        // responseText is the old-school way of retrieving response (supported by IE8 & 9)
-	                        // response/responseType properties were introduced in ResourceLoader Level2 spec
-	                        // (supported by IE10)
-	                        body = (typeof _xhr.response === 'undefined') ? _xhr.responseText : _xhr.response;
-	                        // Implicitly strip a potential XSSI prefix.
-	                        if (typeof body === 'string') {
-	                            body = body.replace(XSSI_PREFIX, '');
-	                        }
-	                    }
-	                    // fix status code when it is 0 (0 status is undocumented).
-	                    // Occurs when accessing file resources or on Android 4.1 stock browser
-	                    // while retrieving files from application cache.
-	                    if (status === 0) {
-	                        status = body ? 200 : 0;
-	                    }
-	                    var headers = Headers.fromResponseHeaderString(_xhr.getAllResponseHeaders());
-	                    // IE 9 does not provide the way to get URL of response
-	                    var url = getResponseURL(_xhr) || req.url;
-	                    var statusText = _xhr.statusText || 'OK';
-	                    var responseOptions = new ResponseOptions({ body: body, status: status, headers: headers, statusText: statusText, url: url });
-	                    if (baseResponseOptions != null) {
-	                        responseOptions = baseResponseOptions.merge(responseOptions);
-	                    }
-	                    var response = new Response(responseOptions);
-	                    response.ok = isSuccess(status);
-	                    if (response.ok) {
-	                        responseObserver.next(response);
-	                        // TODO(gdi2290): defer complete if array buffer until done
-	                        responseObserver.complete();
-	                        return;
-	                    }
-	                    responseObserver.error(response);
-	                };
-	                // error event handler
-	                var onError = function (err) {
-	                    var responseOptions = new ResponseOptions({
-	                        body: err,
-	                        type: ResponseType.Error,
-	                        status: _xhr.status,
-	                        statusText: _xhr.statusText,
-	                    });
-	                    if (baseResponseOptions != null) {
-	                        responseOptions = baseResponseOptions.merge(responseOptions);
-	                    }
-	                    responseObserver.error(new Response(responseOptions));
-	                };
-	                _this.setDetectedContentType(req, _xhr);
-	                if (req.headers == null) {
-	                    req.headers = new Headers();
-	                }
-	                if (!req.headers.has('Accept')) {
-	                    req.headers.append('Accept', 'application/json, text/plain, */*');
-	                }
-	                req.headers.forEach((function (values, name) { return _xhr.setRequestHeader(name, values.join(',')); }));
-	                // Select the correct buffer type to store the response
-	                if (req.responseType != null && _xhr.responseType != null) {
-	                    switch (req.responseType) {
-	                        case ResponseContentType.ArrayBuffer:
-	                            _xhr.responseType = 'arraybuffer';
-	                            break;
-	                        case ResponseContentType.Json:
-	                            _xhr.responseType = 'json';
-	                            break;
-	                        case ResponseContentType.Text:
-	                            _xhr.responseType = 'text';
-	                            break;
-	                        case ResponseContentType.Blob:
-	                            _xhr.responseType = 'blob';
-	                            break;
-	                        default:
-	                            throw new Error('The selected responseType is not supported');
-	                    }
-	                }
-	                _xhr.addEventListener('load', onLoad);
-	                _xhr.addEventListener('error', onError);
-	                _xhr.send(_this.request.getBody());
-	                return function () {
-	                    _xhr.removeEventListener('load', onLoad);
-	                    _xhr.removeEventListener('error', onError);
-	                    _xhr.abort();
-	                };
-	            });
-	        }
-	        /**
-	         * @param {?} req
-	         * @param {?} _xhr
-	         * @return {?}
-	         */
-	        XHRConnection.prototype.setDetectedContentType = function (req /** TODO Request */, _xhr /** XMLHttpRequest */) {
-	            // Skip if a custom Content-Type header is provided
-	            if (req.headers != null && req.headers.get('Content-Type') != null) {
-	                return;
-	            }
-	            // Set the detected content type
-	            switch (req.contentType) {
-	                case ContentType.NONE:
-	                    break;
-	                case ContentType.JSON:
-	                    _xhr.setRequestHeader('content-type', 'application/json');
-	                    break;
-	                case ContentType.FORM:
-	                    _xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-	                    break;
-	                case ContentType.TEXT:
-	                    _xhr.setRequestHeader('content-type', 'text/plain');
-	                    break;
-	                case ContentType.BLOB:
-	                    var /** @type {?} */ blob = req.blob();
-	                    if (blob.type) {
-	                        _xhr.setRequestHeader('content-type', blob.type);
-	                    }
-	                    break;
-	            }
-	        };
-	        return XHRConnection;
-	    }());
-	    /**
-	     *  `XSRFConfiguration` sets up Cross Site Request Forgery (XSRF) protection for the application
-	      * using a cookie. See {@link https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)}
-	      * for more information on XSRF.
-	      * *
-	      * Applications can configure custom cookie and header names by binding an instance of this class
-	      * with different `cookieName` and `headerName` values. See the main HTTP documentation for more
-	      * details.
-	      * *
-	     */
-	    var CookieXSRFStrategy = (function () {
-	        /**
-	         * @param {?=} _cookieName
-	         * @param {?=} _headerName
-	         */
-	        function CookieXSRFStrategy(_cookieName, _headerName) {
-	            if (_cookieName === void 0) { _cookieName = 'XSRF-TOKEN'; }
-	            if (_headerName === void 0) { _headerName = 'X-XSRF-TOKEN'; }
-	            this._cookieName = _cookieName;
-	            this._headerName = _headerName;
-	        }
-	        /**
-	         * @param {?} req
-	         * @return {?}
-	         */
-	        CookieXSRFStrategy.prototype.configureRequest = function (req) {
-	            var /** @type {?} */ xsrfToken = _angular_platformBrowser.__platform_browser_private__.getDOM().getCookie(this._cookieName);
-	            if (xsrfToken) {
-	                req.headers.set(this._headerName, xsrfToken);
-	            }
-	        };
-	        return CookieXSRFStrategy;
-	    }());
-	    /**
-	     *  Creates {@link XHRConnection} instances.
-	      * *
-	      * This class would typically not be used by end users, but could be
-	      * overridden if a different backend implementation should be used,
-	      * such as in a node backend.
-	      * *
-	      * ### Example
-	      * *
-	      * ```
-	      * import {Http, MyNodeBackend, HTTP_PROVIDERS, BaseRequestOptions} from '@angular/http';
-	      * viewProviders: [
-	      * HTTP_PROVIDERS,
-	      * {provide: Http, useFactory: (backend, options) => {
-	      * return new Http(backend, options);
-	      * }, deps: [MyNodeBackend, BaseRequestOptions]}]
-	      * })
-	      * class MyComponent {
-	      * constructor(http:Http) {
-	      * http.request('people.json').subscribe(res => this.people = res.json());
-	      * }
-	      * }
-	      * ```
-	     */
-	    var XHRBackend = (function () {
-	        /**
-	         * @param {?} _browserXHR
-	         * @param {?} _baseResponseOptions
-	         * @param {?} _xsrfStrategy
-	         */
-	        function XHRBackend(_browserXHR, _baseResponseOptions, _xsrfStrategy) {
-	            this._browserXHR = _browserXHR;
-	            this._baseResponseOptions = _baseResponseOptions;
-	            this._xsrfStrategy = _xsrfStrategy;
-	        }
-	        /**
-	         * @param {?} request
-	         * @return {?}
-	         */
-	        XHRBackend.prototype.createConnection = function (request) {
-	            this._xsrfStrategy.configureRequest(request);
-	            return new XHRConnection(request, this._browserXHR, this._baseResponseOptions);
-	        };
-	        XHRBackend.decorators = [
-	            { type: _angular_core.Injectable },
-	        ];
-	        /** @nocollapse */
-	        XHRBackend.ctorParameters = function () { return [
-	            { type: BrowserXhr, },
-	            { type: ResponseOptions, },
-	            { type: XSRFStrategy, },
-	        ]; };
-	        return XHRBackend;
-	    }());
-
-	    /**
-	     * @license
-	     * Copyright Google Inc. All Rights Reserved.
-	     *
-	     * Use of this source code is governed by an MIT-style license that can be
-	     * found in the LICENSE file at https://angular.io/license
-	     */
-	    var __extends$3 = (this && this.__extends) || function (d, b) {
-	        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	    /**
-	     *  Creates a request options object to be optionally provided when instantiating a
-	      * {@link Request}.
-	      * *
-	      * This class is based on the `RequestInit` description in the [Fetch
-	      * Spec](https://fetch.spec.whatwg.org/#requestinit).
-	      * *
-	      * All values are null by default. Typical defaults can be found in the {@link BaseRequestOptions}
-	      * class, which sub-classes `RequestOptions`.
-	      * *
-	      * ### Example ([live demo](http://plnkr.co/edit/7Wvi3lfLq41aQPKlxB4O?p=preview))
-	      * *
-	      * ```typescript
-	      * import {RequestOptions, Request, RequestMethod} from '@angular/http';
-	      * *
-	      * var options = new RequestOptions({
-	      * method: RequestMethod.Post,
-	      * url: 'https://google.com'
-	      * });
-	      * var req = new Request(options);
-	      * console.log('req.method:', RequestMethod[req.method]); // Post
-	      * console.log('options.url:', options.url); // https://google.com
-	      * ```
-	      * *
-	     */
-	    var RequestOptions = (function () {
-	        /**
-	         * @param {?=} __0
-	         */
-	        function RequestOptions(_a) {
-	            var _b = _a === void 0 ? {} : _a, method = _b.method, headers = _b.headers, body = _b.body, url = _b.url, search = _b.search, withCredentials = _b.withCredentials, responseType = _b.responseType;
-	            this.method = method != null ? normalizeMethodName(method) : null;
-	            this.headers = headers != null ? headers : null;
-	            this.body = body != null ? body : null;
-	            this.url = url != null ? url : null;
-	            this.search =
-	                search != null ? (typeof search === 'string' ? new URLSearchParams(search) : search) : null;
-	            this.withCredentials = withCredentials != null ? withCredentials : null;
-	            this.responseType = responseType != null ? responseType : null;
-	        }
-	        /**
-	         *  Creates a copy of the `RequestOptions` instance, using the optional input as values to override
-	          * existing values. This method will not change the values of the instance on which it is being
-	          * called.
-	          * *
-	          * Note that `headers` and `search` will override existing values completely if present in
-	          * the `options` object. If these values should be merged, it should be done prior to calling
-	          * `merge` on the `RequestOptions` instance.
-	          * *
-	          * ### Example ([live demo](http://plnkr.co/edit/6w8XA8YTkDRcPYpdB9dk?p=preview))
-	          * *
-	          * ```typescript
-	          * import {RequestOptions, Request, RequestMethod} from '@angular/http';
-	          * *
-	          * var options = new RequestOptions({
-	          * method: RequestMethod.Post
-	          * });
-	          * var req = new Request(options.merge({
-	          * url: 'https://google.com'
-	          * }));
-	          * console.log('req.method:', RequestMethod[req.method]); // Post
-	          * console.log('options.url:', options.url); // null
-	          * console.log('req.url:', req.url); // https://google.com
-	          * ```
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        RequestOptions.prototype.merge = function (options) {
-	            return new RequestOptions({
-	                method: options && options.method != null ? options.method : this.method,
-	                headers: options && options.headers != null ? options.headers : new Headers(this.headers),
-	                body: options && options.body != null ? options.body : this.body,
-	                url: options && options.url != null ? options.url : this.url,
-	                search: options && options.search != null ?
-	                    (typeof options.search === 'string' ? new URLSearchParams(options.search) :
-	                        options.search.clone()) :
-	                    this.search,
-	                withCredentials: options && options.withCredentials != null ? options.withCredentials :
-	                    this.withCredentials,
-	                responseType: options && options.responseType != null ? options.responseType :
-	                    this.responseType
-	            });
-	        };
-	        return RequestOptions;
-	    }());
-	    /**
-	     *  Subclass of {@link RequestOptions}, with default values.
-	      * *
-	      * Default values:
-	      * * method: {@link RequestMethod RequestMethod.Get}
-	      * * headers: empty {@link Headers} object
-	      * *
-	      * This class could be extended and bound to the {@link RequestOptions} class
-	      * when configuring an {@link Injector}, in order to override the default options
-	      * used by {@link Http} to create and send {@link Request Requests}.
-	      * *
-	      * ### Example ([live demo](http://plnkr.co/edit/LEKVSx?p=preview))
-	      * *
-	      * ```typescript
-	      * import {provide} from '@angular/core';
-	      * import {bootstrap} from '@angular/platform-browser/browser';
-	      * import {HTTP_PROVIDERS, Http, BaseRequestOptions, RequestOptions} from '@angular/http';
-	      * import {App} from './myapp';
-	      * *
-	      * class MyOptions extends BaseRequestOptions {
-	      * search: string = 'coreTeam=true';
-	      * }
-	      * *
-	      * bootstrap(App, [HTTP_PROVIDERS, {provide: RequestOptions, useClass: MyOptions}]);
-	      * ```
-	      * *
-	      * The options could also be extended when manually creating a {@link Request}
-	      * object.
-	      * *
-	      * ### Example ([live demo](http://plnkr.co/edit/oyBoEvNtDhOSfi9YxaVb?p=preview))
-	      * *
-	      * ```
-	      * import {BaseRequestOptions, Request, RequestMethod} from '@angular/http';
-	      * *
-	      * var options = new BaseRequestOptions();
-	      * var req = new Request(options.merge({
-	      * method: RequestMethod.Post,
-	      * url: 'https://google.com'
-	      * }));
-	      * console.log('req.method:', RequestMethod[req.method]); // Post
-	      * console.log('options.url:', options.url); // null
-	      * console.log('req.url:', req.url); // https://google.com
-	      * ```
-	      * *
-	     */
-	    var BaseRequestOptions = (function (_super) {
-	        __extends$3(BaseRequestOptions, _super);
-	        function BaseRequestOptions() {
-	            _super.call(this, { method: RequestMethod.Get, headers: new Headers() });
-	        }
-	        BaseRequestOptions.decorators = [
-	            { type: _angular_core.Injectable },
-	        ];
-	        /** @nocollapse */
-	        BaseRequestOptions.ctorParameters = function () { return []; };
-	        return BaseRequestOptions;
-	    }(RequestOptions));
-
-	    /**
-	     * @license
-	     * Copyright Google Inc. All Rights Reserved.
-	     *
-	     * Use of this source code is governed by an MIT-style license that can be
-	     * found in the LICENSE file at https://angular.io/license
-	     */
-	    var __extends$5 = (this && this.__extends) || function (d, b) {
-	        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	    /**
-	     *  Creates `Request` instances from provided values.
-	      * *
-	      * The Request's interface is inspired by the Request constructor defined in the [Fetch
-	      * Spec](https://fetch.spec.whatwg.org/#request-class),
-	      * but is considered a static value whose body can be accessed many times. There are other
-	      * differences in the implementation, but this is the most significant.
-	      * *
-	      * `Request` instances are typically created by higher-level classes, like {@link Http} and
-	      * {@link Jsonp}, but it may occasionally be useful to explicitly create `Request` instances.
-	      * One such example is when creating services that wrap higher-level services, like {@link Http},
-	      * where it may be useful to generate a `Request` with arbitrary headers and search params.
-	      * *
-	      * ```typescript
-	      * import {Injectable, Injector} from '@angular/core';
-	      * import {HTTP_PROVIDERS, Http, Request, RequestMethod} from '@angular/http';
-	      * *
-	      * class AutoAuthenticator {
-	      * constructor(public http:Http) {}
-	      * request(url:string) {
-	      * return this.http.request(new Request({
-	      * method: RequestMethod.Get,
-	      * url: url,
-	      * search: 'password=123'
-	      * }));
-	      * }
-	      * }
-	      * *
-	      * var injector = Injector.resolveAndCreate([HTTP_PROVIDERS, AutoAuthenticator]);
-	      * var authenticator = injector.get(AutoAuthenticator);
-	      * authenticator.request('people.json').subscribe(res => {
-	      * //URL should have included '?password=123'
-	      * console.log('people', res.json());
-	      * });
-	      * ```
-	      * *
-	     */
-	    var Request = (function (_super) {
-	        __extends$5(Request, _super);
-	        /**
-	         * @param {?} requestOptions
-	         */
-	        function Request(requestOptions) {
-	            _super.call(this);
-	            // TODO: assert that url is present
-	            var url = requestOptions.url;
-	            this.url = requestOptions.url;
-	            if (requestOptions.search) {
-	                var search = requestOptions.search.toString();
-	                if (search.length > 0) {
-	                    var prefix = '?';
-	                    if (this.url.indexOf('?') != -1) {
-	                        prefix = (this.url[this.url.length - 1] == '&') ? '' : '&';
-	                    }
-	                    // TODO: just delete search-query-looking string in url?
-	                    this.url = url + prefix + search;
-	                }
-	            }
-	            this._body = requestOptions.body;
-	            this.method = normalizeMethodName(requestOptions.method);
-	            // TODO(jeffbcross): implement behavior
-	            // Defaults to 'omit', consistent with browser
-	            this.headers = new Headers(requestOptions.headers);
-	            this.contentType = this.detectContentType();
-	            this.withCredentials = requestOptions.withCredentials;
-	            this.responseType = requestOptions.responseType;
-	        }
-	        /**
-	         *  Returns the content type enum based on header options.
-	         * @return {?}
-	         */
-	        Request.prototype.detectContentType = function () {
-	            switch (this.headers.get('content-type')) {
-	                case 'application/json':
-	                    return ContentType.JSON;
-	                case 'application/x-www-form-urlencoded':
-	                    return ContentType.FORM;
-	                case 'multipart/form-data':
-	                    return ContentType.FORM_DATA;
-	                case 'text/plain':
-	                case 'text/html':
-	                    return ContentType.TEXT;
-	                case 'application/octet-stream':
-	                    return ContentType.BLOB;
-	                default:
-	                    return this.detectContentTypeFromBody();
-	            }
-	        };
-	        /**
-	         *  Returns the content type of request's body based on its type.
-	         * @return {?}
-	         */
-	        Request.prototype.detectContentTypeFromBody = function () {
-	            if (this._body == null) {
-	                return ContentType.NONE;
-	            }
-	            else if (this._body instanceof URLSearchParams) {
-	                return ContentType.FORM;
-	            }
-	            else if (this._body instanceof FormData) {
-	                return ContentType.FORM_DATA;
-	            }
-	            else if (this._body instanceof Blob$1) {
-	                return ContentType.BLOB;
-	            }
-	            else if (this._body instanceof ArrayBuffer$1) {
-	                return ContentType.ARRAY_BUFFER;
-	            }
-	            else if (this._body && typeof this._body == 'object') {
-	                return ContentType.JSON;
-	            }
-	            else {
-	                return ContentType.TEXT;
-	            }
-	        };
-	        /**
-	         *  Returns the request's body according to its type. If body is undefined, return
-	          * null.
-	         * @return {?}
-	         */
-	        Request.prototype.getBody = function () {
-	            switch (this.contentType) {
-	                case ContentType.JSON:
-	                    return this.text();
-	                case ContentType.FORM:
-	                    return this.text();
-	                case ContentType.FORM_DATA:
-	                    return this._body;
-	                case ContentType.TEXT:
-	                    return this.text();
-	                case ContentType.BLOB:
-	                    return this.blob();
-	                case ContentType.ARRAY_BUFFER:
-	                    return this.arrayBuffer();
-	                default:
-	                    return null;
-	            }
-	        };
-	        return Request;
-	    }(Body));
-	    var /** @type {?} */ noop = function () { };
-	    var /** @type {?} */ w = typeof window == 'object' ? window : noop;
-	    var /** @type {?} */ FormData = ((w) /** TODO #9100 */)['FormData'] || noop;
-	    var /** @type {?} */ Blob$1 = ((w) /** TODO #9100 */)['Blob'] || noop;
-	    var /** @type {?} */ ArrayBuffer$1 = ((w) /** TODO #9100 */)['ArrayBuffer'] || noop;
-
-	    /**
-	     * @license
-	     * Copyright Google Inc. All Rights Reserved.
-	     *
-	     * Use of this source code is governed by an MIT-style license that can be
-	     * found in the LICENSE file at https://angular.io/license
-	     */
-	    var __extends$4 = (this && this.__extends) || function (d, b) {
-	        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	    /**
-	     * @param {?} backend
-	     * @param {?} request
-	     * @return {?}
-	     */
-	    function httpRequest(backend, request) {
-	        return backend.createConnection(request).response;
-	    }
-	    /**
-	     * @param {?} defaultOpts
-	     * @param {?} providedOpts
-	     * @param {?} method
-	     * @param {?} url
-	     * @return {?}
-	     */
-	    function mergeOptions(defaultOpts, providedOpts, method, url) {
-	        var /** @type {?} */ newOptions = defaultOpts;
-	        if (providedOpts) {
-	            // Hack so Dart can used named parameters
-	            return newOptions.merge(new RequestOptions({
-	                method: providedOpts.method || method,
-	                url: providedOpts.url || url,
-	                search: providedOpts.search,
-	                headers: providedOpts.headers,
-	                body: providedOpts.body,
-	                withCredentials: providedOpts.withCredentials,
-	                responseType: providedOpts.responseType
-	            }));
-	        }
-	        return newOptions.merge(new RequestOptions({ method: method, url: url }));
-	    }
-	    /**
-	     *  Performs http requests using `XMLHttpRequest` as the default backend.
-	      * *
-	      * `Http` is available as an injectable class, with methods to perform http requests. Calling
-	      * `request` returns an `Observable` which will emit a single {@link Response} when a
-	      * response is received.
-	      * *
-	      * ### Example
-	      * *
-	      * ```typescript
-	      * import {Http, HTTP_PROVIDERS} from '@angular/http';
-	      * import 'rxjs/add/operator/map'
-	      * selector: 'http-app',
-	      * viewProviders: [HTTP_PROVIDERS],
-	      * templateUrl: 'people.html'
-	      * })
-	      * class PeopleComponent {
-	      * constructor(http: Http) {
-	      * http.get('people.json')
-	      * // Call map on the response observable to get the parsed people object
-	      * .map(res => res.json())
-	      * // Subscribe to the observable to get the parsed people object and attach it to the
-	      * // component
-	      * .subscribe(people => this.people = people);
-	      * }
-	      * }
-	      * ```
-	      * *
-	      * *
-	      * ### Example
-	      * *
-	      * ```
-	      * http.get('people.json').subscribe((res:Response) => this.people = res.json());
-	      * ```
-	      * *
-	      * The default construct used to perform requests, `XMLHttpRequest`, is abstracted as a "Backend" (
-	      * {@link XHRBackend} in this case), which could be mocked with dependency injection by replacing
-	      * the {@link XHRBackend} provider, as in the following example:
-	      * *
-	      * ### Example
-	      * *
-	      * ```typescript
-	      * import {BaseRequestOptions, Http} from '@angular/http';
-	      * import {MockBackend} from '@angular/http/testing';
-	      * var injector = Injector.resolveAndCreate([
-	      * BaseRequestOptions,
-	      * MockBackend,
-	      * {provide: Http, useFactory:
-	      * function(backend, defaultOptions) {
-	      * return new Http(backend, defaultOptions);
-	      * },
-	      * deps: [MockBackend, BaseRequestOptions]}
-	      * ]);
-	      * var http = injector.get(Http);
-	      * http.get('request-from-mock-backend.json').subscribe((res:Response) => doSomething(res));
-	      * ```
-	      * *
-	     */
-	    var Http = (function () {
-	        /**
-	         * @param {?} _backend
-	         * @param {?} _defaultOptions
-	         */
-	        function Http(_backend, _defaultOptions) {
-	            this._backend = _backend;
-	            this._defaultOptions = _defaultOptions;
-	        }
-	        /**
-	         *  Performs any type of http request. First argument is required, and can either be a url or
-	          * a {@link Request} instance. If the first argument is a url, an optional {@link RequestOptions}
-	          * object can be provided as the 2nd argument. The options object will be merged with the values
-	          * of {@link BaseRequestOptions} before performing the request.
-	         * @param {?} url
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        Http.prototype.request = function (url, options) {
-	            var /** @type {?} */ responseObservable;
-	            if (typeof url === 'string') {
-	                responseObservable = httpRequest(this._backend, new Request(mergeOptions(this._defaultOptions, options, RequestMethod.Get, /** @type {?} */ (url))));
-	            }
-	            else if (url instanceof Request) {
-	                responseObservable = httpRequest(this._backend, url);
-	            }
-	            else {
-	                throw new Error('First argument must be a url string or Request instance.');
-	            }
-	            return responseObservable;
-	        };
-	        /**
-	         *  Performs a request with `get` http method.
-	         * @param {?} url
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        Http.prototype.get = function (url, options) {
-	            return this.request(new Request(mergeOptions(this._defaultOptions, options, RequestMethod.Get, url)));
-	        };
-	        /**
-	         *  Performs a request with `post` http method.
-	         * @param {?} url
-	         * @param {?} body
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        Http.prototype.post = function (url, body, options) {
-	            return this.request(new Request(mergeOptions(this._defaultOptions.merge(new RequestOptions({ body: body })), options, RequestMethod.Post, url)));
-	        };
-	        /**
-	         *  Performs a request with `put` http method.
-	         * @param {?} url
-	         * @param {?} body
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        Http.prototype.put = function (url, body, options) {
-	            return this.request(new Request(mergeOptions(this._defaultOptions.merge(new RequestOptions({ body: body })), options, RequestMethod.Put, url)));
-	        };
-	        /**
-	         *  Performs a request with `delete` http method.
-	         * @param {?} url
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        Http.prototype.delete = function (url, options) {
-	            return this.request(new Request(mergeOptions(this._defaultOptions, options, RequestMethod.Delete, url)));
-	        };
-	        /**
-	         *  Performs a request with `patch` http method.
-	         * @param {?} url
-	         * @param {?} body
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        Http.prototype.patch = function (url, body, options) {
-	            return this.request(new Request(mergeOptions(this._defaultOptions.merge(new RequestOptions({ body: body })), options, RequestMethod.Patch, url)));
-	        };
-	        /**
-	         *  Performs a request with `head` http method.
-	         * @param {?} url
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        Http.prototype.head = function (url, options) {
-	            return this.request(new Request(mergeOptions(this._defaultOptions, options, RequestMethod.Head, url)));
-	        };
-	        /**
-	         *  Performs a request with `options` http method.
-	         * @param {?} url
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        Http.prototype.options = function (url, options) {
-	            return this.request(new Request(mergeOptions(this._defaultOptions, options, RequestMethod.Options, url)));
-	        };
-	        Http.decorators = [
-	            { type: _angular_core.Injectable },
-	        ];
-	        /** @nocollapse */
-	        Http.ctorParameters = function () { return [
-	            { type: ConnectionBackend, },
-	            { type: RequestOptions, },
-	        ]; };
-	        return Http;
-	    }());
-	    /**
-	     * @experimental
-	     */
-	    var Jsonp = (function (_super) {
-	        __extends$4(Jsonp, _super);
-	        /**
-	         * @param {?} backend
-	         * @param {?} defaultOptions
-	         */
-	        function Jsonp(backend, defaultOptions) {
-	            _super.call(this, backend, defaultOptions);
-	        }
-	        /**
-	         *  Performs any type of http request. First argument is required, and can either be a url or
-	          * a {@link Request} instance. If the first argument is a url, an optional {@link RequestOptions}
-	          * object can be provided as the 2nd argument. The options object will be merged with the values
-	          * of {@link BaseRequestOptions} before performing the request.
-	          * *
-	          * supported by all current browsers. Because JSONP creates a `<script>` element with
-	          * contents retrieved from a remote source, attacker-controlled data introduced by an untrusted
-	          * source could expose your application to XSS risks. Data exposed by JSONP may also be
-	          * readable by malicious third-party websites. In addition, JSONP introduces potential risk for
-	          * future security issues (e.g. content sniffing).  For more detail, see the
-	          * [Security Guide](http://g.co/ng/security).
-	         * @param {?} url
-	         * @param {?=} options
-	         * @return {?}
-	         */
-	        Jsonp.prototype.request = function (url, options) {
-	            var /** @type {?} */ responseObservable;
-	            if (typeof url === 'string') {
-	                url =
-	                    new Request(mergeOptions(this._defaultOptions, options, RequestMethod.Get, /** @type {?} */ (url)));
-	            }
-	            if (url instanceof Request) {
-	                if (url.method !== RequestMethod.Get) {
-	                    throw new Error('JSONP requests must use GET request method.');
-	                }
-	                responseObservable = httpRequest(this._backend, url);
-	            }
-	            else {
-	                throw new Error('First argument must be a url string or Request instance.');
-	            }
-	            return responseObservable;
-	        };
-	        Jsonp.decorators = [
-	            { type: _angular_core.Injectable },
-	        ];
-	        /** @nocollapse */
-	        Jsonp.ctorParameters = function () { return [
-	            { type: ConnectionBackend, },
-	            { type: RequestOptions, },
-	        ]; };
-	        return Jsonp;
-	    }(Http));
-
-	    /**
-	     * @return {?}
-	     */
-	    function _createDefaultCookieXSRFStrategy() {
-	        return new CookieXSRFStrategy();
-	    }
-	    /**
-	     * @param {?} xhrBackend
-	     * @param {?} requestOptions
-	     * @return {?}
-	     */
-	    function httpFactory(xhrBackend, requestOptions) {
-	        return new Http(xhrBackend, requestOptions);
-	    }
-	    /**
-	     * @param {?} jsonpBackend
-	     * @param {?} requestOptions
-	     * @return {?}
-	     */
-	    function jsonpFactory(jsonpBackend, requestOptions) {
-	        return new Jsonp(jsonpBackend, requestOptions);
-	    }
-	    /**
-	     *  The module that includes http's providers
-	      * *
-	     */
-	    var HttpModule = (function () {
-	        function HttpModule() {
-	        }
-	        HttpModule.decorators = [
-	            { type: _angular_core.NgModule, args: [{
-	                        providers: [
-	                            // TODO(pascal): use factory type annotations once supported in DI
-	                            // issue: https://github.com/angular/angular/issues/3183
-	                            { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
-	                            BrowserXhr,
-	                            { provide: RequestOptions, useClass: BaseRequestOptions },
-	                            { provide: ResponseOptions, useClass: BaseResponseOptions },
-	                            XHRBackend,
-	                            { provide: XSRFStrategy, useFactory: _createDefaultCookieXSRFStrategy },
-	                        ],
-	                    },] },
-	        ];
-	        /** @nocollapse */
-	        HttpModule.ctorParameters = function () { return []; };
-	        return HttpModule;
-	    }());
-	    /**
-	     *  The module that includes jsonp's providers
-	      * *
-	     */
-	    var JsonpModule = (function () {
-	        function JsonpModule() {
-	        }
-	        JsonpModule.decorators = [
-	            { type: _angular_core.NgModule, args: [{
-	                        providers: [
-	                            // TODO(pascal): use factory type annotations once supported in DI
-	                            // issue: https://github.com/angular/angular/issues/3183
-	                            { provide: Jsonp, useFactory: jsonpFactory, deps: [JSONPBackend, RequestOptions] },
-	                            BrowserJsonp,
-	                            { provide: RequestOptions, useClass: BaseRequestOptions },
-	                            { provide: ResponseOptions, useClass: BaseResponseOptions },
-	                            { provide: JSONPBackend, useClass: JSONPBackend_ },
-	                        ],
-	                    },] },
-	        ];
-	        /** @nocollapse */
-	        JsonpModule.ctorParameters = function () { return []; };
-	        return JsonpModule;
-	    }());
-
-	    /**
-	     * @stable
-	     */
-	    var /** @type {?} */ VERSION = new _angular_core.Version('2.4.3');
-
-	    exports.BrowserXhr = BrowserXhr;
-	    exports.JSONPBackend = JSONPBackend;
-	    exports.JSONPConnection = JSONPConnection;
-	    exports.CookieXSRFStrategy = CookieXSRFStrategy;
-	    exports.XHRBackend = XHRBackend;
-	    exports.XHRConnection = XHRConnection;
-	    exports.BaseRequestOptions = BaseRequestOptions;
-	    exports.RequestOptions = RequestOptions;
-	    exports.BaseResponseOptions = BaseResponseOptions;
-	    exports.ResponseOptions = ResponseOptions;
-	    exports.ReadyState = ReadyState;
-	    exports.RequestMethod = RequestMethod;
-	    exports.ResponseContentType = ResponseContentType;
-	    exports.ResponseType = ResponseType;
-	    exports.Headers = Headers;
-	    exports.Http = Http;
-	    exports.Jsonp = Jsonp;
-	    exports.HttpModule = HttpModule;
-	    exports.JsonpModule = JsonpModule;
-	    exports.Connection = Connection;
-	    exports.ConnectionBackend = ConnectionBackend;
-	    exports.XSRFStrategy = XSRFStrategy;
-	    exports.Request = Request;
-	    exports.Response = Response;
-	    exports.QueryEncoder = QueryEncoder;
-	    exports.URLSearchParams = URLSearchParams;
-	    exports.VERSION = VERSION;
-
-	})));
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/**
-	 * @license Angular v2.4.3
-	 * (c) 2010-2016 Google, Inc. https://angular.io/
-	 * License: MIT
-	 */
-	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(9), __webpack_require__(31), __webpack_require__(10), __webpack_require__(11), __webpack_require__(32)) :
+	     true ? factory(exports, __webpack_require__(7), __webpack_require__(28), __webpack_require__(8), __webpack_require__(9), __webpack_require__(29)) :
 	    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'rxjs/operator/toPromise', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/observable/fromPromise'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.forms = global.ng.forms || {}),global.ng.core,global.Rx.Observable.prototype,global.Rx,global.Rx,global.Rx.Observable));
 	}(this, (function (exports,_angular_core,rxjs_operator_toPromise,rxjs_Subject,rxjs_Observable,rxjs_observable_fromPromise) { 'use strict';
@@ -58506,11 +56458,11 @@
 	})));
 
 /***/ }),
-/* 31 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(12);
+	var root_1 = __webpack_require__(10);
 	/* tslint:disable:max-line-length */
 	/**
 	 * @param PromiseCtor
@@ -58540,16 +56492,16 @@
 	//# sourceMappingURL=toPromise.js.map
 
 /***/ }),
-/* 32 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PromiseObservable_1 = __webpack_require__(33);
+	var PromiseObservable_1 = __webpack_require__(30);
 	exports.fromPromise = PromiseObservable_1.PromiseObservable.create;
 	//# sourceMappingURL=fromPromise.js.map
 
 /***/ }),
-/* 33 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -58558,8 +56510,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var root_1 = __webpack_require__(12);
-	var Observable_1 = __webpack_require__(11);
+	var root_1 = __webpack_require__(10);
+	var Observable_1 = __webpack_require__(9);
 	/**
 	 * We need this JSDoc comment for affecting ESDoc.
 	 * @extends {Ignored}
@@ -58675,7 +56627,7 @@
 	//# sourceMappingURL=PromiseObservable.js.map
 
 /***/ }),
-/* 34 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -58685,207 +56637,38 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(9);
-	var marker_component_1 = __webpack_require__(35);
-	var map_service_1 = __webpack_require__(36);
-	var geocoding_service_1 = __webpack_require__(50);
-	var AppComponent = (function () {
-	    function AppComponent(mapService, geocoder) {
-	        this.mapService = mapService;
-	        this.geocoder = geocoder;
+	var core_1 = __webpack_require__(7);
+	var MainNavComponent = (function () {
+	    function MainNavComponent() {
 	    }
-	    AppComponent.prototype.ngOnInit = function () {
-	        var map = L.map("map", {
-	            zoomControl: false,
-	            center: L.latLng(40.731253, -73.996139),
-	            zoom: 12,
-	            minZoom: 4,
-	            maxZoom: 19,
-	            layers: [this.mapService.baseMaps.OpenStreetMap]
-	        });
-	        L.control.zoom({ position: "topright" }).addTo(map);
-	        L.control.layers(this.mapService.baseMaps).addTo(map);
-	        L.control.scale().addTo(map);
-	        this.mapService.map = map;
-	        this.geocoder.getCurrentLocation()
-	            .subscribe((function (location) { return map.panTo([location.latitude, location.longitude]); }), (function (err) { return console.error(err); }));
-	    };
-	    AppComponent.prototype.ngAfterViewInit = function () {
-	        this.markerComponent.Initialize();
-	    };
-	    return AppComponent;
+	    return MainNavComponent;
 	}());
-	__decorate([
-	    core_1.ViewChild(marker_component_1.MarkerComponent),
-	    __metadata("design:type", marker_component_1.MarkerComponent)
-	], AppComponent.prototype, "markerComponent", void 0);
-	AppComponent = __decorate([
+	MainNavComponent = __decorate([
 	    core_1.Component({
-	        selector: "app",
-	        template: __webpack_require__(61),
+	        selector: "main-nav",
+	        template: __webpack_require__(32),
 	        styles: [
-	            __webpack_require__(62)
+	            __webpack_require__(33)
 	        ],
 	        providers: []
-	    }),
-	    __metadata("design:paramtypes", [map_service_1.MapService, geocoding_service_1.GeocodingService])
-	], AppComponent);
-	exports.AppComponent = AppComponent;
+	    })
+	], MainNavComponent);
+	exports.MainNavComponent = MainNavComponent;
+	;
 
 
 /***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(9);
-	var map_service_1 = __webpack_require__(36);
-	var MarkerComponent = (function () {
-	    function MarkerComponent(mapService) {
-	        this.mapService = mapService;
-	        this.editing = false;
-	        this.removing = false;
-	        this.markerCount = 0;
-	    }
-	    MarkerComponent.prototype.ngOnInit = function () {
-	        this.mapService.disableMouseEvent("add-marker");
-	        this.mapService.disableMouseEvent("remove-marker");
-	    };
-	    MarkerComponent.prototype.Initialize = function () {
-	        var _this = this;
-	        this.mapService.map.on("click", (function (e) {
-	            if (_this.editing) {
-	                var marker_1 = L.marker(e.latlng, {
-	                    icon: L.icon({
-	                        iconUrl: __webpack_require__(37),
-	                        shadowUrl: __webpack_require__(38)
-	                    }),
-	                    draggable: true
-	                })
-	                    .bindPopup("Marker #" + (_this.markerCount + 1).toString(), {
-	                    offset: L.point(12, 6)
-	                })
-	                    .addTo(_this.mapService.map)
-	                    .openPopup();
-	                _this.markerCount += 1;
-	                marker_1.on("click", (function (event) {
-	                    if (_this.removing) {
-	                        _this.mapService.map.removeLayer(marker_1);
-	                        _this.markerCount -= 1;
-	                    }
-	                }));
-	            }
-	        }));
-	    };
-	    MarkerComponent.prototype.toggleEditing = function () {
-	        this.editing = !this.editing;
-	        if (this.editing && this.removing) {
-	            this.removing = false;
-	        }
-	    };
-	    MarkerComponent.prototype.toggleRemoving = function () {
-	        this.removing = !this.removing;
-	        if (this.editing && this.removing) {
-	            this.editing = false;
-	        }
-	    };
-	    return MarkerComponent;
-	}());
-	MarkerComponent = __decorate([
-	    core_1.Component({
-	        selector: "marker",
-	        template: __webpack_require__(39),
-	        styles: [
-	            __webpack_require__(40),
-	            __webpack_require__(48)
-	        ],
-	        providers: []
-	    }),
-	    __metadata("design:paramtypes", [map_service_1.MapService])
-	], MarkerComponent);
-	exports.MarkerComponent = MarkerComponent;
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(9);
-	var MapService = (function () {
-	    function MapService() {
-	        this.baseMaps = {
-	            OpenStreetMap: L.tileLayer("http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
-	                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
-	            }),
-	            Esri: L.tileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
-	                attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
-	            }),
-	            CartoDB: L.tileLayer("http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png", {
-	                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-	            })
-	        };
-	    }
-	    MapService.prototype.disableMouseEvent = function (elementId) {
-	        var element = document.getElementById(elementId);
-	        L.DomEvent.disableClickPropagation(element);
-	        L.DomEvent.disableScrollPropagation(element);
-	    };
-	    ;
-	    return MapService;
-	}());
-	MapService = __decorate([
-	    core_1.Injectable(),
-	    __metadata("design:paramtypes", [])
-	], MapService);
-	exports.MapService = MapService;
-
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "images/marker-icon.png";
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "images/marker-shadow.png";
-
-/***/ }),
-/* 39 */
+/* 32 */
 /***/ (function(module, exports) {
 
-	module.exports = "<button id=\"add-marker\" class=\"btn btn-default on-map\" [class.btn-primary]=\"editing\"\r\n        title=\"Add Marker\" (click)=\"toggleEditing()\" btnCheckbox>\r\n    <i class=\"fa fa-map-marker fa\"></i>\r\n</button>\r\n\r\n<button id=\"remove-marker\" class=\"btn btn-default on-map\" [class.btn-primary]=\"removing\"\r\n        title=\"Remove Marker\" (click)=\"toggleRemoving()\" btnCheckbox>\r\n    <i class=\"fa fa-trash fa\"></i>\r\n</button>\r\n"
+	module.exports = "<header class=\"main-header\">\r\n    <div class=\"main-header__layout\">\r\n        <nav class=\"main-nav\"><a href=\"#\" class=\"main-nav__logo\">VANE Geospatial Platform</a>\r\n            <div id=\"toggle-nav\" class=\"main-nav__toggle toggle\"><span class=\"toggle__line\"></span><span class=\"toggle__line\"></span><span class=\"toggle__line\"></span></div>\r\n            <ul class=\"main-nav__items\">\r\n                <li id=\"menu-vane\" class=\"main-nav__item\"><a href=\"#\" class=\"main-nav__link\">VANE Query Language<span class=\"icon icon__caret-down\"></span></a>\r\n                    <ul class=\"main-nav__sub-items main-nav__sub-items--vane\">\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/vaneLanguage\" class=\"main-nav__sub-link\">VANE Query Language specs</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/beautiful-vane\" class=\"main-nav__sub-link\">Showcase</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/cases/ChangeDetection\" class=\"main-nav__sub-link\">Change Detection</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/sql-viewer?select=b5,b4&amp;where=day=2016-200&amp;op=ndvi&amp;lon=-102.21&amp;lat=34.3264&amp;zoom=12\" class=\"main-nav__sub-link\">Query Viewer</a></li>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"main-nav__item\"><a href=\"/jupyter/start\" class=\"main-nav__link\">Jupyter</a></li>\r\n                <li id=\"menu-maps\" class=\"main-nav__item\"><a href=\"#\" class=\"main-nav__link\">Maps<span class=\"icon icon__caret-down\"></span></a>\r\n                    <ul class=\"main-nav__sub-items main-nav__sub-items--maps\">\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/mosaic\" class=\"main-nav__sub-link\">Mosaic map</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/ndvi\" class=\"main-nav__sub-link\">NDVI maps</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/finder\" class=\"main-nav__sub-link\">Scenes finder</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/weathermap\" class=\"main-nav__sub-link\">Weather maps</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/beautiful_maps\" class=\"main-nav__sub-link\">Beautiful maps</a></li>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"main-nav__item\"><a href=\"/news\" class=\"main-nav__link\">News</a></li>\r\n                <li class=\"main-nav__item\"><a href=\"/about\" class=\"main-nav__link\">About</a></li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n</header>"
 
 /***/ }),
-/* 40 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	        var result = __webpack_require__(41);
+	        var result = __webpack_require__(34);
 
 	        if (typeof result === "string") {
 	            module.exports = result;
@@ -58895,21 +56678,21 @@
 	    
 
 /***/ }),
-/* 41 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(42)();
+	exports = module.exports = __webpack_require__(35)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS text size adjust after orientation change, without disabling\n *    user zoom.\n */\nhtml {\n  font-family: sans-serif;\n  /* 1 */\n  -ms-text-size-adjust: 100%;\n  /* 2 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */\n}\n/**\n * Remove default margin.\n */\nbody {\n  margin: 0;\n}\n/* HTML5 display definitions\n   ========================================================================== */\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block;\n}\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  /* 1 */\n  vertical-align: baseline;\n  /* 2 */\n}\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.\n */\n[hidden],\ntemplate {\n  display: none;\n}\n/* Links\n   ========================================================================== */\n/**\n * Remove the gray background color from active links in IE 10.\n */\na {\n  background-color: transparent;\n}\n/**\n * Improve readability when focused and also mouse hovered in all browsers.\n */\na:active,\na:hover {\n  outline: 0;\n}\n/* Text-level semantics\n   ========================================================================== */\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\nabbr[title] {\n  border-bottom: 1px dotted;\n}\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\nb,\nstrong {\n  font-weight: bold;\n}\n/**\n * Address styling not present in Safari and Chrome.\n */\ndfn {\n  font-style: italic;\n}\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n/**\n * Address styling not present in IE 8/9.\n */\nmark {\n  background: #ff0;\n  color: #000;\n}\n/**\n * Address inconsistent and variable font size in all browsers.\n */\nsmall {\n  font-size: 80%;\n}\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsup {\n  top: -0.5em;\n}\nsub {\n  bottom: -0.25em;\n}\n/* Embedded content\n   ========================================================================== */\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\nimg {\n  border: 0;\n}\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\nsvg:not(:root) {\n  overflow: hidden;\n}\n/* Grouping content\n   ========================================================================== */\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\nfigure {\n  margin: 1em 40px;\n}\n/**\n * Address differences between Firefox and other browsers.\n */\nhr {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n  height: 0;\n}\n/**\n * Contain overflow in all browsers.\n */\npre {\n  overflow: auto;\n}\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\n/* Forms\n   ========================================================================== */\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n  margin: 0;\n  /* 3 */\n}\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\nbutton {\n  overflow: visible;\n}\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\nbutton,\nselect {\n  text-transform: none;\n}\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  /* 2 */\n  cursor: pointer;\n  /* 3 */\n}\n/**\n * Re-set default cursor for disabled elements.\n */\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\n/**\n * Remove inner padding and border in Firefox 4+.\n */\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\ninput {\n  line-height: normal;\n}\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome\n *    (include `-moz` to future-proof).\n */\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  -moz-box-sizing: content-box;\n  -webkit-box-sizing: content-box;\n  /* 2 */\n  box-sizing: content-box;\n}\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n/**\n * Define consistent border, margin, and padding.\n */\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\nlegend {\n  border: 0;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\ntextarea {\n  overflow: auto;\n}\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\noptgroup {\n  font-weight: bold;\n}\n/* Tables\n   ========================================================================== */\n/**\n * Remove most spacing between table cells.\n */\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ntd,\nth {\n  padding: 0;\n}\n@font-face {\n  font-family: 'FontAwesome';\n  src: url(" + __webpack_require__(43) + ");\n  src: url(" + __webpack_require__(44) + "?#iefix&v=4.7.0) format('embedded-opentype'), url(" + __webpack_require__(45) + ") format('woff2'), url(" + __webpack_require__(46) + ") format('woff'), url(" + __webpack_require__(47) + ") format('truetype');\n  font-weight: normal;\n  font-style: normal;\n}\n/* определение цветов */\n/* Текст */\n/* страница */\n/* Фоны */\n/* Кнопки */\n.main-header {\n  background-color: #ffffff;\n  width: 100%;\n  box-shadow: 0px 1px 3px 0px rgba(27, 30, 31, 0.26);\n  position: relative;\n  z-index: 1000;\n}\n.main-header__layout {\n  padding-left: 0;\n  padding-right: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\n.main-header__login {\n  display: block;\n  font: 600 14px + 2px / 1 'Open Sans', sans-serif;\n  color: #000000;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 10px 18px;\n  text-align: center;\n  border: 2px solid #1b1e1f;\n  border-radius: 20px;\n  letter-spacing: .2px;\n}\n@media (max-width: 768px) {\n  .main-header__layout {\n    width: 100%;\n    padding-left: 0;\n  }\n}\n.main-nav {\n  width: 100%;\n  max-width: 1130px;\n  margin: 0 auto;\n}\n.main-nav__items {\n  list-style: none;\n  list-style-type: none;\n  padding-left: 0px;\n  margin: 0;\n  float: right;\n}\n.main-nav__item {\n  position: relative;\n  display: inline-block;\n  vertical-align: top;\n  padding-right: 17.5px;\n  padding-left: 17.5px;\n}\n.main-nav__item:last-child {\n  margin-right: 0;\n  padding-right: 0;\n}\n.main-nav__title {\n  margin-right: 45px;\n  padding-left: 10px;\n}\n.main-nav__logo {\n  float: left;\n  padding: 26.5px 15px;\n  padding-right: 0;\n  font: 600 20px / 1 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n}\n.main-nav__logo:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__link {\n  display: block;\n  font: 600 12px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  text-transform: uppercase;\n  letter-spacing: .2px;\n  padding-top: 28.5px;\n  padding-bottom: 28.5px;\n}\n.main-nav__link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__sub-link {\n  display: block;\n  font: 400 12px + 1px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n  padding: 7px 15px !important;\n}\n.main-nav__sub-link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n  outline: 0;\n  background-color: rgba(0, 0, 0, 0.02);\n}\n.main-nav__item:hover:before {\n  color: #2babcf !important;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__item:active:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__sub-items {\n  position: absolute;\n  display: none;\n  top: 77px;\n  left: 0;\n  list-style: none;\n  padding: 0;\n  border: 1px solid #c8c9ca;\n  border-top: 0;\n}\n.main-nav__sub-items--vane {\n  width: 115%;\n  display: none;\n}\n.main-nav__sub-items--maps {\n  width: 135px;\n  left: -50%;\n  display: none;\n}\n.main-nav__sub-items:before {\n  content: \"\";\n  position: absolute;\n  top: -2px;\n  height: 0;\n  left: -1px;\n  right: -1px;\n  border-top: 2px solid #2babcf;\n}\n.main-nav__sub-items:hover {\n  display: block;\n}\n.main-nav__item:first-child:hover > .main-nav__sub-items--vane {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n  display: block;\n  width: 180px;\n  left: -10px;\n  transition: 1s;\n}\n.main-nav__sub-item {\n  background-color: #ffffff;\n  border-bottom: 1px solid #eee;\n  text-transform: none;\n}\n.main-nav__toggle {\n  display: none;\n}\n@media (max-width: 768px) {\n  .main-nav {\n    display: block;\n    width: 100%;\n  }\n  .main-nav__toggle {\n    display: block;\n    float: right;\n    margin-top: 20.5px;\n    margin-bottom: 20.5px;\n    margin-right: 15px;\n  }\n  .main-nav__items {\n    display: none;\n    position: relative;\n    clear: both;\n    width: 100%;\n    padding-left: 0;\n  }\n  .main-nav__items--enable {\n    display: block;\n  }\n  .main-nav__item {\n    display: block;\n    padding-left: 0;\n    padding-right: 0;\n  }\n  .main-nav__link {\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: #333333;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 17.5px;\n    line-height: 18px;\n  }\n  .main-nav__sub-items {\n    position: static;\n    width: 100%;\n  }\n  .main-nav__sub-items:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items--enable {\n    display: block !important;\n  }\n  .main-nav__item:hover:before,\n  .main-nav__item:active:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items:hover,\n  .main-nav__item:first-child:hover > .main-nav__sub-items--vane,\n  .main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps,\n  .main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n    display: none;\n  }\n}\n.on-map {\n  position: absolute;\n  z-index: 1000;\n}\n.map-button {\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n.leaflet-clickable {\n  cursor: crosshair !important;\n}\n.leaflet-container {\n  cursor: help !important;\n}\n#add-marker {\n  margin: 20px 0 0 370px;\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n#remove-marker {\n  margin: 20px 0 0 410px;\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n", ""]);
+	exports.push([module.id, "/* определение цветов */\n/* Текст */\n/* страница */\n/* Фоны */\n/* Кнопки */\n.main-header {\n  background-color: #ffffff;\n  width: 100%;\n  box-shadow: 0px 1px 3px 0px rgba(27, 30, 31, 0.26);\n  position: relative;\n  z-index: 1000;\n}\n.main-header__layout {\n  padding-left: 0;\n  padding-right: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\n.main-header__login {\n  display: block;\n  font: 600 14px + 2px / 1 'Open Sans', sans-serif;\n  color: #000000;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 10px 18px;\n  text-align: center;\n  border: 2px solid #1b1e1f;\n  border-radius: 20px;\n  letter-spacing: .2px;\n}\n@media (max-width: 768px) {\n  .main-header__layout {\n    width: 100%;\n    padding-left: 0;\n  }\n}\n.main-nav {\n  width: 100%;\n  max-width: 1130px;\n  margin: 0 auto;\n}\n.main-nav__items {\n  list-style: none;\n  list-style-type: none;\n  padding-left: 0px;\n  margin: 0;\n  float: right;\n}\n.main-nav__item {\n  position: relative;\n  display: inline-block;\n  vertical-align: top;\n  padding-right: 17.5px;\n  padding-left: 17.5px;\n}\n.main-nav__item:last-child {\n  margin-right: 0;\n  padding-right: 0;\n}\n.main-nav__title {\n  margin-right: 45px;\n  padding-left: 10px;\n}\n.main-nav__logo {\n  float: left;\n  padding: 26.5px 15px;\n  padding-right: 0;\n  font: 600 20px / 1 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n}\n.main-nav__logo:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__link {\n  display: block;\n  font: 600 12px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  text-transform: uppercase;\n  letter-spacing: .2px;\n  padding-top: 28.5px;\n  padding-bottom: 28.5px;\n}\n.main-nav__link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__sub-link {\n  display: block;\n  font: 400 12px + 1px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n  padding: 7px 15px !important;\n}\n.main-nav__sub-link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n  outline: 0;\n  background-color: rgba(0, 0, 0, 0.02);\n}\n.main-nav__item:hover:before {\n  color: #2babcf !important;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__item:active:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__sub-items {\n  position: absolute;\n  display: none;\n  top: 77px;\n  left: 0;\n  list-style: none;\n  padding: 0;\n  border: 1px solid #c8c9ca;\n  border-top: 0;\n}\n.main-nav__sub-items--vane {\n  width: 115%;\n  display: none;\n}\n.main-nav__sub-items--maps {\n  width: 135px;\n  left: -50%;\n  display: none;\n}\n.main-nav__sub-items:before {\n  content: \"\";\n  position: absolute;\n  top: -2px;\n  height: 0;\n  left: -1px;\n  right: -1px;\n  border-top: 2px solid #2babcf;\n}\n.main-nav__sub-items:hover {\n  display: block;\n}\n.main-nav__item:first-child:hover > .main-nav__sub-items--vane {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n  display: block;\n  width: 180px;\n  left: -10px;\n  transition: 1s;\n}\n.main-nav__sub-item {\n  background-color: #ffffff;\n  border-bottom: 1px solid #eee;\n  text-transform: none;\n}\n.main-nav__toggle {\n  display: none;\n}\n@media (max-width: 768px) {\n  .main-nav {\n    display: block;\n    width: 100%;\n  }\n  .main-nav__toggle {\n    display: block;\n    float: right;\n    margin-top: 20.5px;\n    margin-bottom: 20.5px;\n    margin-right: 15px;\n  }\n  .main-nav__items {\n    display: none;\n    position: relative;\n    clear: both;\n    width: 100%;\n    padding-left: 0;\n  }\n  .main-nav__items--enable {\n    display: block;\n  }\n  .main-nav__item {\n    display: block;\n    padding-left: 0;\n    padding-right: 0;\n  }\n  .main-nav__link {\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: #333333;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 17.5px;\n    line-height: 18px;\n  }\n  .main-nav__sub-items {\n    position: static;\n    width: 100%;\n  }\n  .main-nav__sub-items:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items--enable {\n    display: block !important;\n  }\n  .main-nav__item:hover:before,\n  .main-nav__item:active:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items:hover,\n  .main-nav__item:first-child:hover > .main-nav__sub-items--vane,\n  .main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps,\n  .main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n    display: none;\n  }\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 42 */
+/* 35 */
 /***/ (function(module, exports) {
 
 	/*
@@ -58962,756 +56745,6 @@
 		};
 		return list;
 	};
-
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "fonts/fontawesome-webfont.eot";
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "fonts/fontawesome-webfont.eot";
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "fonts/fontawesome-webfont.woff2";
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "fonts/fontawesome-webfont.woff";
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "fonts/fontawesome-webfont.ttf";
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	        var result = __webpack_require__(49);
-
-	        if (typeof result === "string") {
-	            module.exports = result;
-	        } else {
-	            module.exports = result.toString();
-	        }
-	    
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(42)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS text size adjust after orientation change, without disabling\n *    user zoom.\n */\nhtml {\n  font-family: sans-serif;\n  /* 1 */\n  -ms-text-size-adjust: 100%;\n  /* 2 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */\n}\n/**\n * Remove default margin.\n */\nbody {\n  margin: 0;\n}\n/* HTML5 display definitions\n   ========================================================================== */\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block;\n}\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  /* 1 */\n  vertical-align: baseline;\n  /* 2 */\n}\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.\n */\n[hidden],\ntemplate {\n  display: none;\n}\n/* Links\n   ========================================================================== */\n/**\n * Remove the gray background color from active links in IE 10.\n */\na {\n  background-color: transparent;\n}\n/**\n * Improve readability when focused and also mouse hovered in all browsers.\n */\na:active,\na:hover {\n  outline: 0;\n}\n/* Text-level semantics\n   ========================================================================== */\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\nabbr[title] {\n  border-bottom: 1px dotted;\n}\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\nb,\nstrong {\n  font-weight: bold;\n}\n/**\n * Address styling not present in Safari and Chrome.\n */\ndfn {\n  font-style: italic;\n}\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n/**\n * Address styling not present in IE 8/9.\n */\nmark {\n  background: #ff0;\n  color: #000;\n}\n/**\n * Address inconsistent and variable font size in all browsers.\n */\nsmall {\n  font-size: 80%;\n}\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsup {\n  top: -0.5em;\n}\nsub {\n  bottom: -0.25em;\n}\n/* Embedded content\n   ========================================================================== */\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\nimg {\n  border: 0;\n}\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\nsvg:not(:root) {\n  overflow: hidden;\n}\n/* Grouping content\n   ========================================================================== */\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\nfigure {\n  margin: 1em 40px;\n}\n/**\n * Address differences between Firefox and other browsers.\n */\nhr {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n  height: 0;\n}\n/**\n * Contain overflow in all browsers.\n */\npre {\n  overflow: auto;\n}\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\n/* Forms\n   ========================================================================== */\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n  margin: 0;\n  /* 3 */\n}\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\nbutton {\n  overflow: visible;\n}\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\nbutton,\nselect {\n  text-transform: none;\n}\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  /* 2 */\n  cursor: pointer;\n  /* 3 */\n}\n/**\n * Re-set default cursor for disabled elements.\n */\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\n/**\n * Remove inner padding and border in Firefox 4+.\n */\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\ninput {\n  line-height: normal;\n}\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome\n *    (include `-moz` to future-proof).\n */\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  -moz-box-sizing: content-box;\n  -webkit-box-sizing: content-box;\n  /* 2 */\n  box-sizing: content-box;\n}\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n/**\n * Define consistent border, margin, and padding.\n */\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\nlegend {\n  border: 0;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\ntextarea {\n  overflow: auto;\n}\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\noptgroup {\n  font-weight: bold;\n}\n/* Tables\n   ========================================================================== */\n/**\n * Remove most spacing between table cells.\n */\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ntd,\nth {\n  padding: 0;\n}\n@font-face {\n  font-family: 'FontAwesome';\n  src: url(" + __webpack_require__(43) + ");\n  src: url(" + __webpack_require__(44) + "?#iefix&v=4.7.0) format('embedded-opentype'), url(" + __webpack_require__(45) + ") format('woff2'), url(" + __webpack_require__(46) + ") format('woff'), url(" + __webpack_require__(47) + ") format('truetype');\n  font-weight: normal;\n  font-style: normal;\n}\n/* определение цветов */\n/* Текст */\n/* страница */\n/* Фоны */\n/* Кнопки */\n.main-header {\n  background-color: #ffffff;\n  width: 100%;\n  box-shadow: 0px 1px 3px 0px rgba(27, 30, 31, 0.26);\n  position: relative;\n  z-index: 1000;\n}\n.main-header__layout {\n  padding-left: 0;\n  padding-right: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\n.main-header__login {\n  display: block;\n  font: 600 14px + 2px / 1 'Open Sans', sans-serif;\n  color: #000000;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 10px 18px;\n  text-align: center;\n  border: 2px solid #1b1e1f;\n  border-radius: 20px;\n  letter-spacing: .2px;\n}\n@media (max-width: 768px) {\n  .main-header__layout {\n    width: 100%;\n    padding-left: 0;\n  }\n}\n.main-nav {\n  width: 100%;\n  max-width: 1130px;\n  margin: 0 auto;\n}\n.main-nav__items {\n  list-style: none;\n  list-style-type: none;\n  padding-left: 0px;\n  margin: 0;\n  float: right;\n}\n.main-nav__item {\n  position: relative;\n  display: inline-block;\n  vertical-align: top;\n  padding-right: 17.5px;\n  padding-left: 17.5px;\n}\n.main-nav__item:last-child {\n  margin-right: 0;\n  padding-right: 0;\n}\n.main-nav__title {\n  margin-right: 45px;\n  padding-left: 10px;\n}\n.main-nav__logo {\n  float: left;\n  padding: 26.5px 15px;\n  padding-right: 0;\n  font: 600 20px / 1 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n}\n.main-nav__logo:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__link {\n  display: block;\n  font: 600 12px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  text-transform: uppercase;\n  letter-spacing: .2px;\n  padding-top: 28.5px;\n  padding-bottom: 28.5px;\n}\n.main-nav__link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__sub-link {\n  display: block;\n  font: 400 12px + 1px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n  padding: 7px 15px !important;\n}\n.main-nav__sub-link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n  outline: 0;\n  background-color: rgba(0, 0, 0, 0.02);\n}\n.main-nav__item:hover:before {\n  color: #2babcf !important;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__item:active:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__sub-items {\n  position: absolute;\n  display: none;\n  top: 77px;\n  left: 0;\n  list-style: none;\n  padding: 0;\n  border: 1px solid #c8c9ca;\n  border-top: 0;\n}\n.main-nav__sub-items--vane {\n  width: 115%;\n  display: none;\n}\n.main-nav__sub-items--maps {\n  width: 135px;\n  left: -50%;\n  display: none;\n}\n.main-nav__sub-items:before {\n  content: \"\";\n  position: absolute;\n  top: -2px;\n  height: 0;\n  left: -1px;\n  right: -1px;\n  border-top: 2px solid #2babcf;\n}\n.main-nav__sub-items:hover {\n  display: block;\n}\n.main-nav__item:first-child:hover > .main-nav__sub-items--vane {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n  display: block;\n  width: 180px;\n  left: -10px;\n  transition: 1s;\n}\n.main-nav__sub-item {\n  background-color: #ffffff;\n  border-bottom: 1px solid #eee;\n  text-transform: none;\n}\n.main-nav__toggle {\n  display: none;\n}\n@media (max-width: 768px) {\n  .main-nav {\n    display: block;\n    width: 100%;\n  }\n  .main-nav__toggle {\n    display: block;\n    float: right;\n    margin-top: 20.5px;\n    margin-bottom: 20.5px;\n    margin-right: 15px;\n  }\n  .main-nav__items {\n    display: none;\n    position: relative;\n    clear: both;\n    width: 100%;\n    padding-left: 0;\n  }\n  .main-nav__items--enable {\n    display: block;\n  }\n  .main-nav__item {\n    display: block;\n    padding-left: 0;\n    padding-right: 0;\n  }\n  .main-nav__link {\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: #333333;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 17.5px;\n    line-height: 18px;\n  }\n  .main-nav__sub-items {\n    position: static;\n    width: 100%;\n  }\n  .main-nav__sub-items:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items--enable {\n    display: block !important;\n  }\n  .main-nav__item:hover:before,\n  .main-nav__item:active:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items:hover,\n  .main-nav__item:first-child:hover > .main-nav__sub-items--vane,\n  .main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps,\n  .main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n    display: none;\n  }\n}\n.on-map {\n  position: absolute;\n  z-index: 1000;\n}\n.map-button {\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n.leaflet-clickable {\n  cursor: crosshair !important;\n}\n.leaflet-container {\n  cursor: help !important;\n}\n", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var http_1 = __webpack_require__(29);
-	var location_class_1 = __webpack_require__(51);
-	var core_1 = __webpack_require__(9);
-	__webpack_require__(52);
-	__webpack_require__(54);
-	var GeocodingService = (function () {
-	    function GeocodingService(http) {
-	        this.http = http;
-	    }
-	    GeocodingService.prototype.geocode = function (address) {
-	        return this.http
-	            .get("http://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(address))
-	            .map((function (res) { return res.json(); }))
-	            .map((function (result) {
-	            if (result.status !== "OK") {
-	                throw new Error("unable to geocode address");
-	            }
-	            var location = new location_class_1.Location();
-	            location.address = result.results[0].formatted_address;
-	            location.latitude = result.results[0].geometry.location.lat;
-	            location.longitude = result.results[0].geometry.location.lng;
-	            var viewPort = result.results[0].geometry.viewport;
-	            location.viewBounds = L.latLngBounds({
-	                lat: viewPort.southwest.lat,
-	                lng: viewPort.southwest.lng
-	            }, {
-	                lat: viewPort.northeast.lat,
-	                lng: viewPort.northeast.lng
-	            });
-	            return location;
-	        }));
-	    };
-	    GeocodingService.prototype.getCurrentLocation = function () {
-	        var _this = this;
-	        return this.http
-	            .get("http://ipv4.myexternalip.com/json")
-	            .map((function (res) { return res.json().ip; }))
-	            .flatMap((function (ip) { return _this.http.get("http://freegeoip.net/json/" + ip); }))
-	            .map((function (res) { return res.json(); }))
-	            .map((function (result) {
-	            var location = new location_class_1.Location();
-	            location.address = result.city + ", " + result.region_code + " " + result.zip_code + ", " + result.country_code;
-	            location.latitude = result.latitude;
-	            location.longitude = result.longitude;
-	            return location;
-	        }));
-	    };
-	    return GeocodingService;
-	}());
-	GeocodingService = __decorate([
-	    core_1.Injectable(),
-	    __metadata("design:paramtypes", [http_1.Http])
-	], GeocodingService);
-	exports.GeocodingService = GeocodingService;
-
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports) {
-
-	"use strict";
-	var Location = (function () {
-	    function Location() {
-	    }
-	    return Location;
-	}());
-	exports.Location = Location;
-
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var Observable_1 = __webpack_require__(11);
-	var map_1 = __webpack_require__(53);
-	Observable_1.Observable.prototype.map = map_1.map;
-	//# sourceMappingURL=map.js.map
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var Subscriber_1 = __webpack_require__(14);
-	/**
-	 * Applies a given `project` function to each value emitted by the source
-	 * Observable, and emits the resulting values as an Observable.
-	 *
-	 * <span class="informal">Like [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map),
-	 * it passes each source value through a transformation function to get
-	 * corresponding output values.</span>
-	 *
-	 * <img src="./img/map.png" width="100%">
-	 *
-	 * Similar to the well known `Array.prototype.map` function, this operator
-	 * applies a projection to each value and emits that projection in the output
-	 * Observable.
-	 *
-	 * @example <caption>Map every every click to the clientX position of that click</caption>
-	 * var clicks = Rx.Observable.fromEvent(document, 'click');
-	 * var positions = clicks.map(ev => ev.clientX);
-	 * positions.subscribe(x => console.log(x));
-	 *
-	 * @see {@link mapTo}
-	 * @see {@link pluck}
-	 *
-	 * @param {function(value: T, index: number): R} project The function to apply
-	 * to each `value` emitted by the source Observable. The `index` parameter is
-	 * the number `i` for the i-th emission that has happened since the
-	 * subscription, starting from the number `0`.
-	 * @param {any} [thisArg] An optional argument to define what `this` is in the
-	 * `project` function.
-	 * @return {Observable<R>} An Observable that emits the values from the source
-	 * Observable transformed by the given `project` function.
-	 * @method map
-	 * @owner Observable
-	 */
-	function map(project, thisArg) {
-	    if (typeof project !== 'function') {
-	        throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
-	    }
-	    return this.lift(new MapOperator(project, thisArg));
-	}
-	exports.map = map;
-	var MapOperator = (function () {
-	    function MapOperator(project, thisArg) {
-	        this.project = project;
-	        this.thisArg = thisArg;
-	    }
-	    MapOperator.prototype.call = function (subscriber, source) {
-	        return source._subscribe(new MapSubscriber(subscriber, this.project, this.thisArg));
-	    };
-	    return MapOperator;
-	}());
-	exports.MapOperator = MapOperator;
-	/**
-	 * We need this JSDoc comment for affecting ESDoc.
-	 * @ignore
-	 * @extends {Ignored}
-	 */
-	var MapSubscriber = (function (_super) {
-	    __extends(MapSubscriber, _super);
-	    function MapSubscriber(destination, project, thisArg) {
-	        _super.call(this, destination);
-	        this.project = project;
-	        this.count = 0;
-	        this.thisArg = thisArg || this;
-	    }
-	    // NOTE: This looks unoptimized, but it's actually purposefully NOT
-	    // using try/catch optimizations.
-	    MapSubscriber.prototype._next = function (value) {
-	        var result;
-	        try {
-	            result = this.project.call(this.thisArg, value, this.count++);
-	        }
-	        catch (err) {
-	            this.destination.error(err);
-	            return;
-	        }
-	        this.destination.next(result);
-	    };
-	    return MapSubscriber;
-	}(Subscriber_1.Subscriber));
-	//# sourceMappingURL=map.js.map
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var Observable_1 = __webpack_require__(11);
-	var mergeMap_1 = __webpack_require__(55);
-	Observable_1.Observable.prototype.mergeMap = mergeMap_1.mergeMap;
-	Observable_1.Observable.prototype.flatMap = mergeMap_1.mergeMap;
-	//# sourceMappingURL=mergeMap.js.map
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var subscribeToResult_1 = __webpack_require__(56);
-	var OuterSubscriber_1 = __webpack_require__(60);
-	/* tslint:disable:max-line-length */
-	/**
-	 * Projects each source value to an Observable which is merged in the output
-	 * Observable.
-	 *
-	 * <span class="informal">Maps each value to an Observable, then flattens all of
-	 * these inner Observables using {@link mergeAll}.</span>
-	 *
-	 * <img src="./img/mergeMap.png" width="100%">
-	 *
-	 * Returns an Observable that emits items based on applying a function that you
-	 * supply to each item emitted by the source Observable, where that function
-	 * returns an Observable, and then merging those resulting Observables and
-	 * emitting the results of this merger.
-	 *
-	 * @example <caption>Map and flatten each letter to an Observable ticking every 1 second</caption>
-	 * var letters = Rx.Observable.of('a', 'b', 'c');
-	 * var result = letters.mergeMap(x =>
-	 *   Rx.Observable.interval(1000).map(i => x+i)
-	 * );
-	 * result.subscribe(x => console.log(x));
-	 *
-	 * @see {@link concatMap}
-	 * @see {@link exhaustMap}
-	 * @see {@link merge}
-	 * @see {@link mergeAll}
-	 * @see {@link mergeMapTo}
-	 * @see {@link mergeScan}
-	 * @see {@link switchMap}
-	 *
-	 * @param {function(value: T, ?index: number): Observable} project A function
-	 * that, when applied to an item emitted by the source Observable, returns an
-	 * Observable.
-	 * @param {function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any} [resultSelector]
-	 * A function to produce the value on the output Observable based on the values
-	 * and the indices of the source (outer) emission and the inner Observable
-	 * emission. The arguments passed to this function are:
-	 * - `outerValue`: the value that came from the source
-	 * - `innerValue`: the value that came from the projected Observable
-	 * - `outerIndex`: the "index" of the value that came from the source
-	 * - `innerIndex`: the "index" of the value from the projected Observable
-	 * @param {number} [concurrent=Number.POSITIVE_INFINITY] Maximum number of input
-	 * Observables being subscribed to concurrently.
-	 * @return {Observable} An Observable that emits the result of applying the
-	 * projection function (and the optional `resultSelector`) to each item emitted
-	 * by the source Observable and merging the results of the Observables obtained
-	 * from this transformation.
-	 * @method mergeMap
-	 * @owner Observable
-	 */
-	function mergeMap(project, resultSelector, concurrent) {
-	    if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
-	    if (typeof resultSelector === 'number') {
-	        concurrent = resultSelector;
-	        resultSelector = null;
-	    }
-	    return this.lift(new MergeMapOperator(project, resultSelector, concurrent));
-	}
-	exports.mergeMap = mergeMap;
-	var MergeMapOperator = (function () {
-	    function MergeMapOperator(project, resultSelector, concurrent) {
-	        if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
-	        this.project = project;
-	        this.resultSelector = resultSelector;
-	        this.concurrent = concurrent;
-	    }
-	    MergeMapOperator.prototype.call = function (observer, source) {
-	        return source._subscribe(new MergeMapSubscriber(observer, this.project, this.resultSelector, this.concurrent));
-	    };
-	    return MergeMapOperator;
-	}());
-	exports.MergeMapOperator = MergeMapOperator;
-	/**
-	 * We need this JSDoc comment for affecting ESDoc.
-	 * @ignore
-	 * @extends {Ignored}
-	 */
-	var MergeMapSubscriber = (function (_super) {
-	    __extends(MergeMapSubscriber, _super);
-	    function MergeMapSubscriber(destination, project, resultSelector, concurrent) {
-	        if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
-	        _super.call(this, destination);
-	        this.project = project;
-	        this.resultSelector = resultSelector;
-	        this.concurrent = concurrent;
-	        this.hasCompleted = false;
-	        this.buffer = [];
-	        this.active = 0;
-	        this.index = 0;
-	    }
-	    MergeMapSubscriber.prototype._next = function (value) {
-	        if (this.active < this.concurrent) {
-	            this._tryNext(value);
-	        }
-	        else {
-	            this.buffer.push(value);
-	        }
-	    };
-	    MergeMapSubscriber.prototype._tryNext = function (value) {
-	        var result;
-	        var index = this.index++;
-	        try {
-	            result = this.project(value, index);
-	        }
-	        catch (err) {
-	            this.destination.error(err);
-	            return;
-	        }
-	        this.active++;
-	        this._innerSub(result, value, index);
-	    };
-	    MergeMapSubscriber.prototype._innerSub = function (ish, value, index) {
-	        this.add(subscribeToResult_1.subscribeToResult(this, ish, value, index));
-	    };
-	    MergeMapSubscriber.prototype._complete = function () {
-	        this.hasCompleted = true;
-	        if (this.active === 0 && this.buffer.length === 0) {
-	            this.destination.complete();
-	        }
-	    };
-	    MergeMapSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
-	        if (this.resultSelector) {
-	            this._notifyResultSelector(outerValue, innerValue, outerIndex, innerIndex);
-	        }
-	        else {
-	            this.destination.next(innerValue);
-	        }
-	    };
-	    MergeMapSubscriber.prototype._notifyResultSelector = function (outerValue, innerValue, outerIndex, innerIndex) {
-	        var result;
-	        try {
-	            result = this.resultSelector(outerValue, innerValue, outerIndex, innerIndex);
-	        }
-	        catch (err) {
-	            this.destination.error(err);
-	            return;
-	        }
-	        this.destination.next(result);
-	    };
-	    MergeMapSubscriber.prototype.notifyComplete = function (innerSub) {
-	        var buffer = this.buffer;
-	        this.remove(innerSub);
-	        this.active--;
-	        if (buffer.length > 0) {
-	            this._next(buffer.shift());
-	        }
-	        else if (this.active === 0 && this.hasCompleted) {
-	            this.destination.complete();
-	        }
-	    };
-	    return MergeMapSubscriber;
-	}(OuterSubscriber_1.OuterSubscriber));
-	exports.MergeMapSubscriber = MergeMapSubscriber;
-	//# sourceMappingURL=mergeMap.js.map
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var root_1 = __webpack_require__(12);
-	var isArray_1 = __webpack_require__(17);
-	var isPromise_1 = __webpack_require__(57);
-	var Observable_1 = __webpack_require__(11);
-	var iterator_1 = __webpack_require__(58);
-	var InnerSubscriber_1 = __webpack_require__(59);
-	var observable_1 = __webpack_require__(24);
-	function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
-	    var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
-	    if (destination.closed) {
-	        return null;
-	    }
-	    if (result instanceof Observable_1.Observable) {
-	        if (result._isScalar) {
-	            destination.next(result.value);
-	            destination.complete();
-	            return null;
-	        }
-	        else {
-	            return result.subscribe(destination);
-	        }
-	    }
-	    if (isArray_1.isArray(result)) {
-	        for (var i = 0, len = result.length; i < len && !destination.closed; i++) {
-	            destination.next(result[i]);
-	        }
-	        if (!destination.closed) {
-	            destination.complete();
-	        }
-	    }
-	    else if (isPromise_1.isPromise(result)) {
-	        result.then((function (value) {
-	            if (!destination.closed) {
-	                destination.next(value);
-	                destination.complete();
-	            }
-	        }), (function (err) { return destination.error(err); }))
-	            .then(null, (function (err) {
-	            // Escaping the Promise trap: globally throw unhandled errors
-	            root_1.root.setTimeout((function () { throw err; }));
-	        }));
-	        return destination;
-	    }
-	    else if (typeof result[iterator_1.$$iterator] === 'function') {
-	        var iterator = result[iterator_1.$$iterator]();
-	        do {
-	            var item = iterator.next();
-	            if (item.done) {
-	                destination.complete();
-	                break;
-	            }
-	            destination.next(item.value);
-	            if (destination.closed) {
-	                break;
-	            }
-	        } while (true);
-	    }
-	    else if (typeof result[observable_1.$$observable] === 'function') {
-	        var obs = result[observable_1.$$observable]();
-	        if (typeof obs.subscribe !== 'function') {
-	            destination.error(new Error('invalid observable'));
-	        }
-	        else {
-	            return obs.subscribe(new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex));
-	        }
-	    }
-	    else {
-	        destination.error(new TypeError('unknown type returned'));
-	    }
-	    return null;
-	}
-	exports.subscribeToResult = subscribeToResult;
-	//# sourceMappingURL=subscribeToResult.js.map
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports) {
-
-	"use strict";
-	function isPromise(value) {
-	    return value && typeof value.subscribe !== 'function' && typeof value.then === 'function';
-	}
-	exports.isPromise = isPromise;
-	//# sourceMappingURL=isPromise.js.map
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var root_1 = __webpack_require__(12);
-	function symbolIteratorPonyfill(root) {
-	    var Symbol = root.Symbol;
-	    if (typeof Symbol === 'function') {
-	        if (!Symbol.iterator) {
-	            Symbol.iterator = Symbol('iterator polyfill');
-	        }
-	        return Symbol.iterator;
-	    }
-	    else {
-	        // [for Mozilla Gecko 27-35:](https://mzl.la/2ewE1zC)
-	        var Set_1 = root.Set;
-	        if (Set_1 && typeof new Set_1()['@@iterator'] === 'function') {
-	            return '@@iterator';
-	        }
-	        var Map_1 = root.Map;
-	        // required for compatability with es6-shim
-	        if (Map_1) {
-	            var keys = Object.getOwnPropertyNames(Map_1.prototype);
-	            for (var i = 0; i < keys.length; ++i) {
-	                var key = keys[i];
-	                // according to spec, Map.prototype[@@iterator] and Map.orototype.entries must be equal.
-	                if (key !== 'entries' && key !== 'size' && Map_1.prototype[key] === Map_1.prototype['entries']) {
-	                    return key;
-	                }
-	            }
-	        }
-	        return '@@iterator';
-	    }
-	}
-	exports.symbolIteratorPonyfill = symbolIteratorPonyfill;
-	exports.$$iterator = symbolIteratorPonyfill(root_1.root);
-	//# sourceMappingURL=iterator.js.map
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var Subscriber_1 = __webpack_require__(14);
-	/**
-	 * We need this JSDoc comment for affecting ESDoc.
-	 * @ignore
-	 * @extends {Ignored}
-	 */
-	var InnerSubscriber = (function (_super) {
-	    __extends(InnerSubscriber, _super);
-	    function InnerSubscriber(parent, outerValue, outerIndex) {
-	        _super.call(this);
-	        this.parent = parent;
-	        this.outerValue = outerValue;
-	        this.outerIndex = outerIndex;
-	        this.index = 0;
-	    }
-	    InnerSubscriber.prototype._next = function (value) {
-	        this.parent.notifyNext(this.outerValue, value, this.outerIndex, this.index++, this);
-	    };
-	    InnerSubscriber.prototype._error = function (error) {
-	        this.parent.notifyError(error, this);
-	        this.unsubscribe();
-	    };
-	    InnerSubscriber.prototype._complete = function () {
-	        this.parent.notifyComplete(this);
-	        this.unsubscribe();
-	    };
-	    return InnerSubscriber;
-	}(Subscriber_1.Subscriber));
-	exports.InnerSubscriber = InnerSubscriber;
-	//# sourceMappingURL=InnerSubscriber.js.map
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var Subscriber_1 = __webpack_require__(14);
-	/**
-	 * We need this JSDoc comment for affecting ESDoc.
-	 * @ignore
-	 * @extends {Ignored}
-	 */
-	var OuterSubscriber = (function (_super) {
-	    __extends(OuterSubscriber, _super);
-	    function OuterSubscriber() {
-	        _super.apply(this, arguments);
-	    }
-	    OuterSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
-	        this.destination.next(innerValue);
-	    };
-	    OuterSubscriber.prototype.notifyError = function (error, innerSub) {
-	        this.destination.error(error);
-	    };
-	    OuterSubscriber.prototype.notifyComplete = function (innerSub) {
-	        this.destination.complete();
-	    };
-	    return OuterSubscriber;
-	}(Subscriber_1.Subscriber));
-	exports.OuterSubscriber = OuterSubscriber;
-	//# sourceMappingURL=OuterSubscriber.js.map
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports) {
-
-	module.exports = "<nav class=\"navbar nav-default navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"navbar-header\">\r\n        <a class=\"navbar-brand\" href=\"#\" scroll-to=\"welcome\" offset=\"50\"><span>Angular2-Leaflet-Starter</span></a>\r\n    </div>\r\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n        <ul class=\"nav navbar-nav navbar-left\">\r\n            <li><a href=\"https://github.com/haoliangyu/angular2-leaflet-starter\" target=\"_blank\">GitHub</a></li>\r\n        </ul>\r\n    </div>\r\n</nav>\r\n\r\n<div id=\"map\">\r\n    <navigator></navigator>\r\n    <marker></marker>\r\n</div>\r\n"
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	        var result = __webpack_require__(63);
-
-	        if (typeof result === "string") {
-	            module.exports = result;
-	        } else {
-	            module.exports = result.toString();
-	        }
-	    
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(42)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "body {\n  margin: 0;\n  padding: 0;\n}\n#map {\n  position: absolute;\n  top: 50px;\n  bottom: 0;\n  width: 100%;\n}\n", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(9);
-	var geocoding_service_1 = __webpack_require__(50);
-	var map_service_1 = __webpack_require__(36);
-	var NavigatorComponent = (function () {
-	    function NavigatorComponent(geocoder, mapService) {
-	        this.geocoder = geocoder;
-	        this.mapService = mapService;
-	        this.address = "";
-	    }
-	    NavigatorComponent.prototype.ngOnInit = function () {
-	        this.mapService.disableMouseEvent("goto");
-	        this.mapService.disableMouseEvent("place-input");
-	        this.map = this.mapService.map;
-	    };
-	    NavigatorComponent.prototype.goto = function () {
-	        var _this = this;
-	        if (!this.address) {
-	            return;
-	        }
-	        this.geocoder.geocode(this.address)
-	            .subscribe((function (location) {
-	            _this.map.fitBounds(location.viewBounds, {});
-	            _this.address = location.address;
-	        }), (function (error) { return console.error(error); }));
-	    };
-	    return NavigatorComponent;
-	}());
-	NavigatorComponent = __decorate([
-	    core_1.Component({
-	        selector: "navigator",
-	        template: __webpack_require__(65),
-	        styles: [
-	            __webpack_require__(66),
-	            __webpack_require__(48)
-	        ],
-	        providers: []
-	    }),
-	    __metadata("design:paramtypes", [geocoding_service_1.GeocodingService, map_service_1.MapService])
-	], NavigatorComponent);
-	exports.NavigatorComponent = NavigatorComponent;
-
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports) {
-
-	module.exports = "<input id=\"place-input\" class=\"on-map\" type=\"text\" placeholder=\"Enter a place to go...\"\r\n [(ngModel)]=\"address\" (keyup.enter)=\"goto()\">\r\n\r\n <button id=\"goto\" class=\"btn btn-primary on-map\" href=\"#\" title=\"Goto Place\" (click)=\"goto()\">\r\n     <i class=\"fa fa-arrow-right fa\">\r\n </i></button>\r\n"
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	        var result = __webpack_require__(67);
-
-	        if (typeof result === "string") {
-	            module.exports = result;
-	        } else {
-	            module.exports = result.toString();
-	        }
-	    
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(42)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS text size adjust after orientation change, without disabling\n *    user zoom.\n */\nhtml {\n  font-family: sans-serif;\n  /* 1 */\n  -ms-text-size-adjust: 100%;\n  /* 2 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */\n}\n/**\n * Remove default margin.\n */\nbody {\n  margin: 0;\n}\n/* HTML5 display definitions\n   ========================================================================== */\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block;\n}\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  /* 1 */\n  vertical-align: baseline;\n  /* 2 */\n}\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.\n */\n[hidden],\ntemplate {\n  display: none;\n}\n/* Links\n   ========================================================================== */\n/**\n * Remove the gray background color from active links in IE 10.\n */\na {\n  background-color: transparent;\n}\n/**\n * Improve readability when focused and also mouse hovered in all browsers.\n */\na:active,\na:hover {\n  outline: 0;\n}\n/* Text-level semantics\n   ========================================================================== */\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\nabbr[title] {\n  border-bottom: 1px dotted;\n}\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\nb,\nstrong {\n  font-weight: bold;\n}\n/**\n * Address styling not present in Safari and Chrome.\n */\ndfn {\n  font-style: italic;\n}\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n/**\n * Address styling not present in IE 8/9.\n */\nmark {\n  background: #ff0;\n  color: #000;\n}\n/**\n * Address inconsistent and variable font size in all browsers.\n */\nsmall {\n  font-size: 80%;\n}\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsup {\n  top: -0.5em;\n}\nsub {\n  bottom: -0.25em;\n}\n/* Embedded content\n   ========================================================================== */\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\nimg {\n  border: 0;\n}\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\nsvg:not(:root) {\n  overflow: hidden;\n}\n/* Grouping content\n   ========================================================================== */\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\nfigure {\n  margin: 1em 40px;\n}\n/**\n * Address differences between Firefox and other browsers.\n */\nhr {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n  height: 0;\n}\n/**\n * Contain overflow in all browsers.\n */\npre {\n  overflow: auto;\n}\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\n/* Forms\n   ========================================================================== */\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n  margin: 0;\n  /* 3 */\n}\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\nbutton {\n  overflow: visible;\n}\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\nbutton,\nselect {\n  text-transform: none;\n}\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  /* 2 */\n  cursor: pointer;\n  /* 3 */\n}\n/**\n * Re-set default cursor for disabled elements.\n */\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\n/**\n * Remove inner padding and border in Firefox 4+.\n */\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\ninput {\n  line-height: normal;\n}\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome\n *    (include `-moz` to future-proof).\n */\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  -moz-box-sizing: content-box;\n  -webkit-box-sizing: content-box;\n  /* 2 */\n  box-sizing: content-box;\n}\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n/**\n * Define consistent border, margin, and padding.\n */\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\nlegend {\n  border: 0;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\ntextarea {\n  overflow: auto;\n}\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\noptgroup {\n  font-weight: bold;\n}\n/* Tables\n   ========================================================================== */\n/**\n * Remove most spacing between table cells.\n */\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ntd,\nth {\n  padding: 0;\n}\n@font-face {\n  font-family: 'FontAwesome';\n  src: url(" + __webpack_require__(43) + ");\n  src: url(" + __webpack_require__(44) + "?#iefix&v=4.7.0) format('embedded-opentype'), url(" + __webpack_require__(45) + ") format('woff2'), url(" + __webpack_require__(46) + ") format('woff'), url(" + __webpack_require__(47) + ") format('truetype');\n  font-weight: normal;\n  font-style: normal;\n}\n/* определение цветов */\n/* Текст */\n/* страница */\n/* Фоны */\n/* Кнопки */\n.main-header {\n  background-color: #ffffff;\n  width: 100%;\n  box-shadow: 0px 1px 3px 0px rgba(27, 30, 31, 0.26);\n  position: relative;\n  z-index: 1000;\n}\n.main-header__layout {\n  padding-left: 0;\n  padding-right: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\n.main-header__login {\n  display: block;\n  font: 600 14px + 2px / 1 'Open Sans', sans-serif;\n  color: #000000;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 10px 18px;\n  text-align: center;\n  border: 2px solid #1b1e1f;\n  border-radius: 20px;\n  letter-spacing: .2px;\n}\n@media (max-width: 768px) {\n  .main-header__layout {\n    width: 100%;\n    padding-left: 0;\n  }\n}\n.main-nav {\n  width: 100%;\n  max-width: 1130px;\n  margin: 0 auto;\n}\n.main-nav__items {\n  list-style: none;\n  list-style-type: none;\n  padding-left: 0px;\n  margin: 0;\n  float: right;\n}\n.main-nav__item {\n  position: relative;\n  display: inline-block;\n  vertical-align: top;\n  padding-right: 17.5px;\n  padding-left: 17.5px;\n}\n.main-nav__item:last-child {\n  margin-right: 0;\n  padding-right: 0;\n}\n.main-nav__title {\n  margin-right: 45px;\n  padding-left: 10px;\n}\n.main-nav__logo {\n  float: left;\n  padding: 26.5px 15px;\n  padding-right: 0;\n  font: 600 20px / 1 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n}\n.main-nav__logo:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__link {\n  display: block;\n  font: 600 12px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  text-transform: uppercase;\n  letter-spacing: .2px;\n  padding-top: 28.5px;\n  padding-bottom: 28.5px;\n}\n.main-nav__link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__sub-link {\n  display: block;\n  font: 400 12px + 1px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n  padding: 7px 15px !important;\n}\n.main-nav__sub-link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n  outline: 0;\n  background-color: rgba(0, 0, 0, 0.02);\n}\n.main-nav__item:hover:before {\n  color: #2babcf !important;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__item:active:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__sub-items {\n  position: absolute;\n  display: none;\n  top: 77px;\n  left: 0;\n  list-style: none;\n  padding: 0;\n  border: 1px solid #c8c9ca;\n  border-top: 0;\n}\n.main-nav__sub-items--vane {\n  width: 115%;\n  display: none;\n}\n.main-nav__sub-items--maps {\n  width: 135px;\n  left: -50%;\n  display: none;\n}\n.main-nav__sub-items:before {\n  content: \"\";\n  position: absolute;\n  top: -2px;\n  height: 0;\n  left: -1px;\n  right: -1px;\n  border-top: 2px solid #2babcf;\n}\n.main-nav__sub-items:hover {\n  display: block;\n}\n.main-nav__item:first-child:hover > .main-nav__sub-items--vane {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n  display: block;\n  width: 180px;\n  left: -10px;\n  transition: 1s;\n}\n.main-nav__sub-item {\n  background-color: #ffffff;\n  border-bottom: 1px solid #eee;\n  text-transform: none;\n}\n.main-nav__toggle {\n  display: none;\n}\n@media (max-width: 768px) {\n  .main-nav {\n    display: block;\n    width: 100%;\n  }\n  .main-nav__toggle {\n    display: block;\n    float: right;\n    margin-top: 20.5px;\n    margin-bottom: 20.5px;\n    margin-right: 15px;\n  }\n  .main-nav__items {\n    display: none;\n    position: relative;\n    clear: both;\n    width: 100%;\n    padding-left: 0;\n  }\n  .main-nav__items--enable {\n    display: block;\n  }\n  .main-nav__item {\n    display: block;\n    padding-left: 0;\n    padding-right: 0;\n  }\n  .main-nav__link {\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: #333333;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 17.5px;\n    line-height: 18px;\n  }\n  .main-nav__sub-items {\n    position: static;\n    width: 100%;\n  }\n  .main-nav__sub-items:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items--enable {\n    display: block !important;\n  }\n  .main-nav__item:hover:before,\n  .main-nav__item:active:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items:hover,\n  .main-nav__item:first-child:hover > .main-nav__sub-items--vane,\n  .main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps,\n  .main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n    display: none;\n  }\n}\n.on-map {\n  position: absolute;\n  z-index: 1000;\n}\n.map-button {\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n.leaflet-clickable {\n  cursor: crosshair !important;\n}\n.leaflet-container {\n  cursor: help !important;\n}\ninput {\n  margin: 20px 0 0 20px;\n  width: 300px;\n  height: 35px;\n  border: 2px solid rgba(77, 156, 237, 0.7);\n  font-size: 16px;\n  font: #8e8e8e;\n}\n#goto {\n  margin: 20px 0 0 330px;\n  width: 35px;\n  height: 35px;\n  text-align: center;\n}\n", ""]);
-
-	// exports
 
 
 /***/ })

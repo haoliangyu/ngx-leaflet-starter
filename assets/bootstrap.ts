@@ -1,28 +1,14 @@
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
-import {HttpModule} from "@angular/http";
 import {NgModule} from "@angular/core";
 import {FormsModule}   from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 
-import {AppComponent} from "./components/app/app.component";
-import {NavigatorComponent} from "./components/navigator/navigator.component";
-import {MarkerComponent} from "./components/marker/marker.component";
-
-import {MapService} from "./services/map.service";
-import {GeocodingService} from "./services/geocoding.service";
+import {MainNavComponent} from './components/main-nav/main-nav.component';
 
 @NgModule({
-    imports: [HttpModule, FormsModule, BrowserModule],
-    bootstrap: [AppComponent],
-    declarations: [
-        AppComponent,
-        NavigatorComponent,
-        MarkerComponent
-    ],
-    providers: [
-        MapService,
-        GeocodingService
-    ]
+    imports: [FormsModule, BrowserModule],
+    bootstrap: [MainNavComponent],
+    declarations: [ MainNavComponent ]
 })
 
 export class AppModule {}
