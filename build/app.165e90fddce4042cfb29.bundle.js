@@ -51,11 +51,11 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var platform_browser_dynamic_1 = __webpack_require__(5);
-	var core_1 = __webpack_require__(7);
-	var forms_1 = __webpack_require__(27);
-	var platform_browser_1 = __webpack_require__(25);
-	var main_nav_component_1 = __webpack_require__(31);
+	var platform_browser_dynamic_1 = __webpack_require__(1);
+	var core_1 = __webpack_require__(3);
+	var forms_1 = __webpack_require__(23);
+	var platform_browser_1 = __webpack_require__(21);
+	var main_nav_component_1 = __webpack_require__(27);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
@@ -73,11 +73,7 @@
 
 
 /***/ }),
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -86,7 +82,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(6), __webpack_require__(7), __webpack_require__(25)) :
+	     true ? factory(exports, __webpack_require__(2), __webpack_require__(3), __webpack_require__(21)) :
 	    typeof define === 'function' && define.amd ? define(['exports', '@angular/compiler', '@angular/core', '@angular/platform-browser'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.platformBrowserDynamic = global.ng.platformBrowserDynamic || {}),global.ng.compiler,global.ng.core,global.ng.platformBrowser));
 	}(this, (function (exports,_angular_compiler,_angular_core,_angular_platformBrowser) { 'use strict';
@@ -251,7 +247,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 6 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -260,7 +256,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	   true ? factory(exports, __webpack_require__(7)) :
+	   true ? factory(exports, __webpack_require__(3)) :
 	  typeof define === 'function' && define.amd ? define(['exports', '@angular/core'], factory) :
 	  (factory((global.ng = global.ng || {}, global.ng.compiler = global.ng.compiler || {}),global.ng.core));
 	}(this, (function (exports,_angular_core) { 'use strict';
@@ -28350,7 +28346,7 @@
 	})));
 
 /***/ }),
-/* 7 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -28359,7 +28355,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(8), __webpack_require__(9)) :
+	     true ? factory(exports, __webpack_require__(4), __webpack_require__(5)) :
 	    typeof define === 'function' && define.amd ? define(['exports', 'rxjs/Subject', 'rxjs/Observable'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.core = global.ng.core || {}),global.Rx,global.Rx));
 	}(this, (function (exports,rxjs_Subject,rxjs_Observable) { 'use strict';
@@ -41501,7 +41497,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 8 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -41510,12 +41506,12 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Observable_1 = __webpack_require__(9);
-	var Subscriber_1 = __webpack_require__(12);
-	var Subscription_1 = __webpack_require__(14);
-	var ObjectUnsubscribedError_1 = __webpack_require__(23);
-	var SubjectSubscription_1 = __webpack_require__(24);
-	var rxSubscriber_1 = __webpack_require__(21);
+	var Observable_1 = __webpack_require__(5);
+	var Subscriber_1 = __webpack_require__(8);
+	var Subscription_1 = __webpack_require__(10);
+	var ObjectUnsubscribedError_1 = __webpack_require__(19);
+	var SubjectSubscription_1 = __webpack_require__(20);
+	var rxSubscriber_1 = __webpack_require__(17);
 	/**
 	 * @class SubjectSubscriber<T>
 	 */
@@ -41666,13 +41662,13 @@
 	//# sourceMappingURL=Subject.js.map
 
 /***/ }),
-/* 9 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(10);
-	var toSubscriber_1 = __webpack_require__(11);
-	var observable_1 = __webpack_require__(22);
+	var root_1 = __webpack_require__(6);
+	var toSubscriber_1 = __webpack_require__(7);
+	var observable_1 = __webpack_require__(18);
 	/**
 	 * A representation of any set of values over any amount of time. This the most basic building block
 	 * of RxJS.
@@ -41800,7 +41796,7 @@
 	//# sourceMappingURL=Observable.js.map
 
 /***/ }),
-/* 10 */
+/* 6 */
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -41819,13 +41815,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 11 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Subscriber_1 = __webpack_require__(12);
-	var rxSubscriber_1 = __webpack_require__(21);
-	var Observer_1 = __webpack_require__(20);
+	var Subscriber_1 = __webpack_require__(8);
+	var rxSubscriber_1 = __webpack_require__(17);
+	var Observer_1 = __webpack_require__(16);
 	function toSubscriber(nextOrObserver, error, complete) {
 	    if (nextOrObserver) {
 	        if (nextOrObserver instanceof Subscriber_1.Subscriber) {
@@ -41844,7 +41840,7 @@
 	//# sourceMappingURL=toSubscriber.js.map
 
 /***/ }),
-/* 12 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -41853,10 +41849,10 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var isFunction_1 = __webpack_require__(13);
-	var Subscription_1 = __webpack_require__(14);
-	var Observer_1 = __webpack_require__(20);
-	var rxSubscriber_1 = __webpack_require__(21);
+	var isFunction_1 = __webpack_require__(9);
+	var Subscription_1 = __webpack_require__(10);
+	var Observer_1 = __webpack_require__(16);
+	var rxSubscriber_1 = __webpack_require__(17);
 	/**
 	 * Implements the {@link Observer} interface and extends the
 	 * {@link Subscription} class. While the {@link Observer} is the public API for
@@ -42098,7 +42094,7 @@
 	//# sourceMappingURL=Subscriber.js.map
 
 /***/ }),
-/* 13 */
+/* 9 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42109,16 +42105,16 @@
 	//# sourceMappingURL=isFunction.js.map
 
 /***/ }),
-/* 14 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var isArray_1 = __webpack_require__(15);
-	var isObject_1 = __webpack_require__(16);
-	var isFunction_1 = __webpack_require__(13);
-	var tryCatch_1 = __webpack_require__(17);
-	var errorObject_1 = __webpack_require__(18);
-	var UnsubscriptionError_1 = __webpack_require__(19);
+	var isArray_1 = __webpack_require__(11);
+	var isObject_1 = __webpack_require__(12);
+	var isFunction_1 = __webpack_require__(9);
+	var tryCatch_1 = __webpack_require__(13);
+	var errorObject_1 = __webpack_require__(14);
+	var UnsubscriptionError_1 = __webpack_require__(15);
 	/**
 	 * Represents a disposable resource, such as the execution of an Observable. A
 	 * Subscription has one important method, `unsubscribe`, that takes no argument
@@ -42267,7 +42263,7 @@
 	//# sourceMappingURL=Subscription.js.map
 
 /***/ }),
-/* 15 */
+/* 11 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42275,7 +42271,7 @@
 	//# sourceMappingURL=isArray.js.map
 
 /***/ }),
-/* 16 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42286,11 +42282,11 @@
 	//# sourceMappingURL=isObject.js.map
 
 /***/ }),
-/* 17 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var errorObject_1 = __webpack_require__(18);
+	var errorObject_1 = __webpack_require__(14);
 	var tryCatchTarget;
 	function tryCatcher() {
 	    try {
@@ -42310,7 +42306,7 @@
 	//# sourceMappingURL=tryCatch.js.map
 
 /***/ }),
-/* 18 */
+/* 14 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42319,7 +42315,7 @@
 	//# sourceMappingURL=errorObject.js.map
 
 /***/ }),
-/* 19 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42349,7 +42345,7 @@
 	//# sourceMappingURL=UnsubscriptionError.js.map
 
 /***/ }),
-/* 20 */
+/* 16 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42362,22 +42358,22 @@
 	//# sourceMappingURL=Observer.js.map
 
 /***/ }),
-/* 21 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(10);
+	var root_1 = __webpack_require__(6);
 	var Symbol = root_1.root.Symbol;
 	exports.$$rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
 	    Symbol.for('rxSubscriber') : '@@rxSubscriber';
 	//# sourceMappingURL=rxSubscriber.js.map
 
 /***/ }),
-/* 22 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(10);
+	var root_1 = __webpack_require__(6);
 	function getSymbolObservable(context) {
 	    var $$observable;
 	    var Symbol = context.Symbol;
@@ -42400,7 +42396,7 @@
 	//# sourceMappingURL=observable.js.map
 
 /***/ }),
-/* 23 */
+/* 19 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42432,7 +42428,7 @@
 	//# sourceMappingURL=ObjectUnsubscribedError.js.map
 
 /***/ }),
-/* 24 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42441,7 +42437,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Subscription_1 = __webpack_require__(14);
+	var Subscription_1 = __webpack_require__(10);
 	/**
 	 * We need this JSDoc comment for affecting ESDoc.
 	 * @ignore
@@ -42477,7 +42473,7 @@
 	//# sourceMappingURL=SubjectSubscription.js.map
 
 /***/ }),
-/* 25 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -42486,7 +42482,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	   true ? factory(exports, __webpack_require__(26), __webpack_require__(7)) :
+	   true ? factory(exports, __webpack_require__(22), __webpack_require__(3)) :
 	  typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core'], factory) :
 	  (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}),global.ng.common,global.ng.core));
 	}(this, (function (exports,_angular_common,core) { 'use strict';
@@ -47161,7 +47157,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 26 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -47170,7 +47166,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(7)) :
+	     true ? factory(exports, __webpack_require__(3)) :
 	    typeof define === 'function' && define.amd ? define(['exports', '@angular/core'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.common = global.ng.common || {}),global.ng.core));
 	}(this, (function (exports,_angular_core) { 'use strict';
@@ -50687,7 +50683,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 27 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -50696,7 +50692,7 @@
 	 * License: MIT
 	 */
 	(function (global, factory) {
-	     true ? factory(exports, __webpack_require__(7), __webpack_require__(28), __webpack_require__(8), __webpack_require__(9), __webpack_require__(29)) :
+	     true ? factory(exports, __webpack_require__(3), __webpack_require__(24), __webpack_require__(4), __webpack_require__(5), __webpack_require__(25)) :
 	    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'rxjs/operator/toPromise', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/observable/fromPromise'], factory) :
 	    (factory((global.ng = global.ng || {}, global.ng.forms = global.ng.forms || {}),global.ng.core,global.Rx.Observable.prototype,global.Rx,global.Rx,global.Rx.Observable));
 	}(this, (function (exports,_angular_core,rxjs_operator_toPromise,rxjs_Subject,rxjs_Observable,rxjs_observable_fromPromise) { 'use strict';
@@ -56458,11 +56454,11 @@
 	})));
 
 /***/ }),
-/* 28 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var root_1 = __webpack_require__(10);
+	var root_1 = __webpack_require__(6);
 	/* tslint:disable:max-line-length */
 	/**
 	 * @param PromiseCtor
@@ -56492,16 +56488,16 @@
 	//# sourceMappingURL=toPromise.js.map
 
 /***/ }),
-/* 29 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PromiseObservable_1 = __webpack_require__(30);
+	var PromiseObservable_1 = __webpack_require__(26);
 	exports.fromPromise = PromiseObservable_1.PromiseObservable.create;
 	//# sourceMappingURL=fromPromise.js.map
 
 /***/ }),
-/* 30 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -56510,8 +56506,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var root_1 = __webpack_require__(10);
-	var Observable_1 = __webpack_require__(9);
+	var root_1 = __webpack_require__(6);
+	var Observable_1 = __webpack_require__(5);
 	/**
 	 * We need this JSDoc comment for affecting ESDoc.
 	 * @extends {Ignored}
@@ -56627,7 +56623,7 @@
 	//# sourceMappingURL=PromiseObservable.js.map
 
 /***/ }),
-/* 31 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -56637,7 +56633,7 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var core_1 = __webpack_require__(7);
+	var core_1 = __webpack_require__(3);
 	var MainNavComponent = (function () {
 	    function MainNavComponent() {
 	    }
@@ -56645,10 +56641,11 @@
 	}());
 	MainNavComponent = __decorate([
 	    core_1.Component({
+	        encapsulation: core_1.ViewEncapsulation.Emulated,
 	        selector: "main-nav",
-	        template: __webpack_require__(32),
+	        template: __webpack_require__(28),
 	        styles: [
-	            __webpack_require__(33)
+	            __webpack_require__(29)
 	        ],
 	        providers: []
 	    })
@@ -56658,94 +56655,16 @@
 
 
 /***/ }),
-/* 32 */
+/* 28 */
 /***/ (function(module, exports) {
 
 	module.exports = "<header class=\"main-header\">\r\n    <div class=\"main-header__layout\">\r\n        <nav class=\"main-nav\"><a href=\"#\" class=\"main-nav__logo\">VANE Geospatial Platform</a>\r\n            <div id=\"toggle-nav\" class=\"main-nav__toggle toggle\"><span class=\"toggle__line\"></span><span class=\"toggle__line\"></span><span class=\"toggle__line\"></span></div>\r\n            <ul class=\"main-nav__items\">\r\n                <li id=\"menu-vane\" class=\"main-nav__item\"><a href=\"#\" class=\"main-nav__link\">VANE Query Language<span class=\"icon icon__caret-down\"></span></a>\r\n                    <ul class=\"main-nav__sub-items main-nav__sub-items--vane\">\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/vaneLanguage\" class=\"main-nav__sub-link\">VANE Query Language specs</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/beautiful-vane\" class=\"main-nav__sub-link\">Showcase</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/cases/ChangeDetection\" class=\"main-nav__sub-link\">Change Detection</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/sql-viewer?select=b5,b4&amp;where=day=2016-200&amp;op=ndvi&amp;lon=-102.21&amp;lat=34.3264&amp;zoom=12\" class=\"main-nav__sub-link\">Query Viewer</a></li>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"main-nav__item\"><a href=\"/jupyter/start\" class=\"main-nav__link\">Jupyter</a></li>\r\n                <li id=\"menu-maps\" class=\"main-nav__item\"><a href=\"#\" class=\"main-nav__link\">Maps<span class=\"icon icon__caret-down\"></span></a>\r\n                    <ul class=\"main-nav__sub-items main-nav__sub-items--maps\">\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/mosaic\" class=\"main-nav__sub-link\">Mosaic map</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/ndvi\" class=\"main-nav__sub-link\">NDVI maps</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/finder\" class=\"main-nav__sub-link\">Scenes finder</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/weathermap\" class=\"main-nav__sub-link\">Weather maps</a></li>\r\n                        <li class=\"main-nav__sub-item\"><a href=\"/beautiful_maps\" class=\"main-nav__sub-link\">Beautiful maps</a></li>\r\n                    </ul>\r\n                </li>\r\n                <li class=\"main-nav__item\"><a href=\"/news\" class=\"main-nav__link\">News</a></li>\r\n                <li class=\"main-nav__item\"><a href=\"/about\" class=\"main-nav__link\">About</a></li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n</header>"
 
 /***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	        var result = __webpack_require__(34);
-
-	        if (typeof result === "string") {
-	            module.exports = result;
-	        } else {
-	            module.exports = result.toString();
-	        }
-	    
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(35)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "/* определение цветов */\n/* Текст */\n/* страница */\n/* Фоны */\n/* Кнопки */\n.main-header {\n  background-color: #ffffff;\n  width: 100%;\n  box-shadow: 0px 1px 3px 0px rgba(27, 30, 31, 0.26);\n  position: relative;\n  z-index: 1000;\n}\n.main-header__layout {\n  padding-left: 0;\n  padding-right: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\n.main-header__login {\n  display: block;\n  font: 600 14px + 2px / 1 'Open Sans', sans-serif;\n  color: #000000;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 10px 18px;\n  text-align: center;\n  border: 2px solid #1b1e1f;\n  border-radius: 20px;\n  letter-spacing: .2px;\n}\n@media (max-width: 768px) {\n  .main-header__layout {\n    width: 100%;\n    padding-left: 0;\n  }\n}\n.main-nav {\n  width: 100%;\n  max-width: 1130px;\n  margin: 0 auto;\n}\n.main-nav__items {\n  list-style: none;\n  list-style-type: none;\n  padding-left: 0px;\n  margin: 0;\n  float: right;\n}\n.main-nav__item {\n  position: relative;\n  display: inline-block;\n  vertical-align: top;\n  padding-right: 17.5px;\n  padding-left: 17.5px;\n}\n.main-nav__item:last-child {\n  margin-right: 0;\n  padding-right: 0;\n}\n.main-nav__title {\n  margin-right: 45px;\n  padding-left: 10px;\n}\n.main-nav__logo {\n  float: left;\n  padding: 26.5px 15px;\n  padding-right: 0;\n  font: 600 20px / 1 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n}\n.main-nav__logo:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__link {\n  display: block;\n  font: 600 12px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  text-transform: uppercase;\n  letter-spacing: .2px;\n  padding-top: 28.5px;\n  padding-bottom: 28.5px;\n}\n.main-nav__link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n}\n.main-nav__sub-link {\n  display: block;\n  font: 400 12px + 1px / 1.7 'Open Sans', sans-serif !important;\n  color: #777777 !important;\n  text-decoration: none;\n  letter-spacing: .2px;\n  padding: 7px 15px !important;\n}\n.main-nav__sub-link:hover {\n  color: #2babcf !important;\n  text-decoration: underline;\n  outline: 0;\n  background-color: rgba(0, 0, 0, 0.02);\n}\n.main-nav__item:hover:before {\n  color: #2babcf !important;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__item:active:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  height: 0;\n  left: 0;\n  width: 100%;\n  border-top: 2px solid #ed3e49;\n}\n.main-nav__sub-items {\n  position: absolute;\n  display: none;\n  top: 77px;\n  left: 0;\n  list-style: none;\n  padding: 0;\n  border: 1px solid #c8c9ca;\n  border-top: 0;\n}\n.main-nav__sub-items--vane {\n  width: 115%;\n  display: none;\n}\n.main-nav__sub-items--maps {\n  width: 135px;\n  left: -50%;\n  display: none;\n}\n.main-nav__sub-items:before {\n  content: \"\";\n  position: absolute;\n  top: -2px;\n  height: 0;\n  left: -1px;\n  right: -1px;\n  border-top: 2px solid #2babcf;\n}\n.main-nav__sub-items:hover {\n  display: block;\n}\n.main-nav__item:first-child:hover > .main-nav__sub-items--vane {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps {\n  display: block;\n  transition: 1s;\n}\n.main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n  display: block;\n  width: 180px;\n  left: -10px;\n  transition: 1s;\n}\n.main-nav__sub-item {\n  background-color: #ffffff;\n  border-bottom: 1px solid #eee;\n  text-transform: none;\n}\n.main-nav__toggle {\n  display: none;\n}\n@media (max-width: 768px) {\n  .main-nav {\n    display: block;\n    width: 100%;\n  }\n  .main-nav__toggle {\n    display: block;\n    float: right;\n    margin-top: 20.5px;\n    margin-bottom: 20.5px;\n    margin-right: 15px;\n  }\n  .main-nav__items {\n    display: none;\n    position: relative;\n    clear: both;\n    width: 100%;\n    padding-left: 0;\n  }\n  .main-nav__items--enable {\n    display: block;\n  }\n  .main-nav__item {\n    display: block;\n    padding-left: 0;\n    padding-right: 0;\n  }\n  .main-nav__link {\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: #333333;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 17.5px;\n    line-height: 18px;\n  }\n  .main-nav__sub-items {\n    position: static;\n    width: 100%;\n  }\n  .main-nav__sub-items:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items--enable {\n    display: block !important;\n  }\n  .main-nav__item:hover:before,\n  .main-nav__item:active:before {\n    border-top: 0;\n  }\n  .main-nav__sub-items:hover,\n  .main-nav__item:first-child:hover > .main-nav__sub-items--vane,\n  .main-nav__item:nth-child(3):hover > .main-nav__sub-items--maps,\n  .main-nav__item:nth-child(2):hover > .main-nav__sub-items {\n    display: none;\n  }\n}\n", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 35 */
+/* 29 */
 /***/ (function(module, exports) {
 
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function() {
-		var list = [];
-
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
+	// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

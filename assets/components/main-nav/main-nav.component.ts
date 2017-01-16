@@ -4,9 +4,6 @@ import {Component, ViewEncapsulation} from "@angular/core";
     encapsulation: ViewEncapsulation.Emulated,
     selector: "main-nav",
     template: require<any>("./main-nav.component.html"),
-    styles: [
-        require<any>("./main-nav.component.less")
-    ],
     providers: []
 })
 

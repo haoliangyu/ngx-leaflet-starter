@@ -9,3 +9,4 @@ import "reflect-metadata";
 //import "../node_modules/font-awesome/css/font-awesome.css";
 //import "../node_modules/leaflet/dist/leaflet.css";
 
+import  "./components/main-nav/main-nav.component.less";

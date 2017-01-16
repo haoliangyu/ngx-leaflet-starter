@@ -6,6 +6,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var OptimizeJsPlugin = require("optimize-js-plugin");
 var ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // для плагина по минификации и оптимизации css
 
 var srcDir = 'assets';
 var outputDir = 'build';
@@ -34,7 +35,7 @@ module.exports = {
             { test: /\.jade$/, loader: "jade-loader", query: {pretty: true} },
             { test: /(\.component|\.service|)\.ts$/, loader: 'ts-loader'},
             { test: /\.component\.html$/, loader: 'raw' },
-            { test: /(\.component|)\.less$/, loader: 'to-string!css!less' },
+            { test: /(\.component|)\.less$/, loader: ExtractTextPlugin.extract('to-string!css!less')}, // loaders to preprocess CSS
             { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
             { test: /\.(png|gif|jpg)$/, loader: "file?name=images/[name].[ext]" },
             // For font-awesome, created by Turbo87:
@@ -53,7 +54,7 @@ module.exports = {
         //     sourceMap: false,
         //     mangle: true
         // }),
-        new ExtractTextPlugin("[name].[contenthash].css"),
+        new ExtractTextPlugin("[name].[contenthash].css", {allChunks: true}),
         new HtmlWebpackPlugin({
             inject: true,
             filename: 'index.html',
@@ -71,6 +72,12 @@ module.exports = {
         }),
         new OptimizeJsPlugin({
           sourceMap: false
-        })
+        }),
+        new OptimizeCssAssetsPlugin({ // Оптимизация и минификация сгенерированного css кода
+            assetNameRegExp: /\.css$/g,
+            cssProcessor: require('cssnano'),
+            cssProcessorOptions: { discardComments: {removeAll: true } },
+            canPrint: true
+        }),
     ]
 };
