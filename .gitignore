@@ -28,3 +28,5 @@ node_modules
 public
 
 .tscache
+
+!public/data

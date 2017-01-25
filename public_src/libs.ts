@@ -1,6 +1,9 @@
 /// <reference path="./typings/require.d.ts"/>
+/// <reference path="./typings/zone.d.ts"/>
+/// <reference path="./typings/leaflet.vectorgrid.d.ts"/>
 
 import "leaflet";
+import "leaflet.vectorgrid";
 import "zone.js/dist/zone";
 import "zone.js/dist/long-stack-trace-zone";
 import "reflect-metadata";

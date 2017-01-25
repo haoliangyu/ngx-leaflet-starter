@@ -3,17 +3,18 @@ import {MapService} from "../../services/map.service";
 import {Map, MouseEvent, Marker} from "leaflet";
 
 @Component({
-    selector: "marker",
-    template: require<any>("./marker.component.html"),
+    selector: "toolbar",
+    template: require<any>("./toolbar.component.html"),
     styles: [
-        require<any>("./marker.component.less"),
+        require<any>("./toolbar.component.less"),
         require<any>("../../styles/main.less")
     ],
     providers: []
 })
-export class MarkerComponent {
+export class ToolbarComponent {
     editing: boolean;
     removing: boolean;
+    airportLayerAdded: boolean;
     markerCount: number;
 
     constructor(private mapService: MapService) {
@@ -25,6 +26,7 @@ export class MarkerComponent {
     ngOnInit() {
         this.mapService.disableMouseEvent("add-marker");
         this.mapService.disableMouseEvent("remove-marker");
+        this.mapService.disableMouseEvent("toggle-layer");
     }
 
     Initialize() {
@@ -69,5 +71,10 @@ export class MarkerComponent {
         if (this.editing && this.removing) {
             this.editing = false;
         }
+    }
+
+    toggleAirPortLayer() {
+        this.airportLayerAdded = !this.airportLayerAdded;
+        this.mapService.toggleAirPortLayer();
     }
 }

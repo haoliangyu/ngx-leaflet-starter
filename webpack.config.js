@@ -1,14 +1,14 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
-var HtmlWebpackPlugin  = require('html-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var OptimizeJsPlugin = require("optimize-js-plugin");
-var ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+const HtmlWebpackPlugin  = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const OptimizeJsPlugin = require("optimize-js-plugin");
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 
-var srcDir = 'public_src';
-var outputDir = 'public';
+const srcDir = 'public_src';
+const outputDir = 'public';
 
 module.exports = {
     devtool: "source-map",
@@ -52,6 +52,9 @@ module.exports = {
         //     sourceMap: false,
         //     mangle: true
         // }),
+        new webpack.ProvidePlugin({
+            geojsonvt: 'geojson-vt',
+        }),
         new ExtractTextPlugin("[name].[contenthash].css"),
         new HtmlWebpackPlugin({
             template: path.resolve(srcDir, 'index.html'),
@@ -61,7 +64,7 @@ module.exports = {
           defaultAttribute: 'defer'
         }),
         new WebpackCleanupPlugin({
-          exclude: ['index.html']
+          exclude: ['index.html', 'data/airports.geojson']
         }),
         new OptimizeJsPlugin({
           sourceMap: false
