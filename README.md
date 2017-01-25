@@ -13,6 +13,8 @@ A web mapping application starter based on Angular 2 and Leaflet. This project d
 
 -	[x] Add/remove markers on the map
 
+- [x] Use unofficially typed Leaflet plugin
+
 Support the [Angular 2 official release](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-2016-09-14) and [Leaflet 1.0](https://github.com/Leaflet/Leaflet/blob/master/CHANGELOG.md#101-september-30-2016) now!
 
 See how it looks at [demo page](http://haoliangyu.github.io/angular2-leaflet-starter/).
@@ -22,7 +24,13 @@ FAQ
 
 ### How about new feature?
 
-Since this project has been reached its initial goal to provide a small and clean code base for Angular 2 and Leaflet integration, currently there is no plan for new feature development. However, I am open to suggestions and PRs. If you think it's beneficial for **general developers** to add something new, please feel free to submit an issue for dicussion.
+Since this project has been reached its initial goal to provide a small and clean code base for Angular 2 and Leaflet integration, currently there is no plan for new feature development. But I am open to suggestions and PRs. If you think it's beneficial to add something new (not in very specific purposes), please feel free to submit an issue for dicussion.
+
+### Oops, this plugin is not typed!?
+
+Most Leaflet plugins are not typed, but it doesn't mean they are not usable. To use them in a TypeScript project, one way is to provide a minimal type declaration file.
+
+In the starter, a [minimal type declaration file]() is created for the [Leaflet.VectorGrid](https://github.com/Leaflet/Leaflet.VectorGrid). This plugin is used to add the global airport sites (from [openflights.org](http://openflights.org/)) as a vector tile layer.
 
 How to develop
 --------------
