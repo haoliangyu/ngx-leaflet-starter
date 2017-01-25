@@ -1,6 +1,6 @@
 import {Component, ViewChild} from "@angular/core";
 import {NavigatorComponent} from "../navigator/navigator.component";
-import {MarkerComponent} from "../marker/marker.component";
+import {ToolbarComponent} from "../toolbar/toolbar.component";
 import {MapService} from "../../services/map.service";
 import {GeocodingService} from "../../services/geocoding.service";
 import {Location} from "../../core/location.class";
@@ -15,7 +15,7 @@ import {Location} from "../../core/location.class";
 })
 export class AppComponent {
 
-    @ViewChild(MarkerComponent) markerComponent: MarkerComponent;
+    @ViewChild(ToolbarComponent) toolbarComponent: ToolbarComponent;
 
     constructor(private mapService: MapService, private geocoder: GeocodingService) {
     }
@@ -43,6 +43,6 @@ export class AppComponent {
     }
 
     ngAfterViewInit() {
-        this.markerComponent.Initialize();
+        this.toolbarComponent.Initialize();
     }
 }
