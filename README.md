@@ -26,7 +26,6 @@ FAQ
 
 ### How about new features?
 
-<<<<<<< HEAD
 Since this project has been reached its initial goal to provide a small and clean code base for Angular 2 and Leaflet integration, currently there is no plan for new feature development. But I am open to suggestions and PRs. If you think it's beneficial to add something new (not in very specific purposes), please feel free to submit an issue for dicussion.
 
 ### Oops, this plugin is not typed!?
@@ -34,9 +33,6 @@ Since this project has been reached its initial goal to provide a small and clea
 Most Leaflet plugins are not typed, but it doesn't mean they are not usable. To use them in a TypeScript project, one way is to provide a minimal type declaration file.
 
 In the starter, a [minimal type declaration file]() is created for the [Leaflet.VectorGrid](https://github.com/Leaflet/Leaflet.VectorGrid). This plugin is used to add the global airport sites (from [openflights.org](http://openflights.org/)) as a vector tile layer.
-=======
-Since this project has been fullfile its initial goal to provide a neat code base for Angular 2 mapping project with Leaflet, currently there is no plan for new feature development. However, suggestions and PRs are welcome. If you think it's beneficial to add something new (not in very specific purpose), please feel free to open an issue for dicussion.
->>>>>>> 849bc27ac4769c446bade587c110c910154622fa
 
 How to start?
 --------------
