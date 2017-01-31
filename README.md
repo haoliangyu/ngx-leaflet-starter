@@ -17,7 +17,7 @@ A web mapping application starter based on Angular 2 and Leaflet. This project d
 
 -	[ ] Webpack 2
 
-Support the [Angular 2 official release](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-2016-09-14) and [Leaflet 1.0](https://github.com/Leaflet/Leaflet/blob/master/CHANGELOG.md#101-september-30-2016) now!
+Support [Angular 2.x](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-2016-09-14) and [Leaflet 1.0](https://github.com/Leaflet/Leaflet/blob/master/CHANGELOG.md#101-september-30-2016) now!
 
 See how it looks at [demo page](http://haoliangyu.github.io/angular2-leaflet-starter/).
 
@@ -52,7 +52,9 @@ Thanks to these awesome people!
 
 - [Wolfgang Becker](https://github.com/vimwb)
 
-Looking for another solution?
+Looking for other demos?
 -------------------------------
 
-[angular2-mapboxgl-starter](https://github.com/haoliangyu/angular2-mapboxgl-starter) is an Angular 2 project seed with [MapboxGL](https://www.mapbox.com/mapbox-gl-js/api/), a mapping library designed for [vector tile](https://www.mapbox.com/help/define-vector-tiles/).
+* [angular2-mapboxgl-starter](https://github.com/haoliangyu/angular2-mapboxgl-starter) is an Angular 2 project seed with [MapboxGL](https://www.mapbox.com/mapbox-gl-js/api/), a mapping library designed for [vector tile](https://www.mapbox.com/help/define-vector-tiles/).
+
+* [boundary.now](https://github.com/haoliangyu/boundary.now), a tool to easily download place boundries, created with [Material2](https://github.com/angular/material2) and Leaflet.
