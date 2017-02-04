@@ -37,11 +37,11 @@ In the starter, a [minimal type declaration file]() is created for the [Leaflet.
 How to start?
 --------------
 
-This project requires [npm](https://www.npmjs.com/) (or [yarn](https://yarnpkg.com/)) and [webpack](http://webpack.github.io/docs/installation.html). Please install them first!
+This project requires [npm](https://www.npmjs.com/) (or [yarn](https://yarnpkg.com/)).
 
 1.	Run `npm install` or `yarn install` to install dependencies.
 
-2.	Run `webpack` to build the project.
+2.	Run `npm run build` to build the project.
 
 3.	As a more convinient way, use the [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) to run the app at `http://localhost:8080`
 
