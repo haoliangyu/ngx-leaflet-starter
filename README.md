@@ -34,6 +34,10 @@ Most Leaflet plugins are not typed, but it doesn't mean they are not usable. To 
 
 In the starter, a [minimal type declaration file]() is created for the [Leaflet.VectorGrid](https://github.com/Leaflet/Leaflet.VectorGrid). This plugin is used to add the global airport sites (from [openflights.org](http://openflights.org/)) as a vector tile layer.
 
+### GeoJSON file is not found?
+
+If you build and open the app using [webpack-dev-server](https://github.com/webpack/webpack-dev-server), you will get an `geojson not found` error when toggling the vector tile layer. It's because external resources are not copied into the memory by `webpack-dev-server`. Open the `public/index.html` instead.
+
 How to start?
 --------------
 
@@ -43,7 +47,7 @@ This project requires [npm](https://www.npmjs.com/) (or [yarn](https://yarnpkg.c
 
 2.	Run `npm run build` to build the project.
 
-3.	As a more convinient way, use the [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) to run the app at `http://localhost:8080`
+3.  Open the app at `public/index.html`.
 
 Thanks to these awesome people!
 -------------------------------
