@@ -1,6 +1,9 @@
 Angular2-Leaflet-Starter
 ========================
 
+[![Build Status](https://travis-ci.org/haoliangyu/angular2-leaflet-starter.svg?branch=master)](https://github.com/haoliangyu/angular2-leaflet-starter)
+
+
 A web mapping application starter based on Angular 2 and Leaflet. This project demo includes basic mapping features:
 
 -	[x] Display base maps from different sources
