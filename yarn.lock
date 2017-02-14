@@ -2,45 +2,45 @@
 # yarn lockfile v1
 
 
-"@angular/common@^2.4.6":
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-2.4.6.tgz#f005528f75d0a6deaaf636f3b779f26bda4adb07"
+"@angular/common@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-2.4.7.tgz#9316daf90e353e67187d2e0afec5521c2001bd4b"
 
-"@angular/compiler@^2.4.6":
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-2.4.6.tgz#17236b858f5730eed257d93e90bcbae45e21e0fe"
+"@angular/compiler@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-2.4.7.tgz#008c1f0d1409c46fbba215fe8ab0d886252c7ff0"
 
-"@angular/core@^2.4.6":
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-2.4.6.tgz#4abec78ee035b27e8192acf70409c3dbca24e829"
+"@angular/core@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-2.4.7.tgz#8bed9a2d37e81342bd41d189df88aa3e02393cfb"
 
-"@angular/forms@^2.4.6":
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-2.4.6.tgz#aca73ad404ebe3022ffb6461cb6c06da864185fe"
+"@angular/forms@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-2.4.7.tgz#d34a36110e10f641aa1e1420b5c2df65987fd8bb"
 
-"@angular/http@^2.4.6":
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-2.4.6.tgz#32952ce82558f939be52863faa8cab19b20351fd"
+"@angular/http@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-2.4.7.tgz#b024b2b49ae0234258d42309e46f65862a42070d"
 
-"@angular/platform-browser-dynamic@^2.4.6":
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.4.6.tgz#d50d8b66f7fa00c0449f33c2c1b5348b67c9fcda"
+"@angular/platform-browser-dynamic@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.4.7.tgz#9632586f9ce596186be4c124c3ea0a4a74b27b46"
 
-"@angular/platform-browser@^2.4.6":
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-2.4.6.tgz#ded44169d4a870d5ee40e95496d34e9ab03c2c3a"
+"@angular/platform-browser@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-2.4.7.tgz#19f7996a70f07b34ce8d6d0e255544e62cae75f1"
 
 "@types/es6-shim@^0.31.32":
   version "0.31.32"
   resolved "https://registry.yarnpkg.com/@types/es6-shim/-/es6-shim-0.31.32.tgz#8196c09e1e40ac977c713bf258090989f501d8ff"
 
-"@types/geojson@*", "@types/geojson@0.0.32":
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-0.0.32.tgz#1571eeaf045337b242852885f08d9a945e1cc940"
+"@types/geojson@*", "@types/geojson@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.0.tgz#6af48a0d492c09068e97cb78e6bef940d57fb36d"
 
-"@types/leaflet@^1.0.50":
-  version "1.0.50"
-  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.0.50.tgz#3463b409e314d11c6e2f85fa68a0367761637c23"
+"@types/leaflet@^1.0.53":
+  version "1.0.53"
+  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.0.53.tgz#22ebfc8d6db6d4a046f8ce2b5c908ad5023035b1"
   dependencies:
     "@types/geojson" "*"
 
@@ -1734,7 +1734,7 @@ oauth-sign@~0.8.1:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
 
-object-assign@^4.0.1, object-assign@^4.1.0:
+object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
@@ -2445,9 +2445,9 @@ ripemd160@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-0.2.0.tgz#2bf198bde167cacfa51c0a928e84b68bbe171fce"
 
-rxjs@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.1.0.tgz#0aa9018b7f440b505fa42bd742b6738be550e720"
+rxjs@5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.1.1.tgz#fc48922965bc6c5efbcc0fe46e90a3af64137a7b"
   dependencies:
     symbol-observable "^1.0.1"
 
@@ -2455,9 +2455,9 @@ sax@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
 
-script-ext-html-webpack-plugin@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/script-ext-html-webpack-plugin/-/script-ext-html-webpack-plugin-1.5.0.tgz#9d5813cc723daf0b71f7e4e39ac929c793f647f1"
+script-ext-html-webpack-plugin@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/script-ext-html-webpack-plugin/-/script-ext-html-webpack-plugin-1.7.1.tgz#ae9c0e26d7767d4aa793c76e3550344ec08b6d10"
   dependencies:
     debug "^2.3.3"
 
@@ -2467,7 +2467,7 @@ semver-diff@^2.0.0:
   dependencies:
     semver "^5.0.3"
 
-"semver@2 || 3 || 4 || 5", semver@^5.0.1, semver@^5.0.3, semver@^5.1.0, semver@~5.3.0:
+"semver@2 || 3 || 4 || 5", semver@^5.0.1, semver@^5.0.3, semver@^5.1.0, semver@^5.3.0, semver@~5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
 
@@ -2725,14 +2725,15 @@ ts-loader@^2.0.0:
     loader-utils "^0.2.6"
     semver "^5.0.1"
 
-tslint-loader@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/tslint-loader/-/tslint-loader-3.3.0.tgz#6e6a50fc82e85ff3d1cb53e23dd24ae9e47d91ea"
+tslint-loader@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/tslint-loader/-/tslint-loader-3.4.2.tgz#f26424b4dbfe1718acb96469e807038b1d2a644a"
   dependencies:
     loader-utils "^0.2.7"
     mkdirp "^0.5.1"
-    object-assign "^4.0.1"
+    object-assign "^4.1.1"
     rimraf "^2.4.4"
+    semver "^5.3.0"
 
 tslint@^4.4.2:
   version "4.4.2"
@@ -2763,7 +2764,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^2.1.5:
+typescript@^2.1.6:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.0.tgz#626f2fc70087d2480f21ebb12c1888288c8614e3"
 
@@ -2910,9 +2911,9 @@ watchpack@^0.2.1:
     chokidar "^1.0.0"
     graceful-fs "^4.1.2"
 
-webpack-cleanup-plugin@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/webpack-cleanup-plugin/-/webpack-cleanup-plugin-0.4.1.tgz#2182aaf73b888d3671525e3b8abe4a42c9813faf"
+webpack-cleanup-plugin@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/webpack-cleanup-plugin/-/webpack-cleanup-plugin-0.4.2.tgz#e5c03f324507567978f05cec0796f3c3d51c3f35"
   dependencies:
     lodash.union "4.6.0"
     minimatch "3.0.3"
@@ -2932,7 +2933,7 @@ webpack-sources@^0.1.0, webpack-sources@^0.1.2:
     source-list-map "~0.1.7"
     source-map "~0.5.3"
 
-webpack@^1.14.0:
+webpack@^1.1.14:
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-1.14.0.tgz#54f1ffb92051a328a5b2057d6ae33c289462c823"
   dependencies:
