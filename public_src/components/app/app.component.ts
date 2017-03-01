@@ -40,9 +40,6 @@ export class AppComponent {
                 location => map.panTo([location.latitude, location.longitude]),
                 err => console.error(err)
             );
-    }
-
-    ngAfterViewInit() {
         this.toolbarComponent.Initialize();
     }
 }
