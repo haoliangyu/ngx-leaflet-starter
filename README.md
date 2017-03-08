@@ -35,7 +35,7 @@ Since this project has been reached its initial goal to provide a small and clea
 
 Most Leaflet plugins are not typed, but it doesn't mean they are not usable. To use them in a TypeScript project, one way is to provide a minimal type declaration file.
 
-In the starter, a [minimal type declaration file]() is created for the [Leaflet.VectorGrid](https://github.com/Leaflet/Leaflet.VectorGrid). This plugin is used to add the global airport sites (from [openflights.org](http://openflights.org/)) as a vector tile layer.
+In the starter, a [minimal type declaration file](https://github.com/haoliangyu/angular2-leaflet-starter/blob/master/public_src/typings/leaflet.vectorgrid.d.ts) is created for the [Leaflet.VectorGrid](https://github.com/Leaflet/Leaflet.VectorGrid). This plugin is used to add the global airport sites (from [openflights.org](http://openflights.org/)) as a vector tile layer.
 
 ### GeoJSON file is not found?
 
