@@ -64,4 +64,4 @@ Looking for other demos?
 
 * [angular2-mapboxgl-starter](https://github.com/haoliangyu/angular2-mapboxgl-starter) is an Angular 2 project seed with [MapboxGL](https://www.mapbox.com/mapbox-gl-js/api/), a mapping library designed for [vector tile](https://www.mapbox.com/help/define-vector-tiles/).
 
-* [boundary.now](https://github.com/haoliangyu/boundary.now), a tool to easily download place boundries, created with [Material2](https://github.com/angular/material2) and Leaflet.
+* [boundary.now](https://github.com/haoliangyu/boundary.now), a tool to download place boundries from OpenStreetMap, built with Angular2, [Material2](https://github.com/angular/material2) and Leaflet.
