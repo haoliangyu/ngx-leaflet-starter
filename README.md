@@ -18,7 +18,7 @@ A web mapping application starter based on Angular 2 and Leaflet. This project d
 
 - [x] Use unofficially typed Leaflet plugin
 
--	[ ] Webpack 2
+-	[x] Webpack 2
 
 Support [Angular 2.x](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-2016-09-14) and [Leaflet 1.0](https://github.com/Leaflet/Leaflet/blob/master/CHANGELOG.md#101-september-30-2016) now!
 
@@ -58,6 +58,8 @@ Thanks to these awesome people!
 -	[Rodolphe Eveilleau](https://github.com/rdphv)
 
 - [Wolfgang Becker](https://github.com/vimwb)
+
+- [Tonia Roddick](https://github.com/troddick)
 
 Looking for other demos?
 -------------------------------
