@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Headers, RequestOptions} from "@angular/http";
+import {Http} from "@angular/http";
 import {Location} from "../core/location.class";
 import {Map} from "leaflet";
 
@@ -35,7 +35,7 @@ export class MapService {
           this.map.removeLayer(this.vtLayer);
           delete this.vtLayer;
       } else {
-          this.http.get("data/airports.geojson")
+          this.http.get("https://rawgit.com/haoliangyu/angular2-leaflet-starter/master/public/data/airports.geojson")
               .map(res => res.json())
               .subscribe(result => {
                   this.vtLayer = L.vectorGrid.slicer(result);

@@ -46,9 +46,6 @@ module.exports = {
             sourceMap: false,
             mangle: true
         }),
-        new webpack.ProvidePlugin({
-            geojsonvt: 'geojson-vt',
-        }),
         new ExtractTextPlugin("[name].[contenthash].css"),
         new HtmlWebpackPlugin({
             template: path.resolve(srcDir, 'index.html'),

@@ -40,9 +40,6 @@ module.exports = {
         noParse: [ path.join(__dirname, 'node_modules', 'angular2', 'bundles') ]
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            geojsonvt: 'geojson-vt',
-        }),
         new ExtractTextPlugin("[name].[contenthash].css"),
         new HtmlWebpackPlugin({
             template: path.resolve(srcDir, 'index.html'),
