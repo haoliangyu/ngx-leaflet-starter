@@ -1,10 +1,10 @@
-Angular2-Leaflet-Starter
+ngx-leaflet-starter
 ========================
 
 [![Build Status](https://travis-ci.org/haoliangyu/angular2-leaflet-starter.svg?branch=master)](https://github.com/haoliangyu/angular2-leaflet-starter)
 
 
-A web mapping application starter based on Angular 2 and Leaflet. This project demo includes basic mapping features:
+A web mapping application starter based on Angular X and Leaflet. This project demo includes basic mapping features:
 
 -	[x] Display base maps from different sources
 
@@ -20,16 +20,20 @@ A web mapping application starter based on Angular 2 and Leaflet. This project d
 
 -	[x] Webpack 2
 
-Support [Angular 2.x](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-2016-09-14) and [Leaflet 1.0](https://github.com/Leaflet/Leaflet/blob/master/CHANGELOG.md#101-september-30-2016) now!
+Support [Angular 4.0](https://angular.io/) and [Leaflet 1.0](http://leafletjs.com/) now!
 
 See how it looks at [demo page](http://haoliangyu.github.io/angular2-leaflet-starter/).
 
 FAQ
 --------------
 
+### Was it named *angular2-leaflet-starter*?
+
+Yes, but no longer. Angular is evolving rapidly and has moved further from 2.0. This project is renamed to **ngx-leaflet-starter**, meaning that it will evolve with Angular and stay close to the latest version.
+
 ### How about new features?
 
-Since this project has been reached its initial goal to provide a small and clean code base for Angular 2 and Leaflet integration, currently there is no plan for new feature development. But I am open to suggestions and PRs. If you think it's beneficial to add something new (not in very specific purposes), please feel free to submit an issue for dicussion.
+Since this project has been reached its initial goal to provide a small and clean code base for Angular 2 and Leaflet integration, currently there is no plan for new feature development. But I am open to suggestions and PRs. If you think it's beneficial to add something new (not for very specific use cases), please feel free to submit an issue for dicussion.
 
 ### Oops, this plugin is not typed!?
 
