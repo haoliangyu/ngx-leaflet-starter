@@ -5,11 +5,12 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haoliangyu/angular2-leaflet-starter.git"
+    "url": "git+https://github.com/haoliangyu/ngx-leaflet-starter.git"
   },
   "keywords": [
-    "angular2",
-    "leaflet"
+    "angular",
+    "leaflet",
+    "starter"
   ],
   "author": "Haoliang Yu <haholiang.yu@outlook.com>",
   "license": "MIT",

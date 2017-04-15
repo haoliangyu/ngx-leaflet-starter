@@ -1,7 +1,7 @@
 ngx-leaflet-starter
 ========================
 
-[![Build Status](https://travis-ci.org/haoliangyu/angular2-leaflet-starter.svg?branch=master)](https://github.com/haoliangyu/angular2-leaflet-starter)
+[![Build Status](https://travis-ci.org/haoliangyu/ngx-leaflet-starter.svg?branch=master)](https://github.com/haoliangyu/ngx-leaflet-starter)
 
 
 A web mapping application starter based on Angular X and Leaflet. This project demo includes basic mapping features:
@@ -22,7 +22,7 @@ A web mapping application starter based on Angular X and Leaflet. This project d
 
 Support [Angular 4.0](https://angular.io/) and [Leaflet 1.0](http://leafletjs.com/) now!
 
-See how it looks at [demo page](http://haoliangyu.github.io/angular2-leaflet-starter/).
+See how it looks at [demo page](http://haoliangyu.github.io/ngx-leaflet-starter/).
 
 FAQ
 --------------
@@ -39,7 +39,7 @@ Since this project has been reached its initial goal to provide a small and clea
 
 Most Leaflet plugins are not typed, but it doesn't mean they are not usable. To use them in a TypeScript project, one way is to provide a minimal type declaration file.
 
-In the starter, a [minimal type declaration file](https://github.com/haoliangyu/angular2-leaflet-starter/blob/master/public_src/typings/leaflet.vectorgrid.d.ts) is created for the [Leaflet.VectorGrid](https://github.com/Leaflet/Leaflet.VectorGrid). This plugin is used to add the global airport sites (from [openflights.org](http://openflights.org/)) as a vector tile layer.
+In the starter, a [minimal type declaration file](https://github.com/haoliangyu/ngx-leaflet-starter/blob/master/public_src/typings/leaflet.vectorgrid.d.ts) is created for the [Leaflet.VectorGrid](https://github.com/Leaflet/Leaflet.VectorGrid). This plugin is used to add the global airport sites (from [openflights.org](http://openflights.org/)) as a vector tile layer.
 
 ### GeoJSON file is not found?
 
@@ -68,6 +68,6 @@ Thanks to these awesome people!
 Looking for other demos?
 -------------------------------
 
-* [angular2-mapboxgl-starter](https://github.com/haoliangyu/angular2-mapboxgl-starter) is an Angular 2 project seed with [MapboxGL](https://www.mapbox.com/mapbox-gl-js/api/), a mapping library designed for [vector tile](https://www.mapbox.com/help/define-vector-tiles/).
+* [ngx-mapboxgl-starter](https://github.com/haoliangyu/ngx-mapboxgl-starter) is an Angular 2 project seed with [MapboxGL](https://www.mapbox.com/mapbox-gl-js/api/), a mapping library designed for [vector tile](https://www.mapbox.com/help/define-vector-tiles/).
 
 * [boundary.now](https://github.com/haoliangyu/boundary.now), a tool to download place boundries from OpenStreetMap, built with Angular2, [Material2](https://github.com/angular/material2) and Leaflet.
