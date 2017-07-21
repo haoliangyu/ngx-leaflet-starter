@@ -35,6 +35,7 @@
     "@types/geojson": "1.0.1",
     "@types/leaflet": "^1.0.60",
     "bootstrap": "^3.3.7",
+    "cssnano": "^3.10.0",
     "font-awesome": "^4.7.0",
     "leaflet": "^1.0.3",
     "leaflet.vectorgrid": "^1.2.0",
