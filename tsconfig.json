@@ -10,6 +10,10 @@
     "noImplicitAny": false,
     "skipLibCheck": true
   },
+  "typeRoots": [
+    "./node_modules/@types/",
+    "./src/typings/"
+  ],
   "compileOnSave": false,
   "exclude": [
     "node_modules"

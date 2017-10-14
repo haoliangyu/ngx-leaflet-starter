@@ -20,7 +20,7 @@ A web mapping application starter based on Angular X and Leaflet. This project d
 
 -	[x] Webpack 2
 
-Support [Angular 4.0](https://angular.io/) and [Leaflet 1.0](http://leafletjs.com/) now!
+Support [Angular 4.4](https://angular.io/) and [Leaflet 1.2](http://leafletjs.com/) now!
 
 See how it looks at [demo page](http://haoliangyu.github.io/ngx-leaflet-starter/).
 
@@ -50,7 +50,7 @@ How to start?
 
 This project requires [npm](https://www.npmjs.com/) (or [yarn](https://yarnpkg.com/)).
 
-1.	Run `npm install` or `yarn install` to install dependencies.
+1.	Run `npm install` to install dependencies.
 
 2.	Run `npm run build` to build the project.
 

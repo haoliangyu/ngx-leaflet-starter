@@ -4,6 +4,7 @@ import {ToolbarComponent} from "../toolbar/toolbar.component";
 import {MapService} from "../../services/map.service";
 import {GeocodingService} from "../../services/geocoding.service";
 import {Location} from "../../core/location.class";
+import * as L from "leaflet";
 
 @Component({
     selector: "app",

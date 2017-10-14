@@ -1,11 +1,13 @@
+/// <reference path="../typings/leaflet.vectorgrid.d.ts"/>
+
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Location} from "../core/location.class";
-import {Map} from "leaflet";
+import * as L from "leaflet";
 
 @Injectable()
 export class MapService {
-    public map: Map;
+    public map: L.Map;
     public baseMaps: any;
     private vtLayer: any;
 

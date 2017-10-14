@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {MapService} from "../../services/map.service";
-import {Map, MouseEvent, Marker} from "leaflet";
+import * as L from "leaflet";
 
 @Component({
     selector: "toolbar",
@@ -30,7 +30,7 @@ export class ToolbarComponent {
     }
 
     Initialize() {
-        this.mapService.map.on("click", (e: MouseEvent) => {
+        this.mapService.map.on("click", (e: L.LeafletMouseEvent) => {
             if (this.editing) {
                 let marker = L.marker(e.latlng, {
                     icon: L.icon({
