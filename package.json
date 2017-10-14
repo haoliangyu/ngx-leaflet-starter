@@ -18,7 +18,7 @@
     "url": "https://github.com/haoliangyu/ngx-leaflet-starter/issues"
   },
   "scripts": {
-    "build": "webpack --config webpack/webpack.config.prod.js",
+    "build": "node_modules/.bin/ngc -p tsconfig.aot.json && webpack --config webpack/webpack.config.prod.js",
     "build-dev": "webpack --config webpack/webpack.config.dev.js",
     "watch": "webpack --config webpack/webpack.config.dev.js --watch"
   },
@@ -44,6 +44,9 @@
     "zone.js": "^0.8.18"
   },
   "devDependencies": {
+    "@angular/compiler-cli": "^4.4.5",
+    "angular2-template-loader": "^0.6.2",
+    "awesome-typescript-loader": "^3.2.3",
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^3.0.1",
@@ -57,7 +60,6 @@
     "script-ext-html-webpack-plugin": "^1.8.5",
     "style-loader": "^0.19.0",
     "to-string-loader": "^1.1.5",
-    "ts-loader": "^2.3.7",
     "tslint": "^5.7.0",
     "tslint-loader": "^3.5.3",
     "typescript": "^2.5.3",

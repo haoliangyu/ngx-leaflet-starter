@@ -12,7 +12,7 @@
   },
   "typeRoots": [
     "./node_modules/@types/",
-    "./src/typings/"
+    "./public_src/typings/"
   ],
   "compileOnSave": false,
   "exclude": [

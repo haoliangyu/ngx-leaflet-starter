@@ -8,9 +8,9 @@ import * as L from "leaflet";
 
 @Component({
     selector: "app",
-    template: require<any>("./app.component.html"),
-    styles: [
-        require<any>("./app.component.less")
+    templateUrl: "./app.component.html",
+    styleUrls: [
+        "./app.component.less"
     ],
     providers: []
 })

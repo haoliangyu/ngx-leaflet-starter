@@ -4,10 +4,10 @@ import * as L from "leaflet";
 
 @Component({
     selector: "toolbar",
-    template: require<any>("./toolbar.component.html"),
-    styles: [
-        require<any>("./toolbar.component.less"),
-        require<any>("../../styles/main.less")
+    templateUrl: "./toolbar.component.html",
+    styleUrls: [
+        "./toolbar.component.less",
+        "../../styles/main.less"
     ],
     providers: []
 })

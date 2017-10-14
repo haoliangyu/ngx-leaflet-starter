@@ -30,3 +30,5 @@ public/**/*
 .tscache
 
 !public/data/airports.geojson
+
+aot

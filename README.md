@@ -20,6 +20,8 @@ A web mapping application starter based on Angular X and Leaflet. This project d
 
 -	[x] Webpack 2
 
+- [x] Ahead-of-Time (AoT) compilation for production build
+
 Support [Angular 4.4](https://angular.io/) and [Leaflet 1.2](http://leafletjs.com/) now!
 
 See how it looks at [demo page](http://haoliangyu.github.io/ngx-leaflet-starter/).

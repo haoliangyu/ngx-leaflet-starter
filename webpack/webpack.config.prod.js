@@ -14,7 +14,7 @@ const outputDir = '../public';
 module.exports = {
     devtool: "source-map",
     entry: {
-        app: path.resolve(srcDir, 'bootstrap.ts')
+        app: path.resolve(srcDir, 'bootstrap.aot.ts')
     },
     output: {
         path: path.resolve(__dirname, outputDir),
@@ -28,7 +28,7 @@ module.exports = {
     module: {
         rules: [
             { test: /\.ts$/, enforce: 'pre', loader: 'tslint-loader' },
-            { test: /(\.component|\.service|)\.ts$/, use: ['ts-loader'] },
+            { test: /\.ts$/, use: ['awesome-typescript-loader', 'angular2-template-loader'] },
             { test: /\.html$/, use: [{ loader: 'html-loader', options: { minimize: false } }] },
             { test: /(\.component|)\.less$/, use: ['to-string-loader', 'css-loader', 'less-loader'] },
             { test: /\.css$/, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })},

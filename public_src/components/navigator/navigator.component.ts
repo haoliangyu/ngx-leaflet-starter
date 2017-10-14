@@ -6,10 +6,10 @@ import {Map} from "leaflet";
 
 @Component({
     selector: "navigator",
-    template: require<any>("./navigator.component.html"),
-    styles: [
-        require<any>("./navigator.component.less"),
-        require<any>("../../styles/main.less")
+    templateUrl: "./navigator.component.html",
+    styleUrls: [
+        "./navigator.component.less",
+        "../../styles/main.less"
     ],
     providers: []
 })
