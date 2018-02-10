@@ -12,12 +12,9 @@ export class MapComponent implements OnInit {
   constructor(
     private mapService: MapService,
     private geocoder: GeocodingService
-  ) {
-    console.log("sd");
-  }
+  ) {}
 
   ngOnInit() {
-    console.log("sd");
     const map = L.map("map", {
       zoomControl: false,
       center: L.latLng(40.731253, -73.996139),
@@ -33,7 +30,7 @@ export class MapComponent implements OnInit {
 
     this.mapService.map = map;
     this.geocoder
-      .getCurrentLocation()
+      .getClientLocation()
       .subscribe(
         location => map.panTo(location.latlng),
         err => console.error(err)

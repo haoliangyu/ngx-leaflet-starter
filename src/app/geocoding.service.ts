@@ -1,4 +1,4 @@
-import { Http, Headers, Response } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Location } from "./location";
 import * as L from "leaflet";
@@ -8,11 +8,7 @@ import "rxjs/add/operator/mergeMap";
 
 @Injectable()
 export class GeocodingService {
-  http: Http;
-
-  constructor(http: Http) {
-    this.http = http;
-  }
+  constructor(private http: HttpClient) {}
 
   geocode(address: string) {
     return this.http
@@ -20,8 +16,7 @@ export class GeocodingService {
         "http://maps.googleapis.com/maps/api/geocode/json?address=" +
           encodeURIComponent(address)
       )
-      .map(res => res.json())
-      .map(result => {
+      .map((result: any) => {
         if (result.status !== "OK") {
           throw new Error("unable to geocode address");
         }
@@ -46,23 +41,17 @@ export class GeocodingService {
       });
   }
 
-  getCurrentLocation() {
+  getClientLocation() {
     return this.http
       .get("http://ipv4.myexternalip.com/json")
-      .map(res => res.json().ip)
-      .flatMap(ip => this.http.get("http://freegeoip.net/json/" + ip))
-      .map((res: Response) => res.json())
-      .map(result => {
+      .flatMap((result: any) =>
+        this.http.get(`https://ipapi.co/${result.ip}/json`)
+      )
+      .map((result: any) => {
         const location = new Location();
 
         location.address =
-          result.city +
-          ", " +
-          result.region_code +
-          " " +
-          result.zip_code +
-          ", " +
-          result.country_code;
+          result.city + ", " + result.region + ", " + result.country;
         location.latlng = L.latLng(result.latitude, result.longitude);
 
         return location;
