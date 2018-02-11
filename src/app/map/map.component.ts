@@ -13,10 +13,14 @@ import "rxjs/add/operator/catch";
   styleUrls: ["./map.component.scss"]
 })
 export class MapComponent implements OnInit {
+  private address: string;
+
   constructor(
     private mapService: MapService,
     private geocoder: GeocodingService
-  ) {}
+  ) {
+    this.address = "";
+  }
 
   ngOnInit() {
     this.geocoder
@@ -45,6 +49,7 @@ export class MapComponent implements OnInit {
         L.control.layers(this.mapService.baseMaps).addTo(map);
         L.control.scale().addTo(map);
 
+        this.address = location.address;
         this.mapService.map = map;
       });
   }

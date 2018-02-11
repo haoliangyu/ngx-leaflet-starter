@@ -1,11 +1,14 @@
 <div id="map-navigator" class="box-frame on-map element-row">
   <form>
     <mat-form-field id="address-input">
-      <input matInput placeholder="Address" type="text">
+      <input #addressInput matInput placeholder="Address" [value]="address" type="text">
     </mat-form-field>
   </form>
   <div class="element-row">
-    <button mat-icon-button color="primary" matTooltip="go to address">
+    <button mat-icon-button
+            color="primary"
+            matTooltip="go to address"
+            (click)="goto(addressInput.value)">
       <mat-icon>near_me</mat-icon>
     </button>
     <button mat-icon-button matTooltip="toggle on/off marker editing">

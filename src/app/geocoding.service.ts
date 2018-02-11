@@ -10,29 +10,29 @@ export class GeocodingService {
   constructor(private http: HttpClient) {}
 
   geocode(address: string) {
+    const encoded = encodeURIComponent(address);
+
     return this.http
       .get(
-        "http://maps.googleapis.com/maps/api/geocode/json?address=" +
-          encodeURIComponent(address)
+        `https://nominatim.openstreetmap.org/search.php?q=${encoded}&format=jsonv2`
       )
       .map((result: any) => {
-        if (result.status !== "OK") {
+        if (result.length === 0) {
           throw new Error(`Unable to geocode address: ${address}`);
         }
 
+        const best = result[0];
         const location = new Location();
-        location.address = result.results[0].formatted_address;
-        location.latlng = L.latLng(result.results[0].geometry.location);
-
-        const viewPort = result.results[0].geometry.viewport;
+        location.address = best.display_name;
+        location.latlng = L.latLng(best.lat, best.lon);
         location.viewBounds = L.latLngBounds(
           {
-            lat: viewPort.southwest.lat,
-            lng: viewPort.southwest.lng
+            lat: Number(best.boundingbox[0]),
+            lng: Number(best.boundingbox[2])
           },
           {
-            lat: viewPort.northeast.lat,
-            lng: viewPort.northeast.lng
+            lat: Number(best.boundingbox[1]),
+            lng: Number(best.boundingbox[3])
           }
         );
 
