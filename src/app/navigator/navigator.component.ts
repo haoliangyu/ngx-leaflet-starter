@@ -12,6 +12,7 @@ import { MatSnackBar } from "@angular/material";
 export class NavigatorComponent implements OnInit {
   @Input() address: string;
   private airportsOn: boolean;
+  private markersOn: boolean;
 
   constructor(
     private mapService: MapService,
@@ -20,6 +21,7 @@ export class NavigatorComponent implements OnInit {
   ) {
     this.address = "";
     this.airportsOn = false;
+    this.markersOn = false;
   }
 
   ngOnInit() {
@@ -44,8 +46,13 @@ export class NavigatorComponent implements OnInit {
     );
   }
 
-  toggleAirports() {
-    this.airportsOn = !this.airportsOn;
-    this.mapService.toggleAirPortLayer();
+  toggleAirports(on: boolean) {
+    this.airportsOn = on;
+    this.mapService.toggleAirPortLayer(this.airportsOn);
+  }
+
+  toggleMarkers(on: boolean) {
+    this.markersOn = on;
+    this.mapService.toggleMarkerEditing(this.markersOn);
   }
 }

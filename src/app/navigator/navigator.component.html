@@ -12,7 +12,12 @@
             (click)="goto(addressInput.value)">
       <mat-icon>near_me</mat-icon>
     </button>
-    <button mat-icon-button disableRipple class="inactive" matTooltip="toggle on/off marker editing">
+    <button mat-icon-button
+            disableRipple
+            [class.inactive]="!markersOn"
+            [class.active]="markersOn"
+            matTooltip="toggle on/off marker editing"
+            (click)="toggleMarkers(!markersOn)">
       <mat-icon>pin_drop</mat-icon>
     </button>
     <button mat-icon-button
@@ -20,7 +25,7 @@
             [class.inactive]="!airportsOn"
             [class.active]="airportsOn"
             matTooltip="togglee on/off vector tile layer"
-            (click)="toggleAirports()">
+            (click)="toggleAirports(!airportsOn)">
       <mat-icon>flight</mat-icon>
     </button>
   </div>

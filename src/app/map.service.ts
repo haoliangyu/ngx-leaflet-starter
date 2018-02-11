@@ -39,8 +39,8 @@ export class MapService {
     L.DomEvent.disableScrollPropagation(element);
   }
 
-  toggleAirPortLayer() {
-    if (this.vtLayer) {
+  toggleAirPortLayer(on: boolean) {
+    if (on) {
       this.map.removeLayer(this.vtLayer);
       delete this.vtLayer;
     } else {
@@ -51,7 +51,37 @@ export class MapService {
     }
   }
 
+  toggleMarkerEditing(on: boolean) {
+    if (on) {
+      this.map.on("click", this.addMarker.bind(this));
+    } else {
+      this.map.off("click");
+    }
+  }
+
   fitBounds(bounds: L.LatLngBounds) {
     this.map.fitBounds(bounds, {});
+  }
+
+  private addMarker(e: L.LeafletMouseEvent) {
+    const shortLat = Math.round(e.latlng.lat * 1000000) / 1000000;
+    const shortLng = Math.round(e.latlng.lng * 1000000) / 1000000;
+    const popup = `<div>Latitude: ${shortLat}<div><div>Longitude: ${shortLng}<div>`;
+    const icon = L.icon({
+      iconUrl: require("../../node_modules/leaflet/dist/images/marker-icon.png"),
+      shadowUrl: require("../../node_modules/leaflet/dist/images/marker-shadow.png")
+    });
+
+    const marker = L.marker(e.latlng, {
+      draggable: true,
+      icon
+    })
+      .bindPopup(popup, {
+        offset: L.point(12, 6)
+      })
+      .addTo(this.map)
+      .openPopup();
+
+    marker.on("click", () => marker.remove());
   }
 }
