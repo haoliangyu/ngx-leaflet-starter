@@ -17,6 +17,9 @@ import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { MapService } from "./map.service";
 import { GeocodingService } from "./geocoding.service";
 
+import "leaflet";
+import "leaflet.vectorgrid";
+
 @NgModule({
   declarations: [
     NavigatorComponent,
