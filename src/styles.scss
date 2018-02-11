@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~leaflet/dist/leaflet.css';
+
+.on-map {
+  position: absolute;
+  z-index: 1000;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.box-frame {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

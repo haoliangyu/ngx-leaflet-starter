@@ -5,3 +5,11 @@ install:
   - npm install
 script:
   - npm run build
+deploy:
+  provider: pages
+  local-dir: dist
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: master

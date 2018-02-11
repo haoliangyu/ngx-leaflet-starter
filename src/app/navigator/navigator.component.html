@@ -1,0 +1,32 @@
+<div id="map-navigator" class="box-frame on-map element-row">
+  <form>
+    <mat-form-field id="address-input">
+      <input #addressInput matInput placeholder="Address" [value]="address" type="text">
+    </mat-form-field>
+  </form>
+  <div class="element-row">
+    <button mat-icon-button
+            disableRipple
+            class="active"
+            matTooltip="go to address"
+            (click)="goto(addressInput.value)">
+      <mat-icon>near_me</mat-icon>
+    </button>
+    <button mat-icon-button
+            disableRipple
+            [class.inactive]="!markersOn"
+            [class.active]="markersOn"
+            matTooltip="toggle on/off marker editing"
+            (click)="toggleMarkers(!markersOn)">
+      <mat-icon>pin_drop</mat-icon>
+    </button>
+    <button mat-icon-button
+            disableRipple
+            [class.inactive]="!airportsOn"
+            [class.active]="airportsOn"
+            matTooltip="togglee on/off vector tile layer"
+            (click)="toggleAirports(!airportsOn)">
+      <mat-icon>flight</mat-icon>
+    </button>
+  </div>
+</div>
