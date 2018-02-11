@@ -4,7 +4,6 @@ import { Location } from "./location";
 import * as L from "leaflet";
 
 import "rxjs/add/operator/map";
-import "rxjs/add/operator/mergeMap";
 
 @Injectable()
 export class GeocodingService {
@@ -18,7 +17,7 @@ export class GeocodingService {
       )
       .map((result: any) => {
         if (result.status !== "OK") {
-          throw new Error("unable to geocode address");
+          throw new Error(`Unable to geocode address: ${address}`);
         }
 
         const location = new Location();

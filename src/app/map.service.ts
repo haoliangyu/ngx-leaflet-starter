@@ -50,4 +50,8 @@ export class MapService {
       });
     }
   }
+
+  fitBounds(bounds: L.LatLngBounds) {
+    this.map.fitBounds(bounds, {});
+  }
 }

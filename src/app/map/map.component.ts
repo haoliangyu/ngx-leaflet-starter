@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import Rx = require("rxjs/Rx");
+import { Observable } from "rxjs/Rx";
 import * as L from "leaflet";
 import { GeocodingService } from "../geocoding.service";
 import { MapService } from "../map.service";
@@ -29,7 +29,7 @@ export class MapComponent implements OnInit {
         location.address = "New York City, New York, United States";
         location.latlng = L.latLng(40.731253, -73.996139);
 
-        return Rx.Observable.of(location);
+        return Observable.of(location);
       })
       .subscribe((location: Location) => {
         const map = L.map("map", {

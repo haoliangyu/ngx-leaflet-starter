@@ -1,3 +1,18 @@
-<p>
-  navigator works!
-</p>
+<div id="map-navigator" class="box-frame on-map element-row">
+  <form>
+    <mat-form-field id="address-input">
+      <input matInput placeholder="Address" type="text">
+    </mat-form-field>
+  </form>
+  <div class="element-row">
+    <button mat-icon-button color="primary" matTooltip="go to address">
+      <mat-icon>near_me</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="toggle on/off marker editing">
+      <mat-icon>pin_drop</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="togglee on/off vector tile layer">
+      <mat-icon>flight</mat-icon>
+    </button>
+  </div>
+</div>
