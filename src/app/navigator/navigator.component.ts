@@ -11,8 +11,8 @@ import { MatSnackBar } from "@angular/material";
 })
 export class NavigatorComponent implements OnInit {
   @Input() address: string;
-  private airportsOn: boolean;
-  private markersOn: boolean;
+  airportsOn: boolean;
+  markersOn: boolean;
 
   constructor(
     private mapService: MapService,

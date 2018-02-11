@@ -13,7 +13,7 @@ import "rxjs/add/operator/catch";
   styleUrls: ["./map.component.scss"]
 })
 export class MapComponent implements OnInit {
-  private address: string;
+  address: string;
 
   constructor(
     private mapService: MapService,
