@@ -54,13 +54,13 @@ export class MapService {
 
   toggleAirPortLayer(on: boolean) {
     if (on) {
-      this.map.removeLayer(this.vtLayer);
-      delete this.vtLayer;
-    } else {
       this.http.get("assets/airports.min.geojson").subscribe(result => {
         this.vtLayer = L.vectorGrid.slicer(result);
         this.vtLayer.addTo(this.map);
       });
+    } else {
+      this.map.removeLayer(this.vtLayer);
+      delete this.vtLayer;
     }
   }
 
