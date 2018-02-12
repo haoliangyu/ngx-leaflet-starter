@@ -58,7 +58,7 @@ export class MapService {
         this.vtLayer = L.vectorGrid.slicer(result);
         this.vtLayer.addTo(this.map);
       });
-    } else {
+    } else if (this.vtLayer) {
       this.map.removeLayer(this.vtLayer);
       delete this.vtLayer;
     }
