@@ -16,7 +16,7 @@ A web mapping application starter based on Angular X and Leaflet. This project d
 
 * [x] Built with Angular CLI
 
-Support [Angular 5.x](https://angular.io/) and [Leaflet 1.3](http://leafletjs.com/) now!
+Support [Angular 6](https://angular.io/) and [Leaflet 1.3](http://leafletjs.com/) now!
 
 See how it looks at [demo page](http://haoliangyu.github.io/ngx-leaflet-starter/).
 
@@ -40,11 +40,11 @@ In the starter, a [minimal type declaration file](https://github.com/haoliangyu/
 
 This project requires [npm](https://www.npmjs.com/) (or [yarn](https://yarnpkg.com/)).
 
-1. Run `npm install` to install dependencies.
+1.  Run `npm install` to install dependencies.
 
-2. Run `npm run start` to set up the dev server.
+2.  Run `npm run start` to set up the dev server.
 
-3. See the app at `localhost:4200`.
+3.  See the app at `localhost:4200`.
 
 ## Thanks to these awesome people!
 
