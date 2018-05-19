@@ -27,18 +27,21 @@ export class MapService {
       OpenStreetMap: L.tileLayer(
         "http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
         {
+          zIndex: 1,
           attribution: osmAttr
         }
       ),
       Esri: L.tileLayer(
         "http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
         {
+          zIndex: 1,
           attribution: esriAttr
         }
       ),
       CartoDB: L.tileLayer(
         "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         {
+          zIndex: 1,
           attribution: cartoAttr
         }
       )
@@ -55,7 +58,9 @@ export class MapService {
   toggleAirPortLayer(on: boolean) {
     if (on) {
       this.http.get("assets/airports.min.geojson").subscribe(result => {
-        this.vtLayer = L.vectorGrid.slicer(result);
+        this.vtLayer = L.vectorGrid.slicer(result, {
+          zIndex: 1000
+        });
         this.vtLayer.addTo(this.map);
       });
     } else if (this.vtLayer) {
