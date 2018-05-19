@@ -1,6 +1,6 @@
 {
   "name": "ngx-leaflet-starter",
-  "version": "4.0.2",
+  "version": "5.0.0",
   "description": "A minimal Angular project with leaflet",
   "main": "index.js",
   "repository": {
