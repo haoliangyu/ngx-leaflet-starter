@@ -1,6 +1,6 @@
 {
   "name": "ngx-leaflet-starter",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A minimal Angular project with leaflet",
   "main": "index.js",
   "repository": {
@@ -40,7 +40,7 @@
     "@angular/router": "6.0.2",
     "@types/leaflet": "^1.2.7",
     "core-js": "^2.5.6",
-    "leaflet": "^1.3.1",
+    "leaflet": "^1.3.4",
     "leaflet.vectorgrid": "^1.3.0",
     "rxjs": "^6.1.0",
     "rxjs-compat": "^6.1.0",
