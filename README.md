@@ -16,7 +16,7 @@ A web mapping application starter based on Angular X and Leaflet. This project d
 
 * [x] Built with Angular CLI
 
-Support [Angular 6](https://angular.io/) and [Leaflet 1.3](http://leafletjs.com/) now!
+Support [Angular 7](https://angular.io/) and [Leaflet 1.3](http://leafletjs.com/) now!
 
 See how it looks at [demo page](http://haoliangyu.github.io/ngx-leaflet-starter/).
 
